@@ -1,0 +1,48 @@
+/*
+f79333 - orange
+00b2a9 - green
+00a8c6 - blue
+ef3f3b - red
+404041 - dark grey
+b9bbbd - med grey
+*/
+
+html, body{ background-color: #000; padding: 0; margin: 0;}
+body {
+    overflow: hidden;
+}
+
+#stage{
+    height: 1920px;
+    width: 1080px;
+    /*border: thin solid white;*/
+    margin: 0 auto;
+    background-color: #404040;
+    
+    
+}
+
+#home-header{ height: 120px; }
+#home-bio{ height: 600px; background-color: #666; border-top: 1px solid #fff; border-bottom: 1px solid #fff;}
+#home-callout{}
+#home-nav{ height: 242px; background-color: #00ae9d; border-top: 1px solid #fff; border-bottom: 1px solid #fff; display: block;}
+#home-flyer{}
+
+
+#calendar-main{ height: 1200px;}
+
+.fullwidth{width: 100%;}
+
+.floatL{float: left;}
+.floatR{float: right;}
+.clear{clear: both;}
+
+
+
+/*fonts*/
+
+
+@font-face { font-family: GalaxiePolarisCondensed-Book.; src: url('/fonts/GalaxiePolarisCondensed-Book.otf'); } 
+@font-face { font-family: GalaxiePolarisCondensed-Bold; font-weight: bold; src: url('/fonts/GalaxiePolarisCondensed-Bold.otf'); }
+@font-face { font-family: GalaxiePolarisCondensed-Light; font-weight: bold; src: url('/fonts/GalaxiePolarisCondensed-Light.otf'); }
+
