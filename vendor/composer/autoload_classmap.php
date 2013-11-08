@@ -21,6 +21,7 @@ return array(
     'CreateEventTypesTable' => $baseDir . '/app/database/migrations/2013_11_08_215507_create_event_types_table.php',
     'CreateEventsTable' => $baseDir . '/app/database/migrations/2013_11_08_172832_create_events_table.php',
     'CreateFlyerTable' => $baseDir . '/app/database/migrations/2013_11_08_172905_create_flyer_table.php',
+    'CreatePhotoCollectionsTable' => $baseDir . '/app/database/migrations/2013_11_08_224914_create_photo_collections_table.php',
     'CreatePhotosTable' => $baseDir . '/app/database/migrations/2013_11_08_172842_create_photos_table.php',
     'CreateStaffTable' => $baseDir . '/app/database/migrations/2013_11_08_172849_create_staff_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2013_11_08_172818_create_users_table.php',
