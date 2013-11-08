@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStaffTable extends Migration {
+class CreatePhotoCollectionsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,13 +11,11 @@ class CreateStaffTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('staff', function($table) {
+		Schema::create('photo_collections', function($table) {
 			$table->increments('id');
-			$table->string('first');
-			$table->string('last');
-			$table->string('position');
-			$table->string('photo');
-			$table->text('bio');
+			$table->string('name');
+			$table->string('location');
+			$table->timestamp('collection_date');
 			$table->timestamps();
 		)};
 	}
@@ -29,7 +27,7 @@ class CreateStaffTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('staff');
+		Schema::drop('photo_collections');
 	}
 
 }
