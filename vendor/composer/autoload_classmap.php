@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
+    'CalendarController' => $baseDir . '/app/controllers/CalendarController.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'ClassPreloader\\Application' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Application.php',
     'ClassPreloader\\ClassList' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/ClassList.php',
@@ -18,6 +19,8 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CommunityEvent' => $baseDir . '/app/models/CommunityEvent.php',
+    'CreateCommunityeventsTable' => $baseDir . '/app/database/migrations/2014_01_03_182358_create_communityevents_table.php',
     'CreateEventTypesTable' => $baseDir . '/app/database/migrations/2013_11_08_215507_create_event_types_table.php',
     'CreateEventsTable' => $baseDir . '/app/database/migrations/2013_11_08_172832_create_events_table.php',
     'CreateFlyerTable' => $baseDir . '/app/database/migrations/2013_11_08_172905_create_flyer_table.php',
@@ -303,6 +306,7 @@ return array(
     'Doctrine\\DBAL\\Types\\Type' => $vendorDir . '/doctrine/dbal/lib/Doctrine/DBAL/Types/Type.php',
     'Doctrine\\DBAL\\Types\\VarDateTimeType' => $vendorDir . '/doctrine/dbal/lib/Doctrine/DBAL/Types/VarDateTimeType.php',
     'Doctrine\\DBAL\\Version' => $vendorDir . '/doctrine/dbal/lib/Doctrine/DBAL/Version.php',
+    'EventsTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'HomeController' => $baseDir . '/app/controllers/HomeController.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
     'Illuminate\\Auth\\AuthManager' => $vendorDir . '/laravel/framework/src/Illuminate/Auth/AuthManager.php',

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventsTable extends Migration {
+class CreateCommunityeventsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -30,7 +30,7 @@ class CreateEventsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('events');
+		Schema::drop('CommunityEvents');
 	}
 
 }

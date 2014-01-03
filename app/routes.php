@@ -16,7 +16,24 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-Route::get('/calendar', function()
+// Route::get('/calendar', function()
+// {
+//     return View::make('calendar');
+// });
+
+Route::get('calendar', 'CalendarController@getIndex');
+
+Route::get('/photos', function()
 {
-    return View::make('calendar');
+    return View::make('photos');
+});
+
+Route::get('/staff', function()
+{
+    return View::make('staff');
+});
+
+Route::get('/flyer', function()
+{
+    return View::make('flyer');
 });

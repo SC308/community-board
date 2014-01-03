@@ -21,7 +21,7 @@ class CreateFlyerTable extends Migration {
 			$table->string('featured4');						
 			$table->string('featured5');
 			$table->timestamps();
-		)};
+		});
 	}
 
 	/**

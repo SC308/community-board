@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhotoCollectionsTable extends Migration {
+class CreateEventsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,11 +11,14 @@ class CreatePhotoCollectionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('photo_collections', function($table) {
+		Schema::create('events', function($table) {
 			$table->increments('id');
-			$table->string('name');
+			$table->string('title');	
+			$table->integer('type')->references('id')->on('event_types');
 			$table->string('location');
-			$table->timestamp('collection_date');
+			$table->timestamp('start');
+			$table->timestamp('end');
+			$table->text('description');
 			$table->timestamps();
 		});
 	}
@@ -27,7 +30,7 @@ class CreatePhotoCollectionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('photo_collections');
+		Schema::drop('events');
 	}
 
 }
