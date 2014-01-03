@@ -11,7 +11,7 @@ class CreateEventsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('events', function($table) {
+		Schema::create('CommunityEvents', function($table) {
 			$table->increments('id');
 			$table->string('title');	
 			$table->integer('type')->references('id')->on('event_types');
@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration {
 			$table->timestamp('end');
 			$table->text('description');
 			$table->timestamps();
-		)};
+		});
 	}
 
 	/**

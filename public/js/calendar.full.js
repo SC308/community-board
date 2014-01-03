@@ -9,6 +9,7 @@ $(document).ready(function() {
   
 	$(document).on('click','.calendar-day.have-events',activateDay);
 	$(document).on('click','.specific-day',activatecalendar);
+	$(document).on('click','.return',activatecalendar);
 	$(document).on('click','.calendar-month-view-arrow',offsetcalendar);
 	$(window).resize(calendarScale);
 	calendarSet();
@@ -60,7 +61,7 @@ $(document).ready(function() {
 	}
 
 	function calendarSet() {
-		$(".calendar").append('<div class="calendar-month-view"><div class="calendar-month-view-arrow" data-dir="left"><i class="icon-reply"></i></div><div class="calendar-month-view-title"></div><div class="calendar-month-view-arrow" data-dir="right"><i class="icon-share-alt"></i></div><div class="days"><span class="dayofweek">S</span><span class="dayofweek">M</span><span class="dayofweek">T</span><span class="dayofweek">W</span><span class="dayofweek">T</span><span class="dayofweek">F</span><span class="dayofweek">S</span></div></div><div class="calendar-holder"><div class="calendar-grid"></div><div class="calendar-specific"><div class="specific-day"><div class="specific-day-info" i="day"></div><div class="specific-day-info" i="month"></div><div class="specific-day-info" i="year"></div></div><div class="specific-day-scheme"></div></div></div>');
+		$(".calendar").append('<div class="calendar-month-view"><div class="calendar-month-view-arrow" data-dir="left"><i class="icon-reply"></i></div><div class="calendar-month-view-title"></div><div class="calendar-month-view-arrow" data-dir="right"><i class="icon-share-alt"></i></div><div class="days"><span class="dayofweek">S</span><span class="dayofweek">M</span><span class="dayofweek">T</span><span class="dayofweek">W</span><span class="dayofweek">T</span><span class="dayofweek">F</span><span class="dayofweek">S</span></div></div><div class="calendar-holder"><div class="calendar-grid"></div><div class="calendar-specific"><div class="specific-day"><div class="specific-day-info" i="day"></div><div class="specific-day-info" i="month"></div><div class="specific-day-info" i="year"></div><div class="return"><i class="icon-reply"></i>&nbsp; Return to Calendar</div></div><div class="specific-day-scheme"></div></div></div>');
 		$(".calendar").each(function() {
 			if($(this).data("color") == undefined) {
 				$(this).data("color","red");
@@ -104,9 +105,9 @@ $(document).ready(function() {
 		var ev = orderBy('start',this.events);
 		for(var o = 0; o<ev.length;o++) {
 			if(ev[o]['details']){
-				$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1>'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p><p data-role="det">'+ev[o]['details']+'</p></div>');	
+				$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p><p data-role="det">'+ev[o]['details']+'</p></div>');	
 			} else {
-				$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1>'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p></div>');
+				$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p></div>');
 			}
 			
 		}

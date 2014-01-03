@@ -17,7 +17,7 @@ class CreatePhotoCollectionsTable extends Migration {
 			$table->string('location');
 			$table->timestamp('collection_date');
 			$table->timestamps();
-		)};
+		});
 	}
 
 	/**

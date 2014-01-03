@@ -14,14 +14,14 @@ class CreatePhotosTable extends Migration {
 		Schema::create('photos', function($table) {
 			$table->increments('id');
 			$table->string('path');
-			$table->id('collection')->references('id')->on('photo_collections');
+			$table->integer('collection')->references('id')->on('photo_collections');
 			$table->string('title');
 			$table->string('photographer_name');
 			$table->timestamp('taken_on');
 			$table->string('location');
 			$table->text('description');
 			$table->timestamps();
-		)};
+		});
 	}
 
 	/**

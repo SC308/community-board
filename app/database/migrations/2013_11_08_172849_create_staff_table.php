@@ -19,7 +19,7 @@ class CreateStaffTable extends Migration {
 			$table->string('photo');
 			$table->text('bio');
 			$table->timestamps();
-		)};
+		});
 	}
 
 	/**
