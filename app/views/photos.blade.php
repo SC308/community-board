@@ -18,10 +18,10 @@
         <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">  
         <link rel="stylesheet" type="text/css" href="js/fancybox/source/jquery.fancybox.css">
         <style>
-          #photos {
-      width: 80%;
-      margin: auto;
-    }
+        #photos {
+          width: 80%;
+          margin: auto;
+        }
     .fancybox{}
 
         </style>
@@ -38,125 +38,14 @@
 
             <div id="photos">
 
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/000.jpg&w=1000.jpg" title="This is a sample of what a caption could look like"><img src="timthumb.php?src=/images/photos/test/000.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/019.jpg&w=1000.jpg" title="This is a much longer caption. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, modi, quaerat ut consequuntur cum quas voluptatum quis voluptas itaque ad porro eaque amet sit neque ipsum expedita animi dicta. Aliquam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, modi, quaerat ut consequuntur cum quas voluptatum quis voluptas itaque ad porro eaque amet sit neque ipsum expedita animi dicta. Aliquam."><img src="timthumb.php?src=/images/photos/test/019.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/001.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/001.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/002.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/002.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/003.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/003.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/004.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/004.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/005.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/005.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/006.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/006.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/007.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/007.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/008.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/008.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/009.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/009.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/006.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/006.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/007.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/007.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/008.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/008.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/009.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/009.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/010.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/010.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/011.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/011.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/012.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/012.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/013.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/013.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/014.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/014.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/015.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/015.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/016.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/016.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/017.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/017.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/018.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/018.jpg&w=300" /></a>               
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/000.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/000.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/019.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/019.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/001.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/001.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/002.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/002.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/003.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/003.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/001.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/001.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/002.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/002.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/003.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/003.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/004.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/004.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/005.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/005.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/006.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/006.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/007.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/007.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/008.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/008.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/009.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/009.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/010.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/010.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/004.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/004.jpg&w=300" /></a>                
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/010.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/010.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/011.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/011.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/012.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/012.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/013.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/013.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/014.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/014.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/015.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/015.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/016.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/016.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/017.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/017.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/018.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/018.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/019.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/019.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/001.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/001.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/002.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/002.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/003.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/003.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/004.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/004.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/005.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/005.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/006.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/006.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/007.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/007.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/008.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/008.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/009.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/009.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/010.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/010.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/011.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/011.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/012.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/012.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/005.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/005.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/006.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/006.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/007.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/007.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/008.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/008.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/009.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/009.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/010.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/010.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/011.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/011.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/012.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/012.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/013.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/013.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/014.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/014.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/015.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/015.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/016.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/016.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/017.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/017.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/018.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/018.jpg&w=300" /></a>               
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/000.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/000.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/019.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/019.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/001.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/001.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/002.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/002.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/003.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/003.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/004.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/004.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/005.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/005.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/006.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/006.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/007.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/007.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/008.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/008.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/009.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/009.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/010.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/010.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/011.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/011.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/012.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/012.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/013.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/013.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/014.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/014.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/015.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/015.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/016.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/016.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/017.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/017.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/018.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/018.jpg&w=300" /></a>  
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/000.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/000.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/019.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/019.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/001.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/001.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/002.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/002.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/003.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/003.jpg&w=300" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/004.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/004.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/005.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/005.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/006.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/006.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/007.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/007.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/008.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/008.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/009.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/009.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/010.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/010.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/011.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/011.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/012.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/012.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/013.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/013.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/014.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/014.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/015.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/015.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/016.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/016.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/017.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/017.jpg&w=220" /></a>
-<a class="fancybox" href="timthumb.php?src=/images/photos/test/018.jpg&w=1000.jpg"><img src="timthumb.php?src=/images/photos/test/018.jpg&w=220" /></a>
+            @foreach($photos as $p)
 
+        
+            <a class="fancybox" href="timthumb.php?src=/images/photos/test/{{ $p->path }}&w=1000.jpg" title="<strong>{{ $p->title}}</strong> {{ $p->description}}"><img src="timthumb.php?src=/images/photos/test/{{ $p->path }}&w=300" /></a>
 
-              
+            @endforeach
+
+                          
 
             </div>
             

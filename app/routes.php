@@ -21,17 +21,13 @@ Route::get('/', function()
 //     return View::make('calendar');
 // });
 
-Route::get('calendar', 'CalendarController@getIndex');
+Route::get('/calendar', 'CalendarController@getIndex');
+Route::get('/photos', 'PhotoController@getIndex');
+Route::get('/staff', 'StaffController@getIndex');
+Route::get('/staff/{id?}', array('uses' => 'StaffController@view'))->where('id', '[0-9]+');
+Route::get('/flyer', 'FlyerController@getIndex');
 
-Route::get('/photos', function()
-{
-    return View::make('photos');
-});
 
-Route::get('/staff', function()
-{
-    return View::make('staff');
-});
 
 Route::get('/flyer', function()
 {

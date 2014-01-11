@@ -20,6 +20,7 @@ class CreatePhotosTable extends Migration {
 			$table->timestamp('taken_on');
 			$table->string('location');
 			$table->text('description');
+			$table->boolean('publish');
 			$table->timestamps();
 		});
 	}

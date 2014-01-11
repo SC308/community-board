@@ -2,22 +2,13 @@
 
 class CommunityEvent extends Eloquent{
 
-    protected $table = 'CommunityEvents';
+   // protected $table = 'CommunityEvents';
     
-    // public static function get_DM($district_id){
-    //     $DM = static::where('id', '=', $district_id)->first();
-    //     return $DM;
-    // }
+    public static function getevents(){
+        $events = DB::table('CommunityEvents')->select(DB::raw('id, title, description, location, type, DATE(start) as startdate, DATE(end) as enddate, EXTRACT(HOUR FROM start) AS starthour, EXTRACT(MINUTE FROM start) as startmin, EXTRACT(HOUR from end) as endhour, EXTRACT(MINUTE from end) as endmin'))->orderBy('startdate')->get();
+        return $events;
+    }
 
-    // public static function get_count($district_id){
-    //     $count = Store::where('district', '=', $district_id)->count();
-    //     return $count;
-    // }
-    // public static function all(){
-    //     $events = DB::table('events')->get();
-    //     return $events;
-    // }
 
-    // public static function 
 
 }

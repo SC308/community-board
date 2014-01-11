@@ -31,10 +31,11 @@
             <div id="staff">
                 <div id="current-staff">
                     <div id="current-staff-bio">
+
+                        <div id="bio">
                         <div id="store-ribbon">
                             West Edmonton Mall
-                        </div>
-                        <div id="bio">
+                        </div>                            
                                 <h1 class="name"><span class="whitebox"></span>John Smith</h1>
                                 <h2 class="dept"><span class="whitebox"></span>Hardgoods: Hockey</h2>                
                                 <p class="bio-text">
@@ -58,14 +59,10 @@
                     </div>
                     
                     <div id="bio-nav">
-                        <img src="/images/placeholder.png" />
-                        <img src="/images/placeholder.png" />
-                        <img src="/images/placeholder.png" />
-                        <img src="/images/placeholder.png" />
-                        <img src="/images/placeholder.png" />
-                        <img src="/images/placeholder.png" />
-                        <img src="/images/placeholder.png" />
 
+                        @foreach($staff as $s)
+                           <a href="javascript:show_{{$s->id}}();"><img src="timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
+                        @endforeach
 
                     </div>
 
@@ -101,15 +98,40 @@
         <script> 
         $( document ).ready(function() {
 
-            $( "#current-staff-bio" ).animate({
+            $( "#bio" ).animate({
                 opacity: 1.0,
                 left: "+=300"
                 }, 1000, function() {
-            // Animation complete.
+                // Animation complete.
             });
 
             $("#scoreboard").load("scoreboard-test.html"); 
         });
+
+            @foreach($staff as $s)
+                function show_{{$s->id}}(){
+
+                    $("#bio").css("left", "-300px");
+                    $("#bio").css("opacity", "0");
+                    $("#current-staff-bio").css("opacity", "0");
+
+                            $(".name").replaceWith('<h1 class="name"><span class="whitebox"></span>{{$s->first}} {{$s->last}}</h1>');
+                            $(".dept").replaceWith('<h2 class="dept"><span class="whitebox"></span>{{$s->position}}</h2>');
+                            $(".bio-text").replaceWith('<p class="bio-text">{{$s->bio}}</p>');
+                            $("#current-staff-bio").css("background", "transparent url('timthumb.php?src=/images/staff/{{ $s->photo }}&h=947') bottom center no-repeat");
+
+                    $( "#bio" ).animate({
+                        opacity: 1.0,
+                        left: "+=300"
+                        }, 1000, function() {
+                    });
+
+                  $( "#current-staff-bio" ).animate({
+                        opacity: 1.0
+                        }, 1000, function() {
+                    });
+                }
+            @endforeach
         </script>         
 
     </body>

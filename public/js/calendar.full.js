@@ -6,7 +6,6 @@ var monthArray = [["JAN","January"],["FEB","February"],["MAR","March"],["APR","A
 var dayArray = ["1","2","3","4","5","6","7"];
 $(document).ready(function() {
 
-  
 	$(document).on('click','.calendar-day.have-events',activateDay);
 	$(document).on('click','.specific-day',activatecalendar);
 	$(document).on('click','.return',activatecalendar);
@@ -103,14 +102,13 @@ $(document).ready(function() {
 		$(".specific-day-info[i=year]").html(this.year);
 		if(this.events !== undefined) {
 		var ev = orderBy('start',this.events);
-		for(var o = 0; o<ev.length;o++) {
-			if(ev[o]['details']){
-				$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p><p data-role="det">'+ev[o]['details']+'</p></div>');	
-			} else {
-				$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p></div>');
+			for(var o = 0; o<ev.length;o++) {
+				if(ev[o]['details']){
+					$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p><p data-role="det">'+ev[o]['details']+'</p></div>');	
+				} else {
+					$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p></div>');
+				}		
 			}
-			
-		}
 		}
 	}
 	function activatecalendar() {

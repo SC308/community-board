@@ -11,7 +11,7 @@ class CreateStaffTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('staff', function($table) {
+		Schema::create('StaffBios', function($table) {
 			$table->increments('id');
 			$table->string('first');
 			$table->string('last');
@@ -29,7 +29,7 @@ class CreateStaffTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('staff');
+		Schema::drop('StaffBios');
 	}
 
 }
