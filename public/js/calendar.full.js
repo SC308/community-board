@@ -1,3 +1,5 @@
+// http://www.ericwenn.se/playground/jquery-calendar/
+
 var yy;
 var calendarArray =[];
 var monthOffset = [6,7,8,9,10,11,0,1,2,3,4,5];

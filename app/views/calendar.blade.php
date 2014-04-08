@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js">
+
     <head>
     <meta charset="utf-8">
+
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Calendar</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+		
+        <link rel="stylesheet" href="/css/calendar.full.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">  
+        <link rel="stylesheet" href="/css/main.css?<?=time();?>">
+        
+   		<script src="/js/lib/modernizr.min.js"></script>
+        
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/fonts.css">
-        <link rel="stylesheet" href="css/calendar.full.css">
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">  
-        <style>
-        #calendar-main{display: none;}
-        </style>
 
     </head>
 
@@ -27,7 +25,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
-                <a href="/"><img src="images/sc-logo.jpg" class="floatR" /></a>
+                <a href="/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
         
             <div id="calendar-main" class="fullwidth">
@@ -40,7 +38,7 @@
             </div>
 
             <div id="home-callout" class="fullwidth">
-                <img src="images/communityboard-center.jpg" />
+                <img src="/images/communityboard-center.jpg" />
             </div>
 
 			 <div id="nav" class="fullwidth">
@@ -50,17 +48,20 @@
             </div>
 
         </div>
-        <script src="js/lib/jquery-1.10.2.min.js"></script>
-        <script src="js/jquery.mobile-1.3.2.min.js"></script>
-        <script src="js/calendar.full.js"></script>
-        <script src="js/main.js"></script>
+        <script src="/js/lib/jquery-1.10.2.min.js"></script>
+        <script src="/js/calendar.full.js"></script>
+    
+        <script type="text/javascript"> 
 
-        <script> 
-        $(function(){
-           // $("#scoreboard").load("scoreboard-test.html"); 
+		
+        $( document ).ready(function() {
+        
+            $("#scoreboard").load("scoreboard.html"); 
 
+/*
             $( ".calendar" ).on( "swipeleft", swipeLeftHandler );
             $( ".calendar" ).on( "swiperight", swipeRightHandler );
+*/
              
             function swipeLeftHandler( event ){
                 var cm = parseInt($(".calendar").attr('offset'));

@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js">
     <head>
     <meta charset="utf-8">
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/fonts.css">
-        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">        
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">  
-        <link rel="stylesheet" type="text/css" href="js/fancybox/source/jquery.fancybox.css">
+		
+        <link rel="stylesheet" href="css/bootstrap-combined.no-icons.min.css?<?=time();?>">        
+        <link rel="stylesheet" href="css/font-awesome.css?<?=time();?>">  
+        <link rel="stylesheet" href="js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="css/main.css?<?=time();?>">
+        
+		<script src="/js/lib/modernizr.min.js"></script>        
 
     </head>
 
@@ -36,32 +33,28 @@
                         <div id="store-ribbon">
                             West Edmonton Mall
                         </div>                            
-                                <h1 class="name"><span class="whitebox"></span>John Smith</h1>
-                                <h2 class="dept"><span class="whitebox"></span>Hardgoods: Hockey</h2>                
+                                <span class="whiteboxtop"></span><h1 class="name"></h1>
+                                <span class="whitebox"></span><h2 class="dept"></h2>                
                                 <p class="bio-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic deleniti repellendus quibusdam debitis fuga omnis ab! Adipisci, dolore, vitae, eius, totam atque harum facere aut temporibus necessitatibus suscipit magnam soluta.
+                                   
                                 </p>
 
-                                <p class="experience">
-                                    Years: 6
-                                </p>
+                 
                                 <p class="sports">
-                                    <i class="icon-heart"></i>&nbsp;&nbsp;Sport: Hockey
+                                    <i class="icon-heart"></i>&nbsp;&nbsp;Sport: <span class="favsport"></span>
                                 </p>
-                                <p class="knowledge">Service Knowledge:
-                                    <br /><img src="/images/service-knowledge.png" alt="" style="padding-top: 10px;">
-                                </p>
+
             
 
                         </div>
                                 
                         
                     </div>
-                    
-                    <div id="bio-nav">
+<!--                     <div id="arrows"></div> -->
+                    <div id="bio-nav" style="overflow: scroll;">
 
                         @foreach($staff as $s)
-                           <a href="javascript:show_{{$s->id}}();"><img src="timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
+                           <a href="javascript:void(0)" onclick="javascript:show_{{$s->id}}();"><img src="timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
                         @endforeach
 
                     </div>
@@ -74,9 +67,11 @@
             </div>
 
 
+<!--
             <div id="home-callout" class="fullwidth">
                 <img src="images/communityboard-center.jpg" />
             </div>
+-->
 
             
             <div id="nav" class="fullwidth">
@@ -88,36 +83,42 @@
         </div>
 
 
-
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="js/main.js"></script>
-
-
+        <script src="js/lib/jquery-1.10.2.min.js"></script>
+<!--         <script src="js/jquery.mobile-1.3.2.min.js"></script> -->
 
         <script> 
-        $( document ).ready(function() {
 
-            $( "#bio" ).animate({
-                opacity: 1.0,
-                left: "+=300"
-                }, 1000, function() {
-                // Animation complete.
-            });
-
-            $("#scoreboard").load("scoreboard-test.html"); 
+        $('a').click(function (e) {
+            if ($(':animated').length) {
+                return false;
+/*                 e.preventDefault(); */
+            }
         });
 
+        $( "#bio-nav" ).on( "swipeleft", swipeHandler );
+        $( "#bio-nav" ).on( "swiperight", swipeHandler );
+
+        function swipeHandler( event ){
+            $("#arrows").fadeOut("fast");
+        }
+			<?$i=1;?>
             @foreach($staff as $s)
+			
+				<? if($i == 1){
+					$lowest = $s->id;	
+				}
+				?>
+					
                 function show_{{$s->id}}(){
 
                     $("#bio").css("left", "-300px");
                     $("#bio").css("opacity", "0");
                     $("#current-staff-bio").css("opacity", "0");
 
-                            $(".name").replaceWith('<h1 class="name"><span class="whitebox"></span>{{$s->first}} {{$s->last}}</h1>');
-                            $(".dept").replaceWith('<h2 class="dept"><span class="whitebox"></span>{{$s->position}}</h2>');
-                            $(".bio-text").replaceWith('<p class="bio-text">{{$s->bio}}</p>');
+                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}} {{$s->last}}</h1>');
+                            $(".dept").replaceWith('<h2 class="dept"><!--<span class="whitebox"></span>-->{{$s->position}}</h2>');
+                            $(".bio-text").replaceWith("<p class='bio-text'>{{{$s->bio}}}</p>");
+							$(".favsport").replaceWith("<span class='favsport'>{{$s->favorite_sport}}</span>");
                             $("#current-staff-bio").css("background", "transparent url('timthumb.php?src=/images/staff/{{ $s->photo }}&h=947') bottom center no-repeat");
 
                     $( "#bio" ).animate({
@@ -131,7 +132,28 @@
                         }, 1000, function() {
                     });
                 }
+                <?$i++;?>
             @endforeach
+            
+            
+        $( document ).ready(function() {
+
+
+
+
+
+            // $( "#bio" ).animate({
+            //     opacity: 1.0,
+            //     left: "+=300"
+            //     }, 1000, function() {
+            //     // Animation complete.
+            // });
+
+            $("#scoreboard").load("scoreboard.html"); 
+
+            show_{{$lowest}}();
+        });
+            
         </script>         
 
     </body>

@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js">
+
     <head>
     <meta charset="utf-8">
+
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Photos</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/fonts.css">
-        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">        
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">  
-        <link rel="stylesheet" type="text/css" href="js/fancybox/source/jquery.fancybox.css">
+        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>" >        
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>" >  
+        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/main.css?<?=time();?>">
+        
+		<script src="/js/lib/modernizr.min.js"></script>        
+        
         <style>
         #photos {
           width: 80%;
           margin: auto;
         }
-    .fancybox{}
+        
+        .smaller{ font-size: 14px; }
+        .fancybox{}
 
         </style>
 
@@ -33,7 +35,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
-                <a href="/"><img src="images/sc-logo.jpg" class="floatR" /></a>
+                <a href="/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
 
             <div id="photos">
@@ -41,7 +43,7 @@
             @foreach($photos as $p)
 
         
-            <a class="fancybox" href="timthumb.php?src=/images/photos/test/{{ $p->path }}&w=1000.jpg" title="<strong>{{ $p->title}}</strong> {{ $p->description}}"><img src="timthumb.php?src=/images/photos/test/{{ $p->path }}&w=300" /></a>
+            <a class="fancybox" href="/timthumb.php?src=/images/photos/{{ $p->path }}&w=1000.jpg" title="<strong>{{ $p->title}}</strong><br />{{ $p->description}}<? if($p->location !=""){ echo '<br /><small class=smaller>Location: '.$p->location . '</small>'; } ?><? if($p->photographer_name !=""){ echo '&nbsp;&nbsp;&nbsp;<small class=smaller>Photographer: '.$p->photographer_name . '</small>'; } ?>"><img src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=300" /></a>
 
             @endforeach
 
@@ -52,7 +54,7 @@
 
 
             <div id="home-callout" class="fullwidth">
-                <img src="images/communityboard-center.jpg" />
+                <img src="/images/communityboard-center.jpg" />
             </div>
 
              <div id="nav" class="fullwidth">
@@ -65,14 +67,16 @@
         </div>
 
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/lib/jquery-1.10.2.min.js"></script>
         <script src="js/jquery.grid-a-licious.js"></script>
         <script src="js/fancybox/source/jquery.fancybox.js"></script>
 
         <script> 
-        $(function(){
-            $("#scoreboard").load("scoreboard-test.html"); 
+          
+			
+        $( document ).ready(function() {
+        
+            $("#scoreboard").load("scoreboard.html"); 
             
             $("#photos").gridalicious({animate: true, gutter: 5, width: 300, selector: '.fancybox'});
             $('.fancybox').fancybox({ padding : 10, openEffect  : 'elastic', 

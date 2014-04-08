@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="refresh" content="3600">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" type="text/css" href="css/test.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css">
+        <link rel="stylesheet" type="text/css" href="/cash-assets/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/cash-assets/css/logo.css">
+        <style>
+            #gallery{
+                padding: 0; margin: 0;
+                height: 1080px;
+                /*padding: 35px 20px 0px 40px;    */
+                margin: 0;
+                list-style: none;
+                color: #fff;
+                font: normal 122px Arial, sans-serif;
+            }
+            #gallery li{ /*padding: 30px 20px 0px 40px;*/ }
+        
+/*            tr{ }
+            td{ text-transform: uppercase; padding: 3px 5px;}
+            td.team{ width: 250px;}
+            td.score{text-align: right;}
+            td.period{text-align: center; width: 150px; vertical-align: middle;}
+            td.note{ font-size: 12px;  font-style: italic;}
+            td.league{padding-right: 20px;}*/
+
+/*            #time{ color: #999999;}*/
+        </style>
+    
+    </head>
+
+    <body>
+        <ul id="gallery"></ul>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/modernizr.custom.43373.js"></script>
+        <script type="text/javascript" src="js/jquery.bxslider.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function()  
+        {  
+            
+            var sport = "";
+            var feed ="http://thecompleteexperience.ca/feed/all_scores-test.xml";
+            var timezoneoffset = -2;
+    
+            var setupScores = function(){
+                $.get(feed, function(d){  
+                // $('body').append('<h1> Last Night\'s NBA Scores</h1>');  
+                //$('body').append('<ul id="gallery">');  
+                // $(d).find('scores').each(function(){  
+                //     var $scores = $(this);
+                //     sport = $scores.attr("sport"); 
+                // });
+
+                $(d).find('game').each(function(){  
+          
+                    var $game = $(this);   
+                    var id = $game.attr("id"); 
+                    var sport = $game.attr("sport");         
+
+                    if(sport == "OLY"){
+                        
+                        var oly_event = $game.find('event').text();
+                        var gold = $game.find('gold').text();
+                        var silver = $game.find('silver').text();
+                        var bronze = $game.find('bronze').text();
+
+                    } 
+                    
+
+
+
+                    var home = $game.find('home').text(); 
+                    var homeclass = home; 
+                    homeclass = homeclass.replace(' ', '');
+                    homeclass = homeclass.replace('.', '');
+                    var home_score = $game.find('home_score').text();  
+
+                    var visitor = $game.find('visitor').text();  
+                    var visitorclass = visitor;
+                    visitorclass = visitorclass.replace(' ', '');
+                    visitorclass = visitorclass.replace('.', '');
+                    var visitor_score = $game.find('visitor_score').text();  
+
+                    if($game.attr("type") == "upcoming" ){
+                        var gametime = $game.find('game_time').text(); 
+                        var timeparts = gametime.split(":");     
+                        gametime = (Number(timeparts[0]) + Number(timezoneoffset)) + ":" + timeparts[1];
+                    } else {
+                        var gametime = $game.find('game_time').text();
+                    }
+
+                    var period = $game.find('period').text();
+                        switch(period){
+                            case "1 Period": period="1<sup>st</sup> Period"; break;
+                            case "2 Period": period="2<sup>nd</sup> Period" ; break;
+                            case "3 Period": period="3<sup>rd</sup> Period"; break;
+                            
+                            case "1 Qtr": period="1<sup>st</sup> Quarter"; break;
+                            case "2 Qtr": period="2<sup>nd</sup> Quarter"; break;
+                            case "3 Qtr": period="3<sup>rd</sup> Quarter"; break;
+                            case "4 Qtr": period="4<sup>th</sup> Quarter"; break;
+                            default: period=period; break;
+                        }
+                     
+                    if(gametime=="" && period=="3<sup>rd</sup> Period") {
+                        period = "2<sup>nd</sup> Intermission";
+                    }
+                    if(gametime=="" && period=="2<sup>rd</sup> Period") {
+                        period = "1<sup>st</sup> Intermission";
+                    }
+
+                    var note = $game.find('note').text();
+                    if( note =="** CONFIRMED **"){
+                        note = "";
+                    }
+
+                    if(period=="0 Period"){
+                        period="Starting Now";
+                    }
+
+                    if(home=="NY Islanders" || home=="NY Rangers"){
+                        home = "New York";
+                    }
+
+                    if(visitor=="NY Islanders" || visitor=="NY Rangers"){
+                        visitor = "New York";
+                    }
+
+                    if(home=="LA Clippers" || home=="LA Lakers"){
+                        home ="Los Angeles";
+                    }
+
+                    if(visitor=="LA Clippers" || visitor=="LA Lakers"){
+                        visitor ="Los Angeles";
+                    }
+
+                    var html = "<li id='game"+id+"'><table>";
+            
+                    html +=   "<tr class='leagueheader'>";
+
+                    if(sport == "OLY"){
+                        html +=   "<td colspan='5'> <span class='oly-league-title'><span class='league-logo "+sport+"-logo'></span><span class='oly-league-name'>"+oly_event+"</span></span></td>";
+                        html +=   "</tr>";
+                        html +=   "<tr class='oly-scorebar'>";
+                        html +=   "    <td class='medal-logo'>";
+                        html +=   "        <span class='medal gold-medal'></span>";
+                        html +=   "    </td>";
+                        html +=   "    <td class='althete-name'>";
+                        html +=   "        <span class=''>"+gold+"</span>";
+                        html +=   "    </td>";
+                        html +=   "</tr>";
+                        html +=   "<tr class='oly-scorebar'>";
+                        html +=   "    <td class='medal-logo'>";
+                        html +=   "        <span class='medal silver-medal'></span>";
+                        html +=   "    </td>";
+                        html +=   "    <td class='althete-name'>";
+                        html +=   "        <span>"+silver+"</span>";
+                        html +=   "    </td>";
+                        html +=   "</tr>";
+                        html +=   "<tr class='oly-scorebar'>";
+                        html +=   "    <td class='medal-logo'>";
+                        html +=   "        <span class='medal bronze-medal'></span>";
+                        html +=   "    </td>";
+                        html +=   "    <td class='althete-name'>";
+                        html +=   "        <span>"+bronze+"</span>";
+                        html +=   "    </td>";
+                        html +=   "</tr>";                        
+
+                    } else {
+                        html +=   "    <td colspan='3'> <span class='league-title'><span class='league-logo "+sport+"-logo'></span><span class='league-name'>"+sport+" SCOREBOARD</span></span>";
+                        html +=   "    <span class='clock'>"+gametime+ "&nbsp;&nbsp;&nbsp;" +period+"</span></td>";
+                        html +=   "</tr>";
+                        html +=   "<tr class='scorebar'>";
+                        html +=   "    <td class='logo'>";
+                        html +=   "        <span class='team-logo "+sport+"-"+homeclass+"'></span>";
+                        html +=   "    </td>";
+                        html +=   "    <td class='cityteam'>";
+                        html +=   "        <span class='team-city'>"+home+"</span>";
+                        html +=   "        <span class='team-name'>"+getNick(sport,homeclass)+"</span>";
+                        html +=   "    </td>";
+                        html +=   "    <td>";
+                        html +=   "        <span class='score'>"+home_score+"</span>";
+                        html +=   "    </td>";
+                        html +=   "</tr>";
+                        html +=   "<tr class='scorebar'>";
+                        html +=   "    <td>";
+                        html +=   "        <span class='team-logo "+sport+"-"+visitorclass+"''></span>";
+                        html +=   "    </td>";
+                        html +=   "    <td class='cityteam'>";
+                        html +=   "        <span class='team-city'>"+visitor+"</span>";
+                        html +=   "        <span class='team-name'>"+getNick(sport,visitorclass)+"</span>";
+                        html +=   "    </td>";
+                        html +=   "    <td>";
+                        html +=   "        <span class='score'>"+visitor_score+"</span>";
+                        html +=   "    </td>";
+                        html +=   "</tr>";
+
+
+
+
+                    }
+
+
+
+
+                    // html +=   "<tr>";
+                    // html +=    "<td rowspan='2' class='league'><img src='images/"+sport+"/logo_"+sport+"_sm.png' /></td>";
+                    // html +=     "<td class='team home'>"+home+"</td>";
+                    // html +=     "<td class='score' id='hscore'>"+home_score+"</td>";
+                    // html +=     "<td rowspan='2' class='period' id='time'>"+gametime+ "<br />" +period+"</td>";
+                    // html +=     "<td class='note'></td>";                    
+                    // html +=   "</tr>";
+                    // html +=   "<tr>";
+                    // html +=     "<td class='team visitor'>"+visitor+"</td>";
+                    // html +=     "<td class='score' id='vscore'>"+visitor_score+"</td>";
+                    // html +=   "</tr>";
+                    html +=  "</table>";
+                    html += '</li>';  
+          
+                    $('#gallery').append($(html));  
+
+                    $("#gallery li").css("display","none"); //hide
+                    $("#gallery li:first-child").css("display","block");
+             
+                    //  $('.loadingPic').fadeOut(1400);  
+                    });  
+                });  
+            };
+
+
+            var updateScores =  function(){
+
+                $.get(feed, function(d){ 
+                $(d).find('game').each(function(){ 
+                    var $game = $(this);   
+                    var id = $game.attr("id");  
+                    var home = $game.find('home').text();  
+                    var home_score = $game.find('home_score').text();  
+                    var visitor = $game.find('visitor').text();  
+                    var visitor_score = $game.find('visitor_score').text();  
+                    //var gametime = $game.find('game_time').text();  
+
+                    if($game.attr("type") == "upcoming" ){
+                        var gametime = $game.find('game_time').text(); 
+                        var timeparts = gametime.split(":");     
+                        gametime = (Number(timeparts[0]) + Number(timezoneoffset)) + ":" + timeparts[1];
+                    } else {
+                        var gametime = $game.find('game_time').text();  
+                    }
+
+                    var period = $game.find('period').text();
+                    var note = $game.find('note').text();
+
+                    if(period=="0 Period"){
+                        period="Starting Now";
+                    }
+
+                    $('li#game'+id+' #hscore' ).html(home_score);
+                    $('li#game'+id+' #vscore' ).html(visitor_score);
+                    $('li#game'+id+' #time' ).html(gametime+ "<br />" +period);
+                  //  $('li#game'+id+' .note' ).html(note);
+
+                   //     console.log(id+ " " +home+" " +home_score +" / "+visitor+ " "+visitor_score+": " +gametime+ " "+period+" - "+note);
+                    });  
+                });
+              //  console.log("-----------------------------------------------");                
+
+            };
+
+            setupScores();
+            setInterval(function(){ setupScores(); },3600000);
+            setInterval(function(){ updateScores(); },5000);
+
+                    setInterval(function(){
+                     // console.log("looped");
+                      $('#gallery li:first-child').fadeOut(500,  function(){
+                        $(this).next('li').fadeIn(500).end().appendTo('#gallery');
+                      });
+                    }, 8000);
+
+        });
+
+    
+        function getNick(league, city){
+
+            console.log("league:" + league + " City:"+ city);
+
+            switch(league){
+                case 'NBA':
+                    switch(city){
+                        case "Atlanta": return "Hawks"; break;
+                        case "Boston": return "Celtics"; break;
+                        case "Brooklyn": return "Nets"; break;
+                        case "Chicago": return "Bulls"; break;
+                        case "Charlotte": return "Bobcats"; break;
+                        case "Cleveland": return "Cavaliers"; break;
+                        case "Dallas": return "Mavericks"; break;
+                        case "Philadelphia": return "79ers"; break;
+                        case "Denver": return "Nuggets"; break;
+                        case "Detroit": return "Pistons"; break;
+                        case "GoldenState": return "Warriors"; break;
+                        case "Houston": return "Rockets"; break;
+                        case "Indiana": return "Pacers"; break;
+                        case "LALakers": return "Lakers"; break;
+                        case "LAClippers": return "Clippers"; break;
+                        case "Memphis": return "Grizzlies"; break;
+                        case "Miami": return "Heat"; break;
+                        case "NewYork": return "Knicks"; break;
+                        case "Milwaukee": return "Bucks"; break;
+                        case "Minnesota": return "Timberwolves"; break;
+                        case "OklahomaCity": return "Thunder"; break;
+                        case "Orlando": return "Magic"; break;
+                        case "Phoenix": return "Suns"; break;
+                        case "Portland": return "Trail Blazers"; break;
+                        case "Sacramento": return "Kings"; break;
+                        case "SanAntonio": return "Spurs"; break;
+                        case "Toronto": return "Raptors"; break;
+                        case "Utah": return "Jazz"; break;
+                        case "Washington": return "Wizards"; break;
+                        case "NewOrleans": return "Pelicans"; break;
+                        default: return ""; break;
+                    }
+
+                case 'NHL':
+                    switch(city){
+                        case "Anaheim": return "Ducks"; break;     
+                        case "Boston": return "Bruins"; break;      
+                        case "Buffalo": return "Sabres"; break;     
+                        case "Calgary": return "Flames"; break;     
+                        case "Carolina": return "Hurricanes"; break;    
+                        case "Chicago": return "Blackhawks"; break;     
+                        case "Colorado": return "Avalanche"; break;    
+                        case "Columbus": return "Blue Jackets"; break;    
+                        case "Dallas": return "Stars"; break;      
+                        case "Detroit": return "Red Wings"; break;     
+                        case "Florida": return "Panthers"; break;     
+                        case "Edmonton": return "Oilers"; break;    
+                        case "NYIslanders": return "Islanders"; break; 
+                        case "NYRangers": return "Rangers"; break;   
+                        case "LosAngeles": return "Kings"; break;          
+                        case "Minnesota": return "Wild"; break;   
+                        case "Montreal": return "Canadiens"; break;    
+                        case "Nashville": return "Predators"; break;   
+                        case "NewJersey": return "Devils"; break;   
+                        case "Ottawa": return "Senators"; break;      
+                        case "Philadelphia": return "Flyers"; break;
+                        case "Phoenix": return "Coyotes"; break;     
+                        case "Pittsburgh": return "Penguins"; break;  
+                        case "SanJose": return "Sharks"; break;     
+                        case "StLouis": return "Blues"; break;     
+                        case "TampaBay": return "Lightning"; break;    
+                        case "Toronto": return "Maple Leafs"; break;     
+                        case "Vancouver": return "Cancucks"; break;   
+                        case "Washington": return "Capitals"; break;  
+                        case "Winnipeg": return "Jets"; break;    
+
+                        default: return ""; break;
+                    }
+
+                case 'MLB':
+                    switch(city){
+
+                        case "Arizona": return "Diamondbacks"; break;
+                        case "Atlanta": return "Braves"; break;
+                        case "Baltimore": return "Orioles"; break;
+                        case "ChicagoCubs": return "Cubs"; break;
+                        case "ChicagoWhiteSox": return "White Sox"; break;
+                        case "Cincinnati": return "Reds"; break;
+                        case "Cleveland": return "Indians"; break;
+                        case "Colorado": return "Rockies"; break;
+                        case "Detroit": return "Tigers"; break;
+                        case "Houston": return "Astros"; break;
+                        case "KansasCity": return "Royals"; break;
+                        case "LAAngels": return "Angels"; break;
+                        case "LADodgers": return "Dodgers"; break;
+                        case "Miami": return "Marlins"; break;
+                        case "Milwaukee": return "Brewers"; break;
+                        case "Minnesota": return "Twins"; break;
+                        case "NewYorkMets": return "Mets"; break;
+                        case "NewYorkYankees": return "Yankees"; break;
+                        case "Oakland": return "Athletics"; break;
+                        case "Philadelphia": return "Phillies"; break;
+                        case "Pittsburgh": return "Pirates"; break;
+                        case "Boston": return "Red Sox"; break;
+                        case "SanDiego": return "Padres"; break;
+                        case "SanFrancisco": return "Giants"; break;
+                        case "Seattle": return "Mariners"; break;
+                        case "StLouis": return "Cardinals"; break;
+                        case "TampaBay": return "Rays"; break;
+                        case "Texas": return "Rangers"; break;
+                        case "Toronto": return "Blue Jays"; break;
+                        case "Washington": return "Nationals"; break;
+
+                        default: return ""; break;
+                    }
+
+                case 'NFL':
+                    switch(city){
+                        case "SanFrancisco": return "49ers"; break;
+                        case "Arizona": return "Cardinals"; break;
+                        case "Atlanta": return "Falcons"; break;
+                        case "Baltimore": return "Ravens"; break;
+                        case "Buffalo": return "Bills"; break;
+                        case "Carolina": return "Panthers"; break;
+                        case "Chicago": return "Bears"; break;
+                        case "Cincinnati": return "Bengals"; break;
+                        case "Cleveland": return "Browns"; break;
+                        case "Dallas": return "Cowboys"; break;
+                        case "Denver": return "Broncos"; break;
+                        case "GreenBay": return "Packers"; break;
+                        case "Houston": return "Texans"; break;
+                        case "Indianapolis": return "Colts"; break;
+                        case "Jacksonville": return "Jaguars"; break;
+                        case "KansasCity": return "Chiefs"; break;
+                        case "Miami": return "Dolphins"; break;
+                        case "Minnesota": return "Vikings"; break;
+                        case "NewEngland": return "Patriots"; break;
+                        case "Detroit": return "Lions"; break;
+                        case "NewOrleans": return "Saints"; break;
+                        case "NewYorkGiants": return "Giants"; break;
+                        case "NewYorkJets": return "Jets"; break;
+                        case "Oakland": return "Raiders"; break;
+                        case "Philadelphia": return "Eagles"; break;
+                        case "Pittsburgh": return "Steelers"; break;
+                        case "SanDiego": return "Chargers"; break;
+                        case "Seattle": return "Seahawks"; break;
+                        case "StLouis": return "Rams"; break;
+                        case "TampaBay": return "Buccaneers"; break;
+                        case "Tennessee": return "Titans"; break;
+                        case "Washington": return "Redskins"; break;
+
+
+                    }
+
+                case 'CFL':
+                    switch(city){
+                        case "BC": return "Lions"; break;
+                        case "Calgary": return "Stampeders"; break;
+                        case "Edmonton": return "Eskimos"; break;
+                        case "Saskatchewan": return "Roughriders"; break;
+                        case "Winnipeg": return "Blue Bombers"; break;
+                        case "Hamilton": return "Tiger-Cats"; break;
+                        case "Toronto": return "Argonauts"; break;
+                        case "Ottawa": return "Redblacks"; break;
+                        case "Montreal": return "Alouettes"; break;
+                    }
+                    
+                default:
+                    return "";
+            }
+        }
+
+        // function getNick(league,city){
+
+        //     var nick="";
+
+        //     switch(league){
+
+        //         case "NBA":
+        //             swtich(city){
+        //                 case "Atlanta": nick="Hawks"; break;
+        //                 case "Boston": nick="Celtics"; break;
+        //                 case "Brooklyn": nick="Nets"; break;
+        //                 case "Chicago": nick="Bulls"; break;
+        //                 case "Charlotte": nick="Bobcats"; break;
+        //                 case "Cleveland": nick="Cavaliers"; break;
+        //                 case "Dallas": nick="Mavericks"; break;
+        //                 case "Philadelphia": nick="79ers"; break;
+        //                 case "Denver": nick="Nuggets"; break;
+        //                 case "Detroit": nick="Pistons"; break;
+        //                 case "Golden State": nick="Warriors"; break;
+        //                 case "Houston": nick="Rockets"; break;
+        //                 case "Indiana": nick="Pacers"; break;
+        //                 case "LALakers": nick="Lakers"; break;
+        //                 case "LAClippers ": nick="Clippers"; break;
+        //                 case "Memphis": nick="Grizzlies"; break;
+        //                 case "Miami": nick="Heat"; break;
+        //                 case "Milwaukee": nick="Bucks"; break;
+        //                 case "Minnesota": nick="Timberwolves"; break;
+        //                 case "Oklahoma City": nick="Thunder"; break;
+        //                 case "Orlando": nick="Magic"; break;
+        //                 case "Phoenix": nick="Phoenix"; break;
+        //                 case "Portland": nick="Trail Blazers"; break;
+        //                 case "Sacramento": nick="Kings"; break;
+        //                 case "SanAntonio": nick="Spurs"; break;
+        //                 case "Toronto": nick="Raptors"; break;
+        //                 case "Utah": nick="Jazz"; break;
+        //                 case "Washington": nick="Wizards"; break;
+        //                 case "NewOrleans": nick="Pelicans"; break;
+        //             }
+        //             break;
+
+        //         case "MLB":
+        //             nick ="hold on";
+        //             break;
+
+        //         case "NFL":
+        //             nick ="holdon";
+        //             break;
+
+        //         case "NHL":
+        //             nikc="hold on";
+        //             break;
+
+        //         case "CFL":
+        //             nick="hold on";
+        //             break;
+
+        //     }
+
+        //     return nick;
+        // }
+        
+
+    
+        </script>
+        
+    </body>
+
+</html>

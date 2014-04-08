@@ -79,16 +79,18 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, .fancybox-overlay::-webkit-scr
 #bio-nav{
     padding: 15px 13px 0px 13px;
     height: 190px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    width: 10000px;
-    overflow: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
+    width: 100%;
+
+
+            overflow: auto;
+            overflow-y: hidden;
+            margin: 0 auto;
+            white-space: nowrap
+
 }
 
 #bio-nav::-webkit-scrollbar { 
-    /*display: none; */
+    display: none; 
 
 }
 
@@ -191,14 +193,29 @@ span.whitebox{
 }
 
 #nav a:active{
-            -moz-box-shadow: 0 0 40px #fff;
+    -moz-box-shadow: 0 0 40px #fff;
     -webkit-box-shadow: 0 0 40px #fff;
     box-shadow: 0px 0px 40px #fff;
 }
 
+
+#arrows{
+    background: transparent url('/images/arrows.gif') top left no-repeat;
+    width: 199px;
+    height: 83px;
+    z-index: 99;
+    position: absolute;
+    left: 870px;
+    top: 1120px;
+    
+    display: block;
+    /*opacity: 0;*/
+}
+
+
+
+
 /*fonts*/
-
-
 @font-face { font-family: GalaxiePolarisCondensed-Book.; src: url('/fonts/GalaxiePolarisCondensed-Book.otf'); } 
 @font-face { font-family: GalaxiePolarisCondensed-Bold; font-weight: bold; src: url('/fonts/GalaxiePolarisCondensed-Bold.otf'); }
 @font-face { font-family: GalaxiePolarisCondensed-Light; font-weight: bold; src: url('/fonts/GalaxiePolarisCondensed-Light.otf'); }
