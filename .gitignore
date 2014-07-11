@@ -1,4 +1,7 @@
 *.mp4
+*.mov
+*.avi
+*.wmv
 composer.phar
 composer.lock
 .DS_Store
