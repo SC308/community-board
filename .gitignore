@@ -1,3 +1,15 @@
+*.mp4
 composer.phar
 composer.lock
 .DS_Store
+html/images/flyer/*
+html/images/staff/*
+html/images/feature/*
+html/images/cash/*
+html/images/photos/*
+html/cache
+app/config/database.php
+app/storage/logs/*
+app/storage/cache/*
+app/storage/sessions/*
+app/storage/views/*

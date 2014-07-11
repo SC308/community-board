@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'internal-db.s51258.gridserver.com',
-			'database'  => 'db51258_younge',
-			'username'  => 'db51258',
-			'password'  => '3nc50Xj8y5',
+			'host'      => 'localhost',
+			'database'  => 'community_board',
+			'username'  => 'root',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
