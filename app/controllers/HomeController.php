@@ -15,9 +15,30 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function getIndex()
 	{
-		return View::make('hello');
+		$feature = Feature::all();
+		
+        $flyer = DB::table('flyers')
+                ->orderBy('order', 'asc')
+                ->take(1)
+                ->get();
+                
+        $toppicks = DB::table('top_picks')
+                ->orderBy('id', 'asc')
+                ->get();      
+                  	
+		return View::make('home')
+			->with('feature', $feature)
+			->with('flyer', $flyer)
+			->with('toppicks', $toppicks);			
+	}
+	
+	public function getFeaturedData(){
+		
+		$feature = Feature::all();
+		
+		return $feature;
 	}
 
 }

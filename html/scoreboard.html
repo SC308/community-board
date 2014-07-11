@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="refresh" content="3600">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css">
+        <style>
+            #gallery{
+                background-color: #414141;
+                /*background-color: lime;*/
+            }
+            ul#gallery{
+                height: 120px;
+                /*padding: 35px 20px 0px 40px;    */
+                margin: 0;
+                list-style: none;
+                color: #fff;
+                font: normal 22px Arial, sans-serif;
+            }
+            ul#gallery li{  padding: 30px 20px 0px 40px; }
+            table.scoretable td{ text-transform: uppercase; padding: 3px 5px; }
+            table.scoretable td.team{ width: 250px;}
+            table.scoretable td.score{text-align: right;}
+            table.scoretable td.period{text-align: center; width: 150px; vertical-align: middle;}
+            table.scoretable td.note{ font-size: 12px;  font-style: italic;}
+            table.scoretable td.league{padding-right: 20px;}
+
+            #time{ color: #999999;}
+        </style>
+    
+    </head>
+
+    <body>
+        <ul id="gallery"></ul>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/modernizr.custom.43373.js"></script>
+        <script type="text/javascript" src="js/jquery.bxslider.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function()  
+        {  
+            
+            var sport = "";
+            var feed ="http://thecompleteexperience.ca/feed/all_scores.xml";
+            var timezoneoffset = -2;
+    
+            var setupScores = function(){
+                $.get(feed, function(d){  
+                // $('body').append('<h1> Last Night\'s NBA Scores</h1>');  
+                //$('body').append('<ul id="gallery">');  
+                // $(d).find('scores').each(function(){  
+                //     var $scores = $(this);
+                //     sport = $scores.attr("sport"); 
+                // });
+
+                $(d).find('game').each(function(){  
+          
+                    var $game = $(this);   
+                    var id = $game.attr("id"); 
+                    var sport = $game.attr("sport");                      
+                    var home = $game.find('home').text();  
+                    var home_score = $game.find('home_score').text();  
+                    var visitor = $game.find('visitor').text();  
+                    var visitor_score = $game.find('visitor_score').text();  
+
+                    if($game.attr("type") == "upcoming" ){
+                        var gametime = $game.find('game_time').text(); 
+                        var timeparts = gametime.split(":");     
+                        gametime = (Number(timeparts[0]) + Number(timezoneoffset)) + ":" + timeparts[1];
+                    } else {
+                        var gametime = $game.find('game_time').text();  
+                    }
+
+                    
+                    var period = $game.find('period').text();
+                    var note = $game.find('note').text();
+                    if( note =="** CONFIRMED **"){
+                        note = "";
+                    }
+                    if(period=="0 Period"){
+                        period="Starting Now";
+                    }
+
+                    var html = "<li id='game"+id+"'><table class='scoretable'>";
+                    html +=   "<tr>";
+                    html +=    "<td rowspan='2' class='league'><img src='images/"+sport+"/logo_"+sport+"_sm.png' /></td>";
+                    html +=     "<td class='team home'>"+home+"</td>";
+                    html +=     "<td class='score' id='hscore'>"+home_score+"</td>";
+                    html +=     "<td rowspan='2' class='period' id='time'>"+gametime+ "<br />" +period+"</td>";
+                    html +=     "<td class='note'></td>";                    
+                    html +=   "</tr>";
+                    html +=   "<tr>";
+                    html +=     "<td class='team visitor'>"+visitor+"</td>";
+                    html +=     "<td class='score' id='vscore'>"+visitor_score+"</td>";
+                    html +=   "</tr>";
+                    html +=  "</table>";
+                    html += '</li>';  
+          
+                    $('#gallery').append($(html));  
+
+                    $("li").css("display","none"); //hide
+                    $("#gallery li:first-child").css("display","block");
+             
+                    //  $('.loadingPic').fadeOut(1400);  
+                    });  
+                });  
+            };
+
+
+            var updateScores =  function(){
+
+                $.get(feed, function(d){ 
+                $(d).find('game').each(function(){ 
+                    var $game = $(this);   
+                    var id = $game.attr("id");  
+                    var home = $game.find('home').text();  
+                    var home_score = $game.find('home_score').text();  
+                    var visitor = $game.find('visitor').text();  
+                    var visitor_score = $game.find('visitor_score').text();  
+                    //var gametime = $game.find('game_time').text();  
+
+                    if($game.attr("type") == "upcoming" ){
+                        var gametime = $game.find('game_time').text(); 
+                        var timeparts = gametime.split(":");     
+                        gametime = (Number(timeparts[0]) + Number(timezoneoffset)) + ":" + timeparts[1];
+                    } else {
+                        var gametime = $game.find('game_time').text();  
+                    }
+
+                    var period = $game.find('period').text();
+                    var note = $game.find('note').text();
+
+                    if(period=="0 Period"){
+                        period="Starting Now";
+                    }
+
+                    $('li#game'+id+' #hscore' ).html(home_score);
+                    $('li#game'+id+' #vscore' ).html(visitor_score);
+                    $('li#game'+id+' #time' ).html(gametime+ "<br />" +period);
+                  //  $('li#game'+id+' .note' ).html(note);
+
+                     //   console.log(id+ " " +home+" " +home_score +" / "+visitor+ " "+visitor_score+": " +gametime+ " "+period+" - "+note);
+                    });  
+                });
+//                console.log("-----------------------------------------------");                
+
+            };
+            setupScores();
+            setInterval(function(){ setupScores(); },3600000);
+            setInterval(function(){ updateScores(); },5000);
+
+                    setInterval(function(){
+                     // console.log("looped");
+                      $('#gallery li:first-child').fadeOut(120,  function(){
+                        $(this).next('li').fadeIn(120).end().appendTo('#gallery');
+                      });
+                    }, 8000);
+
+        });
+
+
+        
+
+    
+        </script>
+        
+    </body>
+
+</html>

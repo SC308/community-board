@@ -2,22 +2,18 @@
 
 class CommunityEvent extends Eloquent{
 
-    protected $table = 'CommunityEvents';
+   protected $fillable = array('title', 'description', 'location', 'type', 'start', 'end');
     
-    // public static function get_DM($district_id){
-    //     $DM = static::where('id', '=', $district_id)->first();
-    //     return $DM;
-    // }
+    public static function getevents(){
+        $events = DB::table('community_events')->select(DB::raw('id, title, description, location, type, DATE(start) as startdate, DATE(end) as enddate, EXTRACT(MONTH from start) as startmonth, EXTRACT(DAY from start) as startday, EXTRACT(YEAR from start) as startyear, EXTRACT(MONTH from end) as endmonth, EXTRACT(DAY from end) as endday, EXTRACT(YEAR from end) as endyear, EXTRACT(HOUR FROM start) AS starthour, EXTRACT(MINUTE FROM start) as startmin, EXTRACT(HOUR from end) as endhour, EXTRACT(MINUTE from end) as endmin'))->orderBy('startdate')->get();
+        return $events;
+    }
 
-    // public static function get_count($district_id){
-    //     $count = Store::where('district', '=', $district_id)->count();
-    //     return $count;
-    // }
-    // public static function all(){
-    //     $events = DB::table('events')->get();
-    //     return $events;
-    // }
+    public static function getnextthirty(){
+        $today = date("Y-m-d"); 
+        $events = DB::table('community_events')->select(DB::raw('id, title, description, location, type, DATE(start) as startdate, DATE(end) as enddate, EXTRACT(MONTH from start) as startmonth, EXTRACT(DAY from start) as startday, EXTRACT(YEAR from start) as startyear, EXTRACT(MONTH from end) as endmonth, EXTRACT(DAY from end) as endday, EXTRACT(YEAR from end) as endyear, EXTRACT(HOUR FROM start) AS starthour, EXTRACT(MINUTE FROM start) as startmin, EXTRACT(HOUR from end) as endhour, EXTRACT(MINUTE from end) as endmin'))->where('start','>=', $today)->orderBy('startdate')->take(15)->get();
+        return $events;
+    }
 
-    // public static function 
 
 }
