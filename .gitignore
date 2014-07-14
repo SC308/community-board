@@ -10,8 +10,7 @@ html/images/staff/*
 html/images/feature/*
 html/images/cash/*
 html/images/photos/*
-html/cache
-app/config/database.php
+html/cache/*
 app/storage/logs/*
 app/storage/cache/*
 app/storage/sessions/*
