@@ -77,9 +77,6 @@
                         var bronze = $game.find('bronze').text();
 
                     } 
-                    
-
-
 
                     var home = $game.find('home').text(); 
                     var homeclass = home; 
@@ -156,6 +153,23 @@
                     if(visitor=="Chicago WSox" || visitor=="Chicago Cubs" ){
                         visitor ="Chicago";
                     }
+                    
+                    if(visitor=="MLB-National" || visitor=="MLB-National"){
+                        visitor ="National League";
+                    }    
+                    
+                    if(home=="MLB-National" || home=="MLB-National"){
+                        home ="National League";
+                    }                                        
+                    
+
+                    if(visitor=="MLB-American" || visitor=="MLB-American"){
+                        visitor ="American League";
+                    }    
+                    
+                    if(home=="MLB-American" || home=="MLB-American"){
+                        home ="American League";
+                    }                        
 
 
                     var html = "<li id='game"+id+"'><table>";
@@ -259,9 +273,18 @@
                     html += '</li>';  
           
                     $('#gallery').append($(html));  
+					
+					if( $("#gallery li").length == 1){
+						//$("#gallery li").css("display","none"); //hide
+						$("#gallery li:first-child").css("display","block");						
+						
+					} else {
+    	                $("#gallery li").css("display","none"); //hide
+	                    $("#gallery li:first-child").css("display","block");						
+					}
+					
+						
 
-                    $("#gallery li").css("display","none"); //hide
-                    $("#gallery li:first-child").css("display","block");
              
                     //  $('.loadingPic').fadeOut(1400);  
                     });  
@@ -312,12 +335,18 @@
             setInterval(function(){ setupScores(); },300000);
             setInterval(function(){ updateScores(); },5000);
 
+                  if( $("#gallery li").length > 1){
+                  
                     setInterval(function(){
                      // console.log("looped");
-                      $('#gallery li:first-child').fadeOut(500,  function(){
+                     
+
+                     $('#gallery li:first-child').fadeOut(500,  function(){
                         $(this).next('li').fadeIn(500).end().appendTo('#gallery');
                       });
                     }, 8000);
+                    
+                 }
 
         });
 
@@ -432,6 +461,11 @@
                         case "Texas": return "Rangers"; break;
                         case "Toronto": return "Blue Jays"; break;
                         case "Washington": return "Nationals"; break;
+                        
+                       
+						case "MLB-American": return "All-Stars"; break;
+                        case "MLB-National": return "All-Stars"; break;  
+
 
                         default: return ""; break;
                     }

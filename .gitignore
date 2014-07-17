@@ -16,3 +16,5 @@ app/storage/logs/*
 app/storage/cache/*
 app/storage/sessions/*
 app/storage/views/*
+
+tests/_output/*
