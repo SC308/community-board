@@ -13,6 +13,7 @@ class CreatePhotoCollectionsTable extends Migration {
 	{
 		Schema::create('photo_collections', function($table) {
 			$table->increments('id');
+			$table->integer('store_id')->references('id')->on('stores');			
 			$table->string('name');
 			$table->string('location');
 			$table->timestamp('collection_date');

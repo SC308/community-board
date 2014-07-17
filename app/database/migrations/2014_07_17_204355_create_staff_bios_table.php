@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration {
+class CreateStaffBiosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,16 +11,16 @@ class CreateUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($table) {
-			$table->increments('id');	//primary
+		Schema::create('staff_bios', function($table) {
+			$table->increments('id');
 			$table->integer('store_id')->references('id')->on('stores');
 			$table->string('first');
 			$table->string('last');
-			$table->string('email');
-			$table->string('password');
-			$table->integer('role')->references('id')->on('user_roles'); 
-			$table->timestamp('last_seen');
-			$table->boolean('active');
+			$table->string('position');
+			$table->string('favorite_sport');			
+			$table->string('photo');
+			$table->text('bio');
+			$table->integer('cash_wall');
 			$table->timestamps();
 		});
 	}
@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users');
+		Schema::drop('staff_bios');
 	}
 
 }

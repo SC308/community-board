@@ -13,14 +13,15 @@ class CreatePhotosTable extends Migration {
 	{
 		Schema::create('photos', function($table) {
 			$table->increments('id');
+			$table->integer('store_id')->references('id')->on('stores');
 			$table->string('path');
+			$table->integer('publish');
 			$table->integer('collection')->references('id')->on('photo_collections');
 			$table->string('title');
 			$table->string('photographer_name');
 			$table->timestamp('taken_on');
 			$table->string('location');
 			$table->text('description');
-			$table->boolean('publish');
 			$table->timestamps();
 		});
 	}

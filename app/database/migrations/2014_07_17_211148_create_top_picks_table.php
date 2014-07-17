@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStaffTable extends Migration {
+class CreateTopPicksTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,13 +11,11 @@ class CreateStaffTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('StaffBios', function($table) {
+		Schema::create('top_picks', function($table) {
 			$table->increments('id');
-			$table->string('first');
-			$table->string('last');
-			$table->string('position');
-			$table->string('photo');
-			$table->text('bio');
+			$table->integer('store_id')->references('id')->on('stores');
+			$table->string('path');
+			$table->integer('publish');
 			$table->timestamps();
 		});
 	}
@@ -29,7 +27,7 @@ class CreateStaffTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('StaffBios');
+		Schema::drop('top_picks');
 	}
 
 }

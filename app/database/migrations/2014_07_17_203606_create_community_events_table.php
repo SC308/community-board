@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommunityeventsTable extends Migration {
+class CreateCommunityEventsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,8 +11,9 @@ class CreateCommunityeventsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('CommunityEvents', function($table) {
+		Schema::create('community_events', function($table) {
 			$table->increments('id');
+			$table->integer('store_id')->references('id')->on('stores');
 			$table->string('title');	
 			$table->integer('type')->references('id')->on('event_types');
 			$table->string('location');
@@ -30,7 +31,8 @@ class CreateCommunityeventsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('CommunityEvents');
+		Schema::drop('community_events');
 	}
+
 
 }
