@@ -3,13 +3,19 @@
 class CashController extends BaseController{
     
     public function getIndex(){
+        
         $staff = StaffBio::get();
+        
         $talls = CashwallAsset::getTalls();
+        
         $singles = CashwallAsset::getSingles();
+        
         $events = CommunityEvent::getnextthirty();
+
         $photos = Photo::orderBy(DB::raw('RAND()'))
                 ->where("publish","=",1)
                 ->get();
+
         return View::make('cash/cash')
             ->with('staff', $staff)
             ->with('talls', $talls)
@@ -17,5 +23,13 @@ class CashController extends BaseController{
             ->with('events', $events)
             ->with('photos', $photos);
         
+    }
+
+    public function getStore($sn){
+
+        $storedetails = Store::getStoreDetails($sn);
+
+        dd($storedetails);
+
     }
 }

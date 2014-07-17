@@ -21,6 +21,9 @@ Route::get('/flyer', 'FlyerController@getIndex');
 Route::get('/flyer-int', 'FlyerController@getInteractiveFlyer');
 Route::get('/cash', 'CashController@getIndex');
 
+
+Route::get('{storeno?}/cash', array('uses' => 'CashController@getStore'))->where('storeno', '[0-9]+');
+
 /*ADMIN ROUTES*/
 Route::get('/admin', 'AdminController@getIndex');
 Route::get('/admin/staff', 'AdminController@getStaff');
