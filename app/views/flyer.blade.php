@@ -6,7 +6,7 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Flyer</title>
+        <title><?=$storedetails[0]->store_number?> Flyer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
@@ -26,7 +26,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
-                <a href="/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
 
             <div id="flyer">
@@ -42,9 +42,9 @@
             </div>
 
              <div id="nav" class="fullwidth">
-                <a href="/staff"><img src="/images/nav-staff.png" /></a>
-                <a href="/calendar"><img src="/images/nav-calendar.png" /></a>
-                <a href="/photos"><img src="/images/nav-photos.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-calendar.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a>
             </div>
 
         </div>
@@ -52,7 +52,7 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/fancybox/source/jquery.fancybox.js"></script>
         
-        <script src="js/timer.js"></script>
+        <script src="/js/timer.js"></script>
         <script> 
 
 			

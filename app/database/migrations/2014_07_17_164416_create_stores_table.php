@@ -19,7 +19,9 @@ class CreateStoresTable extends Migration {
 			$table->string('address');
 			$table->string('city');
 			$table->string('prov');
+			$table->string('pc');			
 			$table->string('district');
+			$table->string('timezone_offset');
 			$table->boolean('active');
 			$table->timestamps();
 		});

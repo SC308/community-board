@@ -12,9 +12,11 @@ class FlyerController extends BaseController{
             ->with('flyer', $flyer);
     }
     
-    public function getInteractiveFlyer(){
-
+    public function getInteractiveFlyer($sn){
+        
+        $storedetails = Store::getStoreDetails($sn); 
         return View::make('flyerint')
+            ->with('storedetails', $storedetails)
             ->with('flyerint');
     }
 

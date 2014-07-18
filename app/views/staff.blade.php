@@ -4,14 +4,14 @@
     <meta charset="utf-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title><?=$storedetails[0]->store_number?> Staff</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		
-        <link rel="stylesheet" href="css/bootstrap-combined.no-icons.min.css?<?=time();?>">        
-        <link rel="stylesheet" href="css/font-awesome.css?<?=time();?>">  
-        <link rel="stylesheet" href="js/fancybox/source/jquery.fancybox.css?<?=time();?>">
-        <link rel="stylesheet" href="css/main.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">        
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">  
+        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/main.css?<?=time();?>">
         
 		<script src="/js/lib/modernizr.min.js"></script>        
 
@@ -22,7 +22,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
-                <a href="/"><img src="images/sc-logo.jpg" class="floatR" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
 
             <div id="staff">
@@ -75,16 +75,16 @@
 
             
             <div id="nav" class="fullwidth">
-                <a href="/flyer-int"><img src="/images/nav-flyer.png" /></a>
-                <a href="/calendar"><img src="/images/nav-calendar.png" /></a>
-                <a href="/photos"><img src="/images/nav-photos.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/flyer-int"><img src="/images/nav-flyer.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-calendar.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a>
             </div>
 
         </div>
 
 
-        <script src="js/lib/jquery-1.10.2.min.js"></script>
-        <script src="js/timer.js"></script>
+        <script src="/js/lib/jquery-1.10.2.min.js"></script>
+        <script src="/js/timer.js"></script>
 <!--         <script src="js/jquery.mobile-1.3.2.min.js"></script> -->
 
         <script type="text/javascript"> 
@@ -153,7 +153,7 @@
             //     // Animation complete.
             // });
 
-            $("#scoreboard").load("scoreboard.html"); 
+            $("#scoreboard").load("/scoreboard.html"); 
 
             show_{{$lowest}}();
         });

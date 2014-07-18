@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 		<META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">           
-        <title>YONGE</title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -45,9 +45,7 @@
                   <source src="/cash-assets/WC_fangear_Landscape.mp4?<?=time();?>" type="video/mp4" />
                 </video>
 -->
-	   
-		    
-		    
+
                 <div id="" class="carousel slide singlepics" data-ride="carousel">
                 
                 <!-- Wrapper for slides -->

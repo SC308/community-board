@@ -5,14 +5,14 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="css/font-awesome.css?<?=time();?>">  
-        <link rel="stylesheet" href="js/fancybox/source/jquery.fancybox.css?<?=time();?>">
-        <link rel="stylesheet" href="css/main.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">  
+        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/main.css?<?=time();?>">
         
 		<script src="/js/lib/modernizr.min.js"></script>       
 		
@@ -27,7 +27,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>              
-                <img src="images/sc-logo.jpg" class="floatR" />
+                <img src="/images/sc-logo.jpg" class="floatR" />
             </div>
             
             <div id="home-bio" class="fullwidth">
@@ -74,15 +74,14 @@
 -->
 
             </div>
-
             <div id="home-callout" class="fullwidth">
-                <img src="images/communityboard-center.jpg" />
+                <img src="/images/communityboard-center.jpg" />
             </div>
 
             <div id="nav" class="fullwidth">
-                <a href="/staff"><img src="/images/nav-staff.png" /></a>
-                <a href="/calendar"><img src="/images/nav-calendar.png" /></a>
-                <a href="/photos"><img src="/images/nav-photos.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-calendar.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a>
             </div>
 
             <div id="home-flyer" class="fullwidth">
@@ -119,7 +118,7 @@
             	
             	</div> <!-- //end toppicks -->
             	
-            	<a href="/flyer-int">
+            	<a href="/<?=$storedetails[0]->store_number?>/flyer-int">
             	<div id="flyerpreview">
 	                	@foreach($flyer as $f)
 		                <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$f->path}}&w=155&h=367.jpg" />
@@ -133,7 +132,7 @@
 
         </div>
 
-        <script src="js/lib/jquery-1.10.2.min.js"></script>
+        <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
         <script> 
@@ -163,7 +162,7 @@
 
           // $('#home-callout').animate({ boxShadow : "0 0 5px 3px rgba(100,100,200,0.4)" });
 
-             $("#scoreboard").load("scoreboard.html"); 
+             $("#scoreboard").load("/scoreboard.html"); 
           
 
             

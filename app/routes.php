@@ -16,13 +16,19 @@ Route::get('/', 'HomeController@getIndex');
 Route::get('/calendar', 'CalendarController@getIndex');
 Route::get('/photos', 'PhotoController@getIndex');
 Route::get('/staff', 'StaffController@getIndex');
-Route::get('/staff/{id?}', array('uses' => 'StaffController@view'))->where('id', '[0-9]+');
+// Route::get('/staff/{id?}', array('uses' => 'StaffController@view'))->where('id', '[0-9]+');
 Route::get('/flyer', 'FlyerController@getIndex');
 Route::get('/flyer-int', 'FlyerController@getInteractiveFlyer');
 Route::get('/cash', 'CashController@getIndex');
 
+Route::get('{storeno?}', array('uses' => 'HomeController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/calendar', array('uses' => 'CalendarController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/photos', array('uses' => 'PhotoController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/staff', array('uses' => 'StaffController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/flyer', array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/flyer-int', array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/cash', array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
 
-Route::get('{storeno?}/cash', array('uses' => 'CashController@getStore'))->where('storeno', '[0-9]+');
 
 /*ADMIN ROUTES*/
 Route::get('/admin', 'AdminController@getIndex');
@@ -50,7 +56,6 @@ Route::get('/admin/flyer/deletepick/{id?}', 'AdminController@removePick');
 Route::get('/admin/flyer/pickupload', 'AdminController@addPick');
 Route::post('/admin/flyer/savepick', 'AdminController@saveAddPick');
 
-
 Route::get('/admin/photos', 'AdminController@getPhotos');
 Route::get('/admin/photos/upload', 'AdminController@addPhotos');
 Route::post('/admin/photos/savenew', 'AdminController@saveAddPhoto');
@@ -66,6 +71,7 @@ Route::post('/admin/feature/savedit', 'AdminController@saveEditFeature');
 Route::post('/admin/feature/saveadd', 'AdminController@saveAddFeature');
 
 
+/*API ROUTES*/
 Route::get('/api', 'ApiController@getIndex');
 Route::get('/api/home', 'HomeController@getFeaturedData');
 Route::get('/api/calendar', 'CalendarController@getCalData');

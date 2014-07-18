@@ -2,7 +2,10 @@
 
 Class CalendarController extends BaseController {
 
-    public function getIndex(){
+    public function getIndex($sn){
+
+        $storedetails = Store::getStoreDetails($sn); 
+
         $events = CommunityEvent::getevents();
        // $events = CommunityEvent::find(40);
 
@@ -64,6 +67,7 @@ Class CalendarController extends BaseController {
         }   
 
         return View::make('calendar')
+            ->with('storedetails', $storedetails)
             ->with('events_string', $events_string);
     }
 

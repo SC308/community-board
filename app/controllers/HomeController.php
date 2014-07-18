@@ -15,8 +15,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function getIndex()
+	public function getIndex($sn)
 	{
+		$storedetails = Store::getStoreDetails($sn); 
+
 		$feature = Feature::all();
 		
         $flyer = DB::table('flyers')
@@ -31,7 +33,8 @@ class HomeController extends BaseController {
 		return View::make('home')
 			->with('feature', $feature)
 			->with('flyer', $flyer)
-			->with('toppicks', $toppicks);			
+			->with('toppicks', $toppicks)
+			->with('storedetails', $storedetails);			
 	}
 	
 	public function getFeaturedData(){

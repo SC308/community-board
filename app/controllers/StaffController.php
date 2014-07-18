@@ -2,11 +2,13 @@
 
 class StaffController extends BaseController{
 
-    public function getIndex(){
-
+    public function getIndex($sn){
+        
+        $storedetails = Store::getStoreDetails($sn); 
         $staff = StaffBio::get();
 
         return View::make('staff')
+            ->with('storedetails', $storedetails)
             ->with('staff', $staff);
     }
 
