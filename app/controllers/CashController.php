@@ -2,7 +2,7 @@
 
 class CashController extends BaseController{
     
-    public function getIndex(){
+    public function getIndex($sn){
         
         $staff = StaffBio::get();
         
@@ -16,30 +16,7 @@ class CashController extends BaseController{
                 ->where("publish","=",1)
                 ->get();
 
-        return View::make('cash/cash')
-            ->with('staff', $staff)
-            ->with('talls', $talls)
-            ->with('singles', $singles)
-            ->with('events', $events)
-            ->with('photos', $photos);
-        
-    }
-
-    public function getStore($sn){
-
-        $staff = StaffBio::get();
-        
-        $talls = CashwallAsset::getTalls();
-        
-        $singles = CashwallAsset::getSingles();
-        
-        $events = CommunityEvent::getnextthirty();
-
-        $photos = Photo::orderBy(DB::raw('RAND()'))
-                ->where("publish","=",1)
-                ->get();
-
-        $storedetails = Store::getStoreDetails($sn);        
+        $storedetails = Store::getStoreDetails($sn); 
 
         return View::make('cash/cash')
             ->with('staff', $staff)
@@ -48,6 +25,32 @@ class CashController extends BaseController{
             ->with('events', $events)
             ->with('photos', $photos)
             ->with('storedetails', $storedetails);
-
+        
     }
+
+    // public function getStore($sn){
+
+    //     $staff = StaffBio::get();
+        
+    //     $talls = CashwallAsset::getTalls();
+        
+    //     $singles = CashwallAsset::getSingles();
+        
+    //     $events = CommunityEvent::getnextthirty();
+
+    //     $photos = Photo::orderBy(DB::raw('RAND()'))
+    //             ->where("publish","=",1)
+    //             ->get();
+
+    //     $storedetails = Store::getStoreDetails($sn);        
+
+    //     return View::make('cash/cash')
+    //         ->with('staff', $staff)
+    //         ->with('talls', $talls)
+    //         ->with('singles', $singles)
+    //         ->with('events', $events)
+    //         ->with('photos', $photos)
+    //         ->with('storedetails', $storedetails);
+
+    // }
 }
