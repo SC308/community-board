@@ -16,5 +16,6 @@ app/storage/logs/*
 app/storage/cache/*
 app/storage/sessions/*
 app/storage/views/*
+app/config/database.php
 
 tests/_output/*
