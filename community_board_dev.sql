@@ -18,85 +18,85 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 --  Table structure for `cashwall_assets`
 -- ----------------------------
-DROP TABLE IF EXISTS `cashwall_assets`;
-CREATE TABLE `cashwall_assets` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `size` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `cashwall_assets`;
+-- CREATE TABLE `cashwall_assets` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `size` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `community_events`
 -- ----------------------------
-DROP TABLE IF EXISTS `community_events`;
-CREATE TABLE `community_events` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `type` int(11) NOT NULL,
-  `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `start` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `community_events`;
+-- CREATE TABLE `community_events` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `type` int(11) NOT NULL,
+--   `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `start` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `description` text COLLATE utf8_unicode_ci NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `event_types`
 -- ----------------------------
-DROP TABLE IF EXISTS `event_types`;
-CREATE TABLE `event_types` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `event_types`;
+-- CREATE TABLE `event_types` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `features`
 -- ----------------------------
-DROP TABLE IF EXISTS `features`;
-CREATE TABLE `features` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `published` int(11) NOT NULL,
-  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `content` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `features`;
+-- CREATE TABLE `features` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `published` int(11) NOT NULL,
+--   `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `content` text COLLATE utf8_unicode_ci NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `flyers`
 -- ----------------------------
-DROP TABLE IF EXISTS `flyers`;
-CREATE TABLE `flyers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `order` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `flyers`;
+-- CREATE TABLE `flyers` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `order` int(11) NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `migrations`
 -- ----------------------------
-DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE `migrations` (
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `migrations`;
+-- CREATE TABLE `migrations` (
+--   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `batch` int(11) NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `migrations`
@@ -108,56 +108,56 @@ COMMIT;
 -- ----------------------------
 --  Table structure for `photo_collections`
 -- ----------------------------
-DROP TABLE IF EXISTS `photo_collections`;
-CREATE TABLE `photo_collections` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `collection_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `photo_collections`;
+-- CREATE TABLE `photo_collections` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `collection_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `photos`
 -- ----------------------------
-DROP TABLE IF EXISTS `photos`;
-CREATE TABLE `photos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `publish` int(11) NOT NULL,
-  `collection` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `photographer_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `taken_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `photos`;
+-- CREATE TABLE `photos` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `publish` int(11) NOT NULL,
+--   `collection` int(11) NOT NULL,
+--   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `photographer_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `taken_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `description` text COLLATE utf8_unicode_ci NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `staff_bios`
 -- ----------------------------
-DROP TABLE IF EXISTS `staff_bios`;
-CREATE TABLE `staff_bios` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `first` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `last` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `position` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `favorite_sport` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `photo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `bio` text COLLATE utf8_unicode_ci NOT NULL,
-  `cash_wall` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `staff_bios`;
+-- CREATE TABLE `staff_bios` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `first` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `last` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `position` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `favorite_sport` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `photo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `bio` text COLLATE utf8_unicode_ci NOT NULL,
+--   `cash_wall` int(11) NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `staff_bios`
@@ -169,15 +169,15 @@ COMMIT;
 -- ----------------------------
 --  Table structure for `store_types`
 -- ----------------------------
-DROP TABLE IF EXISTS `store_types`;
-CREATE TABLE `store_types` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `store_desc` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `store_types`;
+-- CREATE TABLE `store_types` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `store_desc` text COLLATE utf8_unicode_ci NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `store_types`
@@ -189,21 +189,21 @@ COMMIT;
 -- ----------------------------
 --  Table structure for `stores`
 -- ----------------------------
-DROP TABLE IF EXISTS `stores`;
-CREATE TABLE `stores` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `store_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `store_type` int(11) NOT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `prov` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `district` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `stores`;
+-- CREATE TABLE `stores` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `store_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `store_type` int(11) NOT NULL,
+--   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `prov` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `district` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `active` tinyint(1) NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `stores`
@@ -215,47 +215,47 @@ COMMIT;
 -- ----------------------------
 --  Table structure for `top_picks`
 -- ----------------------------
-DROP TABLE IF EXISTS `top_picks`;
-CREATE TABLE `top_picks` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `publish` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `top_picks`;
+-- CREATE TABLE `top_picks` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `publish` int(11) NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `user_roles`
 -- ----------------------------
-DROP TABLE IF EXISTS `user_roles`;
-CREATE TABLE `user_roles` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `desc` text COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `user_roles`;
+-- CREATE TABLE `user_roles` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `role_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `desc` text COLLATE utf8_unicode_ci NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `users`
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `first` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `last` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `role` int(11) NOT NULL,
-  `last_seen` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `active` tinyint(1) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- DROP TABLE IF EXISTS `users`;
+-- CREATE TABLE `users` (
+--   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+--   `store_id` int(11) NOT NULL,
+--   `first` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `last` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+--   `role` int(11) NOT NULL,
+--   `last_seen` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `active` tinyint(1) NOT NULL,
+--   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-SET FOREIGN_KEY_CHECKS = 1;
+-- SET FOREIGN_KEY_CHECKS = 1;
