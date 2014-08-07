@@ -5,7 +5,9 @@ class StaffController extends BaseController{
     public function getIndex($sn){
         
         $storedetails = Store::getStoreDetails($sn); 
-        $staff = StaffBio::get();
+        $storeid = $storedetails[0]->id;
+
+        $staff = StaffBio::getStoreStaff($storeid);
 
         return View::make('staff')
             ->with('storedetails', $storedetails)

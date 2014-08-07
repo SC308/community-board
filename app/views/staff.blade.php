@@ -134,7 +134,7 @@
                         }, 1000, function() {
                     });
                     
-                  resetTimer();  
+                  //resetTimer();  
                 }
                 <?$i++;?>
             @endforeach
