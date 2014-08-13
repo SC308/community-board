@@ -35,6 +35,12 @@ class HomeController extends BaseController {
 			->with('flyer', $flyer)
 			->with('toppicks', $toppicks)
 			->with('storedetails', $storedetails);			
+
+
+	}
+
+	public function getHomeStoreSelector(){
+		return View::make('home-selector');
 	}
 	
 	public function getFeaturedData(){

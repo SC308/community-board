@@ -12,7 +12,7 @@
 */
 header('Access-Control-Allow-Origin: *');  
 
-Route::get('/', 'HomeController@getIndex');
+Route::get('/', 'HomeController@getHomeStoreSelector');
 Route::get('/calendar', 'CalendarController@getIndex');
 Route::get('/photos', 'PhotoController@getIndex');
 Route::get('/staff', 'StaffController@getIndex');
@@ -28,6 +28,7 @@ Route::get('{storeno?}/staff', array('uses' => 'StaffController@getIndex'))->whe
 Route::get('{storeno?}/flyer', array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer-int', array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/cash', array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
+
 
 
 /*ADMIN ROUTES*/
