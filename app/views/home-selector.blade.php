@@ -1,10 +1,4 @@
-
-
-
 <h2>store number: <input type="text" id="storeno" value="" /></h2>
-
-	
-
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script>

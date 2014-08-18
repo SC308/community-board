@@ -31,7 +31,7 @@
 
                         <div id="bio">
                         <div id="store-ribbon">
-                            Yonge Street 
+                            <?=$storedetails[0]->store_name?>
                         </div>                            
                                 <span class="whiteboxtop"></span><h1 class="name"></h1>
                                 <span class="whitebox"></span><h2 class="dept"></h2>                
@@ -54,7 +54,7 @@
                     <div id="bio-nav" style="overflow: scroll;">
 
                         @foreach($staff as $s)
-                           <a href="javascript:void(0)" onclick="javascript:show_{{$s->id}}();"><img src="timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
+                           <a href="javascript:void(0)" onclick="javascript:show_{{$s->id}}();"><img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
                         @endforeach
 
                     </div>
@@ -84,7 +84,7 @@
 
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
-        <script src="/js/timer.js"></script>
+<!--        <script src="/js/timer.js"></script> -->
 <!--         <script src="js/jquery.mobile-1.3.2.min.js"></script> -->
 
         <script type="text/javascript"> 
@@ -121,7 +121,7 @@
                             $(".dept").replaceWith('<h2 class="dept"><!--<span class="whitebox"></span>-->{{$s->position}}</h2>');
                             $(".bio-text").replaceWith("<p class='bio-text'>{{{ preg_replace( "/\r|\n/", "", $s->bio) }}}</p>");
 							$(".favsport").replaceWith("<span class='favsport'>{{$s->favorite_sport}}</span>");
-                            $("#current-staff-bio").css("background", "transparent url('timthumb.php?src=/images/staff/{{ $s->photo }}&w=1080&h=947') bottom center no-repeat");
+                            $("#current-staff-bio").css("background", "transparent url('/timthumb.php?src=/images/staff/{{ $s->photo }}&w=1080&h=947') bottom center no-repeat");
 
                     $( "#bio" ).animate({
                         opacity: 1.0,

@@ -3,10 +3,11 @@
 Class CalendarController extends BaseController {
 
     public function getIndex($sn){
-
+        
         $storedetails = Store::getStoreDetails($sn); 
-
-        $events = CommunityEvent::getevents();
+        $storeid = $storedetails[0]->id;
+        
+        $events = CommunityEvent::getevents($storeid);
        // $events = CommunityEvent::find(40);
 
         $events_string= "";
