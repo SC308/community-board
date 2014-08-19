@@ -15,8 +15,8 @@ function setTime() {
 	++totalSeconds;
 	console.clear();
 	console.log(totalSeconds);
-	if(totalSeconds == 30){
-		window.location.href = "/";
+	if(totalSeconds == 90){
+		window.location.href = "../";
 	}
 }
 

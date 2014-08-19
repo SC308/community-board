@@ -51,7 +51,7 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/calendar.full.js"></script>
         
-        <script src="js/timer.js"></script>
+        <script src="/js/timer.js"></script>
     
         <script type="text/javascript"> 
 
