@@ -103,13 +103,10 @@
         function swipeHandler( event ){
             $("#arrows").fadeOut("fast");
         }
-			<?$i=1;?>
+				<?php $i=1; $lowest = 0;?>
             @foreach($staff as $s)
 			
-				<? if($i == 1){
-					$lowest = $s->id;	
-				}
-				?>
+							<?php if($i == 1){  $lowest = $s->id; }?>
 					
                 function show_{{$s->id}}(){
 
@@ -136,7 +133,7 @@
                     
                   //resetTimer();  
                 }
-                <?$i++;?>
+                <?php $i++;?>
             @endforeach
             
             

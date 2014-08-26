@@ -10,7 +10,7 @@ class ControllerInspector {
 	 * @var array
 	 */
 	protected $verbs = array(
-		'any', 'get', 'post', 'put',
+		'any', 'get', 'post', 'put', 'patch',
 		'delete', 'head', 'options'
 	);
 
@@ -77,6 +77,7 @@ class ControllerInspector {
 	 * Get the method data for a given method.
 	 *
 	 * @param  ReflectionMethod  $method
+	 * @param  string  $prefix
 	 * @return array
 	 */
 	public function getMethodData(ReflectionMethod $method, $prefix)

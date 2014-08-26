@@ -38,7 +38,7 @@ class MorphToMany extends BelongsToMany {
 	 * @param  string  $foreignKey
 	 * @param  string  $otherKey
 	 * @param  string  $relationName
-	 * @param  bool  $inverse
+	 * @param  bool   $inverse
 	 * @return void
 	 */
 	public function __construct(Builder $query, Model $parent, $name, $table, $foreignKey, $otherKey, $relationName = null, $inverse = false)
@@ -53,7 +53,7 @@ class MorphToMany extends BelongsToMany {
 	/**
 	 * Set the where clause for the relation query.
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @return $this
 	 */
 	protected function setWhere()
 	{
@@ -62,6 +62,20 @@ class MorphToMany extends BelongsToMany {
 		$this->query->where($this->table.'.'.$this->morphType, $this->morphClass);
 
 		return $this;
+	}
+
+	/**
+	 * Add the constraints for a relationship count query.
+	 *
+	 * @param  \Illuminate\Database\Eloquent\Builder  $query
+	 * @param  \Illuminate\Database\Eloquent\Builder  $parent
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function getRelationCountQuery(Builder $query, Builder $parent)
+	{
+		$query = parent::getRelationCountQuery($query, $parent);
+
+		return $query->where($this->table.'.'.$this->morphType, $this->morphClass);
 	}
 
 	/**
@@ -119,6 +133,26 @@ class MorphToMany extends BelongsToMany {
 		$pivot->setMorphType($this->morphType);
 
 		return $pivot;
+	}
+
+	/**
+	 * Get the foreign key "type" name.
+	 *
+	 * @return string
+	 */
+	public function getMorphType()
+	{
+		return $this->morphType;
+	}
+
+	/**
+	 * Get the class name of the parent model.
+	 *
+	 * @return string
+	 */
+	public function getMorphClass()
+	{
+		return $this->morphClass;
 	}
 
 }

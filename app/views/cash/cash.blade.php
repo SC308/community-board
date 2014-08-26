@@ -5,9 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
     <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-		<META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">           
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">     
         <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +29,7 @@
                 <ul class="polaroids">
                 <?php $i=0 ?>
                 @foreach($photos as $p)
-                    <li class="commphoto" id="pic_<?=$i?>"><a href="#"><img id="img_<?=$i?>" src="timthumb.php?src=/images/photos/{{ $p->path }}&w=500h=333&a=c" /></a></li>
+                    <li class="commphoto" id="pic_<?=$i?>"><a href="#"><img id="img_<?=$i?>" src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=500h=333&a=c" /></a></li>
                 <?php $i++?>
                 @endforeach
                 </ul>
@@ -84,7 +82,7 @@
                 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <?php $i=1 ?>
+                    <?php $i=1; ?>
                     @foreach($events as $e)
                     <?php
                         $currentmonth = $e->startmonth;
@@ -93,7 +91,7 @@
                     <div class="item <?php if($i==1) { echo 'active'; } ?>">
                         <h3>{{ $monthName }} {{ $e->startday }} &nbsp;&nbsp;&nbsp; <? $t = $e->starthour.":".$e->startmin; echo date("g:i a", strtotime($t));?></h3>
                         
-                        <h4>  {{ $e->title }}</h4>
+                        <h4>{{ $e->title }}</h4>
                         <h4>{{ $e->location }}</h4>
                         <p>{{ $e->description }}</p>
                     </div>
@@ -116,13 +114,13 @@
                 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <?php $i=1 ?>
+                    <?php $i=1; ?>
                     @foreach($staff as $s)
 
 
                     <div class="item <?php if($i==1) { echo 'active'; } ?>">
 
-                         <img src="timthumb.php?src=/images/staff/{{ $s->photo }}&w=960&h=1080&a=br" />
+                         <img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=960&h=1080&a=br" />
                          <span class="staff-ribbon">Your Store Staff</span>
                          <span class="staffname">
                             <em>{{$s->first}} {{$s->last}}</em> <br />

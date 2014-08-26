@@ -4,7 +4,11 @@ class CashController extends BaseController{
     
     public function getIndex($sn){
         
-        $staff = StaffBio::get();
+				$storedetails = Store::getStoreDetails($sn); 
+				$storeid = $storedetails[0]->id;
+				
+       // $staff = StaffBio::get();
+  		 $staff = StaffBio::getStoreStaff($storeid);
         
         $talls = CashwallAsset::getTalls();
         
@@ -14,9 +18,8 @@ class CashController extends BaseController{
 
         $photos = Photo::orderBy(DB::raw('RAND()'))
                 ->where("publish","=",1)
+                ->where("store_id","=",$storeid)
                 ->get();
-
-        $storedetails = Store::getStoreDetails($sn); 
 
 		if (!$storedetails) {
 			

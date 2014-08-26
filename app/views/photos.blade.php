@@ -43,7 +43,7 @@
             @foreach($photos as $p)
 
         
-            <a class="fancybox" href="/timthumb.php?src=/images/photos/{{ $p->path }}&w=1000.jpg" title="<strong>{{ $p->title}}</strong><br />{{ $p->description}}<? if($p->location !=""){ echo '<br /><small class=smaller>Location: '.$p->location . '</small>'; } ?><? if($p->photographer_name !=""){ echo '&nbsp;&nbsp;&nbsp;<small class=smaller>Photographer: '.$p->photographer_name . '</small>'; } ?>"><img src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=300" /></a>
+            <a class="fancybox" href="/timthumb.php?src=/images/photos/{{ $p->path }}&w=1000.jpg" title="<strong>{{ $p->title}}</strong><br />{{ $p->description}}<?php if($p->location !=""){ echo '<br /><small class=smaller>Location: '.$p->location . '</small>'; } ?><?php if($p->photographer_name !=""){ echo '&nbsp;&nbsp;&nbsp;<small class=smaller>Photographer: '.$p->photographer_name . '</small>'; } ?>"><img src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=300" /></a>
 
             @endforeach
 

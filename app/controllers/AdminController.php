@@ -518,10 +518,7 @@ class AdminController extends BaseController{
 
         }
 
-                    
-
-
-
+                
     }
 
     public function saveAddFeature(){
@@ -555,6 +552,18 @@ class AdminController extends BaseController{
                 ->with('response', $r );
         }      
 
+    }
+
+    public function logout(){
+
+        Auth::logout();
+        //Session::flush();
+        // $response = Response::make( 'logout', 200 );
+        // $response->header( 'cache-control', 'no-store,no-cache,must-revalidate' );
+        // $response->header( 'pragma', 'no-cache' );
+        // $response->header( 'expires', '0' );
+        // return $response;
+        return Redirect::to('/login')->with('message', 'You are now logged out!');
     }
 
 

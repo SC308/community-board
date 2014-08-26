@@ -29,10 +29,25 @@ Route::get('{storeno?}/flyer', array('uses' => 'FlyerController@getIndex'))->whe
 Route::get('{storeno?}/flyer-int', array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/cash', array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
 
+/*AUTHENTICATION*/
+Route::get('/authtest', array('before' => 'auth.basic', function() {
+    return View::make('auth');
+}));
 
+
+Route::get('/logout', 'AdminController@logout');
+//Route::get('/logout', array('as' => 'logout', function () { }))->before('auth.basic');
+
+
+Route::get('/login', function() {
+	return "this is the login page I guess";
+});
 
 /*ADMIN ROUTES*/
-Route::get('/admin', 'AdminController@getIndex');
+//Route::get('/admin', 'AdminController@getIndex');
+
+Route::get('/admin',  array('before' => 'auth.basic', 'uses' => 'AdminController@getIndex'));
+
 Route::get('/admin/staff', 'AdminController@getStaff');
 Route::get('/admin/staff/add', 'AdminController@addStaff');
 Route::get('/admin/staff/edit/{id?}', 'AdminController@editStaff');
@@ -80,3 +95,4 @@ Route::get('/api/calendar-raw', 'CalendarController@getCalRaw');
 Route::get('/api/staff', 'StaffController@getStaffData');
 Route::get('/api/photos', 'PhotoController@getPhotoData');
 Route::get('/api/flyer', 'FlyerController@getFlyerData');
+

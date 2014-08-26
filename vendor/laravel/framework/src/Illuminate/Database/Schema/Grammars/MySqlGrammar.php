@@ -7,18 +7,11 @@ use Illuminate\Database\Schema\Blueprint;
 class MySqlGrammar extends Grammar {
 
 	/**
-	 * The keyword identifier wrapper format.
-	 *
-	 * @var string
-	 */
-	protected $wrapper = '`%s`';
-
-	/**
 	 * The possible column modifiers.
 	 *
 	 * @var array
 	 */
-	protected $modifiers = array('Unsigned', 'Nullable', 'Default', 'Increment', 'After');
+	protected $modifiers = array('Unsigned', 'Nullable', 'Default', 'Increment', 'After', 'Comment');
 
 	/**
 	 * The possible column serials
@@ -40,7 +33,6 @@ class MySqlGrammar extends Grammar {
 	/**
 	 * Compile the query to determine the list of columns.
 	 *
-	 * @param  string  $table
 	 * @return string
 	 */
 	public function compileColumnExists()
@@ -98,7 +90,7 @@ class MySqlGrammar extends Grammar {
 	}
 
 	/**
-	 * Compile a create table command.
+	 * Compile an add column command.
 	 *
 	 * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
 	 * @param  \Illuminate\Support\Fluent  $command
@@ -274,6 +266,17 @@ class MySqlGrammar extends Grammar {
 		$from = $this->wrapTable($blueprint);
 
 		return "rename table {$from} to ".$this->wrapTable($command->to);
+	}
+
+	/**
+	 * Create the column definition for a char type.
+	 *
+	 * @param  \Illuminate\Support\Fluent  $column
+	 * @return string
+	 */
+	protected function typeChar(Fluent $column)
+	{
+		return "char({$column->length})";
 	}
 
 	/**
@@ -561,6 +564,34 @@ class MySqlGrammar extends Grammar {
 		{
 			return ' after '.$this->wrap($column->after);
 		}
+	}
+
+	/**
+	 * Get the SQL for an "comment" column modifier.
+	 *
+	 * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
+	 * @param  \Illuminate\Support\Fluent  $column
+	 * @return string|null
+	 */
+	protected function modifyComment(Blueprint $blueprint, Fluent $column)
+	{
+		if ( ! is_null($column->comment))
+		{
+			return ' comment "'.$column->comment.'"';
+		}
+	}
+
+	/**
+	 * Wrap a single string in keyword identifiers.
+	 *
+	 * @param  string  $value
+	 * @return string
+	 */
+	protected function wrapValue($value)
+	{
+		if ($value === '*') return $value;
+
+		return '`'.str_replace('`', '``', $value).'`';
 	}
 
 }
