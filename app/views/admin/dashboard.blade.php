@@ -1,6 +1,7 @@
 <?php
-$storedetails = Store::getStoreDetails( Confide::user()->store_id );
+	$storedetails = Store::getStoreDetails( Confide::user()->store_id );
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,7 +12,16 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-     <title><?php echo $storedetails[0]->store_name?> Community Board Admin</title>
+    <title><?php echo $storedetails[0]->store_name?> Community Board Admin</title>
+
+	<style>
+
+		.tile-link{ color: #fff; }
+		a.tile-link:hover{ color: #fff; }
+		.tile{ display: block; float: left; height: 200px; width: 200px; border: thin solid #666; background-color: #ccc; margin: 10px;}
+		a.tile-link:hover div.tile{ background-color: #333;}
+		.clear{ clear: both; }
+	</style>
 
     <!-- Bootstrap core CSS -->
     <link href="/admin-assets/css/bootstrap.css" rel="stylesheet">
@@ -26,8 +36,6 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
     <![endif]-->
   </head>
 
-  <body>
-
     <!-- Wrap all page content here -->
     <div id="wrap">
 
@@ -41,35 +49,43 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin"><?php echo $storedetails[0]->store_name?>  Community Board</a>
+            <a class="navbar-brand" href="/admin"><?php echo $storedetails[0]->store_name?> Community Board</a>
           </div>
           <div class="collapse navbar-collapse">
             @include('admin/nav')
-          </div><!--/.nav-collapse -->
+      	  </div><!--/.nav-collapse -->
         </div>
       </div>
 
       <!-- Begin page content -->
-      <div class="container" style="padding-top: 30px;">
+      <div class="container" style="padding-top: 60px;">
         <div class="page-header">
-        
-            <div class="row">
-                <h1>{{ $response_title }}</h1>
-                <p class="lead">
-                  {{ $response }}
-                </p>
-
-              
-                
-                
-            </div>
-          
-            
+           
         </div>
+		
+		<div class="tiles">
+		  <a href="/admin/photos" class="tile-link"><div class="tile"><h2>Photos <span class="glyphicon glyphicon-picture"></span></h2></div>         </a>
+		  <a href="/admin/staff" class="tile-link"><div class="tile"><h2>Staff <span class="glyphicon glyphicon-user"></span></h2></div>          </a>
+		  <a href="/admin/calendar" class="tile-link"><div class="tile"><h2>Calendar</h2></div>       </a>
+		  <a href="/admin/feature" class="tile-link"><div class="tile"><h2>Feature Content</h2></div></a>
+		  <a href="/admin/jumpstart" class="tile-link"><div class="tile"><h2>Jumpstart</h2></div>      </a>
+		  <a href="/admin/flyer" class="tile-link"><div class="tile"><h2>Flyer</h2></div>          </a>
+		
+
+		</div>        
+		
+		<br class="clearfix clear" />
+		
+		<?php if( Confide::user()->store_id == 99999 ){ ?>
+		<h2>Super Admin Functions</h2>
+		<a href="/users/create">Create New User</a>
+		
+		<?php } ?>
+		
+		
+       
 		@include('admin/debug')
     </div>
-
-
 
 
     <!-- Bootstrap core JavaScript

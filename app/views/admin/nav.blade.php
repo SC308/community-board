@@ -15,3 +15,10 @@
               
 
             </ul>
+
+					<div class="pull-right">
+						<small>Welcome, {{ Confide::user()->username }}! <a href="/logout">Logout</a>
+						<?php if( Confide::user()->store_id == 99999 ){ ?>
+							@include('admin/storeselector')
+						<?php } ?></small>
+					</div>

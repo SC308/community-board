@@ -30,23 +30,23 @@ Route::get('{storeno?}/flyer-int', array('uses' => 'FlyerController@getInteracti
 Route::get('{storeno?}/cash', array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
 
 /*AUTHENTICATION*/
-Route::get('/authtest', array('before' => 'auth.basic', function() {
-    return View::make('auth');
-}));
+// Route::get('/authtest', array('before' => 'auth.basic', function() {
+//     return View::make('auth');
+// }));
 
 
-Route::get('/logout', 'AdminController@logout');
+// Route::get('/logout', 'AdminController@logout');
 //Route::get('/logout', array('as' => 'logout', function () { }))->before('auth.basic');
 
 
-Route::get('/login', function() {
-	return "this is the login page I guess";
-});
+// Route::get('/login', function() {
+// 	return "this is the login page I guess";
+// });
 
 /*ADMIN ROUTES*/
 //Route::get('/admin', 'AdminController@getIndex');
 
-Route::get('/admin',  array('before' => 'auth.basic', 'uses' => 'AdminController@getIndex'));
+Route::get('/admin', 'AdminController@getIndex');
 
 Route::get('/admin/staff', 'AdminController@getStaff');
 Route::get('/admin/staff/add', 'AdminController@addStaff');
@@ -95,4 +95,27 @@ Route::get('/api/calendar-raw', 'CalendarController@getCalRaw');
 Route::get('/api/staff', 'StaffController@getStaffData');
 Route::get('/api/photos', 'PhotoController@getPhotoData');
 Route::get('/api/flyer', 'FlyerController@getFlyerData');
+
+//
+
+// user/authentication routes
+
+Route::post('users', 'UsersController@store');
+Route::get('users/create', 'UsersController@create');
+
+Route::get('/login', 'UsersController@login');
+Route::get('users/login', 'UsersController@login');
+Route::post('users/login', 'UsersController@doLogin');
+
+Route::get('users/confirm/{code}', 'UsersController@confirm');
+Route::get('users/forgot_password', 'UsersController@forgotPassword');
+Route::post('users/forgot_password', 'UsersController@doForgotPassword');
+Route::get('users/reset_password/{token}', 'UsersController@resetPassword');
+Route::post('users/reset_password', 'UsersController@doResetPassword');
+//Route::get('users/logout', 'UsersController@logout');
+Route::get('/logout', 'UsersController@logout');
+
+// Dashboard route 
+Route::get('admin/dashboard', function(){ return View::make('admin.dashboard'); });
+Route::when('admin/*', 'auth');
 

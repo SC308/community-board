@@ -6,8 +6,6 @@ class ConfideSetupUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -20,7 +18,7 @@ class ConfideSetupUsersTable extends Migration
             $table->string('confirmation_code');
             $table->string('remember_token')->nullable();
 			$table->integer('store_id')->references('id')->on('stores');
-			$table->integer('role')->references('id')->on('user_roles');
+			$table->integer('role')->references('id')->on('user_roles'); 
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
         });
@@ -35,8 +33,6 @@ class ConfideSetupUsersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

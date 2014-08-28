@@ -9,6 +9,21 @@
             <label for="email">{{{ Lang::get('confide::confide.e_mail') }}} <small>{{ Lang::get('confide::confide.signup.confirmation_required') }}</small></label>
             <input class="form-control" placeholder="{{{ Lang::get('confide::confide.e_mail') }}}" type="text" name="email" id="email" value="{{{ Input::old('email') }}}">
         </div>
+
+
+
+        <div class="form-group">
+            <label for="store_id">{{{ Lang::get('confide::confide.store_id') }}} </label>
+			<select name="store_id" id="store_id" class="form-control">
+				<?php
+				$stores = Store::getAllStores();
+				foreach($stores as $store){
+					echo "<option value='".$store->store_number."'>".$store->store_number." ".$store->store_name."</option>";
+				}
+				?>
+			</select>
+		</div>
+
         <div class="form-group">
             <label for="password">{{{ Lang::get('confide::confide.password') }}}</label>
             <input class="form-control" placeholder="{{{ Lang::get('confide::confide.password') }}}" type="password" name="password" id="password">
@@ -27,7 +42,7 @@
         @endif
 
         @if (Session::get('notice'))
-            <div class="alert">{{ Session::get('notice') }}</div>
+            <div class="alert alert-warning">{{ Session::get('notice') }}</div>
         @endif
 
         <div class="form-actions form-group">

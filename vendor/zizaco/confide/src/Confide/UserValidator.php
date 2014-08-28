@@ -45,11 +45,13 @@ class UserValidator implements UserValidatorInterface
         'create' => [
             'username' => 'required|alpha_dash',
             'email'    => 'required|email',
+			'store_id' => 'required',
             'password' => 'required|min:4',
         ],
         'update' => [
             'username' => 'required|alpha_dash',
             'email'    => 'required|email',
+			'store_id' => 'required',
             'password' => 'required|min:4',
         ]
     ];

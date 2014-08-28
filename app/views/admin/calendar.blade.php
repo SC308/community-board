@@ -5,6 +5,8 @@ function trunc($phrase, $max_words) {
       $phrase = implode(' ',array_slice($phrase_array, 0, $max_words)).'...';
    return $phrase;
 }
+$storedetails = Store::getStoreDetails( Confide::user()->store_id );
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +18,7 @@ function trunc($phrase, $max_words) {
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>5111 Community Board Admin</title>
+    <title><?php echo $storedetails[0]->store_name?> Community Board Admin :: Calendar</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/admin-assets/css/bootstrap.css" rel="stylesheet">
@@ -46,7 +48,7 @@ function trunc($phrase, $max_words) {
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">5111 Community Board</a>
+            <a class="navbar-brand" href="/admin"><?php echo $storedetails[0]->store_name?> Community Board</a>
           </div>
           <div class="collapse navbar-collapse">
             @include('admin/nav')
@@ -72,7 +74,7 @@ function trunc($phrase, $max_words) {
             $i = 0;
         ?>
           @foreach($calendar as $c)
-            <? 
+            <?php
             //this is the first record, so initiate the current month
             if($i == 0){
                 $currentmonth = $c->startmonth;
@@ -84,7 +86,7 @@ function trunc($phrase, $max_words) {
                 <th><h5>Start</h5></th>
                 <th colspan="2"><h5>Description</h5></th>
             </tr>   
-            <? 
+            <?php 
             }  
 
             if($currentmonth == $c->startmonth){ 
@@ -103,7 +105,7 @@ function trunc($phrase, $max_words) {
                     </td>                    
                 </tr>
 
-            <?
+            <?php
             } else {
                 //start a new month heading, change what the current month is
                 $currentmonth = $c->startmonth;
@@ -128,7 +130,7 @@ function trunc($phrase, $max_words) {
                         </div>
                     </td>                    
                 </tr>                
-            <?
+            <?php
             }    
             $i++; 
             ?>

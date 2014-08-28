@@ -6,6 +6,7 @@ return array(
     'password' => 'Password',
     'password_confirmation' => 'Confirm Password',
     'e_mail' => 'Email',
+    'store_id' => 'Store Number',
     'username_e_mail' => 'Username or Email',
 
     'signup' => array(

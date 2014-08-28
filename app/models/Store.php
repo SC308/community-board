@@ -11,4 +11,18 @@ class Store extends Eloquent{
         return $storeDetails;
     }
 
+    public static function getStoreIDfromStoreNumber($sn){
+    	$storeDetails = DB::table('stores')
+					->where('store_number', '=', $sn)
+					->get('id');  
+        return $storeDetails;
+    }
+
+	public static function getAllStores(){
+		$storeDetails = DB::table('stores')
+						->where('store_type', '!=', 0)
+						->get();
+		return $storeDetails;
+	}
+
 }
