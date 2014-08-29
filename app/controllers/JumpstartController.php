@@ -6,11 +6,11 @@ class JumpstartController extends BaseController{
         $storedetails = Store::getStoreDetails($sn); 
         $storeid = $storedetails[0]->id;
 
-        $jumpstart = Jumpstart::getJumpstart($storeid);
+       // $jumpstart = Jumpstart::getJumpstart($storeid);
         
         return View::make('jumpstart')
-            ->with('storedetails', $storedetails)
-            ->with('jumpstart', $jumpstart);
+        	   ->with('storedetails', $storedetails);
+        //    ->with('jumpstart', $jumpstart);
     }
     
 }

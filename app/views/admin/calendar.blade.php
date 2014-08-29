@@ -101,6 +101,9 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
                         <div class="btn-group btn-group-xs">
                             <button class="btn btn-default" onclick="location.href='/admin/calendar/edit/{{$c->id}}';"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button class="btn btn-danger" onclick="location.href='/admin/calendar/delete/{{$c->id}}';"><span class="glyphicon glyphicon-trash"></span></button>
+                            @if($c->hilite == 1) 
+                              <span style="color: red; padding-left: 10px;" class="glyphicon glyphicon-star"></span>
+                            @endif
                         </div>
                     </td>                    
                 </tr>
@@ -127,6 +130,9 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
                         <div class="btn-group btn-group-xs">
                             <button class="btn btn-default" onclick="location.href='/admin/calendar/edit/{{$c->id}}';"><span class="glyphicon glyphicon-pencil"></span></button>
                             <button class="btn btn-danger" onclick="location.href='/admin/calendar/delete/{{$c->id}}';"><span class="glyphicon glyphicon-trash"></span></button>
+                            @if($c->hilite == 1) 
+                              <span style="color: red; padding-left: 10px;" class="glyphicon glyphicon-star"></span>
+                            @endif                            
                         </div>
                     </td>                    
                 </tr>                

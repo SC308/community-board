@@ -2,6 +2,16 @@
 
 class AdminController extends BaseController{
 
+
+    // // public static $storedetails;
+    // // public static $sn; //store id number, not "store number" -- i.e. this is the primary key in `stores` table.
+
+    // public function __construct(){
+
+    //     // $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+    //     // $sn = $storedetails[0]->id;
+    // }
+
     /**
      * Default view
      *
@@ -19,9 +29,9 @@ class AdminController extends BaseController{
      *                                                                                    
      */
     public function getPhotos(){
-		$storedetails = Store::getStoreDetails( Confide::user()->store_id );
-		$sn = $storedetails[0]->id;
-       // $photos = Photo::all();		
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+        // $photos = Photo::all();		
 		$photos = Photo::getPhotos($sn);
         return View::make('admin/photos')
         ->with('photos', $photos);
@@ -419,13 +429,21 @@ class AdminController extends BaseController{
         $storedetails = Store::getStoreDetails( Confide::user()->store_id );
         $sn = $storedetails[0]->id;
 
+        $h = Input::get('hilite');
+        if($h == "on"){
+            $h = 1;
+        } else {
+            $h = 0;
+        }
+
         $eventdetails = array(
             'store_id' => $sn,
             'title' => Input::get('title'),
             'location' => Input::get('location'),
             'start' => Input::get('start'),
             'end' => Input::get('end'),
-            'description' => Input::get('description')
+            'description' => Input::get('description'),
+            'hilite' => $h
         );        
         $event = CommunityEvent::create($eventdetails);
         $event->save();
@@ -458,6 +476,13 @@ class AdminController extends BaseController{
         $storedetails = Store::getStoreDetails( Confide::user()->store_id );
         $sn = $storedetails[0]->id;
 
+        $h = Input::get('hilite');
+        if($h == "on"){
+            $h = 1;
+        } else {
+            $h = 0;
+        }
+
         $id= Input::get('id');
 
         $eventedits = array(
@@ -466,7 +491,8 @@ class AdminController extends BaseController{
             'location' => Input::get('location'),
             'start' => Input::get('start'),
             'end' => Input::get('end'),
-            'description' => Input::get('description')
+            'description' => Input::get('description'),
+            'hilite' => $h
         );
 
         CommunityEvent::find($id)->update($eventedits);
@@ -612,7 +638,12 @@ class AdminController extends BaseController{
      */
 
      public function getJumpstart(){
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
 
+       // $content = Jumpstart::getJumpstart($sn);
+        return View::make('admin/jumpstart');
+         //   ->with('content', $content);
      }
 
      public function addJumpstart(){
@@ -620,11 +651,19 @@ class AdminController extends BaseController{
      }
 
      public function removeJumpstart(){
-
+        $f = Feature::find($id);
+        $f->delete();
+        $t = "Done!";
+        $r = "Feature content deleted!<br /><a href='/admin/feature'>Back to Feature Content</a>";
+        return View::make('admin/confirmation')
+                ->with('response_title', $t)
+                ->with('response', $r );
      }
 
      public function editJumpstart(){
-
+        $jumpstart = DB::table('jumpstart')->where('id', $id)->first();
+        return View::make('admin/jumpstartedit')
+            ->with('jumpstart', $jumpstart);
      }
 
      public function saveEditJumpstart(){
@@ -632,7 +671,7 @@ class AdminController extends BaseController{
      }
 
      public function saveAddJumpStart(){
-        
+
      }
 
 }

@@ -19,6 +19,7 @@ class CreateCommunityEventsTable extends Migration {
 			$table->string('location');
 			$table->timestamp('start');
 			$table->timestamp('end');
+			$table->integer('hilite');
 			$table->text('description');
 			$table->timestamps();
 		});

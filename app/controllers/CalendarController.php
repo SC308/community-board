@@ -18,6 +18,12 @@ Class CalendarController extends BaseController {
 
         foreach($events as $e){
 
+            if($e->hilite){
+                $h = 1;
+            } else {
+                $h = 0;
+            }
+
             if( $e->startdate != $lastdate) {
                 $lastdate = $e->startdate;
 
@@ -44,7 +50,13 @@ Class CalendarController extends BaseController {
                     
                 }
                 $enddate = str_replace("-", "", $e->enddate);
-                $events_string .= '<div data-role="day" data-day="'.$startdate.'">';  //open the new dategroup
+
+                if($h == 1){
+                    $events_string .= '<div data-role="day" data-day="'.$startdate.'" data-hilite="yes">';  //open the new dategroup
+                } else {
+                    $events_string .= '<div data-role="day" data-day="'.$startdate.'">';  //open the new dategroup
+                }
+                
             }
             $startmin = $e->startmin;
             $endmin = $e->endmin; 

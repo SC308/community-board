@@ -26,8 +26,10 @@ Route::get('{storeno?}/calendar', array('uses' => 'CalendarController@getIndex')
 Route::get('{storeno?}/photos', array('uses' => 'PhotoController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/staff', array('uses' => 'StaffController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer', array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/jumpstart', array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer-int', array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/cash', array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
+
 
 /*AUTHENTICATION*/
 // Route::get('/authtest', array('before' => 'auth.basic', function() {
@@ -46,8 +48,13 @@ Route::get('{storeno?}/cash', array('uses' => 'CashController@getIndex'))->where
 /*ADMIN ROUTES*/
 //Route::get('/admin', 'AdminController@getIndex');
 
-Route::get('/admin', 'AdminController@getIndex');
 
+// Route::when('/admin', 'auth');
+// Route::when('/admin/*', 'auth');
+
+Route::when('admin*', 'auth');
+
+Route::get('/admin', 'AdminController@getIndex');
 Route::get('/admin/staff', 'AdminController@getStaff');
 Route::get('/admin/staff/add', 'AdminController@addStaff');
 Route::get('/admin/staff/edit/{id?}', 'AdminController@editStaff');
@@ -86,6 +93,13 @@ Route::get('/admin/feature/delete/{id?}', 'AdminController@removeFeature');
 Route::post('/admin/feature/savedit', 'AdminController@saveEditFeature');
 Route::post('/admin/feature/saveadd', 'AdminController@saveAddFeature');
 
+Route::get('/admin/jumpstart', 'AdminController@getJumpstart');
+Route::get('/admin/jumpstart/add', 'AdminController@addJumpstart');
+Route::get('/admin/jumpstart/edit/{id?}', 'AdminController@editJumpstart');
+Route::get('/admin/jumpstart/delete/{id?}', 'AdminController@removeJumpstart');
+Route::post('/admin/jumpstart/savedit', 'AdminController@saveEditJumpstart');
+Route::post('/admin/jumpstart/saveadd', 'AdminController@saveAddJumpstart');
+
 
 /*API ROUTES*/
 Route::get('/api', 'ApiController@getIndex');
@@ -117,5 +131,5 @@ Route::get('/logout', 'UsersController@logout');
 
 // Dashboard route 
 Route::get('admin/dashboard', function(){ return View::make('admin.dashboard'); });
-Route::when('admin/*', 'auth');
+
 

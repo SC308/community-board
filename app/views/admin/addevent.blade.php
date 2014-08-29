@@ -112,7 +112,17 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
                         </div>    
                         <div class="form-group">  
 
+                            <div class="col-sm-4 pull-left checkbox">
                              
+                              <label for="hilite">
+                             
+                             
+                        
+                                <input type="checkbox" name="hilite" class="" id="hilite"> Highlight Event
+                             
+                              </label>
+
+                            </div>
                           
                             
                             <div class="col-sm-5 pull-right">

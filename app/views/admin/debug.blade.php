@@ -7,6 +7,8 @@
 		<b>email</b> {{ Confide::user()->email }}
 		<b>store number</b> {{ Confide::user()->store_id }}
 		<b>store data id</b> <?php echo $storedetails[0]->id; ?>	        
+
+		<h1>User</h1>
 		<pre>
 			<?php
 			var_dump(Confide::user());
