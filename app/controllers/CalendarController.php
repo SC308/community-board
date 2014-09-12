@@ -2,7 +2,7 @@
 
 Class CalendarController extends BaseController {
 
-    public function getIndex($sn){
+    public function getIndex($sn, $ls = NULL){
         
         $storedetails = Store::getStoreDetails($sn); 
         $storeid = $storedetails[0]->id;
@@ -91,9 +91,22 @@ Class CalendarController extends BaseController {
             $i++;            
         }   
 
-        return View::make('calendar')
-            ->with('storedetails', $storedetails)
-            ->with('events_string', $events_string);
+        if($ls){
+            //landscape
+            return View::make('landscape/calendar')
+                ->with('storedetails', $storedetails)
+                ->with('events_string', $events_string);            
+        } else {
+            return View::make('calendar')
+                ->with('storedetails', $storedetails)
+                ->with('events_string', $events_string);            
+        }    
+
+    }
+
+    public function getIndexLandScape($sn){
+        $storedetails = Store::getStoreDetails($sn); 
+        return $this->getIndex($sn, true);  
     }
 
 }

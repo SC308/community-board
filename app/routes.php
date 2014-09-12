@@ -13,44 +13,30 @@
 header('Access-Control-Allow-Origin: *');  
 
 Route::get('/', 'HomeController@getHomeStoreSelector');
-Route::get('/calendar', 'CalendarController@getIndex');
-Route::get('/photos', 'PhotoController@getIndex');
-Route::get('/staff', 'StaffController@getIndex');
-// Route::get('/staff/{id?}', array('uses' => 'StaffController@view'))->where('id', '[0-9]+');
-Route::get('/flyer', 'FlyerController@getIndex');
-Route::get('/flyer-int', 'FlyerController@getInteractiveFlyer');
-Route::get('/cash', 'CashController@getIndex');
-
-Route::get('{storeno?}', array('uses' => 'HomeController@getIndex'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/calendar', array('uses' => 'CalendarController@getIndex'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/photos', array('uses' => 'PhotoController@getIndex'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/staff', array('uses' => 'StaffController@getIndex'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/flyer', array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/jumpstart', array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/flyer-int', array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/cash', array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
 
 
-/*AUTHENTICATION*/
-// Route::get('/authtest', array('before' => 'auth.basic', function() {
-//     return View::make('auth');
-// }));
+Route::get('{storeno?}', 				array('uses' => 'HomeController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/calendar', 		array('uses' => 'CalendarController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/photos',	 		array('uses' => 'PhotoController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/staff', 			array('uses' => 'StaffController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/flyer', 			array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/jumpstart', 		array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/flyer-int', 		array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/cash', 			array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
 
 
-// Route::get('/logout', 'AdminController@logout');
-//Route::get('/logout', array('as' => 'logout', function () { }))->before('auth.basic');
+//LANDSCAPE ROUTES
+Route::get('{storeno?}/ls', 		 	array('uses' => 'HomeController@getIndexLandScape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/calendar', 	array('uses' => 'CalendarController@getIndexLandScape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/photos', 		array('uses' => 'PhotoController@getIndexLandScape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/staff', 		array('uses' => 'StaffController@getIndexLandScape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLandScape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/jumpstart', 	array('uses' => 'JumpstartController@getIndexLandScape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/flyer-int', 	array('uses' => 'FlyerController@getInteractiveFlyerLandScape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/cash', 		array('uses' => 'CashController@getIndexLandScape'))->where('storeno', '[0-9]+');
 
 
-// Route::get('/login', function() {
-// 	return "this is the login page I guess";
-// });
 
-/*ADMIN ROUTES*/
-//Route::get('/admin', 'AdminController@getIndex');
-
-
-// Route::when('/admin', 'auth');
-// Route::when('/admin/*', 'auth');
 
 Route::when('admin*', 'auth');
 

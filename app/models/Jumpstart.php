@@ -8,7 +8,7 @@ class Jumpstart extends Eloquent{
 
     	$jumpstart = DB::table('jumpstart')
 					->where('store_id', '=', $storeid)
-					->get();  
+					->find(1);
         return $jumpstart;
     }
 
