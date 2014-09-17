@@ -104,9 +104,9 @@ Class CalendarController extends BaseController {
 
     }
 
-    public function getIndexLandScape($sn){
-        $storedetails = Store::getStoreDetails($sn); 
-        return $this->getIndex($sn, true);  
-    }
+    // public function getIndexLandScape($sn){
+    //     $storedetails = Store::getStoreDetails($sn); 
+    //     return $this->getIndex($sn, true);  
+    // }
 
 }

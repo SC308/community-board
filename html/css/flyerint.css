@@ -1,5 +1,3 @@
-/* hi*/
-
 #header_area{ display: none !important; }
 .wishabi-broadsheettopbar-submenu{ display: none !important; }  
 .wishabi-broadsheettopbar-share{ display: none !important; }
@@ -10,6 +8,10 @@
 .wishabi-broadsheettopbar-location, .wishabi-broadsheettopbar-location {display: none !important; }
 .wishabi-flyerfooter-trailer{ display: none !important; }
 
+body.landscape .wishabi-flyerfooter-slider-area{ display: none !important; }
+body.landscape .wishabi-flyerfooter{ height: 0px !important; display: none !important; }
+body.landscape .wishabi-flyerfooter-container { height: 1px !important; }
+body.landscape .wishabi-flyerview{ border: thin solid lime; position: relative !important; top: -30px !important; }
 
 .scoretable{position: relative; bottom: 20px;}
 .league img{ position: relative; top: 20px;}

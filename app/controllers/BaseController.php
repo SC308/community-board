@@ -15,4 +15,9 @@ class BaseController extends Controller {
 		}
 	}
 
+	public function getIndexLandScape($sn){
+       // $storedetails = Store::getStoreDetails($sn); 
+        return $this->getIndex($sn, true);  
+    }    
+
 }

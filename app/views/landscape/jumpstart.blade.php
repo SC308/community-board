@@ -21,7 +21,8 @@
 			.featurecontent .active.left {left:0;opacity:0;z-index:2;}
 			.featurecontent .next {left:0;opacity:1;z-index:1;}			
 
-            #main{ background-color: #fff; }
+            #main{ background-color: #fff;}
+            p{ font-size: 20px; line-height: 24px;}
 		</style> 
     </head>
 
@@ -43,10 +44,74 @@
         	</div>
 
         	<div id="main">
-        		
-                <img src="/images/jumpstart-logo-white.jpg" />
 
-                {{ $jumpstart->champ_name }}
+            <div id="js-info">
+
+                    <img src="/images/jumpstart-logo-white.jpg" id="js-logo" style="margin-right: 50px;" />
+
+                    <div id="js-champ">
+                        
+                            <img src="/images/jumpstart/js-champ-title.jpg" />    
+                        <p>
+                            
+                            
+                            <img src="/timthumb.php?src=/images/jumpstart/champs/{{ $jumpstart->champ_photo }}&w=230&h=230&a=br" align="left" style="margin-right: 20px;" />
+                            <strong>{{ $jumpstart->champ_name }}</strong><br />
+                            {{ $jumpstart->champ_bio }}
+                        </p>
+                    </div>
+                    
+                    <br class="clear" />
+
+                    <img src="/images/jumpstart/js-sport-title.jpg" />
+                    <p>Sports are an important component in shaping a child’s life, but for 1 in 3 Canadian families, getting 
+their kids involved in sports and recreation is simply unaffordable. together we can help all kids 
+experience the joy and self-confidence that comes through participating in sports.x</p>
+                    <br />
+                    <img src="/images/jumpstart/js-what-is-title.jpg" />
+                    <p>Jumpstart is a national charitable program that helps financially disadvantaged kids (ages 4 - 18) 
+participate in organized sports and recreation across Canada. We give kids a sporting chance 
+by covering registration, equipment and/or transportation costs. Our vision at Jumpstart is to help 
+build kids self-confidence, self esteem, leadership and direct them towards a better future; 
+ultimately we want to fufill the dreams of all Canadian kids.</p>
+                    <br />
+                    <img src="/images/jumpstart/js-link.jpg" />
+
+            </div>
+
+            <div id="js-sidebar">
+                
+                <img src="/images/jumpstart/js-together.jpg" style="padding-bottom: 20px; width: 395px; margin: 0 auto; padding-left: 45px;" />
+
+                <!-- <img src="/images/jumpstart/js-store-total.jpg" style="padding-bottom: 20px; width: 400px; margin: 0 auto;" /> -->
+                <div id="js-graph" style="width: 500px; height: 389px; margin: 0 auto;">
+
+                    <div id="" style="position: relative; height: 100%; width: 100px; float: left;">
+                        
+                        <div id="max" style="position: absolute; top: 0; text-align: right !important;">${{ $jumpstart->store_goal }} &mdash;</div>
+                        <div id="min" style="position: absolute; bottom: 10px; text-align: right !important;">$ 0 &mdash;</div>
+                        
+                    </div>
+
+                    <div id="js-ball" style="position: relative; height: 389px !important; width: 400px !important; float: right;">
+                        <div id="fill" style='position: absolute; bottom: 0; background-color: #c00; height: {{ $jsperc }}% !important; width: 100%;'></div>
+                        <img src="/images/jumpstart/soccer-ball-lg.png" style="z-index: 100 !important; position: relative; top: 0px;" />
+                    </div>
+                </div>
+                <br />
+                <img src="/images/jumpstart/photos.jpg" />
+
+            </div>
+
+
+                
+
+               
+
+
+
+
+
         	</div>
 
 

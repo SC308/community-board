@@ -12,6 +12,19 @@ font-family: "GalaxiePolarisCondensed-Book",sans-serif;
 
 padding-bottom: 155px;
 }
+
+body.landscape .calendar {
+
+	padding: 0em;
+	color: white;
+	font-weight: 300;
+	height: 945px;
+	font-family: "GalaxiePolarisCondensed-Book",sans-serif;
+
+	padding-bottom: 155px;
+}
+
+
 .calendar.small {
 	
 	font-weight: 100;
@@ -44,9 +57,13 @@ user-select: none;
 	position: relative;
 	top: 30px;
 	color: #333333;
-
-
+	
 }
+
+body.landscape .calendar-month-view-title{
+	margin-left: 360px;
+}
+
 .calendar-month-view-arrow {
 	color: transparent;
 	cursor: pointer;
@@ -78,6 +95,17 @@ text-align: center;
 	right: 0;
 text-align: center;
 }
+
+body.landscape [data-dir=left] {
+	left: 275px;
+	text-align: center;	
+}
+
+body.landscape [data-dir=right] {
+	right: 0;
+	text-align: center;
+}
+
 /*.calendar:hover .calendar-month-view {
 	background: rgb(35,35,35) !important;
 }*/
@@ -91,6 +119,8 @@ text-align: center;
 	position: relative;
 	/*overflow: hidden;*/
 	display: block;
+
+
 
 }
 .calendar-grid {
@@ -182,6 +212,20 @@ text-align: center;
 	.activity-count-box{
 		position: relative;
 		left: 20px;
+		top: 10px;
+		width: 100px;
+		height: 50px;
+		text-align: center;
+		vertical-align: middle;
+		background: transparent;
+		font-size: 16px;
+		display: block;
+	}
+
+
+	body.landscape .activity-count-box{
+		position: relative;
+		left: 60px;
 		top: 10px;
 		width: 100px;
 		height: 50px;

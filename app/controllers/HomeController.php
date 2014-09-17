@@ -5,17 +5,11 @@ class HomeController extends BaseController {
 
 	public function getIndex($sn, $ls = NULL){
 		$storedetails = Store::getStoreDetails($sn); 
+		$storeid = $storedetails[0]->id;
 
-		$feature = Feature::all();
-		
-        $flyer = DB::table('flyers')
-                ->orderBy('order', 'asc')
-                ->take(1)
-                ->get();
-                
-        $toppicks = DB::table('top_picks')
-                ->orderBy('id', 'asc')
-                ->get();      
+		$feature = Feature::getFeatures($storeid);
+        $flyer = Flyer::getFlyerFirstPage($storeid);
+        $toppicks = TopPick::getTopPicks($storeid);
 
         if($ls){
         	//landscape view
@@ -35,12 +29,6 @@ class HomeController extends BaseController {
         }     
                   	
 	}
-
-	public function getIndexLandScape($sn){
-		$storedetails = Store::getStoreDetails($sn); 
-		return $this->getIndex($sn, true);	
-	}
-
 
 
 	public function getHomeStoreSelector(){

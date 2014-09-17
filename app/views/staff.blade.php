@@ -75,9 +75,13 @@
 
             
             <div id="nav" class="fullwidth">
-                <a href="/<?=$storedetails[0]->store_number?>/flyer-int"><img src="/images/nav-flyer.png" /></a>
+<!--                 <a href="/<?=$storedetails[0]->store_number?>/flyer-int"><img src="/images/nav-flyer.png" /></a>
                 <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-calendar.png" /></a>
-                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a> -->
+                <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/jumpstart"><img src="/images/nav-js-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-cal-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos-sm.jpg" /></a>                
             </div>
 
         </div>
@@ -110,7 +114,7 @@
 					
                 function show_{{$s->id}}(){
 
-                    $("#bio").css("left", "-300px");
+                    // $("#bio").css("left", "-300px");
                     $("#bio").css("opacity", "0");
                     $("#current-staff-bio").css("opacity", "0");
 
@@ -122,7 +126,7 @@
 
                     $( "#bio" ).animate({
                         opacity: 1.0,
-                        left: "+=300"
+                        // left: "+=300"
                         }, 1000, function() {
                     });
 

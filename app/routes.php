@@ -14,7 +14,6 @@ header('Access-Control-Allow-Origin: *');
 
 Route::get('/', 'HomeController@getHomeStoreSelector');
 
-
 Route::get('{storeno?}', 				array('uses' => 'HomeController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/calendar', 		array('uses' => 'CalendarController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/photos',	 		array('uses' => 'PhotoController@getIndex'))->where('storeno', '[0-9]+');
@@ -23,7 +22,6 @@ Route::get('{storeno?}/flyer', 			array('uses' => 'FlyerController@getIndex'))->
 Route::get('{storeno?}/jumpstart', 		array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer-int', 		array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/cash', 			array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
-
 
 //LANDSCAPE ROUTES
 Route::get('{storeno?}/ls', 		 	array('uses' => 'HomeController@getIndexLandScape'))->where('storeno', '[0-9]+');
@@ -34,8 +32,6 @@ Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLan
 Route::get('{storeno?}/ls/jumpstart', 	array('uses' => 'JumpstartController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/flyer-int', 	array('uses' => 'FlyerController@getInteractiveFlyerLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/cash', 		array('uses' => 'CashController@getIndexLandScape'))->where('storeno', '[0-9]+');
-
-
 
 
 Route::when('admin*', 'auth');
