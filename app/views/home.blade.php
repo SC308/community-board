@@ -17,6 +17,7 @@
 		<script src="/js/lib/modernizr.min.js"></script>       
 		
 		<style>
+			#home-callout{ z-index: 999 !important;}
 			.featurecontent .item {-webkit-transition: opacity 3s; -moz-transition: opacity 3s; -ms-transition: opacity 3s; -o-transition: opacity 3s; transition: opacity 3s;}
 			.featurecontent .active.left {left:0;opacity:0;z-index:2;}
 			.featurecontent .next {left:0;opacity:1;z-index:1;}			
@@ -74,8 +75,8 @@
 -->
 
             </div>
-            <div id="home-callout" class="fullwidth">
-                <img src="/images/communityboard-center.jpg" />
+            <div id="home-callout" class="fullwidth" style="z-inxex: 99 !important;">
+                <img src="/images/communityboard-center.jpg" style="z-inxex: 99 !important;" />
             </div>
 
             <div id="nav" class="fullwidth">
@@ -152,6 +153,20 @@
 			$('.featurecontent').carousel({
 				interval: 15000
 			});
+
+
+			$('.featurecontent').on('slide.bs.carousel', function () {
+				$( ".carousel-caption" ).animate({
+                	right: "1500px"
+                });
+
+			});
+
+			$('.featurecontent').on('slid.bs.carousel', function () {
+				$( ".carousel-caption" ).animate({
+                	right: "0px"
+                });
+			});
         
             $('#home-bio').animate({
                 opacity: 1.0
@@ -162,7 +177,8 @@
                 opacity: 1.0,
                 left: "+=75"
                 }, 1000, function() {
-            // Animation complete.
+
+            
             });
 
           // $('#home-callout').animate({ boxShadow : "0 0 5px 3px rgba(100,100,200,0.4)" });

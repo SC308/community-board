@@ -9,13 +9,14 @@ class HomeController extends BaseController {
 
 		$feature = Feature::getFeatures($storeid);
         $flyer = Flyer::getFlyerFirstPage($storeid);
+        $flyerTwo = Flyer::getFlyerTwoPage($storeid);
         $toppicks = TopPick::getTopPicks($storeid);
 
         if($ls){
         	//landscape view
 			return View::make('landscape/home')
 				->with('feature', $feature)
-				->with('flyer', $flyer)
+				->with('flyer', $flyerTwo)
 				->with('toppicks', $toppicks)
 				->with('storedetails', $storedetails);			
 

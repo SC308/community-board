@@ -19,4 +19,13 @@ class Flyer extends Eloquent{
                 ->get();
         return $flyer;
     }
+
+    public static function getFlyerTwoPage($storeid){
+        $flyer = DB::table('flyers')
+                ->where('store_id', '=', $storeid)
+                ->orderBy('order', 'asc')
+                ->take(2)
+                ->get();
+        return $flyer;
+    }
 }

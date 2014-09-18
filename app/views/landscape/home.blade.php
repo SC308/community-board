@@ -34,16 +34,82 @@
 
         	<div id="nav">
         		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/staff"/><img src="/images/nav-ls-staff.jpg" /></a>
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/flyer-int"/><img src="/images/nav-ls-flyer.jpg" /></a>
+        		<!-- <a href="/<?php echo $storedetails[0]->store_number ?>/ls/flyer-int"/><img src="/images/nav-ls-flyer.jpg" /></a> -->
         		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/calendar"/><img src="/images/nav-ls-calendar.jpg" /></a>
-        		<!-- <a href="/<?php echo $storedetails[0]->store_number ?>/ls/photos"/><img src="/images/nav-ls-photos.jpg" /></a> -->
+        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/photos"/><img src="/images/nav-ls-photos.jpg" /></a>
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls/jumpstart"/><img src="/images/nav-ls-jumpstart.jpg" /></a>
         	</div>
 
         	<div id="main">
-        		hello
+        		
+            
+                <div id="landscape-feature">
+                    
 
-        	</div>
+                </div>
+
+
+                <div id="landscape-sidebar">
+
+                    <a href="/<?=$storedetails[0]->store_number?>/ls/flyer-int">
+                    <div id="flyerpreview">
+                        <img src="/images/flyer-callout-ls.png">
+                        @foreach($flyer as $f)
+                        <img class="miniflyer" src="/timthumb.php?src=/images/flyer/{{$f->path}}&w=168&h=400.jpg"  />
+
+                        @endforeach
+                    </div>
+                    </a>
+
+
+                    <div id="toppicks">
+                    
+                        <div id="" class="carousel slide toppicks" data-ride="carousel">
+
+                              <!-- Wrapper for slides -->
+                              <div class="carousel-inner">
+                                <?php $i=1 ?>
+                                @foreach($toppicks as $tp)
+                                
+                                    @if($i==1)
+                                    <div class="item active">
+                                      <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=418&h=277.jpg" alt="">
+                                      <div class="carousel-caption"></div>
+                                    </div>
+                                    @else
+                                    <div class="item">
+                                      <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=418&h=277.jpg" alt="">
+                                      <div class="carousel-caption"></div>
+                                    </div>                      
+                                    @endif
+                                
+                                <?php $i++; ?>    
+                    
+                                @endforeach     
+                                
+                              </div>  
+                        
+
+                        </div> <!-- //end carousel -->
+                    
+                    </div> <!-- //end toppicks -->
+                
+
+                </div>
+
+
+                
+
+
+
+
+
+            </div>
+
+
+
+
+        	
 
 
         </div>	
@@ -59,6 +125,10 @@
         	//document.oncontextmenu = function () { return false; };
         	
 			//$("#scoreboard").load("/scoreboard.html"); 
+
+            $('.toppicks').carousel({
+              interval: 8000
+            });
 
         });
         </script>          

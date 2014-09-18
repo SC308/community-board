@@ -64,7 +64,7 @@
                     <br class="clear" />
 
                     <img src="/images/jumpstart/js-sport-title.jpg" />
-                    <p>Sports are an important component in shaping a child’s life, but for 1 in 3 Canadian families, getting 
+                    <p><img src="/images/jumpstart/photos.jpg" align="right" style="height: 230px; width: auto;" />Sports are an important component in shaping a child’s life, but for 1 in 3 Canadian families, getting 
 their kids involved in sports and recreation is simply unaffordable. together we can help all kids 
 experience the joy and self-confidence that comes through participating in sports.x</p>
                     <br />
@@ -73,7 +73,7 @@ experience the joy and self-confidence that comes through participating in sport
 participate in organized sports and recreation across Canada. We give kids a sporting chance 
 by covering registration, equipment and/or transportation costs. Our vision at Jumpstart is to help 
 build kids self-confidence, self esteem, leadership and direct them towards a better future; 
-ultimately we want to fufill the dreams of all Canadian kids.</p>
+ultimately we want to fufill the dreams of all Canadian kids. </p>
                     <br />
                     <img src="/images/jumpstart/js-link.jpg" />
 
@@ -81,14 +81,15 @@ ultimately we want to fufill the dreams of all Canadian kids.</p>
 
             <div id="js-sidebar">
                 
-                <img src="/images/jumpstart/js-together.jpg" style="padding-bottom: 20px; width: 395px; margin: 0 auto; padding-left: 45px;" />
+                <img src="/images/jumpstart/js-together.jpg" style="padding-top: 40px;padding-bottom: 0px; width: 395px; margin: 0 auto; padding-bottom: 140px; padding-left: 35px;" />
+               <h1 style="text-align: center; padding-bottom: 20px;"><img src="/images/jumpstart/js-store-total.jpg" style="position: relative; bottom: 5px" />  ${{ number_format($jumpstart->store_raised) }}</h1>
 
                 <!-- <img src="/images/jumpstart/js-store-total.jpg" style="padding-bottom: 20px; width: 400px; margin: 0 auto;" /> -->
                 <div id="js-graph" style="width: 500px; height: 389px; margin: 0 auto;">
 
                     <div id="" style="position: relative; height: 100%; width: 100px; float: left;">
                         
-                        <div id="max" style="position: absolute; top: 0; text-align: right !important;">${{ $jumpstart->store_goal }} &mdash;</div>
+                        <div id="max" style="position: absolute; top: 0; text-align: right !important;">${{ number_format($jumpstart->store_goal) }} &mdash;</div>
                         <div id="min" style="position: absolute; bottom: 10px; text-align: right !important;">$ 0 &mdash;</div>
                         
                     </div>
@@ -99,7 +100,7 @@ ultimately we want to fufill the dreams of all Canadian kids.</p>
                     </div>
                 </div>
                 <br />
-                <img src="/images/jumpstart/photos.jpg" />
+                
 
             </div>
 

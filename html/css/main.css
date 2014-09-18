@@ -80,13 +80,23 @@ body.landscape #main{
 
     width: 1635px;
     height: 940px;
-    padding: 10px;
+    /*padding: 10px;*/
     /*color: white;*/
 }
 
 
 
-#home-header{ height: 120px; }
+#home-header{ 
+    height: 120px;
+    background: rgb(125,126,125); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+ }
 #home-bio{ opacity: 0; height: 600px; background: #fff url('/images/feature-bg.jpg') top left no-repeat; border-top: 1px solid #fff; border-bottom: 1px solid #fff;}
 #home-callout{}
 #home-nav{ height: 242px; background-color: #00ae9d; border-top: 1px solid #fff; border-bottom: 1px solid #fff; display: block;}
@@ -97,26 +107,67 @@ body.landscape #main{
     left: 0px;
 }
 
+#landscape-feature{
+    float: left;
+}
+
+#landscape-sidebar{
+    float: right;
+    width: 418px;
+    background-color: #ee352a;
+    height: 960px;
+}
+
+#flyerpreview{
+    float: right;
+    margin-top: 20px;
+    margin-right: 10px;
+    /* padding: 20px 10px 20px 0px; */
+    width: 202px;
+    height: 553px;
+    background: transparent url('/images/flyer-tall-bg.jpg') top left no-repeat;
+}
+
 #toppicks{
 	float: left;
 	padding: 20px 10px 20px 10px;
 }
 
-#flyerpreview{
-	float: right;
-	margin-top: 20px;
-	margin-right: 10px;
-	/* padding: 20px 10px 20px 0px; */
-	width: 202px;
-	height: 553px;
-	background: transparent url('/images/flyer-tall-bg.jpg') top left no-repeat;
+#miniflyer{
+    position: relative;
+    top: 170px;
+    left: 22px;
 }
 
-	#miniflyer{
-		position: relative;
-		top: 170px;
-		left: 22px;
-	}
+    body.landscape #flyerpreview{
+        padding: 0; margin: 0;
+        height: 683px !important;
+        width: 418px;
+        background: none;
+        
+    }
+
+    body.landscape .miniflyer{
+        position: relative;
+        top: -20px;
+        left: 30px;
+        padding: 5px;
+    }
+
+
+    #landscape-sidebar #toppicks{
+        position: relative;
+    /*    top: 672px;
+        left: 10px;*/
+        bottom: 0px;
+        padding: 0px;
+    }
+
+
+
+
+
+
 	
 .toppicks .carousel-caption{ display: none;} 
 	
@@ -482,6 +533,9 @@ body.landscape #js-logo{ float: left; width: 288px;}
 
 body.landscape #js-champ{ float: left; width: 700px; padding-bottom: 50px;}
 
+
+#max, #min{ font-size: 16px;} 
+
 body.landscape #max, body.landscape #min{ font-size: 20px;} 
 
 #calendar-main{ height: 1200px;}
@@ -539,9 +593,14 @@ body.landscape #max, body.landscape #min{ font-size: 20px;}
 }
 
 
-.carousel-caption{padding: 15px; background:#333333; background:rgba(0, 0, 0, 0.75); width: 400px; height: 590px;}
-.caption-left{position: absolute; top: 0px; left: 20px;}
-.caption-right{position: absolute; top: 0px; left: 630px;}
+.carousel-caption{padding: 15px; background:#333333; background:rgba(0, 0, 0, 0.75); width: 100%; height: 220px;}
+.carousel-caption{ position: relative; bottom: 250px; z-index: 1; }
+
+
+/*.caption-left, .caption-right{ position: absolute; left:0px; bottom: -250px;}*/
+
+/*.caption-left{position: absolute; top: 0px; left: 20px;}
+.caption-right{position: absolute; top: 0px; left: 630px;}*/
 
 .carousel-caption h4,.carousel-caption p{color:#ffffff;line-height:20px;}
 .carousel-caption h4{margin:0 0 5px;}
@@ -555,12 +614,12 @@ body.landscape #max, body.landscape #min{ font-size: 20px;}
     }
 
 .caption-left .caption-title{ text-align: left; padding: 10px 0px 0px 20px; display: block; background: transparent url('/images/ribbon.png') top left no-repeat; height: 54px; width: 554px; position: relative; right: 20px;}
-.caption-right .caption-title{ text-align: left; padding: 10px 0px 0px 110px; display: block; background: transparent url('/images/ribbon-right.png') top left no-repeat; height: 54px; width: 554px; position: relative; left: -100px;}
+.caption-right .caption-title{ text-align: left; padding: 10px 0px 0px 110px; display: block; background: transparent url('/images/ribbon-right.png') top left no-repeat; height: 54px; width: 554px; position: relative; left: 545px;}
 
 .caption-content{
 	display: block;
 	text-align: left;
-	padding: 20px;
+	padding: 10px 20px;
     line-height: 36px;
     color: #fff;
     font-family: GalaxiePolarisCondensed-Bold;    
