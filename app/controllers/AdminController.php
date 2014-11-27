@@ -2,13 +2,23 @@
 
 class AdminController extends BaseController{
 
+
+    // // public static $storedetails;
+    // // public static $sn; //store id number, not "store number" -- i.e. this is the primary key in `stores` table.
+
+    // public function __construct(){
+
+    //     // $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+    //     // $sn = $storedetails[0]->id;
+    // }
+
     /**
      * Default view
      *
      * 
      */
     public function getIndex(){
-        return View::make('admin/index');
+        return View::make('admin/dashboard');
             // ->with('events_string', $events_string);
     }
 
@@ -19,7 +29,10 @@ class AdminController extends BaseController{
      *                                                                                    
      */
     public function getPhotos(){
-        $photos = Photo::all();
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+        // $photos = Photo::all();		
+		$photos = Photo::getPhotos($sn);
         return View::make('admin/photos')
         ->with('photos', $photos);
     }
@@ -29,7 +42,10 @@ class AdminController extends BaseController{
     }
 
     public function saveAddPhoto(){
-    
+    	
+		$storedetails = Store::getStoreDetails( Confide::user()->store_id );
+		$sn = $storedetails[0]->id;
+		
         $extension = Input::file('photo')->getClientOriginalExtension();
         $directory = public_path() .'/images/photos';
         $filename = sha1(time().time()).".".$extension;        
@@ -49,6 +65,7 @@ class AdminController extends BaseController{
                 'photographer_name' => Input::get('photographer_name'),
                 'location' => Input::get('location'),
                 'description' => Input::get('description'),
+				'store_id' => $sn,
                 'publish' => $p,
                 'path' => $filename
             );        
@@ -72,7 +89,7 @@ class AdminController extends BaseController{
     }
 
     public function removePhotos($id){
-    
+    	
         $p = Photo::find($id);
         $p->delete();
         $t = "So long, photo...";
@@ -123,7 +140,10 @@ class AdminController extends BaseController{
      * 
      */
     public function getStaff(){
-        $staff = StaffBio::all();
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $staff = StaffBio::getStoreStaff($sn);
 
         return View::make('admin/staff')
             ->with('staff', $staff);
@@ -152,6 +172,9 @@ class AdminController extends BaseController{
     }
 
     public function saveStaffEdit(){
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
         $id= Input::get('id');
         $file = Input::file('photo');
 
@@ -163,6 +186,7 @@ class AdminController extends BaseController{
 
             if( $upload_success ) {
                 $staffedits = array(
+                    'store_id' => $sn,
                     'first' => Input::get('first'),
                     'last' => Input::get('last'),
                     'position' => Input::get('position'),
@@ -188,6 +212,7 @@ class AdminController extends BaseController{
 
         } else {
             $staffedits = array(
+                'store_id' => $sn,
                 'first' => Input::get('first'),
                 'last' => Input::get('last'),
                 'position' => Input::get('position'),
@@ -207,6 +232,9 @@ class AdminController extends BaseController{
     }
 
     public function saveStaffAdd(){
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
         $extension = Input::file('photo')->getClientOriginalExtension();
         $directory = public_path() .'/images/staff';
         $filename = sha1(time().time()).".".$extension;        
@@ -215,6 +243,7 @@ class AdminController extends BaseController{
         
         if( $upload_success ) {
             $staffdetails = array(
+                'store_id' => $sn,
                 'first' => Input::get('first'),
                 'last' => Input::get('last'),
                 'position' => Input::get('position'),
@@ -246,8 +275,12 @@ class AdminController extends BaseController{
      * 
      */
     public function getFlyer(){
-        $flyer = Flyer::orderBy('order')->get();
-        $picks = TopPick::all();
+
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $flyer = Flyer::getFlyers($sn);
+        $picks = TopPick::getTopPicks($sn);
         return View::make('admin/flyer')
             ->with('flyer',$flyer)
             ->with('picks',$picks);
@@ -258,7 +291,10 @@ class AdminController extends BaseController{
     }
 
     public function saveAddFlyer(){
-    
+
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
         $extension = Input::file('flyer')->getClientOriginalExtension();
         $directory = public_path() .'/images/flyer';
         $filename = sha1(time().time()).".".$extension;        
@@ -268,6 +304,7 @@ class AdminController extends BaseController{
         if( $upload_success ) {
             $photodetails = array(
                 'order' => Input::get('order'),
+                'store_id' => $sn,
                 'path' => $filename
             );        
 
@@ -327,6 +364,9 @@ class AdminController extends BaseController{
 
     public function saveAddPick(){
     
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
         $extension = Input::file('pick')->getClientOriginalExtension();
         $directory = public_path() .'/images/flyer';
         $filename = sha1(time().time()).".".$extension;        
@@ -335,8 +375,8 @@ class AdminController extends BaseController{
         
         if( $upload_success ) {
             $pickdetails = array(
-
-                'path' => $filename
+                'path' => $filename,
+                'store_id' => $sn
             );        
 
             $pick = TopPick::create($pickdetails);
@@ -373,7 +413,10 @@ class AdminController extends BaseController{
      * 
      */
     public function getCalendar(){
-        $calendar = CommunityEvent::getevents();
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $calendar = CommunityEvent::getevents($sn);
         return View::make('admin/calendar')
             ->with('calendar', $calendar);
     }
@@ -383,12 +426,24 @@ class AdminController extends BaseController{
     }
 
     public function saveAddEvent(){
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $h = Input::get('hilite');
+        if($h == "on"){
+            $h = 1;
+        } else {
+            $h = 0;
+        }
+
         $eventdetails = array(
+            'store_id' => $sn,
             'title' => Input::get('title'),
             'location' => Input::get('location'),
             'start' => Input::get('start'),
             'end' => Input::get('end'),
-            'description' => Input::get('description')
+            'description' => Input::get('description'),
+            'hilite' => $h
         );        
         $event = CommunityEvent::create($eventdetails);
         $event->save();
@@ -418,14 +473,26 @@ class AdminController extends BaseController{
     }    
 
     public function saveEditEvent(){
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $h = Input::get('hilite');
+        if($h == "on"){
+            $h = 1;
+        } else {
+            $h = 0;
+        }
+
         $id= Input::get('id');
 
         $eventedits = array(
+            'store_id' => $sn,            
             'title' => Input::get('title'),
             'location' => Input::get('location'),
             'start' => Input::get('start'),
             'end' => Input::get('end'),
-            'description' => Input::get('description')
+            'description' => Input::get('description'),
+            'hilite' => $h
         );
 
         CommunityEvent::find($id)->update($eventedits);
@@ -443,7 +510,10 @@ class AdminController extends BaseController{
      * 
      */
     public function getFeature(){
-        $content = Feature::all();
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $content = Feature::getFeatures($sn);
         return View::make('admin/feature')
             ->with('content', $content);
     }
@@ -469,6 +539,10 @@ class AdminController extends BaseController{
     }    
 
     public function saveEditFeature(){
+
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
         $id= Input::get('id');
         $file = Input::file('photo');
 
@@ -480,6 +554,7 @@ class AdminController extends BaseController{
 
             if( $upload_success ) {
 		        $featuredits = array(
+                    'store_id' => $sn,
 		            'title' => Input::get('title'),
 		            'content' => Input::get('content'),
 		            'path' => $filename
@@ -501,7 +576,6 @@ class AdminController extends BaseController{
             } 
             
             
-            
 		} else {
 	        $featuredits = array(
 	            'title' => Input::get('title'),
@@ -517,14 +591,12 @@ class AdminController extends BaseController{
 	                ->with('response', $r );           
 
         }
-
-                    
-
-
-
+                
     }
 
     public function saveAddFeature(){
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
 
         $extension = Input::file('feature')->getClientOriginalExtension();
         $directory = public_path() .'/images/feature';
@@ -534,6 +606,7 @@ class AdminController extends BaseController{
         
         if( $upload_success ) {
             $photodetails = array(
+                'store_id' => $sn,
                 'title' => Input::get('title'),
                 'content' => Input::get('content'),
                 'path' => $filename
@@ -558,6 +631,91 @@ class AdminController extends BaseController{
     }
 
 
+     /**************************************************************************************
+     * Jumpstart
+     *
+     * 
+     */
+
+     public function getJumpstart(){
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $jumpstart = Jumpstart::getJumpstart($sn);
+        return View::make('admin/jumpstart')
+          	  ->with('jumpstart', $jumpstart);
+     }
+
+     public function editJumpstart(){
+        $jumpstart = DB::table('jumpstart')->where('id', $id)->first();
+        return View::make('admin/jumpstartedit')
+            ->with('jumpstart', $jumpstart);
+     }
+
+       public function saveEditJumpstart(){
+
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $id= Input::get('id');
+        $file = Input::file('champ_photo');
+
+        if( $file  ){
+            $extension = Input::file('champ_photo')->getClientOriginalExtension();
+            $directory = public_path() .'/images/jumpstart/champs';
+            $filename = sha1(time().time()).".".$extension;           
+            $upload_success = Input::file('champ_photo')->move($directory, $filename);; //move and rename file
+
+            if( $upload_success ) {
+		        $jumpstartedits = array(
+                    	    'store_id' => $sn,
+		            'champ_name' => Input::get('champ_name'),
+		            'champ_bio' => Input::get('champ_bio'),
+			    'store_goal' => Input::get('store_goal'),
+			    'store_raised' => Input::get('store_raised'),
+		            'champ_photo' => $filename
+		        );
+
+            Jumpstart::find($id)->update($jumpstartedits);
+
+	        $t = "Awesome!";  
+	        $r = "Your changes have been saved, photo updated! <a href='/admin/jumpstart'>Back to Jumpstart</a>";
+	            return View::make('admin/confirmation')
+	                ->with('response_title', $t)
+	                ->with('response', $r );
+            } else {
+                $t = "Um...";  
+                $r = "Something bad happened. <a href='/admin/jumpstart'>Back to Jumpstart</a>";            
+                return View::make('admin/confirmation')
+                    ->with('response_title', $t)
+                    ->with('response', $r );
+            } 
+            
+            
+		} else {
+	        $jumpstartedits = array(
+                            'store_id' => $sn,
+                            'champ_name' => Input::get('champ_name'),
+                            'champ_bio' => Input::get('champ_bio'),
+                            'store_goal' => Input::get('store_goal'),
+                            'store_raised' => Input::get('store_raised')
+	        );
+
+            	Jumpstart::find($id)->update($jumpstartedits);
+
+	        $t = "Awesome!";  
+	        $r = "Your changes have been saved! <a href='/admin/jumpstart'>Back to Jumpstart</a>";
+	            return View::make('admin/confirmation')
+	                ->with('response_title', $t)
+	                ->with('response', $r );           
+
+        }
+                
+    }
+
+     public function saveAddJumpStart(){
+
+     }
 
 }
 ?>

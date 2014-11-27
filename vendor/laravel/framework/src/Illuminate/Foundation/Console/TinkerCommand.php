@@ -46,7 +46,7 @@ class TinkerCommand extends Command {
 	{
 		$this->setupBorisErrorHandling();
 
-		with(new \Boris\Boris('> '))->start();
+		(new \Boris\Boris('> '))->start();
 	}
 
 	/**
@@ -118,7 +118,7 @@ class TinkerCommand extends Command {
 	 */
 	protected function supportsBoris()
 	{
-		return (extension_loaded('readline') and extension_loaded('posix'));
+		return extension_loaded('readline') && extension_loaded('posix') && extension_loaded('pcntl');
 	}
 
 }

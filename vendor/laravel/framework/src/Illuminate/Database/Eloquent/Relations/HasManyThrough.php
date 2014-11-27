@@ -2,14 +2,30 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Collection;
 
 class HasManyThrough extends Relation {
 
+	/**
+	 * The distance parent model instance.
+	 *
+	 * @var \Illuminate\Database\Eloquent\Model
+	 */
 	protected $farParent;
 
+	/**
+	 * The near key on the relationship.
+	 *
+	 * @var string
+	 */
 	protected $firstKey;
 
+	/**
+	 * The far key on the relationship.
+	 *
+	 * @var string
+	 */
 	protected $secondKey;
 
 	/**
@@ -17,7 +33,8 @@ class HasManyThrough extends Relation {
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $query
 	 * @param  \Illuminate\Database\Eloquent\Model  $parent
-	 * @param  string  $foreignKey
+	 * @param  string  $firstKey
+	 * @param  string  $secondKey
 	 * @return void
 	 */
 	public function __construct(Builder $query, Model $farParent, Model $parent, $firstKey, $secondKey)
@@ -55,9 +72,15 @@ class HasManyThrough extends Relation {
 	 */
 	public function getRelationCountQuery(Builder $query, Builder $parent)
 	{
+		$parentTable = $this->parent->getTable();
+
 		$this->setJoin($query);
 
-		return parent::getRelationCountQuery($query, $parent);
+		$query->select(new Expression('count(*)'));
+
+		$key = $this->wrap($parentTable.'.'.$this->firstKey);
+
+		return $query->where($this->getHasCompareKey(), '=', new Expression($key));
 	}
 
 	/**
@@ -93,7 +116,7 @@ class HasManyThrough extends Relation {
 	 *
 	 * @param  array   $models
 	 * @param  string  $relation
-	 * @return void
+	 * @return array
 	 */
 	public function initRelation(array $models, $relation)
 	{
@@ -145,7 +168,7 @@ class HasManyThrough extends Relation {
 	{
 		$dictionary = array();
 
-		$foreign = $this->farParent->getForeignKey();
+		$foreign = $this->firstKey;
 
 		// First we will create a dictionary of models keyed by the foreign key of the
 		// relationship as this will allow us to quickly access all of the related
@@ -197,6 +220,7 @@ class HasManyThrough extends Relation {
 	/**
 	 * Set the select clause for the relation query.
 	 *
+	 * @param  array  $columns
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
 	protected function getSelectColumns(array $columns = array('*'))
@@ -210,6 +234,22 @@ class HasManyThrough extends Relation {
 	}
 
 	/**
+	 * Get a paginator for the "select" statement.
+	 *
+	 * @param  int    $perPage
+	 * @param  array  $columns
+	 * @return \Illuminate\Pagination\Paginator
+	 */
+	public function paginate($perPage = null, $columns = array('*'))
+	{
+		$this->query->addSelect($this->getSelectColumns($columns));
+
+		$pager = $this->query->paginate($perPage, $columns);
+
+		return $pager;
+	}
+
+	/**
 	 * Get the key name of the parent model.
 	 *
 	 * @return string
@@ -220,7 +260,7 @@ class HasManyThrough extends Relation {
 	}
 
 	/**
-	 * Get the key for comparing against the pareny key in "has" query.
+	 * Get the key for comparing against the parent key in "has" query.
 	 *
 	 * @return string
 	 */

@@ -5,6 +5,10 @@ function trunc($phrase, $max_words) {
       $phrase = implode(' ',array_slice($phrase_array, 0, $max_words)).'...';
    return $phrase;
 }
+
+$storedetails = Store::getStoreDetails( Confide::user()->store_id );
+//$id = $storedetails[0]->id;
+
 ?>
 
 <!DOCTYPE html>
@@ -13,11 +17,9 @@ function trunc($phrase, $max_words) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>5111 Community Board Admin</title>
+    <title><?php echo $storedetails[0]->store_name?> Community Board Admin :: Photos</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/admin-assets/css/bootstrap.css" rel="stylesheet">
@@ -31,61 +33,61 @@ function trunc($phrase, $max_words) {
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <style>
-.onoffswitch {
-    position: relative; width: 90px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-}
-.onoffswitch-checkbox {
-    display: none;
-}
-.onoffswitch-label {
-    display: block; overflow: hidden; cursor: pointer;
-    border: 2px solid #C4C4C4; border-radius: 30px;
-}
-.onoffswitch-inner {
-    width: 200%; margin-left: -100%;
-    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
-    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-    border-radius: 30px;
-    box-shadow: 0px 15px 0px rgba(0,0,0,0.08) inset;
-}
-.onoffswitch-inner:before {
-    content: "ON";
-    padding-left: 10px;
-    background-color: #2CC406; color: #FFFFFF;
-    border-radius: 30px 0 0 30px;
-}
-.onoffswitch-inner:after {
-    content: "OFF";
-    padding-right: 10px;
-    background-color: #EEEEEE; color: #999999;
-    text-align: right;
-    border-radius: 0 30px 30px 0;
-}
-.onoffswitch-switch {
-    width: 30px; margin: 0px;
-    background: #FFFFFF;
-    border: 2px solid #C4C4C4; border-radius: 30px;
-    position: absolute; top: 0; bottom: 0; right: 56px;
-    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
-    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
-    background-image: -moz-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%); 
-    background-image: -webkit-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%); 
-    background-image: -o-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%); 
-    background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
-    box-shadow: 0 1px 1px white inset;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px; 
-}
+	.onoffswitch {
+	    position: relative; width: 90px;
+	    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+	}
+	.onoffswitch-checkbox {
+	    display: none;
+	}
+	.onoffswitch-label {
+	    display: block; overflow: hidden; cursor: pointer;
+	    border: 2px solid #C4C4C4; border-radius: 30px;
+	}
+	.onoffswitch-inner {
+	    width: 200%; margin-left: -100%;
+	    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+	    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+	}
+	.onoffswitch-inner:before, .onoffswitch-inner:after {
+	    float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+	    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+	    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+	    border-radius: 30px;
+	    box-shadow: 0px 15px 0px rgba(0,0,0,0.08) inset;
+	}
+	.onoffswitch-inner:before {
+	    content: "ON";
+	    padding-left: 10px;
+	    background-color: #2CC406; color: #FFFFFF;
+	    border-radius: 30px 0 0 30px;
+	}
+	.onoffswitch-inner:after {
+	    content: "OFF";
+	    padding-right: 10px;
+	    background-color: #EEEEEE; color: #999999;
+	    text-align: right;
+	    border-radius: 0 30px 30px 0;
+	}
+	.onoffswitch-switch {
+	    width: 30px; margin: 0px;
+	    background: #FFFFFF;
+	    border: 2px solid #C4C4C4; border-radius: 30px;
+	    position: absolute; top: 0; bottom: 0; right: 56px;
+	    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+	    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+	    background-image: -moz-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%); 
+	    background-image: -webkit-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%); 
+	    background-image: -o-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%); 
+	    background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 80%);
+	    box-shadow: 0 1px 1px white inset;
+	}
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+	    margin-left: 0;
+	}
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+	    right: 0px; 
+	}
 
     </style>
   </head>
@@ -105,7 +107,7 @@ function trunc($phrase, $max_words) {
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">5111 Community Board</a>
+            <a class="navbar-brand" href="/admin"><?php echo $storedetails[0]->store_name?> Community Board</a>
           </div>
           <div class="collapse navbar-collapse">
             @include('admin/nav')
@@ -138,7 +140,7 @@ function trunc($phrase, $max_words) {
                 <!-- <th>Published</th> -->
                 <th></th>
             </tr>
-        @foreach($photos as $p)
+           @foreach($photos as $p)
             <tr>
 
                 <td>
@@ -192,6 +194,8 @@ function trunc($phrase, $max_words) {
         
     
       </div>
+
+		@include('admin/debug')
     </div>
 
 

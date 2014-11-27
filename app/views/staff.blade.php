@@ -4,14 +4,14 @@
     <meta charset="utf-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title><?=$storedetails[0]->store_number?> Staff</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		
-        <link rel="stylesheet" href="css/bootstrap-combined.no-icons.min.css?<?=time();?>">        
-        <link rel="stylesheet" href="css/font-awesome.css?<?=time();?>">  
-        <link rel="stylesheet" href="js/fancybox/source/jquery.fancybox.css?<?=time();?>">
-        <link rel="stylesheet" href="css/main.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">        
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">  
+        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/main.css?<?=time();?>">
         
 		<script src="/js/lib/modernizr.min.js"></script>        
 
@@ -22,7 +22,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
-                <a href="/"><img src="images/sc-logo.jpg" class="floatR" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
 
             <div id="staff">
@@ -31,7 +31,7 @@
 
                         <div id="bio">
                         <div id="store-ribbon">
-                            Yonge Street 
+                            <?=$storedetails[0]->store_name?>
                         </div>                            
                                 <span class="whiteboxtop"></span><h1 class="name"></h1>
                                 <span class="whitebox"></span><h2 class="dept"></h2>                
@@ -54,7 +54,7 @@
                     <div id="bio-nav" style="overflow: scroll;">
 
                         @foreach($staff as $s)
-                           <a href="javascript:void(0)" onclick="javascript:show_{{$s->id}}();"><img src="timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
+                           <a href="javascript:void(0)" onclick="javascript:show_{{$s->id}}();"><img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
                         @endforeach
 
                     </div>
@@ -75,16 +75,20 @@
 
             
             <div id="nav" class="fullwidth">
-                <a href="/flyer-int"><img src="/images/nav-flyer.png" /></a>
-                <a href="/calendar"><img src="/images/nav-calendar.png" /></a>
-                <a href="/photos"><img src="/images/nav-photos.png" /></a>
+<!--                 <a href="/<?=$storedetails[0]->store_number?>/flyer-int"><img src="/images/nav-flyer.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-calendar.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a> -->
+                <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/jumpstart"><img src="/images/nav-js-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-cal-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos-sm.jpg" /></a>                
             </div>
 
         </div>
 
 
-        <script src="js/lib/jquery-1.10.2.min.js"></script>
-        <script src="js/timer.js"></script>
+        <script src="/js/lib/jquery-1.10.2.min.js"></script>
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
 <!--         <script src="js/jquery.mobile-1.3.2.min.js"></script> -->
 
         <script type="text/javascript"> 
@@ -103,29 +107,26 @@
         function swipeHandler( event ){
             $("#arrows").fadeOut("fast");
         }
-			<?$i=1;?>
+				<?php $i=1; $lowest = 0;?>
             @foreach($staff as $s)
 			
-				<? if($i == 1){
-					$lowest = $s->id;	
-				}
-				?>
+							<?php if($i == 1){  $lowest = $s->id; }?>
 					
                 function show_{{$s->id}}(){
 
-                    $("#bio").css("left", "-300px");
+                    // $("#bio").css("left", "-300px");
                     $("#bio").css("opacity", "0");
                     $("#current-staff-bio").css("opacity", "0");
 
-                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}} {{$s->last}}</h1>');
+                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}}</h1>');
                             $(".dept").replaceWith('<h2 class="dept"><!--<span class="whitebox"></span>-->{{$s->position}}</h2>');
                             $(".bio-text").replaceWith("<p class='bio-text'>{{{ preg_replace( "/\r|\n/", "", $s->bio) }}}</p>");
 							$(".favsport").replaceWith("<span class='favsport'>{{$s->favorite_sport}}</span>");
-                            $("#current-staff-bio").css("background", "transparent url('timthumb.php?src=/images/staff/{{ $s->photo }}&w=1080&h=947') bottom center no-repeat");
+                            $("#current-staff-bio").css("background", "transparent url('/timthumb.php?src=/images/staff/{{ $s->photo }}&w=1080&h=947') bottom center no-repeat");
 
                     $( "#bio" ).animate({
                         opacity: 1.0,
-                        left: "+=300"
+                        // left: "+=300"
                         }, 1000, function() {
                     });
 
@@ -134,9 +135,9 @@
                         }, 1000, function() {
                     });
                     
-                  resetTimer();  
+                  //resetTimer();  
                 }
-                <?$i++;?>
+                <?php $i++;?>
             @endforeach
             
             
@@ -153,7 +154,7 @@
             //     // Animation complete.
             // });
 
-            $("#scoreboard").load("scoreboard.html"); 
+            $("#scoreboard").load("/scoreboard.html"); 
 
             show_{{$lowest}}();
         });

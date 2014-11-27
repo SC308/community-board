@@ -105,7 +105,7 @@ abstract class ServiceProvider {
 	 */
 	public function guessPackagePath()
 	{
-		$path = with(new ReflectionClass($this))->getFileName();
+		$path = (new ReflectionClass($this))->getFileName();
 
 		return realpath(dirname($path).'/../../');
 	}
@@ -165,6 +165,16 @@ abstract class ServiceProvider {
 	 * @return array
 	 */
 	public function provides()
+	{
+		return array();
+	}
+
+	/**
+	 * Get the events that trigger this service provider to register.
+	 *
+	 * @return array
+	 */
+	public function when()
 	{
 		return array();
 	}

@@ -2,12 +2,22 @@
 
 class StaffController extends BaseController{
 
-    public function getIndex(){
+    public function getIndex($sn, $ls = NULL){
+        
+        $storedetails = Store::getStoreDetails($sn); 
+        $storeid = $storedetails[0]->id;
 
-        $staff = StaffBio::get();
+        $staff = StaffBio::getStoreStaff($storeid);
 
-        return View::make('staff')
-            ->with('staff', $staff);
+        if($ls){
+            return View::make('landscape/staff')
+                ->with('storedetails', $storedetails)
+                ->with('staff', $staff);
+        } else {
+            return View::make('staff')
+                ->with('storedetails', $storedetails)
+                ->with('staff', $staff);
+        }
     }
 
     public function view($id){
@@ -16,11 +26,19 @@ class StaffController extends BaseController{
             ->with('manager', $manager);
     }
     
-    public function getStaffData(){
+    public function getStaffData($sn){
 	    
-	    $staff = StaffBio::get();
+        $storedetails = Store::getStoreDetails($sn); 
+        $storeid = $storedetails[0]->id;	    
+        
+	    $staff = StaffBio::where("store_id","=",$storeid)->get();
 
         return $staff;
         
     }
+
+    // public function getIndexLandScape($sn){
+    //     $storedetails = Store::getStoreDetails($sn); 
+    //     return $this->getIndex($sn, true);  
+    // }    
 }

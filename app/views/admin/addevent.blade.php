@@ -5,6 +5,7 @@ function trunc($phrase, $max_words) {
       $phrase = implode(' ',array_slice($phrase_array, 0, $max_words)).'...';
    return $phrase;
 }
+$storedetails = Store::getStoreDetails( Confide::user()->store_id );
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ function trunc($phrase, $max_words) {
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>5111 Community Board Admin</title>
+    <title><?php echo $storedetails[0]->store_name?> Community Board Admin :: Add Event</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/admin-assets/css/bootstrap.css" rel="stylesheet">
@@ -50,7 +51,7 @@ function trunc($phrase, $max_words) {
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">5111 Community Board</a>
+            <a class="navbar-brand" href="/admin"><?php echo $storedetails[0]->store_name?> Community Board</a>
           </div>
           <div class="collapse navbar-collapse">
             @include('admin/nav')
@@ -78,16 +79,6 @@ function trunc($phrase, $max_words) {
 
                 <div class="col-md-6">
                     {{ Form::open(array('action' => 'AdminController@saveAddEvent', 'class' => 'form-horizontal', 'role' => 'form')) }}
-                        
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" value="">
-                        </div>  
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <input type="text" class="form-control help-block" id="location" name="location" value="">
-                        </div>    
-
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label for="start">Start Date/Time</label>
@@ -104,6 +95,17 @@ function trunc($phrase, $max_words) {
                                     </div>
                             </div>                            
                         </div>
+                                                
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="">
+                        </div>  
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control help-block" id="location" name="location" value="">
+                        </div>    
+
+
 
                         <div class="form-group">    
                             <label for="description">Description <small>&mdash; 1 or 2 sentences<small></label>
@@ -111,7 +113,17 @@ function trunc($phrase, $max_words) {
                         </div>    
                         <div class="form-group">  
 
+                            <div class="col-sm-4 pull-left checkbox">
                              
+                              <label for="hilite">
+                             
+                             
+                        
+                                <input type="checkbox" name="hilite" class="" id="hilite"> Highlight Event
+                             
+                              </label>
+
+                            </div>
                           
                             
                             <div class="col-sm-5 pull-right">

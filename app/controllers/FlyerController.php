@@ -2,20 +2,36 @@
 
 class FlyerController extends BaseController{
 
-     public function getIndex(){
+     public function getIndex($sn, $ls = NULL){
+        $storedetails = Store::getStoreDetails($sn); 
 
         $flyer = DB::table('flyers')
                 ->orderBy('order', 'asc')
                 ->get();
 
-        return View::make('flyer')
-            ->with('flyer', $flyer);
+        if($ls){
+            return View::make('flyer')
+                ->with('flyer', $flyer);
+        } else {
+            return View::make('landscape/flyer')
+                ->with('flyer', $flyer); 
+        }
     }
     
-    public function getInteractiveFlyer(){
+    public function getInteractiveFlyer($sn, $ls = NULL){
+        
+        $storedetails = Store::getStoreDetails($sn); 
 
-        return View::make('flyerint')
-            ->with('flyerint');
+        if($ls){
+            return View::make('landscape/flyerint')
+                ->with('storedetails', $storedetails)
+                ->with('flyerint');
+        } else {
+            return View::make('flyerint')
+                ->with('storedetails', $storedetails)
+                ->with('flyerint');            
+        }
+
     }
 
      public function getFlyerData(){
@@ -25,7 +41,13 @@ class FlyerController extends BaseController{
                 ->get();
 
 		return $flyer;
-    }    
+    }   
+
+    public function getInteractiveFlyerLandScape($sn){
+        $storedetails = Store::getStoreDetails($sn); 
+        return $this->getInteractiveFlyer($sn, true);  
+    }
+    
 }
 
 ?>

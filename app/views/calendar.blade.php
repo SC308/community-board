@@ -6,7 +6,7 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Calendar</title>
+        <title><?=$storedetails[0]->store_number?> Calendar</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		
@@ -25,7 +25,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
-                <a href="/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
         
             <div id="calendar-main" class="fullwidth">
@@ -38,20 +38,25 @@
             </div>
 
             <div id="home-callout" class="fullwidth">
-                <img src="/images/communityboard-center.jpg" />
+                <img src="/images/communityboard-center259.jpg" />
             </div>
 
 			 <div id="nav" class="fullwidth">
-                <a href="/staff"><img src="/images/nav-staff.png" /></a>
-                <a href="/flyer-int"><img src="/images/nav-flyer-lg.png" /></a>
-                <a href="/photos"><img src="/images/nav-photos.png" /></a>
+<!--                 <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/flyer-int"><img src="/images/nav-flyer-lg.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a> -->
+                <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/jumpstart"><img src="/images/nav-js-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-cal-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos-sm.jpg" /></a>                
             </div>
 
         </div>
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/calendar.full.js"></script>
         
-        <script src="js/timer.js"></script>
+        <script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
+
     
         <script type="text/javascript"> 
 
@@ -60,7 +65,7 @@
         
         	document.oncontextmenu = function () { return false; };
         	
-            $("#scoreboard").load("scoreboard.html"); 
+            $("#scoreboard").load("/scoreboard.html"); 
 
 /*
             $( ".calendar" ).on( "swipeleft", swipeLeftHandler );

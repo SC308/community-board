@@ -78,6 +78,7 @@ $(document).ready(function() {
 					tempeventarray["end"] = $(this).data("end");
 					tempeventarray["location"] = $(this).data("location");
 					tempeventarray["details"] = $(this).data("details");
+					tempeventarray["hilite"] = $(this).data("hilite");
 					tempdayarray.push(tempeventarray);
 				});
 				calendarArray[$(this).data('day')] = tempdayarray;
@@ -162,6 +163,7 @@ $(document).ready(function() {
 					}
 
 				}
+
 			
 				var cal_day_eventholder = $('<div class="event-notif-holder"></div>');
 				if(calendarArray[strtime] != undefined) {
@@ -187,6 +189,10 @@ $(document).ready(function() {
 
 							
 							
+						}
+
+						if(events[o]['hilite'] !== undefined) {
+							cal_day_eventholder.append("<span class='glyphicon glyphicon-star'></span>");
 						}
 											
 					}

@@ -5,10 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
     <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-		<META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">           
-        <title>YONGE</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">     
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,44 +27,49 @@
             <div class="region double top-left">
                 <h1>Community Photos</h1>
                 <ul class="polaroids">
-                <?php $i=0 ?>
-                @foreach($photos as $p)
-                    <li class="commphoto" id="pic_<?=$i?>"><a href="#"><img id="img_<?=$i?>" src="timthumb.php?src=/images/photos/{{ $p->path }}&w=500h=333&a=c" /></a></li>
-                <?php $i++?>
-                @endforeach
+                <?php 
+                $i=0; 
+                foreach($photos as $p) {
+                ?>
+                    <li class="commphoto" id="pic_<?=$i?>"><a href="#"><img id="img_<?=$i?>" src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=500h=333&a=c" /></a></li>
+                <?php 
+                    $i++;
+                }
+                ?>
                 </ul>
                 
             </div>
 
             <div class="region single top-middle">
             
-<!--
+
             	<video width="1920" height="1080" autoplay="autoplay" loop="true" loop> 
-                  <source src="/cash-assets/WC_fangear_Landscape.mp4?<?=time();?>" type="video/mp4" />
+                  <source src="/cash-assets/SC_Stamkos_CashWall2.mp4?<?=time();?>" type="video/mp4" />
                 </video>
--->
-	   
-		    
-		    
+
+
                 <div id="" class="carousel slide singlepics" data-ride="carousel">
                 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <?php $i=1 ?>
-                    @foreach($singles as $s)
+                    <?php $i=1;
+                    foreach($singles as $s) {
 
-                    @if($i==1)
-                    <div class="item active">
-                         <img src="/images/cash/{{$s->path}}" />
-                    </div>
-                    @else
-                    <div class="item">
-                         <img src="/images/cash/{{$s->path}}" />
-                    </div>
-                    @endif
+                        if($i==1) {
+                         ?>
+                        <div class="item active">
+                             <img src="/images/cash/{{$s->path}}" />
+                        </div>
+                        <?php } else { ?>
+                        <div class="item">
+                             <img src="/images/cash/{{$s->path}}" />
+                        </div>
+                        <?php }
 
-                    <?php $i++; ?>  
-                    @endforeach     
+                        $i++; 
+                    }
+                    ?>
+
                 
                 </div>  
                 
@@ -86,22 +89,23 @@
                 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <?php $i=1 ?>
-                    @foreach($events as $e)
-                    <?php
+                    <?php $i=1; 
+                    foreach($events as $e) {
                         $currentmonth = $e->startmonth;
                         $monthName = date("F", mktime(0, 0, 0, $e->startmonth, 10));
                     ?>
                     <div class="item <?php if($i==1) { echo 'active'; } ?>">
-                        <h3>{{ $monthName }} {{ $e->startday }} &nbsp;&nbsp;&nbsp; <? $t = $e->starthour.":".$e->startmin; echo date("g:i a", strtotime($t));?></h3>
+                        <h3>{{ $monthName }} {{ $e->startday }} &nbsp;&nbsp;&nbsp; <?php $t = $e->starthour.":".$e->startmin; echo date("g:i a", strtotime($t));?></h3>
                         
-                        <h4>  {{ $e->title }}</h4>
+                        <h4>{{ $e->title }}</h4>
                         <h4>{{ $e->location }}</h4>
                         <p>{{ $e->description }}</p>
                     </div>
                     
-                    <?php $i++; ?>  
-                    @endforeach     
+                    <?php 
+                    $i++; 
+                    }
+                    ?>  
                 
                 </div>  
                 
@@ -118,16 +122,16 @@
                 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <?php $i=1 ?>
+                    <?php $i=1; ?>
                     @foreach($staff as $s)
 
 
                     <div class="item <?php if($i==1) { echo 'active'; } ?>">
 
-                         <img src="timthumb.php?src=/images/staff/{{ $s->photo }}&w=960&h=1080&a=br" />
+                         <img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=960&h=1080&a=br" />
                          <span class="staff-ribbon">Your Store Staff</span>
                          <span class="staffname">
-                            <em>{{$s->first}} {{$s->last}}</em> <br />
+                            <em>{{$s->first}}</em> <br />
                             {{$s->position}}
                          </span>
                          
@@ -209,7 +213,7 @@
                             
         });
 
-        $("#scoreboard").load("scoreboard-cash.html"); 
+        $("#scoreboard").load("/scoreboard-cash.html"); 
         
         go();
         setInterval(function(){ gather(); },16000);
@@ -232,7 +236,7 @@
             Shuffle(photoArray);
 
            for (var i=0;i<photoArray.length;i++) {
-              $("#img_"+i ).attr("src", "timthumb.php?src=/images/photos/"+photoArray[i]+"&w=500h=333&a=c.jpg");
+              $("#img_"+i ).attr("src", "/timthumb.php?src=/images/photos/"+photoArray[i]+"&w=500h=333&a=c.jpg");
            }
         }
 

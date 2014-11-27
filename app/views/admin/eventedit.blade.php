@@ -112,7 +112,17 @@ function trunc($phrase, $max_words) {
                         </div>    
                         <div class="form-group">  
 
+                            <div class="col-sm-4 pull-left checkbox">
                              
+                              <label for="hilite">
+                              @if($event->hilite == 1)  
+                                <input type="checkbox" name="hilite" class="" id="toggle_{{$event->id}}" checked> Highlight Event
+                              @else
+                                <input type="checkbox" name="hilite" class="" id="toggle_{{$event->id}}"> Highlight Event
+                              @endif                                
+                              </label>
+
+                            </div>
                           
                             
                             <div class="col-sm-5 pull-right">

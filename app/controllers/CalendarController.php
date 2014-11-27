@@ -2,8 +2,12 @@
 
 Class CalendarController extends BaseController {
 
-    public function getIndex(){
-        $events = CommunityEvent::getevents();
+    public function getIndex($sn, $ls = NULL, $api = NULL){
+        
+        $storedetails = Store::getStoreDetails($sn); 
+        $storeid = $storedetails[0]->id;
+
+        $events = CommunityEvent::getevents($storeid);
        // $events = CommunityEvent::find(40);
 
         $events_string= "";
@@ -13,6 +17,12 @@ Class CalendarController extends BaseController {
         $i=0;
 
         foreach($events as $e){
+
+            if($e->hilite){
+                $h = 1;
+            } else {
+                $h = 0;
+            }
 
             if( $e->startdate != $lastdate) {
                 $lastdate = $e->startdate;
@@ -24,11 +34,29 @@ Class CalendarController extends BaseController {
                 $startdate = str_replace("-", "", $e->startdate);
                 $pos = strpos($startdate,'0');
 
+
                 if ($pos !== false) {
-                    $startdate = substr($startdate,0,$pos+1) . str_replace('0','',substr($startdate,$pos+1));
+
+                        if( substr($startdate, -1) == "0" ){
+                          //  echo "this is a 10,20,30";
+                            $startdate = substr($startdate,0,$pos+1) . str_replace('0','',substr($startdate,$pos));    
+                            $startdate = $startdate . "0"; 
+
+                        } else {
+                            $startdate = substr($startdate,0,$pos+1) . str_replace('0','',substr($startdate,$pos+1));     
+                        }
+                       
+                      //  echo "<b>original:</b> " . $e->startdate ." <b>zero pos:</b> " . $pos . " <b>formatted:</b> " .$startdate . " <b>len:</b> ". strlen($startdate) . " <br />";
+                    
                 }
                 $enddate = str_replace("-", "", $e->enddate);
-                $events_string .= '<div data-role="day" data-day="'.$startdate.'">';  //open the new dategroup
+
+                if($h == 1){
+                    $events_string .= '<div data-role="day" data-day="'.$startdate.'" data-hilite="yes">';  //open the new dategroup
+                } else {
+                    $events_string .= '<div data-role="day" data-day="'.$startdate.'">';  //open the new dategroup
+                }
+                
             }
             $startmin = $e->startmin;
             $endmin = $e->endmin; 
@@ -62,9 +90,31 @@ Class CalendarController extends BaseController {
 
             $i++;            
         }   
+        
+        if($api){
+	        return $events_string;
+        }
 
-        return View::make('calendar')
-            ->with('events_string', $events_string);
+        if($ls){
+            //landscape
+            return View::make('landscape/calendar')
+                ->with('storedetails', $storedetails)
+                ->with('events_string', $events_string);            
+        } else {
+            return View::make('calendar')
+                ->with('storedetails', $storedetails)
+                ->with('events_string', $events_string);            
+        }    
+
     }
 
+    public function getCalRaw($sn){
+	    
+        $storedetails = Store::getStoreDetails($sn); 
+        $storeid = $storedetails[0]->id;
+        	    
+	    $events = CommunityEvent::getevents($storeid);
+	    return $events;
+	    
+    }
 }
