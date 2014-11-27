@@ -38,7 +38,7 @@
             </div>
 
             <div id="home-callout" class="fullwidth">
-                <img src="/images/communityboard-center.jpg" />
+                <img src="/images/communityboard-center259.jpg" />
             </div>
 
 			 <div id="nav" class="fullwidth">
@@ -55,6 +55,7 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/calendar.full.js"></script>
         
+        <script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
 
     
         <script type="text/javascript"> 

@@ -19,8 +19,6 @@
 		
         <style>
 
-
-
 		.featurecontent .item {-webkit-transition: opacity 3s; -moz-transition: opacity 3s; -ms-transition: opacity 3s; -o-transition: opacity 3s; transition: opacity 3s;}
 		.featurecontent .active.left {left:0;opacity:0;z-index:2;}
 		.featurecontent .next {left:0;opacity:1;z-index:1;}			
@@ -32,7 +30,7 @@
     <body class="landscape">
         <div id="stage">
         	<div id="heading">
-             
+             	<div id="scoreboard" class="floatL"></div>
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
@@ -77,13 +75,13 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
-       
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
         <script> 
         $( document ).ready(function() {
         
         	//document.oncontextmenu = function () { return false; };
         	
-			//$("#scoreboard").load("/scoreboard.html"); 
+			$("#scoreboard").load("/scoreboard.html"); 
 
 
         });

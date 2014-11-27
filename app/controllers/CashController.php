@@ -14,7 +14,7 @@ class CashController extends BaseController{
         
         $singles = CashwallAsset::getSingles();
         
-        $events = CommunityEvent::getnextthirty();
+        $events = CommunityEvent::getnextthirty($storeid);
 
         $photos = Photo::orderBy(DB::raw('RAND()'))
                 ->where("publish","=",1)
@@ -23,7 +23,7 @@ class CashController extends BaseController{
 
 		if (!$storedetails) {
 			
-			return "Oops, can't find that store. Use a valid store number. <em>Example:</em> <strong>http://domain.com/<em>5111</em>/cash</strong>";
+			return "Oops, can't find that store. Use a valid store number.";
 			
 		} else {
 			

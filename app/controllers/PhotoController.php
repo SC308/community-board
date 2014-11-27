@@ -26,9 +26,13 @@ class PhotoController extends BaseController{
     }
     
     
-    public function getPhotoData(){
+    public function getPhotoData($sn){
+	    $storedetails = Store::getStoreDetails($sn); 
+	    $storeid = $storedetails[0]->id;
+	    
         $photos = Photo::orderBy(DB::raw('RAND()'))
 		        ->where("publish","=",1)
+		        ->where("store_id","=",$storeid)
 				->get();
 				
 		return $photos;

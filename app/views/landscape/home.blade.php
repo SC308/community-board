@@ -26,8 +26,7 @@
     <body class="landscape">
         <div id="stage">
         	<div id="heading">
-             
-
+             	<div id="scoreboard" class="floatL"></div>
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
@@ -40,11 +39,47 @@
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls/jumpstart"/><img src="/images/nav-ls-jumpstart.jpg" /></a>
         	</div>
 
-        	<div id="main">
+        	<div id="main" class="home">
         		
             
                 <div id="landscape-feature">
                     
+
+                    <div id="" class="carousel slide featurecontent" data-ride="carousel">
+                
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <?php $i=1 ?>
+                        @foreach($feature as $f)
+                        
+                        @if($i==1)
+                        <div class="item active">
+                            <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=960.jpg" alt="">
+                            <div class="carousel-caption caption-right">
+                                <span class="caption-title">{{$f->title}}</span>
+                                <span class="caption-content">{{$f->content}}</span>
+                            </div>
+                        </div>
+                        @else
+                        <div class="item">
+                            <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=960.jpg" alt="">
+                            <div class="carousel-caption caption-left">
+                                <span class="caption-title">{{$f->title}}</span>
+                                <span class="caption-content">{{$f->content}}</span>
+                            </div>
+                        </div>                      
+                        @endif
+                        
+                        <?php $i++; ?>    
+                        
+                        @endforeach     
+                    
+                    </div>  
+                    
+
+                    </div> <!-- //end carousel -->
+                    
+
 
                 </div>
 
@@ -124,7 +159,25 @@
         
         	//document.oncontextmenu = function () { return false; };
         	
-			//$("#scoreboard").load("/scoreboard.html"); 
+			$("#scoreboard").load("/scoreboard.html"); 
+
+            $('.featurecontent').carousel({
+                interval: 15000
+            });
+
+
+            $('.featurecontent').on('slide.bs.carousel', function () {
+                $( ".carousel-caption" ).animate({
+                    bottom: "-250px"
+                });
+
+            });
+
+            $('.featurecontent').on('slid.bs.carousel', function () {
+                $( ".carousel-caption" ).animate({
+                    bottom: "250px"
+                });
+            });            
 
             $('.toppicks').carousel({
               interval: 8000

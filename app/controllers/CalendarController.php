@@ -2,7 +2,7 @@
 
 Class CalendarController extends BaseController {
 
-    public function getIndex($sn, $ls = NULL){
+    public function getIndex($sn, $ls = NULL, $api = NULL){
         
         $storedetails = Store::getStoreDetails($sn); 
         $storeid = $storedetails[0]->id;
@@ -90,6 +90,10 @@ Class CalendarController extends BaseController {
 
             $i++;            
         }   
+        
+        if($api){
+	        return $events_string;
+        }
 
         if($ls){
             //landscape
@@ -104,9 +108,13 @@ Class CalendarController extends BaseController {
 
     }
 
-    // public function getIndexLandScape($sn){
-    //     $storedetails = Store::getStoreDetails($sn); 
-    //     return $this->getIndex($sn, true);  
-    // }
-
+    public function getCalRaw($sn){
+	    
+        $storedetails = Store::getStoreDetails($sn); 
+        $storeid = $storedetails[0]->id;
+        	    
+	    $events = CommunityEvent::getevents($storeid);
+	    return $events;
+	    
+    }
 }

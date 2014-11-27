@@ -30,7 +30,7 @@
         <div id="stage">
         	<div id="heading">
              
-
+				<div id="scoreboard" class="floatL"></div>
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
@@ -63,14 +63,14 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/calendar.full.js"></script>
-
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
 
         <script> 
         $( document ).ready(function() {
         
         	//document.oncontextmenu = function () { return false; };
         	
-			//$("#scoreboard").load("/scoreboard.html"); 
+			$("#scoreboard").load("/scoreboard.html"); 
 
         });
         </script>          

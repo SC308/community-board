@@ -79,16 +79,6 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
 
                 <div class="col-md-6">
                     {{ Form::open(array('action' => 'AdminController@saveAddEvent', 'class' => 'form-horizontal', 'role' => 'form')) }}
-                        
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" value="">
-                        </div>  
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <input type="text" class="form-control help-block" id="location" name="location" value="">
-                        </div>    
-
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label for="start">Start Date/Time</label>
@@ -105,6 +95,17 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
                                     </div>
                             </div>                            
                         </div>
+                                                
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="">
+                        </div>  
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control help-block" id="location" name="location" value="">
+                        </div>    
+
+
 
                         <div class="form-group">    
                             <label for="description">Description <small>&mdash; 1 or 2 sentences<small></label>

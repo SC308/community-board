@@ -19,5 +19,10 @@ class BaseController extends Controller {
        // $storedetails = Store::getStoreDetails($sn); 
         return $this->getIndex($sn, true);  
     }    
+    
+	public function getAPI($sn){
+       // $storedetails = Store::getStoreDetails($sn); 
+        return $this->getIndex($sn, false, true);  
+    }    
 
 }

@@ -28,7 +28,7 @@
     <body class="landscape">
         <div id="stage">
         	<div id="heading">
-            
+            	<div id="scoreboard" class="floatL"></div>
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
@@ -95,7 +95,7 @@
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
-
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
 
         <script> 
 
@@ -123,7 +123,7 @@
                     $("#bio").css("opacity", "0");
                     $("#current-staff-bio").css("opacity", "0");
 
-                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}} {{$s->last}}</h1>');
+                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}}</h1>');
                             $(".dept").replaceWith('<h2 class="dept"><!--<span class="whitebox"></span>-->{{$s->position}}</h2>');
                             $(".bio-text").replaceWith("<p class='bio-text'>{{{ preg_replace( "/\r|\n/", "", $s->bio) }}}</p>");
 							$(".favsport").replaceWith("<span class='favsport'>{{$s->favorite_sport}}</span>");
@@ -148,7 +148,7 @@
         
         	//document.oncontextmenu = function () { return false; };
         	
-			//$("#scoreboard").load("/scoreboard.html"); 
+			$("#scoreboard").load("/scoreboard.html"); 
 
 			show_{{$lowest}}();
 

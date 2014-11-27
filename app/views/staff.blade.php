@@ -88,7 +88,7 @@
 
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
-<!--        <script src="/js/timer.js"></script> -->
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
 <!--         <script src="js/jquery.mobile-1.3.2.min.js"></script> -->
 
         <script type="text/javascript"> 
@@ -118,7 +118,7 @@
                     $("#bio").css("opacity", "0");
                     $("#current-staff-bio").css("opacity", "0");
 
-                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}} {{$s->last}}</h1>');
+                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}}</h1>');
                             $(".dept").replaceWith('<h2 class="dept"><!--<span class="whitebox"></span>-->{{$s->position}}</h2>');
                             $(".bio-text").replaceWith("<p class='bio-text'>{{{ preg_replace( "/\r|\n/", "", $s->bio) }}}</p>");
 							$(".favsport").replaceWith("<span class='favsport'>{{$s->favorite_sport}}</span>");

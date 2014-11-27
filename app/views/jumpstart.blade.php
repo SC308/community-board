@@ -33,7 +33,7 @@
 
     <body>
 
-        <div id="stage" style="border: thin solid lime;">
+        <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
                 <a href="/<?=$storedetails[0]->store_number?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
@@ -49,12 +49,12 @@
                 </div>
 
                 <div style="width: 500px; float: left; padding: 20px 20px 20px 0px">
-                    <h1 style="text-align: center"><img src="/images/jumpstart/js-store-total.jpg" style="position: relative; bottom: 5px" />  ${{ number_format($jumpstart->store_raised) }}</h1>
+                    <h1 style="text-align: center"><img src="/images/jumpstart/js-store-total.jpg" style="position: relative; bottom: 5px" />  ${{ number_format($jumpstart[0]->store_raised) }}</h1>
 
                     <div id="js-graph" style="width: 400px; height: 222px; margin: 0 auto;">
 
                         <div id="" style="position: relative; height: 100%; width: 130px; float: left;">
-                            <div id="max" style="position: absolute; top: 0; text-align: right !important;">${{ number_format($jumpstart->store_goal) }} &mdash;</div>
+                            <div id="max" style="position: absolute; top: 0; text-align: right !important;">${{ number_format($jumpstart[0]->store_goal) }} &mdash;</div>
                             <div id="min" style="position: absolute; bottom: 10px; text-align: right !important;">$ 0 &mdash;</div>
                         </div>
 
@@ -73,9 +73,9 @@
                     
                     <img src="/images/jumpstart/js-champ-title.jpg" />    
                     <p>
-                        <img src="/timthumb.php?src=/images/jumpstart/champs/{{ $jumpstart->champ_photo }}&w=230&h=230&a=br" align="left" style="margin-right: 20px;" class="img-thumbnail" />
-                        <strong>{{ $jumpstart->champ_name }}</strong><br />
-                        {{ $jumpstart->champ_bio }}
+                        <img src="/timthumb.php?src=/images/jumpstart/champs/{{ $jumpstart[0]->champ_photo }}&w=230&h=230&a=br" align="left" style="margin-right: 20px;" class="img-thumbnail" />
+                        <strong>{{ $jumpstart[0]->champ_name }}</strong><br />
+                        {{ $jumpstart[0]->champ_bio }}
                     </p>
                 </div>
                     
@@ -114,7 +114,7 @@
 
 
             <div id="home-callout" class="fullwidth">
-                <img src="/images/communityboard-center.jpg">
+                <img src="/images/communityboard-center259.jpg">
             </div>
 
              <div id="nav" class="fullwidth">
@@ -135,6 +135,7 @@
         <script src="/js/jquery.grid-a-licious.js"></script>
         <script src="/js/fancybox/source/jquery.fancybox.js"></script>
         
+        <script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
 
 
         <script> 

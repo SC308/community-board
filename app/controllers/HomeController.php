@@ -36,10 +36,13 @@ class HomeController extends BaseController {
 		return View::make('home-selector');
 	}
 	
-	public function getFeaturedData(){
+	public function getFeaturedData($sn){
 		
-		$feature = Feature::all();
-		
+		$storedetails = Store::getStoreDetails($sn); 
+		$storeid = $storedetails[0]->id;
+				
+		$feature = Feature::where('store_id','=',$storeid)->get();
+
 		return $feature;
 	}
 

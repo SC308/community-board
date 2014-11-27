@@ -1,3 +1,6 @@
+<?php
+//	dd($jumpstart);	
+?>
 <!DOCTYPE html>
 <html class="no-js">
     <head>
@@ -29,7 +32,7 @@
     <body class="landscape">
         <div id="stage">
         	<div id="heading">
-             
+             	<div id="scoreboard" class="floatL"></div>
 
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
@@ -55,9 +58,9 @@
                         <p>
                             
                             
-                            <img src="/timthumb.php?src=/images/jumpstart/champs/{{ $jumpstart->champ_photo }}&w=230&h=230&a=br" align="left" style="margin-right: 20px;" />
-                            <strong>{{ $jumpstart->champ_name }}</strong><br />
-                            {{ $jumpstart->champ_bio }}
+                            <img src="/timthumb.php?src=/images/jumpstart/champs/{{ $jumpstart[0]->champ_photo }}&w=230&h=230&a=br" align="left" style="margin-right: 20px;" />
+                            <strong>{{ $jumpstart[0]->champ_name }}</strong><br />
+                            {{ $jumpstart[0]->champ_bio }}
                         </p>
                     </div>
                     
@@ -82,14 +85,14 @@ ultimately we want to fufill the dreams of all Canadian kids. </p>
             <div id="js-sidebar">
                 
                 <img src="/images/jumpstart/js-together.jpg" style="padding-top: 40px;padding-bottom: 0px; width: 395px; margin: 0 auto; padding-bottom: 140px; padding-left: 35px;" />
-               <h1 style="text-align: center; padding-bottom: 20px;"><img src="/images/jumpstart/js-store-total.jpg" style="position: relative; bottom: 5px" />  ${{ number_format($jumpstart->store_raised) }}</h1>
+               <h1 style="text-align: center; padding-bottom: 20px;"><img src="/images/jumpstart/js-store-total.jpg" style="position: relative; bottom: 5px" />  ${{ number_format($jumpstart[0]->store_raised) }}</h1>
 
                 <!-- <img src="/images/jumpstart/js-store-total.jpg" style="padding-bottom: 20px; width: 400px; margin: 0 auto;" /> -->
                 <div id="js-graph" style="width: 500px; height: 389px; margin: 0 auto;">
 
                     <div id="" style="position: relative; height: 100%; width: 100px; float: left;">
                         
-                        <div id="max" style="position: absolute; top: 0; text-align: right !important;">${{ number_format($jumpstart->store_goal) }} &mdash;</div>
+                        <div id="max" style="position: absolute; top: 0; text-align: right !important;">${{ number_format($jumpstart[0]->store_goal) }} &mdash;</div>
                         <div id="min" style="position: absolute; bottom: 10px; text-align: right !important;">$ 0 &mdash;</div>
                         
                     </div>
@@ -122,13 +125,13 @@ ultimately we want to fufill the dreams of all Canadian kids. </p>
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
-
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
         <script> 
         $( document ).ready(function() {
         
         	//document.oncontextmenu = function () { return false; };
         	
-			//$("#scoreboard").load("/scoreboard.html"); 
+			$("#scoreboard").load("/scoreboard.html"); 
 
         });
         </script>          

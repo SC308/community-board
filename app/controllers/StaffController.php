@@ -26,9 +26,12 @@ class StaffController extends BaseController{
             ->with('manager', $manager);
     }
     
-    public function getStaffData(){
+    public function getStaffData($sn){
 	    
-	    $staff = StaffBio::get();
+        $storedetails = Store::getStoreDetails($sn); 
+        $storeid = $storedetails[0]->id;	    
+        
+	    $staff = StaffBio::where("store_id","=",$storeid)->get();
 
         return $staff;
         

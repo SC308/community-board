@@ -641,23 +641,9 @@ class AdminController extends BaseController{
         $storedetails = Store::getStoreDetails( Confide::user()->store_id );
         $sn = $storedetails[0]->id;
 
-       // $content = Jumpstart::getJumpstart($sn);
-        return View::make('admin/jumpstart');
-         //   ->with('content', $content);
-     }
-
-     public function addJumpstart(){
-
-     }
-
-     public function removeJumpstart(){
-        $f = Feature::find($id);
-        $f->delete();
-        $t = "Done!";
-        $r = "Feature content deleted!<br /><a href='/admin/feature'>Back to Feature Content</a>";
-        return View::make('admin/confirmation')
-                ->with('response_title', $t)
-                ->with('response', $r );
+        $jumpstart = Jumpstart::getJumpstart($sn);
+        return View::make('admin/jumpstart')
+          	  ->with('jumpstart', $jumpstart);
      }
 
      public function editJumpstart(){
@@ -666,9 +652,66 @@ class AdminController extends BaseController{
             ->with('jumpstart', $jumpstart);
      }
 
-     public function saveEditJumpstart(){
+       public function saveEditJumpstart(){
 
-     }
+        $storedetails = Store::getStoreDetails( Confide::user()->store_id );
+        $sn = $storedetails[0]->id;
+
+        $id= Input::get('id');
+        $file = Input::file('champ_photo');
+
+        if( $file  ){
+            $extension = Input::file('champ_photo')->getClientOriginalExtension();
+            $directory = public_path() .'/images/jumpstart/champs';
+            $filename = sha1(time().time()).".".$extension;           
+            $upload_success = Input::file('champ_photo')->move($directory, $filename);; //move and rename file
+
+            if( $upload_success ) {
+		        $jumpstartedits = array(
+                    	    'store_id' => $sn,
+		            'champ_name' => Input::get('champ_name'),
+		            'champ_bio' => Input::get('champ_bio'),
+			    'store_goal' => Input::get('store_goal'),
+			    'store_raised' => Input::get('store_raised'),
+		            'champ_photo' => $filename
+		        );
+
+            Jumpstart::find($id)->update($jumpstartedits);
+
+	        $t = "Awesome!";  
+	        $r = "Your changes have been saved, photo updated! <a href='/admin/jumpstart'>Back to Jumpstart</a>";
+	            return View::make('admin/confirmation')
+	                ->with('response_title', $t)
+	                ->with('response', $r );
+            } else {
+                $t = "Um...";  
+                $r = "Something bad happened. <a href='/admin/jumpstart'>Back to Jumpstart</a>";            
+                return View::make('admin/confirmation')
+                    ->with('response_title', $t)
+                    ->with('response', $r );
+            } 
+            
+            
+		} else {
+	        $jumpstartedits = array(
+                            'store_id' => $sn,
+                            'champ_name' => Input::get('champ_name'),
+                            'champ_bio' => Input::get('champ_bio'),
+                            'store_goal' => Input::get('store_goal'),
+                            'store_raised' => Input::get('store_raised')
+	        );
+
+            	Jumpstart::find($id)->update($jumpstartedits);
+
+	        $t = "Awesome!";  
+	        $r = "Your changes have been saved! <a href='/admin/jumpstart'>Back to Jumpstart</a>";
+	            return View::make('admin/confirmation')
+	                ->with('response_title', $t)
+	                ->with('response', $r );           
+
+        }
+                
+    }
 
      public function saveAddJumpStart(){
 

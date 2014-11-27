@@ -73,7 +73,7 @@
         <script src="/js/jquery.grid-a-licious.js"></script>
         <script src="/js/fancybox/source/jquery.fancybox.js"></script>
         
-        <script src="/js/timer.js"></script>
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
 
         <script> 
           

@@ -76,7 +76,7 @@
 
             </div>
             <div id="home-callout" class="fullwidth" style="z-inxex: 99 !important;">
-                <img src="/images/communityboard-center.jpg" style="z-inxex: 99 !important;" />
+                <img src="/images/communityboard-center259.jpg" style="z-inxex: 99 !important;" />
             </div>
 
             <div id="nav" class="fullwidth">
