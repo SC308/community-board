@@ -18,15 +18,16 @@ body.landscape .calendar {
 	padding: 0em;
 	color: white;
 	font-weight: 300;
-	height: 945px;
+	/*height: 945px;*/
+    height: 845px;
 	font-family: "GalaxiePolarisCondensed-Book",sans-serif;
-
 	padding-bottom: 155px;
+
 }
 
 
 .calendar.small {
-	
+
 	font-weight: 100;
 }
 
@@ -57,7 +58,7 @@ user-select: none;
 	position: relative;
 	top: 30px;
 	color: #333333;
-	
+
 }
 
 body.landscape .calendar-month-view-title{
@@ -89,7 +90,7 @@ body.landscape .calendar-month-view-title{
 }
 [data-dir=left] {
 	left: 0;
-text-align: center;	
+text-align: center;
 }
 [data-dir=right] {
 	right: 0;
@@ -98,7 +99,7 @@ text-align: center;
 
 body.landscape [data-dir=left] {
 	left: 275px;
-	text-align: center;	
+	text-align: center;
 }
 
 body.landscape [data-dir=right] {
@@ -119,16 +120,14 @@ body.landscape [data-dir=right] {
 	position: relative;
 	/*overflow: hidden;*/
 	display: block;
-
-
-
 }
+
 .calendar-grid {
 	width:100%;
 	height: 100%;
 	position: absolute;
 	top: 0;
-	
+
 }
 .calendar.spec-day .calendar-grid {
 	display: none;
@@ -176,7 +175,7 @@ body.landscape [data-dir=right] {
 	.calendar-day.have-events3 {
 		cursor: pointer;
 		background-color: #7dc8c1 !important;
-		
+
 	}
 		.calendar-day.have-events3 .date-holder{
 			color: #fff !important;
@@ -234,6 +233,7 @@ body.landscape [data-dir=right] {
 		background: transparent;
 		font-size: 16px;
 		display: block;
+
 	}
 
 .days{ width: 100%; height: 35px; clear: both; position: relative; top: 95px; padding-bottom: 10px;}
@@ -267,7 +267,7 @@ body.landscape [data-dir=right] {
 	.calendar-day.other-month .date-holder{
 		color: #eaeaec !important;
 	}
-	
+
 	.other-month img{
 		opacity: 0.15;
 	}
@@ -336,7 +336,7 @@ font: bold 30px Arial, sans-serif;
 	background-color: #fff !important;
 	color: #333 !important;
 	font-family: GalaxiePolarisCondensed-Bold !important;
-	
+
 }
 
 .return{
@@ -384,7 +384,7 @@ font: bold 30px Arial, sans-serif;
 .specific-day-info[i=month] {
 	font-size: 75px;
 	text-align: center;
-	font-family: GalaxiePolarisCondensed-Bold !important;	
+	font-family: GalaxiePolarisCondensed-Bold !important;
 	letter-spacing: -5px;
 	text-transform: uppercase;
 }
@@ -393,8 +393,8 @@ font: bold 30px Arial, sans-serif;
 	font-size: 120px;
 	line-height: 130px;
 	letter-spacing: -5px;
-	text-align: center;	
-	font-family: GalaxiePolarisCondensed-Bold !important;	
+	text-align: center;
+	font-family: GalaxiePolarisCondensed-Bold !important;
 }
 
 .calendar-specific .specific-day-scheme {
@@ -439,7 +439,7 @@ font: bold 30px Arial, sans-serif;
 	color: #333 !important;
 	padding-bottom: 10px;
 
-	
+
 }
 .calendar .specific-day-scheme-event p{
 	font-family: Arial, sans-serif;

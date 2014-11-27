@@ -10,17 +10,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">  
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
         <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
-        
-		<script src="/js/lib/modernizr.min.js"></script>       
-		
+
+		<script src="/js/lib/modernizr.min.js"></script>
+
 		<style>
 			.featurecontent .item {-webkit-transition: opacity 3s; -moz-transition: opacity 3s; -ms-transition: opacity 3s; -o-transition: opacity 3s; transition: opacity 3s;}
 			.featurecontent .active.left {left:0;opacity:0;z-index:2;}
-			.featurecontent .next {left:0;opacity:1;z-index:1;}			
-		</style> 
+			.featurecontent .next {left:0;opacity:1;z-index:1;}
+		</style>
     </head>
 
     <body class="landscape">
@@ -40,21 +40,21 @@
         	</div>
 
         	<div id="main" class="home">
-        		
-            
+
+
                 <div id="landscape-feature">
-                    
+
 
                     <div id="" class="carousel slide featurecontent" data-ride="carousel">
-                
+
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <?php $i=1 ?>
                         @foreach($feature as $f)
-                        
+
                         @if($i==1)
                         <div class="item active">
-                            <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=960.jpg" alt="">
+                            <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=860.jpg" alt="">
                             <div class="carousel-caption caption-right">
                                 <span class="caption-title">{{$f->title}}</span>
                                 <span class="caption-content">{{$f->content}}</span>
@@ -62,23 +62,23 @@
                         </div>
                         @else
                         <div class="item">
-                            <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=960.jpg" alt="">
+                            <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=860.jpg" alt="">
                             <div class="carousel-caption caption-left">
                                 <span class="caption-title">{{$f->title}}</span>
                                 <span class="caption-content">{{$f->content}}</span>
                             </div>
-                        </div>                      
+                        </div>
                         @endif
-                        
-                        <?php $i++; ?>    
-                        
-                        @endforeach     
-                    
-                    </div>  
-                    
+
+                        <?php $i++; ?>
+
+                        @endforeach
+
+                    </div>
+
 
                     </div> <!-- //end carousel -->
-                    
+
 
 
                 </div>
@@ -88,7 +88,7 @@
 
                     <a href="/<?=$storedetails[0]->store_number?>/ls/flyer-int">
                     <div id="flyerpreview">
-                        <img src="/images/flyer-callout-ls.png">
+                        <img src="/images/flyer-callout-ls2.png" id="flyer-title">
                         @foreach($flyer as $f)
                         <img class="miniflyer" src="/timthumb.php?src=/images/flyer/{{$f->path}}&w=168&h=400.jpg"  />
 
@@ -98,14 +98,14 @@
 
 
                     <div id="toppicks">
-                    
+
                         <div id="" class="carousel slide toppicks" data-ride="carousel">
 
                               <!-- Wrapper for slides -->
                               <div class="carousel-inner">
                                 <?php $i=1 ?>
                                 @foreach($toppicks as $tp)
-                                
+
                                     @if($i==1)
                                     <div class="item active">
                                       <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=418&h=277.jpg" alt="">
@@ -115,25 +115,25 @@
                                     <div class="item">
                                       <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=418&h=277.jpg" alt="">
                                       <div class="carousel-caption"></div>
-                                    </div>                      
+                                    </div>
                                     @endif
-                                
-                                <?php $i++; ?>    
-                    
-                                @endforeach     
-                                
-                              </div>  
-                        
+
+                                <?php $i++; ?>
+
+                                @endforeach
+
+                              </div>
+
 
                         </div> <!-- //end carousel -->
-                    
+
                     </div> <!-- //end toppicks -->
-                
+
 
                 </div>
 
 
-                
+
 
 
 
@@ -144,22 +144,22 @@
 
 
 
-        	
 
 
-        </div>	
+
+        </div>
 
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
 
-        <script> 
+        <script>
         $( document ).ready(function() {
-        
+
         	//document.oncontextmenu = function () { return false; };
-        	
-			$("#scoreboard").load("/scoreboard.html"); 
+
+			$("#scoreboard").load("/scoreboard.html");
 
             $('.featurecontent').carousel({
                 interval: 15000
@@ -177,14 +177,14 @@
                 $( ".carousel-caption" ).animate({
                     bottom: "250px"
                 });
-            });            
+            });
 
             $('.toppicks').carousel({
               interval: 8000
             });
 
         });
-        </script>          
+        </script>
     </body>
 
 </html>
