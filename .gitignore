@@ -11,6 +11,12 @@ html/images/staff/**
 html/images/feature/**
 html/images/cash/**
 html/images/photos/**
+html/images/NHL/**
+html/images/NFL/**
+html/images/CFL/**
+html/images/NBA/**
+html/images/SOC-WC/**
+html/images/MLB/**
 html/cache/**
 app/storage/logs/**
 app/storage/cache/**
@@ -18,4 +24,3 @@ app/storage/sessions/**
 app/storage/views/**
 tests/_output/**
 .vagrant
-
