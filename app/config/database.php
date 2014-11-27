@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'community_board',
+			'database'  => 'community_board_dev',
 			'username'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',
