@@ -5,18 +5,19 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="css/font-awesome.css?<?=time();?>">  
-        <link rel="stylesheet" href="js/fancybox/source/jquery.fancybox.css?<?=time();?>">
-        <link rel="stylesheet" href="css/main.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">  
+        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/main.css?<?=time();?>">
         
 		<script src="/js/lib/modernizr.min.js"></script>       
 		
 		<style>
+			#home-callout{ z-index: 999 !important;}
 			.featurecontent .item {-webkit-transition: opacity 3s; -moz-transition: opacity 3s; -ms-transition: opacity 3s; -o-transition: opacity 3s; transition: opacity 3s;}
 			.featurecontent .active.left {left:0;opacity:0;z-index:2;}
 			.featurecontent .next {left:0;opacity:1;z-index:1;}			
@@ -27,7 +28,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>              
-                <img src="images/sc-logo.jpg" class="floatR" />
+                <img src="/images/sc-logo.jpg" class="floatR" />
             </div>
             
             <div id="home-bio" class="fullwidth">
@@ -74,15 +75,19 @@
 -->
 
             </div>
-
-            <div id="home-callout" class="fullwidth">
-                <img src="images/communityboard-center.jpg" />
+            <div id="home-callout" class="fullwidth" style="z-inxex: 99 !important;">
+                <img src="/images/communityboard-center259.jpg" style="z-inxex: 99 !important;" />
             </div>
 
             <div id="nav" class="fullwidth">
-                <a href="/staff"><img src="/images/nav-staff.png" /></a>
-                <a href="/calendar"><img src="/images/nav-calendar.png" /></a>
-                <a href="/photos"><img src="/images/nav-photos.png" /></a>
+<!--                 <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-calendar.png" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos.png" /></a> -->
+
+                <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/jumpstart"><img src="/images/nav-js-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-cal-sm.jpg" /></a>
+                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos-sm.jpg" /></a>
             </div>
 
             <div id="home-flyer" class="fullwidth">
@@ -119,7 +124,7 @@
             	
             	</div> <!-- //end toppicks -->
             	
-            	<a href="/flyer-int">
+            	<a href="/<?=$storedetails[0]->store_number?>/flyer-int">
             	<div id="flyerpreview">
 	                	@foreach($flyer as $f)
 		                <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$f->path}}&w=155&h=367.jpg" />
@@ -133,7 +138,7 @@
 
         </div>
 
-        <script src="js/lib/jquery-1.10.2.min.js"></script>
+        <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
         <script> 
@@ -148,6 +153,20 @@
 			$('.featurecontent').carousel({
 				interval: 15000
 			});
+
+
+			$('.featurecontent').on('slide.bs.carousel', function () {
+				$( ".carousel-caption" ).animate({
+                	right: "1500px"
+                });
+
+			});
+
+			$('.featurecontent').on('slid.bs.carousel', function () {
+				$( ".carousel-caption" ).animate({
+                	right: "0px"
+                });
+			});
         
             $('#home-bio').animate({
                 opacity: 1.0
@@ -158,12 +177,13 @@
                 opacity: 1.0,
                 left: "+=75"
                 }, 1000, function() {
-            // Animation complete.
+
+            
             });
 
           // $('#home-callout').animate({ boxShadow : "0 0 5px 3px rgba(100,100,200,0.4)" });
 
-             $("#scoreboard").load("scoreboard.html"); 
+             $("#scoreboard").load("/scoreboard.html"); 
           
 
             

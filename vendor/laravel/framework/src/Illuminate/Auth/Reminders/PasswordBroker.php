@@ -99,8 +99,8 @@ class PasswordBroker {
 	/**
 	 * Send a password reminder to a user.
 	 *
-	 * @param  array    $credentials
-	 * @param  Closure  $callback
+	 * @param  array     $credentials
+	 * @param  \Closure  $callback
 	 * @return string
 	 */
 	public function remind(array $credentials, Closure $callback = null)
@@ -129,9 +129,9 @@ class PasswordBroker {
 	 * Send the password reminder e-mail.
 	 *
 	 * @param  \Illuminate\Auth\Reminders\RemindableInterface  $user
-	 * @param  string   $token
-	 * @param  Closure  $callback
-	 * @return void
+	 * @param  string    $token
+	 * @param  \Closure  $callback
+	 * @return int
 	 */
 	public function sendReminder(RemindableInterface $user, $token, Closure $callback = null)
 	{
@@ -140,19 +140,19 @@ class PasswordBroker {
 		// so that it may be displayed for an user to click for password reset.
 		$view = $this->reminderView;
 
-		return $this->mailer->send($view, compact('token', 'user'), function($m) use ($user, $callback)
+		return $this->mailer->send($view, compact('token', 'user'), function($m) use ($user, $token, $callback)
 		{
 			$m->to($user->getReminderEmail());
 
-			if ( ! is_null($callback)) call_user_func($callback, $m, $user);
+			if ( ! is_null($callback)) call_user_func($callback, $m, $user, $token);
 		});
 	}
 
 	/**
 	 * Reset the password for the given token.
 	 *
-	 * @param  array    $credentials
-	 * @param  Closure  $callback
+	 * @param  array     $credentials
+	 * @param  \Closure  $callback
 	 * @return mixed
 	 */
 	public function reset(array $credentials, Closure $callback)
@@ -228,7 +228,7 @@ class PasswordBroker {
 
 		if (isset($this->passwordValidator))
 		{
-			return call_user_func($this->passwordValidator, $credentials) && $password == $confirm;
+			return call_user_func($this->passwordValidator, $credentials) && $password === $confirm;
 		}
 		else
 		{
@@ -244,9 +244,9 @@ class PasswordBroker {
 	 */
 	protected function validatePasswordWithDefaults(array $credentials)
 	{
-		$matches = $credentials['password'] == $credentials['password_confirmation'];
+		list($password, $confirm) = [$credentials['password'], $credentials['password_confirmation']];
 
-		return $matches && $credentials['password'] && strlen($credentials['password']) >= 6;
+		return $password === $confirm && mb_strlen($password) >= 6;
 	}
 
 	/**

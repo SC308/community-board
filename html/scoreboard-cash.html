@@ -11,8 +11,8 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" type="text/css" href="css/test.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.bxslider.css">
+        <link rel="stylesheet" type="text/css" href="/css/test.css">
+        <link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css">
         <link rel="stylesheet" type="text/css" href="/cash-assets/css/main.css">
         <link rel="stylesheet" type="text/css" href="/cash-assets/css/logo.css">
         <style>
@@ -42,9 +42,9 @@
 
     <body>
         <ul id="gallery"></ul>
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/modernizr.custom.43373.js"></script>
-        <script type="text/javascript" src="js/jquery.bxslider.js"></script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/modernizr.custom.43373.js"></script>
+        <script type="text/javascript" src="/js/jquery.bxslider.js"></script>
 
         <script type="text/javascript">
         $(document).ready(function()  
@@ -127,12 +127,20 @@
                         period="Starting Now";
                     }
 
+										if(home=="Brt Columbia"){
+											home="B.C.";
+										}
+										
+										if(visitor=="Brt Columbia"){
+											visitor="B.C.";
+										}
+
 					//new york
-                    if(home=="NY Islanders" || home=="NY Rangers" || home=="NY Yankees" || home=="NY Mets"){
+                    if(home=="NY Islanders" || home=="NY Rangers" || home=="NY Yankees" || home=="NY Mets" || home=="NY Jets" || home =="NY Giants"){
                         home = "New York";
                     }
 
-                    if(visitor=="NY Islanders" || visitor=="NY Rangers" || visitor=="NY Yankees" || visitor=="NY Mets"){
+                    if(visitor=="NY Islanders" || visitor=="NY Rangers" || visitor=="NY Yankees" || visitor=="NY Mets" || visitor=="NY Jets" || visitor =="NY Giants"){
                         visitor = "New York";
                     }
 					
@@ -335,7 +343,7 @@
             setInterval(function(){ setupScores(); },300000);
             setInterval(function(){ updateScores(); },5000);
 
-                  if( $("#gallery li").length > 1){
+                 // if( $("#gallery li").length > 1){
                   
                     setInterval(function(){
                      // console.log("looped");
@@ -346,7 +354,7 @@
                       });
                     }, 8000);
                     
-                 }
+                 //}
 
         });
 
@@ -493,8 +501,8 @@
                         case "NewEngland": return "Patriots"; break;
                         case "Detroit": return "Lions"; break;
                         case "NewOrleans": return "Saints"; break;
-                        case "NewYorkGiants": return "Giants"; break;
-                        case "NewYorkJets": return "Jets"; break;
+                        case "NYGiants": return "Giants"; break;
+                        case "NYJets": return "Jets"; break;
                         case "Oakland": return "Raiders"; break;
                         case "Philadelphia": return "Eagles"; break;
                         case "Pittsburgh": return "Steelers"; break;
@@ -510,7 +518,7 @@
 
                 case 'CFL':
                     switch(city){
-                        case "BC": return "Lions"; break;
+                        case "BrtColumbia": return "Lions"; break;
                         case "Calgary": return "Stampeders"; break;
                         case "Edmonton": return "Eskimos"; break;
                         case "Saskatchewan": return "Roughriders"; break;

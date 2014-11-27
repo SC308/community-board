@@ -45,6 +45,7 @@ if ( ! extension_loaded('mcrypt'))
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Config\EnvironmentVariables;
 use Illuminate\Config\Repository as Config;
 
 /*
@@ -103,6 +104,20 @@ Facade::setFacadeApplication($app);
 */
 
 $app->registerCoreContainerAliases();
+
+/*
+|--------------------------------------------------------------------------
+| Register The Environment Variables
+|--------------------------------------------------------------------------
+|
+| Here we will register all of the $_ENV and $_SERVER variables into the
+| process so that they're globally available configuration options so
+| sensitive configuration information can be swept out of the code.
+|
+*/
+
+with($envVariables = new EnvironmentVariables(
+	$app->getEnvironmentVariablesLoader()))->load($env);
 
 /*
 |--------------------------------------------------------------------------
@@ -208,49 +223,49 @@ $app->getProviderRepository()->load($app, $providers);
 $app->booted(function() use ($app, $env)
 {
 
-/*
-|--------------------------------------------------------------------------
-| Load The Application Start Script
-|--------------------------------------------------------------------------
-|
-| The start script gives us the application the opportunity to override
-| any of the existing IoC bindings, as well as register its own new
-| bindings for things like repositories, etc. We'll load it here.
-|
-*/
+	/*
+	|--------------------------------------------------------------------------
+	| Load The Application Start Script
+	|--------------------------------------------------------------------------
+	|
+	| The start scripts gives this application the opportunity to override
+	| any of the existing IoC bindings, as well as register its own new
+	| bindings for things like repositories, etc. We'll load it here.
+	|
+	*/
 
-$path = $app['path'].'/start/global.php';
+	$path = $app['path'].'/start/global.php';
 
-if (file_exists($path)) require $path;
+	if (file_exists($path)) require $path;
 
-/*
-|--------------------------------------------------------------------------
-| Load The Environment Start Script
-|--------------------------------------------------------------------------
-|
-| The environment start script is only loaded if it exists for the app
-| environment currently active, which allows some actions to happen
-| in one environment while not in the other, keeping things clean.
-|
-*/
+	/*
+	|--------------------------------------------------------------------------
+	| Load The Environment Start Script
+	|--------------------------------------------------------------------------
+	|
+	| The environment start script is only loaded if it exists for the app
+	| environment currently active, which allows some actions to happen
+	| in one environment while not in the other, keeping things clean.
+	|
+	*/
 
-$path = $app['path']."/start/{$env}.php";
+	$path = $app['path']."/start/{$env}.php";
 
-if (file_exists($path)) require $path;
+	if (file_exists($path)) require $path;
 
-/*
-|--------------------------------------------------------------------------
-| Load The Application Routes
-|--------------------------------------------------------------------------
-|
-| The Application routes are kept separate from the application starting
-| just to keep the file a little cleaner. We'll go ahead and load in
-| all of the routes now and return the application to the callers.
-|
-*/
+	/*
+	|--------------------------------------------------------------------------
+	| Load The Application Routes
+	|--------------------------------------------------------------------------
+	|
+	| The Application routes are kept separate from the application starting
+	| just to keep the file a little cleaner. We'll go ahead and load in
+	| all of the routes now and return the application to the callers.
+	|
+	*/
 
-$routes = $app['path'].'/routes.php';
+	$routes = $app['path'].'/routes.php';
 
-if (file_exists($routes)) require $routes;
+	if (file_exists($routes)) require $routes;
 
 });

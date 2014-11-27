@@ -24,8 +24,8 @@ class BeanstalkdJob extends Job {
 	 * Create a new job instance.
 	 *
 	 * @param  \Illuminate\Container\Container  $container
-	 * @param  Pheanstalk  $pheanstalk
-	 * @param  Pheanstalk_Job  $job
+	 * @param  \Pheanstalk_Pheanstalk  $pheanstalk
+	 * @param  \Pheanstalk_Job  $job
 	 * @param  string  $queue
 	 * @return void
 	 */
@@ -83,6 +83,16 @@ class BeanstalkdJob extends Job {
 		$priority = Pheanstalk::DEFAULT_PRIORITY;
 
 		$this->pheanstalk->release($this->job, $priority, $delay);
+	}
+
+	/**
+	 * Bury the job in the queue.
+	 *
+	 * @return void
+	 */
+	public function bury()
+	{
+		$this->pheanstalk->bury($this->job);
 	}
 
 	/**

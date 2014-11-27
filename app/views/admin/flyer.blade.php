@@ -1,3 +1,4 @@
+<?php $storedetails = Store::getStoreDetails( Confide::user()->store_id ); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-    <title>5111 Community Board Admin</title>
+    <title><?php echo $storedetails[0]->store_name?> Community Board Admin :: Flyers and Top Picks</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/admin-assets/css/bootstrap.css" rel="stylesheet">
@@ -38,7 +39,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/admin">5111 Community Board</a>
+            <a class="navbar-brand" href="/admin"><?php echo $storedetails[0]->store_name?> Community Board</a>
           </div>
           <div class="collapse navbar-collapse">
             @include('admin/nav')

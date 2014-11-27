@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Events\EventServiceProvider;
 use Illuminate\Routing\RoutingServiceProvider;
 use Illuminate\Exception\ExceptionServiceProvider;
+use Illuminate\Config\FileEnvironmentVariablesLoader;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -26,7 +27,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 *
 	 * @var string
 	 */
-	const VERSION = '4.1.16';
+	const VERSION = '4.2.8';
 
 	/**
 	 * Indicates if the application has "booted".
@@ -101,7 +102,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	/**
 	 * Create a new Illuminate application instance.
 	 *
-	 * @param  \Illuminate\Http\Request
+	 * @param  \Illuminate\Http\Request  $request
 	 * @return void
 	 */
 	public function __construct(Request $request = null)
@@ -143,7 +144,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	protected function registerBaseServiceProviders()
 	{
-		foreach (array('Exception', 'Routing', 'Event') as $name)
+		foreach (array('Event', 'Exception', 'Routing') as $name)
 		{
 			$this->{"register{$name}Provider"}();
 		}
@@ -258,7 +259,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	{
 		$args = isset($_SERVER['argv']) ? $_SERVER['argv'] : null;
 
-		return $this['env'] = with(new EnvironmentDetector())->detect($envs, $args);
+		return $this['env'] = (new EnvironmentDetector())->detect($envs, $args);
 	}
 
 	/**
@@ -282,14 +283,30 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
-	 * Register a service provider with the application.
+	 * Force register a service provider with the application.
 	 *
 	 * @param  \Illuminate\Support\ServiceProvider|string  $provider
 	 * @param  array  $options
 	 * @return \Illuminate\Support\ServiceProvider
 	 */
-	public function register($provider, $options = array())
+	public function forceRegister($provider, $options = array())
 	{
+		return $this->register($provider, $options, true);
+	}
+
+	/**
+	 * Register a service provider with the application.
+	 *
+	 * @param  \Illuminate\Support\ServiceProvider|string  $provider
+	 * @param  array  $options
+	 * @param  bool   $force
+	 * @return \Illuminate\Support\ServiceProvider
+	 */
+	public function register($provider, $options = array(), $force = false)
+	{
+		if ($registered = $this->getRegistered($provider) && ! $force)
+                                     return $registered;
+
 		// If the given "provider" is a string, we will resolve it, passing in the
 		// application instance automatically for the developer. This is simply
 		// a more convenient way of specifying your service provider classes.
@@ -319,6 +336,25 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
+	 * Get the registered service provider instance if it exists.
+	 *
+	 * @param  \Illuminate\Support\ServiceProvider|string  $provider
+	 * @return \Illuminate\Support\ServiceProvider|null
+	 */
+	public function getRegistered($provider)
+	{
+		$name = is_string($provider) ? $provider : get_class($provider);
+
+		if (array_key_exists($name, $this->loadedProviders))
+		{
+			return array_first($this->serviceProviders, function($key, $value) use ($name)
+			{
+				return get_class($value) == $name;
+			});
+		}
+	}
+
+	/**
 	 * Resolve a service provider instance from the class name.
 	 *
 	 * @param  string  $provider
@@ -337,9 +373,11 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	protected function markAsRegistered($provider)
 	{
+		$this['events']->fire($class = get_class($provider), array($provider));
+
 		$this->serviceProviders[] = $provider;
 
-		$this->loadedProviders[get_class($provider)] = true;
+		$this->loadedProviders[$class] = true;
 	}
 
 	/**
@@ -380,7 +418,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
-	 * Register a deffered provider and service.
+	 * Register a deferred provider and service.
 	 *
 	 * @param  string  $provider
 	 * @param  string  $service
@@ -415,6 +453,8 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	public function make($abstract, $parameters = array())
 	{
+		$abstract = $this->getAlias($abstract);
+
 		if (isset($this->deferredServices[$abstract]))
 		{
 			$this->loadDeferredProvider($abstract);
@@ -424,9 +464,45 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
+	 * Determine if the given abstract type has been bound.
+	 *
+	 * (Overriding Container::bound)
+	 *
+	 * @param  string  $abstract
+	 * @return bool
+	 */
+	public function bound($abstract)
+	{
+		return isset($this->deferredServices[$abstract]) || parent::bound($abstract);
+	}
+
+	/**
+	 * "Extend" an abstract type in the container.
+	 *
+	 * (Overriding Container::extend)
+	 *
+	 * @param  string   $abstract
+	 * @param  Closure  $closure
+	 * @return void
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	public function extend($abstract, Closure $closure)
+	{
+		$abstract = $this->getAlias($abstract);
+
+		if (isset($this->deferredServices[$abstract]))
+		{
+			$this->loadDeferredProvider($abstract);
+		}
+
+		return parent::extend($abstract, $closure);
+	}
+
+	/**
 	 * Register a "before" application filter.
 	 *
-	 * @param  Closure|string  $callback
+	 * @param  \Closure|string  $callback
 	 * @return void
 	 */
 	public function before($callback)
@@ -437,7 +513,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	/**
 	 * Register an "after" application filter.
 	 *
-	 * @param  Closure|string  $callback
+	 * @param  \Closure|string  $callback
 	 * @return void
 	 */
 	public function after($callback)
@@ -448,7 +524,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	/**
 	 * Register a "finish" application filter.
 	 *
-	 * @param  Closure|string  $callback
+	 * @param  \Closure|string  $callback
 	 * @return void
 	 */
 	public function finish($callback)
@@ -462,7 +538,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 * @param  callable  $callback
 	 * @return void
 	 */
-	public function shutdown($callback = null)
+	public function shutdown(callable $callback = null)
 	{
 		if (is_null($callback))
 		{
@@ -472,6 +548,20 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 		{
 			$this->shutdownCallbacks[] = $callback;
 		}
+	}
+
+	/**
+	 * Register a function for determining when to use array sessions.
+	 *
+	 * @param  \Closure  $callback
+	 * @return void
+	 */
+	public function useArraySessions(Closure $callback)
+	{
+		$this->bind('session.reject', function() use ($callback)
+		{
+			return $callback;
+		});
 	}
 
 	/**
@@ -563,10 +653,12 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	protected function getStackedClient()
 	{
-		$client = with(new \Stack\Builder)
-						->push('Illuminate\Cookie\Guard', $this['encrypter'])
-						->push('Illuminate\Cookie\Queue', $this['cookie'])
-						->push('Illuminate\Session\Middleware', $this['session']);
+		$sessionReject = $this->bound('session.reject') ? $this['session.reject'] : null;
+
+		$client = (new \Stack\Builder)
+                    ->push('Illuminate\Cookie\Guard', $this['encrypter'])
+                    ->push('Illuminate\Cookie\Queue', $this['cookie'])
+                    ->push('Illuminate\Session\Middleware', $this['session'], $sessionReject);
 
 		$this->mergeCustomMiddlewares($client);
 
@@ -598,7 +690,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	protected function registerBaseMiddlewares()
 	{
-		$this->middleware('Illuminate\Http\FrameGuard');
+		//
 	}
 
 	/**
@@ -606,7 +698,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 *
 	 * @param  string  $class
 	 * @param  array  $parameters
-	 * @return \Illuminate\Foundation\Application
+	 * @return $this
 	 */
 	public function middleware($class, array $parameters = array())
 	{
@@ -640,6 +732,8 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 * @param  int   $type
 	 * @param  bool  $catch
 	 * @return \Symfony\Component\HttpFoundation\Response
+	 *
+	 * @throws \Exception
 	 */
 	public function handle(SymfonyRequest $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
 	{
@@ -672,6 +766,11 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 			$response = $this['events']->until('illuminate.app.down');
 
 			if ( ! is_null($response)) return $this->prepareResponse($response, $request);
+		}
+
+		if ($this->runningUnitTests() && ! $this['session']->isStarted())
+		{
+			$this['session']->start();
 		}
 
 		return $this['router']->dispatch($this->prepareRequest($request));
@@ -722,6 +821,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	/**
 	 * Call the booting callbacks for the application.
 	 *
+	 * @param  array  $callbacks
 	 * @return void
 	 */
 	protected function fireAppCallbacks(array $callbacks)
@@ -740,9 +840,9 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	public function prepareRequest(Request $request)
 	{
-		if ( ! is_null($this['config']['session.driver']))
+		if ( ! is_null($this['config']['session.driver']) && ! $request->hasSession())
 		{
-			$request->setSessionStore($this['session.store']);
+			$request->setSession($this['session']->driver());
 		}
 
 		return $request;
@@ -778,7 +878,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 */
 	public function isDownForMaintenance()
 	{
-		return file_exists($this['path.storage'].'/meta/down');
+		return file_exists($this['config']['app.manifest'].'/down');
 	}
 
 	/**
@@ -818,7 +918,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	/**
 	 * Register a 404 error handler.
 	 *
-	 * @param  Closure  $callback
+	 * @param  \Closure  $callback
 	 * @return void
 	 */
 	public function missing(Closure $callback)
@@ -854,7 +954,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	/**
 	 * Register an error handler for fatal errors.
 	 *
-	 * @param  Closure  $callback
+	 * @param  \Closure  $callback
 	 * @return void
 	 */
 	public function fatal(Closure $callback)
@@ -876,6 +976,16 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
+	 * Get the environment variables loader instance.
+	 *
+	 * @return \Illuminate\Config\EnvironmentVariablesLoaderInterface
+	 */
+	public function getEnvironmentVariablesLoader()
+	{
+		return new FileEnvironmentVariablesLoader(new Filesystem, $this['path.base']);
+	}
+
+	/**
 	 * Get the service provider repository instance.
 	 *
 	 * @return \Illuminate\Foundation\ProviderRepository
@@ -885,31 +995,6 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 		$manifest = $this['config']['app.manifest'];
 
 		return new ProviderRepository(new Filesystem, $manifest);
-	}
-
-	/**
-	 * Get the current application locale.
-	 *
-	 * @return string
-	 */
-	public function getLocale()
-	{
-		return $this['config']->get('app.locale');
-	}
-
-	/**
-	 * Set the current application locale.
-	 *
-	 * @param  string  $locale
-	 * @return void
-	 */
-	public function setLocale($locale)
-	{
-		$this['config']->set('app.locale', $locale);
-
-		$this['translator']->setLocale($locale);
-
-		$this['events']->fire('locale.changed', array($locale));
 	}
 
 	/**
@@ -931,6 +1016,17 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	public function setDeferredServices(array $services)
 	{
 		$this->deferredServices = $services;
+	}
+
+	/**
+	 * Determine if the given service is a deferred service.
+	 *
+	 * @param  string  $service
+	 * @return bool
+	 */
+	public function isDeferredService($service)
+	{
+		return isset($this->deferredServices[$service]);
 	}
 
 	/**
@@ -973,6 +1069,31 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
+	 * Get the current application locale.
+	 *
+	 * @return string
+	 */
+	public function getLocale()
+	{
+		return $this['config']->get('app.locale');
+	}
+
+	/**
+	 * Set the current application locale.
+	 *
+	 * @param  string  $locale
+	 * @return void
+	 */
+	public function setLocale($locale)
+	{
+		$this['config']->set('app.locale', $locale);
+
+		$this['translator']->setLocale($locale);
+
+		$this['events']->fire('locale.changed', array($locale));
+	}
+
+	/**
 	 * Register the core class aliases in the container.
 	 *
 	 * @return void
@@ -983,13 +1104,15 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 			'app'            => 'Illuminate\Foundation\Application',
 			'artisan'        => 'Illuminate\Console\Application',
 			'auth'           => 'Illuminate\Auth\AuthManager',
+			'auth.reminder.repository' => 'Illuminate\Auth\Reminders\ReminderRepositoryInterface',
 			'blade.compiler' => 'Illuminate\View\Compilers\BladeCompiler',
-			'cache'          => 'Illuminate\Cache\Repository',
+			'cache'          => 'Illuminate\Cache\CacheManager',
+			'cache.store'    => 'Illuminate\Cache\Repository',
 			'config'         => 'Illuminate\Config\Repository',
 			'cookie'         => 'Illuminate\Cookie\CookieJar',
 			'encrypter'      => 'Illuminate\Encryption\Encrypter',
 			'db'             => 'Illuminate\Database\DatabaseManager',
-			'events'         => 'Illuminate\Events\Dispatacher',
+			'events'         => 'Illuminate\Events\Dispatcher',
 			'files'          => 'Illuminate\Filesystem\Filesystem',
 			'form'           => 'Illuminate\Html\FormBuilder',
 			'hash'           => 'Illuminate\Hashing\HasherInterface',
@@ -997,7 +1120,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 			'translator'     => 'Illuminate\Translation\Translator',
 			'log'            => 'Illuminate\Log\Writer',
 			'mailer'         => 'Illuminate\Mail\Mailer',
-			'paginator'      => 'Illuminate\Pagination\Environment',
+			'paginator'      => 'Illuminate\Pagination\Factory',
 			'auth.reminder'  => 'Illuminate\Auth\Reminders\PasswordBroker',
 			'queue'          => 'Illuminate\Queue\QueueManager',
 			'redirect'       => 'Illuminate\Routing\Redirector',
@@ -1009,7 +1132,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 			'remote'         => 'Illuminate\Remote\RemoteManager',
 			'url'            => 'Illuminate\Routing\UrlGenerator',
 			'validator'      => 'Illuminate\Validation\Factory',
-			'view'           => 'Illuminate\View\Environment',
+			'view'           => 'Illuminate\View\Factory',
 		);
 
 		foreach ($aliases as $key => $alias)

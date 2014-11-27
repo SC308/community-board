@@ -6,7 +6,6 @@ bfg.jar
 composer.phar
 composer.lock
 .DS_Store
-app/config/database.php
 html/images/flyer/**
 html/images/staff/**
 html/images/feature/**
@@ -18,3 +17,5 @@ app/storage/cache/**
 app/storage/sessions/**
 app/storage/views/**
 tests/_output/**
+.vagrant
+
