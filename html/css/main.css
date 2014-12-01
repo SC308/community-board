@@ -577,7 +577,7 @@ body.landscape #max, body.landscape #min{ font-size: 20px;}
         height:840px;
         background-color: #fff;
         overflow-x: scroll;
-
+		overflow-y: scroll;
     }
 
     body.landscape #flyer-int::-webkit-scrollbar {
