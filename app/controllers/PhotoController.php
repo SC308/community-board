@@ -7,7 +7,8 @@ class PhotoController extends BaseController{
         //$photos = Photo::all()->orderBy(DB::raw('RAND()')); 
         $storeid = $storedetails[0]->id;
 
-        $photos = Photo::getPhotos($storeid);
+//        $photos = Photo::getPhotos($storeid);
+	    $photos = Photo::getRandomPhotos($storeid);
         
         // $photos = Photo::orderBy(DB::raw('RAND()'))
         //         ->where("publish","=",1)

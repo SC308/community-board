@@ -86,13 +86,14 @@
 
                 <div id="landscape-sidebar">
 
-                    <a href="/<?=$storedetails[0]->store_number?>/ls/flyer-int">
+<!--                     <a href="/<?=$storedetails[0]->store_number?>/ls/flyer-int"> -->
+	                <a href="/<?=$storedetails[0]->store_number?>/ls/flyer">    
                     <div id="flyerpreview">
                         <img src="/images/flyer-callout-ls2.png" id="flyer-title">
-                        @foreach($flyer as $f)
-                        <img class="miniflyer" src="/timthumb.php?src=/images/flyer/{{$f->path}}&w=168&h=400.jpg"  />
 
-                        @endforeach
+                       <!--  <img class="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=306&h=400.jpg" /> -->
+					   <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=172&h=400.jpg" style="position: relative; top: -10px; left: 110px;" />
+
                     </div>
                     </a>
 
@@ -157,7 +158,7 @@
         <script>
         $( document ).ready(function() {
 
-        	//document.oncontextmenu = function () { return false; };
+        	document.oncontextmenu = function () { return false; };
 
 			$("#scoreboard").load("/scoreboard.html");
 

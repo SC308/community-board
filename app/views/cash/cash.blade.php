@@ -44,7 +44,7 @@
             
 
             	<video width="1920" height="1080" autoplay="autoplay" loop="true" loop> 
-                  <source src="/cash-assets/SC_Stamkos_CashWall2.mp4?<?=time();?>" type="video/mp4" />
+                  <source src="/cash-assets/SC_ANTHEM-allSweat_FY16_Landscape.mp4?<?=time();?>" type="video/mp4" />
                 </video>
 
 

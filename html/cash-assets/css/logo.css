@@ -78,7 +78,7 @@ sup{ font-size: 40px;}
 .NHL-NewJersey    { background: transparent url('/cash-assets/images/nhl/New_Jersey_Devils_logo.svg')          center center no-repeat; }
 .NHL-Ottawa       { background: transparent url('/cash-assets/images/nhl/Ottawa_Senators.svg')                 center center no-repeat; }
 .NHL-Philadelphia { background: transparent url('/cash-assets/images/nhl/Philadelphia_Flyers.svg')             center center no-repeat; }
-.NHL-Phoenix      { background: transparent url('/cash-assets/images/nhl/Phoenix_Coyotes.svg')                 center center no-repeat; }
+.NHL-Arizona      { background: transparent url('/cash-assets/images/nhl/Phoenix_Coyotes.svg')                 center center no-repeat; }
 .NHL-Pittsburgh   { background: transparent url('/cash-assets/images/nhl/Pittsburgh_Penguins_logo.svg')        center center no-repeat; }
 .NHL-SanJose      { background: transparent url('/cash-assets/images/nhl/SanJoseSharksLogo.svg')               center center no-repeat; }
 .NHL-StLouis      { background: transparent url('/cash-assets/images/nhl/StLouis_Blues.svg')                   center center no-repeat; }
@@ -142,16 +142,22 @@ sup{ font-size: 40px;}
 .NFL-Miami { background: transparent url('/cash-assets/images/nfl/Miami_Dolphins_logo.svg') center center no-repeat; }
 .NFL-Minnesota { background: transparent url('/cash-assets/images/nfl/minnesota_vikings.svg') center center no-repeat;}
 .NFL-NewEngland { background: transparent url('/cash-assets/images/nfl/New_England_Patriots_logo.svg') center center no-repeat; }
+	.NFL-Newengland { background: transparent url('/cash-assets/images/nfl/New_England_Patriots_logo.svg') center center no-repeat; }
 .NFL-Detroit { background: transparent url('/cash-assets/images/nfl/New_Lions_Logo.svg') center center no-repeat; }
-.NFL-Neworleans { background: transparent url('/cash-assets/images/nfl/New_Orleans_Saints.svg') center center no-repeat; }
-.NFL-Giants { background: transparent url('/cash-assets/images/nfl/New_York_Giants_logo.svg') center center no-repeat; }
-.NFL-Jets { background: transparent url('/cash-assets/images/nfl/New_York_Jets_logo.svg') center center no-repeat; }
+.NFL-NewOrleans { background: transparent url('/cash-assets/images/nfl/New_Orleans_Saints.svg') center center no-repeat; }
+	.NFL-Neworleans { background: transparent url('/cash-assets/images/nfl/New_Orleans_Saints.svg') center center no-repeat; }
+.NFL-NYGiants { background: transparent url('/cash-assets/images/nfl/New_York_Giants_logo.svg') center center no-repeat; }
+	.NFL-Giants { background: transparent url('/cash-assets/images/nfl/New_York_Giants_logo.svg') center center no-repeat; }
+.NFL-NYJets { background: transparent url('/cash-assets/images/nfl/New_York_Jets_logo.svg') center center no-repeat; }
+	.NFL-Jets { background: transparent url('/cash-assets/images/nfl/New_York_Jets_logo.svg') center center no-repeat; }
 .NFL-Oakland { background: transparent url('/cash-assets/images/nfl/Oakland_Raiders.svg') center center no-repeat; }
 .NFL-Philadelphia { background: transparent url('/cash-assets/images/nfl/Philadelphia_Eagles_primary_logo.svg') center center no-repeat; }
 .NFL-Pittsburgh { background: transparent url('/cash-assets/images/nfl/Pittsburgh_Steelers_logo.svg') center center no-repeat; }
-.NFL-Sandiego { background: transparent url('/cash-assets/images/nfl/San_Diego_Chargers_logo.svg') center center no-repeat; }
+.NFL-SanDiego { background: transparent url('/cash-assets/images/nfl/San_Diego_Chargers_logo.svg') center center no-repeat; }
+	.NFL-Sandiego { background: transparent url('/cash-assets/images/nfl/San_Diego_Chargers_logo.svg') center center no-repeat; }
 .NFL-Seattle { background: transparent url('/cash-assets/images/nfl/SeattleSeahawks.svg') center center no-repeat; }
-.NFL-Stlouis { background: transparent url('/cash-assets/images/nfl/St_Louis_Rams_logo.svg') center center no-repeat; }
+.NFL-StLouis { background: transparent url('/cash-assets/images/nfl/St_Louis_Rams_logo.svg') center center no-repeat; }
+	.NFL-Stlouis { background: transparent url('/cash-assets/images/nfl/St_Louis_Rams_logo.svg') center center no-repeat; }
 .NFL-TampaBay { background: transparent url('/cash-assets/images/nfl/Tampa_Bay_Buccaneers_logo.svg') center center no-repeat; }
 .NFL-Tennessee { background: transparent url('/cash-assets/images/nfl/Tennessee_Titans_logo.svg') center center no-repeat; }
 .NFL-Washington { background: transparent url('/cash-assets/images/nfl/Washington_Redskins_logo.svg') center center no-repeat; }

@@ -11,7 +11,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" type="text/css" href="/css/test.css">
         <link rel="stylesheet" type="text/css" href="/css/jquery.bxslider.css">
         <link rel="stylesheet" type="text/css" href="/cash-assets/css/main.css">
         <link rel="stylesheet" type="text/css" href="/cash-assets/css/logo.css">
@@ -52,7 +51,7 @@
             
             var sport = "";
             var feed ="http://thecompleteexperience.ca/feed/all_scores.xml";
-            var timezoneoffset = 0;
+            var timezoneoffset = -3;
     
             var setupScores = function(){
                 $.get(feed, function(d){  
@@ -180,7 +179,7 @@
                     }                        
 
 
-                    var html = "<li id='game"+id+"'><table>";
+                    var html = "<li id='game"+id+sport+"'><table>";
             
                     html +=   "<tr class='leagueheader'>";
 
@@ -306,6 +305,7 @@
                 $(d).find('game').each(function(){ 
                     var $game = $(this);   
                     var id = $game.attr("id");  
+                    var sport = $game.attr("sport");  
                     var home = $game.find('home').text();  
                     var home_score = $game.find('home_score').text();  
                     var visitor = $game.find('visitor').text();  
@@ -327,12 +327,12 @@
                         period="Starting Now";
                     }
 
-                    $('li#game'+id+' .hscore' ).html(home_score);
-                    $('li#game'+id+' .vscore' ).html(visitor_score);
-                    $('li#game'+id+' .time' ).html(gametime+ "&nbsp;&nbsp;&nbsp;" +period);
+                    $('li#game'+id+sport+' .hscore' ).html(home_score);
+                    $('li#game'+id+sport+' .vscore' ).html(visitor_score);
+                    $('li#game'+id+sport+' .time' ).html(gametime+ "&nbsp;&nbsp;&nbsp;" +period);
                   //  $('li#game'+id+' .note' ).html(note);
 
-                       console.log(id+ " " +home+" " +home_score +" / "+visitor+ " "+visitor_score+": " +gametime+ " "+period+" - "+note);
+                       console.log(id+ " " +sport+ " " +home+" " +home_score +" / "+visitor+ " "+visitor_score+": " +gametime+ " "+period+" - "+note);
                     });  
                 });
                 console.log("-----------------------------------------------");                
@@ -373,7 +373,7 @@
                         case "Charlotte": return "Bobcats"; break;
                         case "Cleveland": return "Cavaliers"; break;
                         case "Dallas": return "Mavericks"; break;
-                        case "Philadelphia": return "79ers"; break;
+                        case "Philadelphia": return "76ers"; break;
                         case "Denver": return "Nuggets"; break;
                         case "Detroit": return "Pistons"; break;
                         case "GoldenState": return "Warriors"; break;
@@ -422,13 +422,14 @@
                         case "NewJersey": return "Devils"; break;   
                         case "Ottawa": return "Senators"; break;      
                         case "Philadelphia": return "Flyers"; break;
-                        case "Phoenix": return "Coyotes"; break;     
+                        case "Phoenix": return "Coyotes"; break;   
+                        case "Arizona": return "Coyotes"; break;                             
                         case "Pittsburgh": return "Penguins"; break;  
                         case "SanJose": return "Sharks"; break;     
                         case "StLouis": return "Blues"; break;     
                         case "TampaBay": return "Lightning"; break;    
                         case "Toronto": return "Maple Leafs"; break;     
-                        case "Vancouver": return "Cancucks"; break;   
+                        case "Vancouver": return "Canucks"; break;   
                         case "Washington": return "Capitals"; break;  
                         case "Winnipeg": return "Jets"; break;    
 

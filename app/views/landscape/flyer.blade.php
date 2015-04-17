@@ -48,6 +48,7 @@
 	        		<?php
 	            	// allow_url_fopen=0
 	            	//$content = file_get_contents('http://www.flyertown.ca/flyers/sportchek?type=1&postal_code=M4P+2H9&filler=#!/flyers/sportchek-sportchek?flyer_run_id=26205');
+/*
 	            	$content = file_get_contents('http://www.flyertown.ca/flyers/sportchek-sportchek?sf_any=true&flyer_run_id=19880&type=1&postal_code=M4P%202H9#!/flyers/sportchek-sportchek?flyer_run_id=19880');
 
 	            	$content = str_replace('"store_locator_url":"http://www.sportchek.ca/storeLocator/index.jsp"','"store_locator_url":null', $content);
@@ -62,8 +63,13 @@
 	            	$content = str_replace('<link href="','<link href="http://www.flyertown.ca', $content);
 	            	$content = str_replace('<script src="','<script src="http://www.flyertown.ca', $content);
 	            	$content = str_replace('<link rel="stylesheet" href="','<link rel="stylesheet" href="http://www.flyertown.ca', $content);
-	            	echo $content;
+*/
+//	            	echo $content;
 	            	?>
+	            	
+	            	@foreach($flyer as $f)
+                    	<a class="fancybox" href="/timthumb.php?src=/images/flyer/{{$f->path}}&w=1000.jpg"><img src="/timthumb.php?src=/images/flyer/{{$f->path}}&a=t&w=400&h=550" /></a>
+					@endforeach
 	           	</div>
 
         	</div>
@@ -75,12 +81,24 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
+        <script src="/js/jquery.grid-a-licious.js"></script>
+        <script src="/js/fancybox/source/jquery.fancybox-ls.js"></script>
+
 		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
         <script>
         $( document ).ready(function() {
 
         	document.oncontextmenu = function () { return false; };
 
+
+            $('.fancybox').fancybox({ padding : 10, openEffect  : 'elastic', 
+                helpers : {
+                    title : {
+                        type : 'inside'
+                    }
+                }
+            });
+            
 			$("#scoreboard").load("/scoreboard.html");
 
 

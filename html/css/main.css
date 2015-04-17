@@ -16,11 +16,15 @@ b9bbbd - med grey
 html{
 	-webkit-user-select: none;
     -webkit-touch-callout: none;
+    
+	cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjbQg61aAAAADUlEQVQYV2P4//8/IwAI/QL/+TZZdwAAAABJRU5ErkJggg=='), none;
+	    background-color: #000;
 }
 
 body {
 	padding: 0; margin: 0;
     overflow: hidden !important;
+    background-color: #000;
 }
 
 html::-webkit-scrollbar, body::-webkit-scrollbar, .fancybox-overlay::-webkit-scrollbar{

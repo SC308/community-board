@@ -4,16 +4,21 @@ class FlyerController extends BaseController{
 
      public function getIndex($sn, $ls = NULL){
         $storedetails = Store::getStoreDetails($sn); 
-
+		$storeid = $storedetails[0]->id;
+/*
         $flyer = DB::table('flyers')
                 ->orderBy('order', 'asc')
                 ->get();
-
+*/
+		$flyer = Flyer::getFlyers($storeid);
+		
         if($ls){
-            return View::make('flyer')
+            return View::make('landscape/flyer')
+	            ->with('storedetails', $storedetails)
                 ->with('flyer', $flyer);
         } else {
-            return View::make('landscape/flyer')
+            return View::make('flyer')
+	            ->with('storedetails', $storedetails)
                 ->with('flyer', $flyer); 
         }
     }

@@ -11,5 +11,14 @@ class Photo extends Eloquent{
 					->get();  
         return $photos;
     }
+    
+    public static function getRandomPhotos($storeid){
+    	$photos = DB::table('photos')
+					->where('store_id', '=', $storeid)
+					->orderByRaw("RAND()")
+					->get();  
+        return $photos;	    
+	    
+    }
 
 }

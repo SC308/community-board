@@ -38,7 +38,7 @@
            </div>
 
             <div id="home-callout" class="fullwidth">
-                <img src="/images/communityboard-center.jpg" />
+                <img src="/images/communityboard-center259.jpg" style="z-inxex: 99 !important;" />
             </div>
 
              <div id="nav" class="fullwidth">
@@ -72,7 +72,7 @@
                 }
             });
 
-            $("#scoreboard").load("scoreboard.html"); 
+            $("#scoreboard").load("/scoreboard.html"); 
         });
         </script>       
 

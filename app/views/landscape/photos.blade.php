@@ -68,7 +68,7 @@
         <script> 
         $( document ).ready(function() {
         
-        	//document.oncontextmenu = function () { return false; };
+        	document.oncontextmenu = function () { return false; };
         	
 			$("#scoreboard").load("/scoreboard.html"); 
 			$(".photos").gridalicious({animate: true, gutter: 5, width: 300, selector: '.fancybox'});

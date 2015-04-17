@@ -107,10 +107,24 @@
         function swipeHandler( event ){
             $("#arrows").fadeOut("fast");
         }
-				<?php $i=1; $lowest = 0;?>
+				<?php 
+					$i=1; $lowest = 0;
+					$staffids = array();
+				?>
             @foreach($staff as $s)
 			
-							<?php if($i == 1){  $lowest = $s->id; }?>
+				<?php if($i == 1){  $lowest = $s->id; }
+				
+					
+					$staffids[] = $s->id;
+					
+//					array_push($staffids, $s->id);
+					
+					
+					
+			
+					
+				?>
 					
                 function show_{{$s->id}}(){
 
@@ -155,11 +169,28 @@
             // });
 
             $("#scoreboard").load("/scoreboard.html"); 
+            
+		<?php
+			$k = array_rand($staffids);
+			
+			echo "// random key:" . $k . "\n\n";
+			
+			$value = $staffids[$k];
+			echo "// random value:". $value . "\n\n";
 
-            show_{{$lowest}}();
+			
+			echo "// ---------------------\n\n";
+			echo "/*";
+			print_r($staffids);
+			echo "*/";
+		
+		?>            
+
+            show_{{$value}}();
         });
             
         </script>         
+
 
     </body>
 

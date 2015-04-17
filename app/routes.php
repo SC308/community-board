@@ -29,6 +29,7 @@ Route::get('{storeno?}/ls/calendar', 	array('uses' => 'CalendarController@getInd
 Route::get('{storeno?}/ls/photos', 		array('uses' => 'PhotoController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/staff', 		array('uses' => 'StaffController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLandScape'))->where('storeno', '[0-9]+');
+//Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/jumpstart', 	array('uses' => 'JumpstartController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/flyer-int', 	array('uses' => 'FlyerController@getInteractiveFlyerLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/cash', 		array('uses' => 'CashController@getIndexLandScape'))->where('storeno', '[0-9]+');
@@ -76,11 +77,8 @@ Route::post('/admin/feature/savedit', 'AdminController@saveEditFeature');
 Route::post('/admin/feature/saveadd', 'AdminController@saveAddFeature');
 
 Route::get('/admin/jumpstart', 'AdminController@getJumpstart');
-Route::get('/admin/jumpstart/add', 'AdminController@addJumpstart');
-Route::get('/admin/jumpstart/edit/{id?}', 'AdminController@editJumpstart');
-Route::get('/admin/jumpstart/delete/{id?}', 'AdminController@removeJumpstart');
 Route::post('/admin/jumpstart/savedit', 'AdminController@saveEditJumpstart');
-Route::post('/admin/jumpstart/saveadd', 'AdminController@saveAddJumpstart');
+
 
 
 /*API ROUTES*/
@@ -92,10 +90,17 @@ Route::get('/api/staff', 'StaffController@getStaffData');
 Route::get('/api/photos', 'PhotoController@getPhotoData');
 Route::get('/api/flyer', 'FlyerController@getFlyerData');
 
-//
+
+
+Route::get('{storeno?}/api', 'ApiController@getIndex');
+Route::get('{storeno?}/api/home', 			array('uses' => 'HomeController@getFeaturedData'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/calendar', 		array('uses' => 'CalendarController@getAPI'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/calendar-raw',	array('uses' => 'CalendarController@getCalRaw'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/staff',  		array('uses' => 'StaffController@getStaffData'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/photos', 		array('uses' => 'PhotoController@getPhotoData'))->where('storeno', '[0-9]+');
+
 
 // user/authentication routes
-
 Route::post('users', 'UsersController@store');
 Route::get('users/create', 'UsersController@create');
 

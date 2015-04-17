@@ -125,7 +125,7 @@ ultimately we want to fufill the dreams of all Canadian kids. </p>
         <script>
         $( document ).ready(function() {
 
-        	//document.oncontextmenu = function () { return false; };
+        	document.oncontextmenu = function () { return false; };
 
 			$("#scoreboard").load("/scoreboard.html");
 
