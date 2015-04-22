@@ -2,10 +2,12 @@
 *.mov
 *.avi
 *.wmv
+.htaccess
 bfg.jar
 composer.phar
 composer.lock
 .DS_Store
+html/images/jumpstart/champs/**
 html/images/flyer/**
 html/images/staff/**
 html/images/feature/**
