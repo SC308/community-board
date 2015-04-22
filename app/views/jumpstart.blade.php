@@ -10,24 +10,14 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>" >        
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>" >  
+        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>" >
+        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>" >
         <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
-        
-		<script src="/js/lib/modernizr.min.js"></script>        
-        
-        <style>
-        #jumpstart {
-          width: 100%;
-          margin: auto;
-          background-color: #fff;
-          height: 1200px;
-        }
-        
-        p{ font-size: 16px; line-height: 20px;}
 
-        </style>
+		<script src="/js/lib/modernizr.min.js"></script>
+
+
 
     </head>
 
@@ -40,9 +30,9 @@
             </div>
 
 
-            
+
             <div id="jumpstart">
-            	
+
                 <div style="width: 500px; float:left; padding: 20px;">
                     <img src="/images/jumpstart-logo-white.jpg" id="js-logo" style="margin: 0px 50px;" />
 
@@ -68,27 +58,27 @@
 
                 <br class="clear" />
 
-            
+
                 <div id="js-champ" style="width: 500px; float: left; padding: 20px;">
-                    
-                    <img src="/images/jumpstart/js-champ-title.jpg" />    
+
+                    <img src="/images/jumpstart/js-champ-title.jpg" />
                     <p>
                         <img src="/timthumb.php?src=/images/jumpstart/champs/{{ $jumpstart[0]->champ_photo }}&w=230&h=230&a=br" align="left" style="margin-right: 20px;" class="img-thumbnail" />
                         <strong>{{ $jumpstart[0]->champ_name }}</strong><br />
                         {{ $jumpstart[0]->champ_bio }}
                     </p>
                 </div>
-                    
-                    
+
+
                 <div style="width: 500px; float: left; padding: 20px;">
 
                     <img src="/images/jumpstart/js-sport-title.jpg" />
                     <p>Sports are an important component in shaping a child’s life, but for 1 in 3 Canadian families, getting their kids involved in sports and recreation is simply unaffordable. together we can help all kids experience the joy and self-confidence that comes through participating in sports.</p>
-                    
+
                     <img src="/images/jumpstart/js-what-is-title.jpg" />
                     <p>Jumpstart is a national charitable program that helps financially disadvantaged kids (ages 4 - 18) participate in organized sports and recreation across Canada. We give kids a sporting chance by covering registration, equipment and/or transportation costs. Our vision at Jumpstart is to help build kids self-confidence, self esteem, leadership and direct them towards a better future; ultimately we want to fufill the dreams of all Canadian kids.</p>
 
-                    
+
                     <img src="/images/jumpstart/js-link.jpg" />
 
                 </div>
@@ -103,30 +93,58 @@
                 <div style="width: 500px; float: left; padding: 20px;">
                     <img src="/images/jumpstart/photos.jpg" />
                 </div>
-            
-                
+
+
                 <br class="clear" />
 
-                              
+
 
 
                </div>
 
 
-            <div id="home-callout" class="fullwidth">
-                <img src="/images/communityboard-center259.jpg">
+
+
+            <div id="nav">
+                <div class="nav-callout">
+                    <img src="/images/touch-an-area.jpg" />
+                </div>
+
+                <div class="nav-row">
+                    <a href="/<?=$storedetails[0]->store_number?>/calendar" class="nav-item green nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-calendar nav-icon"></i>
+                            <span class="nav-text">Community Calendar</span>
+                        </div>
+                    </a>
+
+                    <a href="/<?=$storedetails[0]->store_number?>/photos" class="nav-item yellow nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-camera-retro nav-icon"></i>
+                            <span class="nav-text">Community Photos</span>
+                        </div>
+                    </a>
+
+                    <a href="/<?=$storedetails[0]->store_number?>/staff" class="nav-item blue nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-users nav-icon"></i>
+                            <span class="nav-text">Employee<br />Bios</span>
+                        </div>
+                    </a>
+
+                    <a href="/<?=$storedetails[0]->store_number?>/jumpstart" class="nav-item red nav-noise nav-shadow">
+                        <img src="/images/jumpstart-nav.png" style="position: relative; top: 20px; left: 30px;"/>
+                    </a>
+
+                    <a href="/<?=$storedetails[0]->store_number?>/activity" class="nav-item green nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-bicycle nav-icon"></i>
+                            <span class="nav-text">Activity Advice</span>
+                        </div>
+                    </a>
+                </div>
             </div>
 
-             <div id="nav" class="fullwidth">
-<!--                 <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff.png" /></a>
-                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-calendar.png" /></a>
-                <a href="/<?=$storedetails[0]->store_number?>/flyer-int"><img src="/images/nav-flyer.png" /></a> -->
-                <a href="/<?=$storedetails[0]->store_number?>/staff"><img src="/images/nav-staff-sm.jpg" /></a>
-                <a href="/<?=$storedetails[0]->store_number?>/jumpstart"><img src="/images/nav-js-sm.jpg" /></a>
-                <a href="/<?=$storedetails[0]->store_number?>/calendar"><img src="/images/nav-cal-sm.jpg" /></a>
-                <a href="/<?=$storedetails[0]->store_number?>/photos"><img src="/images/nav-photos-sm.jpg" /></a>                
-            </div>
-        
 
         </div>
 
@@ -134,22 +152,22 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/jquery.grid-a-licious.js"></script>
         <script src="/js/fancybox/source/jquery.fancybox.js"></script>
-        
+
         <script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
 
 
-        <script> 
-          
-			
+        <script>
+
+
         $( document ).ready(function() {
-        	
+
         	document.oncontextmenu = function () { return false; };
-        
-            $("#scoreboard").load("/scoreboard.html"); 
-            
- 
+
+            $("#scoreboard").load("/scoreboard.html");
+
+
         });
-        </script>         
+        </script>
 
     </body>
 

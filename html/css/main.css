@@ -18,18 +18,40 @@ html{
     -webkit-touch-callout: none;
 
 	/*cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjbQg61aAAAADUlEQVQYV2P4//8/IwAI/QL/+TZZdwAAAABJRU5ErkJggg=='), none;*/
-	    background-color: #000;
-}
-
-body {
-	padding: 0; margin: 0;
-    overflow: hidden !important;
     background-color: #000;
+
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
 }
 
 html::-webkit-scrollbar, body::-webkit-scrollbar, .fancybox-overlay::-webkit-scrollbar{
     display: none !important;
 }
+
+body {
+	/*padding: 0; margin: 0;
+    overflow: hidden !important;
+    background-color: #000;*/
+	position: absolute;
+	width: 1080px;
+	height: 1820px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+body.landscape{
+	width: 1920px;
+	height: 980px;
+}
+
+
 
 #stage{
 /*     height: 1920px; */
@@ -76,6 +98,16 @@ body.landscape #heading{
 	width: 1080px;
 }
 
+/*#nav img{
+    float: left;
+}*/
+
+#nav a:active{
+    -moz-box-shadow: 0 0 40px #fff;
+    -webkit-box-shadow: 0 0 40px #fff;
+    box-shadow: 0px 0px 40px #fff;
+}
+
 .nav-row {
 	height:195px;
 	width: 1080px;
@@ -104,7 +136,7 @@ a.nav-item::active{
 	box-shadow: inset 0px 20px 60px 0px rgba(11,11,11,1);
 }
 .nav-content {
-	
+
 	position: relative;
 	top: 20px;
 	padding: 0px 20px;
@@ -239,7 +271,7 @@ body.landscape .home { padding: 0 !important;}
 #miniflyer{
     position: relative;
     top: 170px;
-    left: 22px;
+    left: 15px;
 }
 
     body.landscape #flyerpreview{
@@ -282,7 +314,7 @@ body.landscape .home { padding: 0 !important;}
 
 
 
-#photos{ /* height: 1559px; */  height: 1454px; overflow-x: hidden; width: 1080px !important; background: #fff; padding-top: 5px;}
+#photos{ /* height: 1559px; */  height: 1385px; overflow-x: hidden; width: 1080px !important; background: #fff; padding-top: 5px;}
 
 #photos img:active{
     -moz-box-shadow: 0 0 40px #fff;
@@ -316,7 +348,7 @@ body.landscape .home { padding: 0 !important;}
     /*opacity: 0;*/
     position: relative;
     /*left: -300px;*/
-    height: 947px;
+    height: 843px;
  /*    background: transparent url('/images/guy.png') bottom right no-repeat; */
     background-color: #000;
 }
@@ -329,18 +361,18 @@ body.landscape .home { padding: 0 !important;}
     padding: 100px 0px;
     float: left;
     width: 550px;
-    height:680px;
-    /*border: thin solid lime;*/
+    height:640px;
+
     background: transparent url('/images/bio-bg.png') top left no-repeat;
 
 }
 
 
 #bio-nav{
-    padding: 10px 5px;
+    padding: 0px 5px;
 /*     height: 190px; */
 /* 	height: 599px; */
-	height: 492px;
+	height: 548px;
 	width: 100%;
 
 /*
@@ -384,6 +416,14 @@ body.landscape .home { padding: 0 !important;}
     position: relative;
 }
 
+
+#jumpstart {
+	width: 100%;
+	margin: auto;
+	background-color: #fff;
+	height: 1390px;
+}
+	#jumpstart p{ font-size: 20px; line-height: 26px;}
 
 
 h1.name{
@@ -649,7 +689,7 @@ body.landscape #js-champ{ float: left; width: 700px; padding-bottom: 20px;}
 
 body.landscape #max, body.landscape #min{ font-size: 20px;}
 
-#calendar-main{ height: 1200px;}
+#calendar-main{ height: 1390px; display: block;}
 
 .fullwidth{width: 100%;}
 
@@ -679,17 +719,6 @@ body.landscape #max, body.landscape #min{ font-size: 20px;}
 
 #flyer img{ border: 1px solid #666; margin: 25px 40px;}
 
-#nav img{
-    float: left;
-}
-
-#nav a:active{
-    -moz-box-shadow: 0 0 40px #fff;
-    -webkit-box-shadow: 0 0 40px #fff;
-    box-shadow: 0px 0px 40px #fff;
-}
-
-
 #arrows{
     background: transparent url('/images/arrows.gif') top left no-repeat;
     width: 199px;
@@ -706,7 +735,6 @@ body.landscape #max, body.landscape #min{ font-size: 20px;}
 
 .carousel-caption{padding: 15px; background:#333333; background:rgba(0, 0, 0, 0.75); width: 100%; height: 220px;}
 .carousel-caption{ position: relative; bottom: 250px; z-index: 1; }
-
 
 /*.caption-left, .caption-right{ position: absolute; left:0px; bottom: -250px;}*/
 
@@ -726,7 +754,6 @@ body.landscape #max, body.landscape #min{ font-size: 20px;}
 
 .caption-left .caption-title{ text-align: left; padding: 10px 0px 0px 20px; display: block; background: transparent url('/images/ribbon.png') top left no-repeat; height: 54px; width: 554px; position: relative; right: 20px;}
 .caption-right .caption-title{ text-align: left; padding: 10px 0px 0px 110px; display: block; background: transparent url('/images/ribbon-right.png') top left no-repeat; height: 54px; width: 554px; position: relative; left: 545px;}
-
 body.landscape .caption-right .caption-title{ text-align: left; padding: 10px 0px 0px 110px; display: block; background: transparent url('/images/ribbon-right.png') top left no-repeat; height: 54px; width: 554px; position: relative; left: 662px;}
 
 .caption-content{

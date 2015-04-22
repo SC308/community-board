@@ -77,66 +77,44 @@
             </div>
 
             <div id="nav">
+
                 <div class="nav-callout">
                     <img src="/images/touch-an-area.jpg" />
                 </div>
+
                 <div class="nav-row">
-                    <a href="#" class="nav-item green nav-noise nav-shadow" >
-                            <div class="nav-content">
-                                <i class="fa fa-calendar nav-icon"></i>
-                                <span class="nav-text">Community Calendar</span>
-                            </div>
-                            <div class="nav-desc-bar">
-                                this is the description bar
-                            </div>
-
-
+                    <a href="/<?=$storedetails[0]->store_number?>/calendar" class="nav-item green nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-calendar nav-icon"></i>
+                            <span class="nav-text">Community Calendar</span>
+                        </div>
                     </a>
 
-                    <a href="#" class="nav-item yellow nav-noise nav-shadow" >
-                            <div class="nav-content">
-                                <i class="fa fa-camera-retro nav-icon"></i>
-                                <span class="nav-text">Community Photos</span>
-                            </div>
-                            <div class="nav-desc-bar">
-                                this is the description bar
-                            </div>
-
-
+                    <a href="/<?=$storedetails[0]->store_number?>/photos" class="nav-item yellow nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-camera-retro nav-icon"></i>
+                            <span class="nav-text">Community Photos</span>
+                        </div>
                     </a>
 
-                    <a href="#" class="nav-item blue nav-noise nav-shadow" >
-                            <div class="nav-content">
-                                <i class="fa fa-users nav-icon"></i>
-                                <span class="nav-text">Employee<br />Bios</span>
-                            </div>
-                            <div class="nav-desc-bar">
-                                this is the description bar
-                            </div>
-
-
+                    <a href="/<?=$storedetails[0]->store_number?>/staff" class="nav-item blue nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-users nav-icon"></i>
+                            <span class="nav-text">Employee<br />Bios</span>
+                        </div>
                     </a>
 
-
-                    <a href="#" class="nav-item red nav-noise nav-shadow">
+                    <a href="/<?=$storedetails[0]->store_number?>/jumpstart" class="nav-item red nav-noise nav-shadow">
                         <img src="/images/jumpstart-nav.png" style="position: relative; top: 20px; left: 30px;"/>
                     </a>
 
-                    <a href="#" class="nav-item green nav-noise nav-shadow" >
-                            <div class="nav-content">
-                                <i class="fa fa-bicycle nav-icon"></i>
-                                <span class="nav-text">Activity Advice</span>
-                            </div>
-                            <div class="nav-desc-bar">
-                                this is the description bar
-                            </div>
-
-
+                    <a href="/<?=$storedetails[0]->store_number?>/activity" class="nav-item green nav-noise nav-shadow" >
+                        <div class="nav-content">
+                            <i class="fa fa-bicycle nav-icon"></i>
+                            <span class="nav-text">Activity Advice</span>
+                        </div>
                     </a>
-
-                    <!-- <div class="nav-item yellow nav-noise nav-shadow ">item 3</div> -->
-
-                </div>
+            </div>
 
 
                 <!-- <div class="nav-row">
@@ -236,7 +214,7 @@
             	<div id="flyerpreview">
 
 		                <!-- <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=155&h=202.jpg" /> -->
-						<img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=172&h=400.jpg" />
+						<img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=175&h=370.jpg" />
 
             	</div>
             	</a>

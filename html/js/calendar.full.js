@@ -14,7 +14,7 @@ $(document).ready(function() {
 	$(document).on('click','.calendar-month-view-arrow',offsetcalendar);
 	$(window).resize(calendarScale);
 	calendarSet();
-	calendarScale();    
+	calendarScale();
 /* 	$( "#calendar-main" ).fadeIn("slow"); */
 
 });
@@ -62,7 +62,7 @@ $(document).ready(function() {
 	}
 
 	function calendarSet() {
-		$(".calendar").append('<div class="calendar-month-view"><div class="calendar-month-view-arrow" data-dir="left"><i class="icon-reply"></i></div><div class="calendar-month-view-title"></div><div class="calendar-month-view-arrow" data-dir="right"><i class="icon-share-alt"></i></div><div class="days"><span class="dayofweek">S</span><span class="dayofweek">M</span><span class="dayofweek">T</span><span class="dayofweek">W</span><span class="dayofweek">T</span><span class="dayofweek">F</span><span class="dayofweek">S</span></div></div><div class="calendar-holder"><div class="calendar-grid"></div><div class="calendar-specific"><div class="specific-day"><div class="specific-day-info" i="day"></div><div class="specific-day-info" i="month"></div><div class="specific-day-info" i="year"></div><div class="return"><i class="icon-reply"></i>&nbsp; Return to Calendar</div></div><div class="specific-day-scheme"></div></div></div>');
+		$(".calendar").append('<div class="calendar-month-view"><div class="calendar-month-view-arrow" data-dir="left"><i class="fa fa-arrow-left"></i></div><div class="calendar-month-view-title"></div><div class="calendar-month-view-arrow" data-dir="right"><i class="fa fa-arrow-right"></i></div><div class="days"><span class="dayofweek">S</span><span class="dayofweek">M</span><span class="dayofweek">T</span><span class="dayofweek">W</span><span class="dayofweek">T</span><span class="dayofweek">F</span><span class="dayofweek">S</span></div></div><div class="calendar-holder"><div class="calendar-grid"></div><div class="calendar-specific"><div class="specific-day"><div class="specific-day-info" i="day"></div><div class="specific-day-info" i="month"></div><div class="specific-day-info" i="year"></div><div class="return"><i class="icon-reply"></i>&nbsp; Return to Calendar</div></div><div class="specific-day-scheme"></div></div></div>');
 		$(".calendar").each(function() {
 			if($(this).data("color") == undefined) {
 				$(this).data("color","red");
@@ -73,7 +73,7 @@ $(document).ready(function() {
 					var tempeventarray = [];
 					tempeventarray["name"] = $(this).data("name");
 					tempeventarray["type"] = $(this).data("type");
-					tempeventarray["opp"] = $(this).data("opp");										
+					tempeventarray["opp"] = $(this).data("opp");
 					tempeventarray["start"] = $(this).data("start");
 					tempeventarray["end"] = $(this).data("end");
 					tempeventarray["location"] = $(this).data("location");
@@ -107,10 +107,10 @@ $(document).ready(function() {
 		var ev = orderBy('start',this.events);
 			for(var o = 0; o<ev.length;o++) {
 				if(ev[o]['details']){
-					$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p><p data-role="det">'+ev[o]['details']+'</p></div>');	
+					$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p><p data-role="det">'+ev[o]['details']+'</p></div>');
 				} else {
 					$(".specific-day-scheme").append('<div class="specific-day-scheme-event"><h1><i class="icon-calendar"></i>&nbsp;'+ev[o]['name']+'</h1><p data-role="dur">'+ev[o]['start']+' - '+ev[o]['end']+'</p><p data-role="loc">'+ev[o]['location']+'</p></div>');
-				}		
+				}
 			}
 		}
 	}
@@ -149,33 +149,33 @@ $(document).ready(function() {
 				var strtime = d.getFullYear()+''+(d.getMonth()+1)+''+d.getDate();
 				if(calendarArray[strtime] !== undefined) {
 					cal_day.addClass('have-events'); //has at least 1 Event
-					
+
 					if(calendarArray[strtime].length < 3){ // 2 events
-						cal_day.addClass('have-events1'); 
-					} else if(calendarArray[strtime].length < 4) { // 3 events 
-						cal_day.addClass('have-events2'); 
-					} else if(calendarArray[strtime].length < 5) { //4 events 
-						cal_day.addClass('have-events3'); 
+						cal_day.addClass('have-events1');
+					} else if(calendarArray[strtime].length < 4) { // 3 events
+						cal_day.addClass('have-events2');
+					} else if(calendarArray[strtime].length < 5) { //4 events
+						cal_day.addClass('have-events3');
 					} else if(calendarArray[strtime].length < 6) { //5 events
-						cal_day.addClass('have-events4'); 
+						cal_day.addClass('have-events4');
 					} else if(calendarArray[strtime].length >= 6){ //6 or more events
-						cal_day.addClass('have-events5'); 
+						cal_day.addClass('have-events5');
 					}
 
 				}
 
-			
+
 				var cal_day_eventholder = $('<div class="event-notif-holder"></div>');
 				if(calendarArray[strtime] != undefined) {
 						if(calendarArray[strtime].length > 1){
-							cal_day_eventholder.append('<div class="activity-count-box"><span class="activity-count">'+calendarArray[strtime].length+'</span> Events</div>');	
-//							cal_day_eventholder.append('<div class="activity-count-box">'+calendarArray[strtime].length+' Events</div>');								
+							cal_day_eventholder.append('<div class="activity-count-box"><span class="activity-count">'+calendarArray[strtime].length+'</span> Events</div>');
+//							cal_day_eventholder.append('<div class="activity-count-box">'+calendarArray[strtime].length+' Events</div>');
 						} else {
 							cal_day_eventholder.append('<div class="activity-count-box"><span class="activity-count">'+calendarArray[strtime].length+'</span> Event</div>');
-//							cal_day_eventholder.append('<div class="activity-count-box">'+calendarArray[strtime].length+' Event</div>');							
+//							cal_day_eventholder.append('<div class="activity-count-box">'+calendarArray[strtime].length+' Event</div>');
 						}
-						
-				var events = calendarArray[strtime];		
+
+				var events = calendarArray[strtime];
 				if(events !== undefined) {
 					//cal_day_eventholder.append('events are defined');
 					//cal_day_eventholder.append(strtime);
@@ -185,22 +185,22 @@ $(document).ready(function() {
 /* 							cal_day_eventholder.append(events[o]['type']);	 */
 /* 							cal_day_eventholder.append(events[o]['opp']);	 */
 
-								cal_day_eventholder.append("<div class='major-event'><img src='images/" + events[o]['type'] + "/" + events[o]['opp'] + "-sm.png' /> vs <img src='images/" + events[o]['type'] + "/Edmonton-sm.png' /></div>");									
+								cal_day_eventholder.append("<div class='major-event'><img src='images/" + events[o]['type'] + "/" + events[o]['opp'] + "-sm.png' /> vs <img src='images/" + events[o]['type'] + "/Edmonton-sm.png' /></div>");
 
-							
-							
+
+
 						}
 
 						if(events[o]['hilite'] !== undefined) {
 							cal_day_eventholder.append("<span class='glyphicon glyphicon-star'></span>");
 						}
-											
+
 					}
-					
+
 				} else {
 					cal_day_eventholder.append('no details');
-				}						
-						
+				}
+
 
 				}
 				cal_day.attr('strtime',strtime);
