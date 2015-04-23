@@ -70,7 +70,8 @@
 		  <a href="/admin/feature" class="tile-link"><div class="tile"><h2>Feature Content</h2></div></a>
 		  <a href="/admin/jumpstart" class="tile-link"><div class="tile"><h2>Jumpstart</h2></div>      </a>
 		  <a href="/admin/flyer" class="tile-link"><div class="tile"><h2>Flyer</h2></div>          </a>
-		
+      <a href="/admin/kiosk/{{Auth::user()->store_id}}" class="tile-link"><div class="tile"><h2>Activity Kiosk</h2></div>          </a>
+		  
 
 		</div>        
 		

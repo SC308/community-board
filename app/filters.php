@@ -96,3 +96,20 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Admin Filter
+|--------------------------------------------------------------------------
+|
+| The "admin" filter is responsible for checking if the user has admin
+| rights to access the contents of the activity kiosk. If the user 
+| belongs to a store they will be redirected to admin panel home 
+| page.
+|
+*/
+
+Route::filter('admin', function()
+{
+	if (Auth::user()->role != 1) return Redirect::to('/admin/kiosk/'.Auth::user()->store_id);
+});
