@@ -13,12 +13,12 @@ class KioskController extends \BaseController {
 		$store_id = Store::where('store_number', Auth::user()->store_id )->first()->id;
 		if(Auth::user()->role == 1)
 		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+			$menuItems= array("blog", "event", "gear", "league", "location", "sport");
 		}
 		else{
 			$menuItems= array("event", "league", "location");
 		}
-		
+
 		$menuPanel= "event";
 		$events = CalendarEvent::where('store_id', $store_id)->get();
 		//dd($events);
@@ -47,7 +47,7 @@ class KioskController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+
 	}
 
 	/**
@@ -57,9 +57,14 @@ class KioskController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($sn)
 	{
-		
+		$storedetails = Store::getStoreDetails($sn);
+		$activeSports = Sport::getActiveSports();
+		$storeid = $storedetails[0]->id;
+		return View::make('activity')
+			->with('activesports', $activeSports)
+			->with('storedetails', $storedetails);
 	}
 
 	/**
@@ -115,12 +120,16 @@ class KioskController extends \BaseController {
 
 		return $filteredSports;
 		return View::make('kiosk/sports')->withTitle("Activity Kiosk")->withSports($filteredSports);
-	
+
 	}
-	public function setKiosk($sport_id)
+	public function viewSport($store_id, $sport_id)
 	{
-		
-		$sportPieces= DB::table('sport_detail_mappings')->where('sport_id', $sport_id)->get();
+		$storedetails = Store::getStoreDetails($store_id);
+		$storeid = $storedetails[0]->id;
+
+		$selectedSport = Sport::find($sport_id);
+
+		$sportPieces= DB::table('kiosk_sport_detail_mappings')->where('sport_id', $sport_id)->get();
 		$sportDetails = Array();
 		foreach($sportPieces as $piece){
 			$pieceName =  SportDetail::where('detail_id', $piece->detail_id)->first()->detail_name;
@@ -128,7 +137,10 @@ class KioskController extends \BaseController {
 			$pieceDetailsArray = [$pieceName => $pieceDetails];
 			array_push($sportDetails, $pieceDetailsArray);
 		}
-		return $sportDetails;
+		return View::make('activity-detail')
+			->with('storedetails', $storedetails)
+			->with('selectedSport', $selectedSport)
+			->with('sportDetails', $sportDetails);
 
 	}
 

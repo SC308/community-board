@@ -10,7 +10,7 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-header('Access-Control-Allow-Origin: *');  
+header('Access-Control-Allow-Origin: *');
 
 Route::get('/', 'HomeController@getHomeStoreSelector');
 
@@ -21,6 +21,8 @@ Route::get('{storeno?}/staff', 			array('uses' => 'StaffController@getIndex'))->
 Route::get('{storeno?}/flyer', 			array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/jumpstart', 		array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer-int', 		array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/activity',        array('uses' => 'KioskController@show'))->where('storeno', '[0-9]+')->where('sportid', '[0-9]+');
+Route::get('{storeno?}/activity/{sportid?}', array('uses' => 'KioskController@viewSport'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/cash', 			array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
 
 //LANDSCAPE ROUTES
@@ -166,7 +168,5 @@ Route::post('users/reset_password', 'UsersController@doResetPassword');
 //Route::get('users/logout', 'UsersController@logout');
 Route::get('/logout', 'UsersController@logout');
 
-// Dashboard route 
+// Dashboard route
 Route::get('admin/dashboard', function(){ return View::make('admin.dashboard'); });
-
-

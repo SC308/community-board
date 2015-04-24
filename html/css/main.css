@@ -176,6 +176,11 @@ a.nav-item::active{
 	.nav-item.red{ background-color: #ef3529; }
 	.nav-item.yellow{ background-color: #f7c71b; }
 
+	.blue{ background-color: #4ea6ca }
+	.green{ background-color: #00af9e; }
+	.red{ background-color: #ef3529; }
+	.yellow{ background-color: #f7c71b; }
+
 .nav-desc-bar{
 	display: none;
 	clear: both;
@@ -298,13 +303,51 @@ body.landscape .home { padding: 0 !important;}
         padding: 0px;
     }
 
-
-
-
-
-
-
 .toppicks .carousel-caption{ display: none;}
+
+
+#activity-kiosk{
+	height: 1390px;
+	background: #000 url('/images/debut_dark.png') top left repeat;
+	overflow-x: hidden;
+}
+	#activity-kiosk::-webkit-scrollbar {
+	    display: none;
+	}
+
+#activity-kiosk h1{
+	font-family: GalaxiePolarisCondensed-Book;
+	text-transform: uppercase;
+	color: #fff;
+	font-size: 70px;
+	text-align: center;
+	padding: 30px 0px;
+}
+
+
+a.sportSelector{
+	width: 100%;
+	color: #fff;
+	text-align: center;
+	font-size: 120px;
+
+	padding: 80px 0px;
+	margin: 10px 0px 10px 0px;
+	text-decoration: none;
+	display: block;
+	font-family: GalaxiePolarisCondensed-Book;
+	text-transform: uppercase;
+}
+
+a.sportSelector:active{
+	-moz-box-shadow: 0 0 40px #fff;
+    -webkit-box-shadow: 0 0 40px #fff;
+    box-shadow: 0px 0px 40px #fff;
+}
+
+
+
+
 
 #scoreboard{
     background-color: #333333;
