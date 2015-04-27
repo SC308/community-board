@@ -35,7 +35,7 @@
           @foreach( $image_files as $image_file) 
           <label for= "images">Images:</label>
           <span class="complete-images" name = "Images_images">
-            <img src="/images/sport/icons/{{$image_file}}" >
+            <img src="/images/kiosk/content/{{$image_file}}" >
           </span>
 
           @endforeach

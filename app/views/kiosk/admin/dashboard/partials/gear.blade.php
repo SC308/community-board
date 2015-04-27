@@ -20,7 +20,7 @@
         @foreach( $image_files as $image_file) 
         
       	<div class="partial-images">
-          <img src="/images/sport/icons/{{$image_file}}" >
+          <img src="/images/kiosk/content/{{$image_file}}" >
         </div>
 
         @endforeach

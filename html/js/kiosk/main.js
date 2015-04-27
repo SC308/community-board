@@ -11,7 +11,7 @@ $(document).ready(function(){
 			currentUrl = currentUrl.replace(modelFromUrl, "");
 			
 		}
-
+		console.log(currentUrl);
 		return currentUrl;
 	}
 	
@@ -34,15 +34,15 @@ $(document).ready(function(){
 		var model = $(this).parent().attr('data-model');
 		var selectedAction = $(this).attr('id');
 		if(selectedAction ==  'edit' ){
-
+			alert(model);
 			rowId= $(this).attr('data-rowId');
-			$(this).prop("href", currentUrl+"\/"+rowId+"/"+selectedAction);
+			$(this).prop("href", getBaseURL(currentUrl)+"\/"+model+"\/"+rowId+"/"+selectedAction);
 			
 		}
 		
 		if(selectedAction == 'add'){
 			
-			$(this).prop("href", currentUrl+"\/"+"create");	
+			$(this).prop("href", getBaseURL(currentUrl)+"\/"+model+"\/"+"create");	
  			
 		}
 
@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 		if(selectedAction == 'view'){
 			rowId= $(this).attr('data-rowId');
-			$(this).prop("href", currentUrl+"\/"+rowId);
+			$(this).prop("href", getBaseURL(currentUrl)+"\/"+model+"\/"+rowId);
 		}
 		
 		

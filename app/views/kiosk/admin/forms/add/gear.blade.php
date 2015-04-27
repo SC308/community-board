@@ -9,6 +9,7 @@
         {{ HTMl::style('/css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 
@@ -36,32 +37,38 @@
             
             {{ Form::open(['action' => 'gear.store', 'files'=>true], [ 'class'=> 'form-horizontal dropzone']) }}
 
+                @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
                  <div class="form-group">
                     
-                    {{ Form::label('Sport', 'Choose a Sport: ') }}
+                    {{ Form::label('sport_id', 'Choose a Sport: ') }}
                     
-                    {{ Form::select('Sport',$sport_options, false, ['class' => 'selectpicker']) }}
+                    {{ Form::select('sport_id',$sport_options, false, ['class' => 'selectpicker']) }}
 
                 </div>
                 
 
                 <div class="form-group">
                     
-                    {{ Form::label('GearName', 'Gear Name :') }}
-                    {{ Form::input('text', 'GearName', null, ['class' => 'form-control']) }}
+                    {{ Form::label('name', 'Gear Name :') }}
+                    {{ Form::input('text', 'name', null, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('GearDescription', 'Description :') }}
-                    {{ Form::input( 'text', 'GearDescription', null, ['class' => 'form-control']) }}
+                    {{ Form::label('description', 'Description :') }}
+                    {{ Form::input( 'text', 'description', null, ['class' => 'form-control']) }}
                 </div>
                 <br>
 
 
                 <div class="form-group dropzone">
-                    {{ Form::label('Image', 'Image :') }}
-                    {{ Form::file('Image') }}
+                    {{ Form::label('image', 'Image :') }}
+                    {{ Form::file('image') }}
                 </div>
                 <br>
 
@@ -89,11 +96,8 @@
         <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
         <script type="text/javascript">
          
-         $(".selectpicker").selectpicker({
-            size: 4
-
-         });
-         $(".check-mark").hide();
+         $(".selectpicker").selectpicker();
+         
         </script>
         
 

@@ -63,22 +63,7 @@
           @foreach( $image_files as $image_file) 
           <label for= "images">Images:</label>
           <span class="complete-images" name = "Images_images">
-            <img src="/images/sport/icons/{{$image_file}}" >
-          </span>
-
-          @endforeach
-          @endif
-
-
-
-
-          @if($data->image != "")
-          <?php $image_files = preg_split('/;/', $data->image, -1,  PREG_SPLIT_NO_EMPTY); ?>
-
-          @foreach( $image_files as $image_file) 
-          <label for= "sport_images">Images:</label>
-          <span class="complete-images" name = "sport_images">
-            <img src="/images/sport/icons/{{$image_file}}" >
+            <img src="/images/kiosk/content/{{$image_file}}" >
           </span>
 
           @endforeach

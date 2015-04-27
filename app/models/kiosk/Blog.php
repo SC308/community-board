@@ -17,11 +17,11 @@ class Blog extends \Eloquent {
 						   ];
 
 	public static $rules = [
-			'Sport_id'      => 'required',
-			'Starts_at'		=> 'required',
-			'Stores[]'		=> 'required',
-			'Title'			=> 'required',
-			'Content'		=> 'required'
+			'sport_id'      => 'required',
+			'starts_at'		=> 'required',
+			'stores'		=> 'required',
+			'title'			=> 'required',
+			'content'		=> 'required'
 
 	];
 }

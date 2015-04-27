@@ -2,6 +2,29 @@
 
 class GearController extends \BaseController {
 
+	private $menuItems = [];
+	private $panel_name;
+	private $panel_title; 
+
+	public function __construct()
+	{
+		if(Auth::user()->role == 1)
+		{
+			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+		}
+		else
+		{
+			$this->menuItems= array("event", "league", "location");
+		}
+		
+
+		$this ->panel_name	= "gear";
+
+		$this->panel_title  =  "Dashboard";
+
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,19 +32,12 @@ class GearController extends \BaseController {
 	 */
 	public function index()
 	{
-		if(Auth::user()->role == 1)
-		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else{
-			$menuItems= array("event", "league", "location");
-		}
-		$menuPanel=  "gear";
 		$gears = Gear::all();
-		return View::make("kiosk/admin/dashboard/dashboard")->withTitle("Dashboard")
-												 ->withItems($menuItems)
-												 ->withPanel($menuPanel)
-												 ->withPanelData($gears);
+		
+		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
+												 			->withItems($this->menuItems)
+												 			->withPanel($this->panel_name)
+												 			->withPanelData($gears);
 	}
 
 
@@ -33,12 +49,14 @@ class GearController extends \BaseController {
 	public function create()
 	{
 		$sports= array();
-		$allSports = Sport::all();
-		foreach ($allSports as $sport) {
-					$sports[$sport->id] =  $sport->name;
-				}
-
 		
+		$allSports = Sport::all();
+		
+		foreach ($allSports as $sport) 
+		{
+			$sports[$sport->id] =  $sport->name;
+		
+		}
 
 		return View::make('kiosk/admin/forms/add/gear')->withSports($sports);
 	}
@@ -52,29 +70,39 @@ class GearController extends \BaseController {
 	public function store()
 	{
 		
+		$validator = Validator::make(Input::all(), Gear::$rules);
+
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'.Auth::user()->store_id.'/gear/create')
+            ->withErrors($validator);
+		}
+
 		$image_string = "";
 
-		$image_file = Input::file('Image');
+		$image_file = Input::file('image');
 		if($image_file != null){
 
 		
 	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/sport/icons/';
+	 	 	 $destinationPath = public_path().'/images/kiosk/content/';
 	 		 $filename = $image_file->getClientOriginalName();
 	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
 		
 		}
 
 		$gear = Gear::create(
-					[
-					
-					'name'		=> 	Input::get('GearName'),
-					'sport_id'		=>	Input::get('Sport'),
-					'description'	=>  Input::get('GearDescription'),
-					'image'	=>	$image_string
-					
-					]
-				);
+			[
+			
+			'name'			=> 	Input::get('name'),
+			'sport_id'		=>	Input::get('sport_id'),
+			'description'	=>  Input::get('description'),
+			'image'			=>	$image_string
+			
+			]
+		);
 
 		return Redirect::to('/admin/kiosk/'.Auth::user()->store_id.'/gear/'.$gear->id);
 	}
@@ -88,16 +116,15 @@ class GearController extends \BaseController {
 	 */
 	public function show($storeNumber,$id)
 	{
-		$menuItems= array("blog", "event", "gear", "league", "location", "sport", "store", "map");
-		$menuPanel=  "gear";
-		$gear = Gear::whereid($id)->first();
+		$gear = Gear::find($id);
+
 		$sport = Sport::whereid($gear->sport_id)->first()->name;
 		
-		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel("gear")
-													  	  ->withPanelData($gear)
-												 	  	  ->withTitle("Dashboard")
-												 	  	  ->withSport($sport)
-													  	  ->withItems($menuItems);
+		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel($this->panel_name)
+													  	  		->withPanelData($gear)
+												 	  	  		->withTitle($this->panel_title)
+												 	  	  		->withSport($sport)
+													  	  		->withItems($this->menuItems);
 	}
 
 
@@ -109,17 +136,21 @@ class GearController extends \BaseController {
 	 */
 	public function edit($storeNumber,$id)
 	{
+
 		$sports= array();
 		$allSports = Sport::all();
-		foreach ($allSports as $sport) {
-					$sports[$sport->id] =  $sport->name;
-				}
+		foreach ($allSports as $sport) 
+		{
+			$sports[$sport->id] =  $sport->name;
+		}
 
-		$gear = Gear::whereid($id)->first();
+		$gear = Gear::find($id);
+
 		$selected_sport = [$gear->sport_id];
+		
 		return View::make('kiosk/admin/forms/edit/gear')->withgear($gear)
-												  ->withSports($sports)
-												  ->withSelectedSport($selected_sport);
+														->withSports($sports)
+														->withSelectedSport($selected_sport);
 	}
 
 
@@ -131,12 +162,23 @@ class GearController extends \BaseController {
 	 */
 	public function update($storeNumber,$id)
 	{
+		$validator = Validator::make(Input::all(), Gear::$edit_rules);
+
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'.Auth::user()->store_id.'/gear/'.$id.'/edit')
+            ->withErrors($validator);
+		}
+
+
 		
 		$image_file_string ="";
-		$image_file = Input::file('Image'); 
+		$image_file = Input::file('image'); 
 		if($image_file != null){
 	 	 	$image_file_string .= $image_file->getClientOriginalName().";";
-	 	 	$destinationPath = public_path().'/images/content/';
+	 	 	$destinationPath = public_path().'/images/kiosk/content/';
 		 	$filename = $image_file->getClientOriginalName();
 		 	$uploadSuccess = $image_file->move($destinationPath, $filename);
 		}
@@ -150,9 +192,9 @@ class GearController extends \BaseController {
 		$oldGear = Gear::whereid($id)->first();
 	  	
 	  	$gear = array();
-	  	$gear['name'] 	    = Input::get('GearName');
-	  	$gear['description']= Input::get('GearDescription');
-  		$gear['sport_id'] 	= Input::get('Sport');
+	  	$gear['name'] 	    = Input::get('name');
+	  	$gear['description']= Input::get('description');
+  		$gear['sport_id'] 	= Input::get('sport_id');
 	  	$gear['image']		= $oldGear->image;
 	  	
 		

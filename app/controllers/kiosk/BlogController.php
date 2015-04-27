@@ -2,6 +2,29 @@
 
 class BlogController extends \BaseController {
 
+	private $menuItems = [];
+	private $panel_name;
+	private $panel_title; 
+
+	public function __construct()
+	{
+		if(Auth::user()->role == 1)
+		{
+			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+		}
+		else
+		{
+			$this->menuItems= array("event", "league", "location");
+		}
+		
+
+		$this ->panel_name	= "blog";
+
+		$this->panel_title  =  "Dashboard";
+
+	}
+
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,19 +32,12 @@ class BlogController extends \BaseController {
 	 */
 	public function index()
 	{
-		if(Auth::user()->role == 1)
-		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else{
-			$menuItems= array("event", "league", "location");
-		}
-		$menuPanel=  "blog";
 		$blogs = Blog::all();
-		return View::make("kiosk/admin/dashboard/dashboard")->withTitle("Dashboard")
-												 ->withItems($menuItems)
-												 ->withPanel($menuPanel)
-												 ->withPanelData($blogs);
+		
+		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
+												 			->withItems($this->menuItems)
+												 			->withPanel($this->panel_name)
+												 			->withPanelData($blogs); 
 	}
 
 
@@ -33,16 +49,22 @@ class BlogController extends \BaseController {
 	public function create()
 	{
 		$sports= array();
+
 		$allSports = Sport::all();
-		foreach ($allSports as $sport) {
-					$sports[$sport->id] = $sport->name;
-				}
+		foreach ($allSports as $sport) 
+		{
+			$sports[$sport->id] = $sport->name;
+		}
 
 		$stores = array();
+
 		$allStores = Store::all();
-		foreach ($allStores as $store) {
-					$stores[$store->id] = $store->store_name;
-				}
+
+		foreach ($allStores as $store) 
+		{
+			$stores[$store->id] = $store->store_name;
+		}
+
 		return View::make('kiosk/admin/forms/add/blog')->withSports($sports)->withStores($stores);
 	}
 
@@ -54,13 +76,14 @@ class BlogController extends \BaseController {
 	 */
 	public function store()
 	{
+
 		$validator = Validator::make(Input::all(), Blog::$rules);
 
 		if($validator->fails())
 		{
 			 $messages = $validator->messages();
 
-        	return Redirect::to('ducks')
+        	return Redirect::to('admin/kiosk/'.Auth::user()->store_id."/blog/create")
             ->withErrors($validator);
 		}
 
@@ -69,12 +92,12 @@ class BlogController extends \BaseController {
 		 $store_string = "";
 		 
 
-		 $image_files = Input::file('Image');
+		 $image_files = Input::file('image');
 		 if($image_files[0] != null){
 
 		 	foreach ($image_files as $image_file) {
 			 	 $image_string .= $image_file->getClientOriginalName().";";
-			 	 $destinationPath = public_path().'/images/content/';
+			 	 $destinationPath = public_path().'/images/kiosk/content/';
 				 $filename = $image_file->getClientOriginalName();
 				 $uploadSuccess = $image_file->move($destinationPath, $filename);
 			 }
@@ -85,7 +108,7 @@ class BlogController extends \BaseController {
 		 if($video_files[0]!= null){
 		 	foreach ($video_files as $video_file) {
 			 	 $video_string .= $video_file->getClientOriginalName().";";
-			 	 $destinationPath = public_path().'/videos/content/';
+			 	 $destinationPath = public_path().'/videos/kiosk/content/';
 				 $filename = $video_file->getClientOriginalName();
 				 $uploadSuccess = $video_file->move($destinationPath, $filename);
 			 }
@@ -93,7 +116,7 @@ class BlogController extends \BaseController {
 		 }
 
 
-		 $stores = Input::get("Stores");
+		 $stores = Input::get("stores");
 		 if(in_array( "all", $stores)){
 		 	$store_string = "all";
 		 }
@@ -104,21 +127,21 @@ class BlogController extends \BaseController {
 		 }
 		
 		$blog = Blog::create(
-					[
-					
-					'title' 				=>	Input::get('Title'),
-					'content'				=> 	Input::get('Content'),
-					'date'					=> 	Input::get('Starts_at'),
-					'author_id' 			=>  Auth::user()->id,
-					'sport_id'				=>  Input::get('Sport_id'),
-					'applicable_to_stores' 	=>  $store_string,
-					'images'	    		=>  $image_string,
-					'videos'				=>  $video_string
-					
+			[
+			
+			'title' 				=>	Input::get('title'),
+			'content'				=> 	Input::get('content'),
+			'date'					=> 	Input::get('starts_at'),
+			'author_id' 			=>  Auth::user()->id,
+			'sport_id'				=>  Input::get('sport_id'),
+			'applicable_to_stores' 	=>  $store_string,
+			'images'	    		=>  $image_string,
+			'videos'				=>  $video_string
+			
 
-					]
+			]
 
-				);
+		);
 
 		
 		return Redirect::to('/admin/kiosk/'.Auth::user()->store_id.'/blog/'.$blog->id);
@@ -134,11 +157,10 @@ class BlogController extends \BaseController {
 	 */
 	public function show($storeNumber, $id)
 	{
-		$blod_id = $id;
-		$menuItems= array("blog", "event", "gear", "league", "location", "sport", "store", "map");
-		$menuPanel=  "blog";
-		$blog = Blog::whereid($id)->first();
+		$blog = Blog::find($id);
+		
 		$sport = Sport::where("id", $blog->sport_id)->first()->name;
+		
 		$applicable_to_stores = $blog->applicable_to_stores;
 		
 		
@@ -157,12 +179,12 @@ class BlogController extends \BaseController {
 		}
 		
 		
-		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel("blog")
-													  	  ->withPanelData($blog)
-												 	  	  ->withTitle("Dashboard")
-													  	  ->withItems($menuItems)
-													  	  ->withSport($sport)
-													  	  ->withStores($stores);
+		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel($this->panel_name)
+													  	  		->withPanelData($blog)
+												 	  	  		->withTitle($this->panel_title)
+													  	  		->withItems($this->menuItems)
+													  	  		->withSport($sport)
+															  	->withStores($stores);
 	}
 
 
@@ -186,7 +208,8 @@ class BlogController extends \BaseController {
 					$stores[$store->id] = $store->store_name;
 				}
 
-		$blog = Blog::whereid($id)->first();
+		$blog = Blog::find($id);
+
 		$selected_sport = $blog->sport_id;
 
 		if($blog->applicable_to_stores == "all"){
@@ -196,10 +219,10 @@ class BlogController extends \BaseController {
 			$selected_stores = preg_split('/;/', $blog->applicable_to_stores, -1,  PREG_SPLIT_NO_EMPTY);
 		}
 		return View::make("kiosk/admin/forms/edit/blog")->withblog($blog)
-		 										  ->withsports($sports)
-		 										  ->withstores($stores)
-		 										  ->withSelectedSport($selected_sport)
-		 										  ->withSelectedStore($selected_stores);
+				 										->withsports($sports)
+				 										->withstores($stores)
+				 										  ->withSelectedSport($selected_sport)
+				 										  ->withSelectedStore($selected_stores);
 	}
 
 
@@ -211,13 +234,23 @@ class BlogController extends \BaseController {
 	 */
 	public function update($storeNumber,$id)
 	{
+		$validator = Validator::make(Input::all(), Blog::$rules);
+
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'.Auth::user()->store_id.'/blog/'.$id.'/edit')
+            ->withErrors($validator);
+		}
 		
+
 		$image_file_string ="";
 		$image_files = Input::file('Image'); 
 		if($image_files[0] != ""){
 			foreach ($image_files as $image_file) {
 			 	 $image_file_string .= $image_file->getClientOriginalName().";";
-			 	 $destinationPath = public_path().'/images/content/';
+			 	 $destinationPath = public_path().'/images/kiosk/content/';
 				 $filename = $image_file->getClientOriginalName();
 				 $uploadSuccess = $image_file->move($destinationPath, $filename);
 			 }
@@ -228,7 +261,7 @@ class BlogController extends \BaseController {
 		if($video_files[0] != ""){
 			foreach($video_files as $video_file) {
 				$video_file_string .= $video_file->getClientOriginalName().";";
-				$destinationPath = public_path().'/videos/content/';
+				$destinationPath = public_path().'/videos/kiosk/content/';
 				$filename = $video_file->getClientOriginalName();
 				$uploadSuccess = $video_file->move($destinationPath, $filename);
 			}
@@ -243,7 +276,7 @@ class BlogController extends \BaseController {
 
 
 		$store_string ="";
-	  	$stores = Input::get("Stores");
+	  	$stores = Input::get("stores");
 		 if(in_array( "all", $stores)){
 		 	$store_string = "all";
 		 }
@@ -256,10 +289,10 @@ class BlogController extends \BaseController {
 		$oldBlog = Blog::whereid($id)->first();
 	  	
 	  	$blog = array();
-	  	$blog['title'] 	    = Input::get('Title');
-	  	$blog['content']    = Input::get('Content');
-  		$blog['date']  		= Input::get('Starts_at');
-	  	$blog['sport_id'] 	= Input::get('Sport_id');
+	  	$blog['title'] 	    = Input::get('title');
+	  	$blog['content']    = Input::get('content');
+  		$blog['date']  		= Input::get('starts_at');
+	  	$blog['sport_id'] 	= Input::get('sport_id');
 	  	$blog['images']		= $oldBlog->image;
 	  	$blog['videos']		= $oldBlog->video;
 	  	$blog['author_id']	= Auth::user()->id;

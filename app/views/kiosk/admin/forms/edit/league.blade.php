@@ -9,6 +9,7 @@
         {{ HTMl::style('css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 
@@ -24,7 +25,6 @@
         <!-- end Top bar div-->
 
         <div class="addForm" id="addLeague">
-            <?php $sport_options[""] = "Select a Sport" ?>
             @foreach($sports as $key => $value)
                 <?php $sport_options[$key] = $value; ?>
             @endforeach
@@ -36,11 +36,18 @@
             
             {{ Form::model($league, ['route' => ['league.update', Auth::user()->store_id , $league->id], 'method' => 'PATCH',  'files'=>true])  }}
 
+                 @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
+
                  <div class="form-group">
                     
-                    {{ Form::label('Sport', ' Choose a Sport :') }}
+                    {{ Form::label('sport_id', ' Choose a Sport :') }}
                     <!-- Use Details array -->
-                    {{ Form::select('Sport',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
+                    {{ Form::select('sport_id',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
                     
 
 
@@ -49,50 +56,50 @@
 
                 <div class="form-group">
                     
-                    {{ Form::label('LeagueName', 'League Name :') }}
-                    {{ Form::input('text', 'LeagueName', $league->name, ['class' => 'form-control']) }}
+                    {{ Form::label('name', 'League Name :') }}
+                    {{ Form::input('text', 'name', $league->name, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
                     
-                    {{ Form::label('City', 'City :') }}
-                    {{ Form::input('text', 'City', $league->city, ['class' => 'form-control']) }}
+                    {{ Form::label('city', 'City :') }}
+                    {{ Form::input('text', 'city', $league->city, ['class' => 'form-control', 'readonly']) }}
 
                 </div>
 
                 <div class="form-group">
                     
-                    {{ Form::label('Location', 'Location :') }}
-                    {{ Form::input('text', 'Location', $league->location, ['class' => 'form-control']) }}
+                    {{ Form::label('location', 'Location :') }}
+                    {{ Form::input('text', 'location', $league->location, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
                     
-                    {{ Form::label('AgeGroup', 'Age Group :') }}
-                    {{ Form::input('text', 'AgeGroup', $league->ages, ['class' => 'form-control']) }}
+                    {{ Form::label('age_group', 'Age Group :') }}
+                    {{ Form::input('text', 'age_group', $league->ages, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
                     
-                    {{ Form::label('Contact', 'Contact Information :') }}
-                    {{ Form::input('text', 'Contact', $league->contact, ['class' => 'form-control']) }}
+                    {{ Form::label('contact', 'Contact Information :') }}
+                    {{ Form::input('text', 'contact', $league->contact, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
                     
-                    {{ Form::label('Description', 'Description :') }}
-                    {{ Form::input('text', 'Description', $league->description, ['class' => 'form-control']) }}
+                    {{ Form::label('description', 'Description :') }}
+                    {{ Form::input('text', 'description', $league->description, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
                     
-                    {{ Form::label('URL', 'Website :') }}
-                    {{ Form::input('text', 'URL', $league->url , ['class' => 'form-control']) }}
+                    {{ Form::label('url', 'Website :') }}
+                    {{ Form::input('text', 'url', $league->url , ['class' => 'form-control']) }}
 
                 </div>
 
@@ -113,10 +120,10 @@
                             <!-- Image thumbnails div -->
                             <div class="image-thumbnail-holder">
                                 <div>
-                                {{ HTML::image("images/content/".$image_file , $image_file , ['class' => 'thumb', 'id' => 'image'.$league->content_id, 'data-remove-image' => 'false']) }}
+                                {{ HTML::image("images/kiosk/content/".$image_file , $image_file , ['class' => 'thumb', 'id' => 'image'.$league->content_id, 'data-remove-image' => 'false']) }}
                                 {{ $image_file }}
                                 </div>
-                                {{ HTML::image("images/edit.png", "",['class' => 'hidden remove-image-button'])}}
+                                {{ HTML::image("images/kiosk/adminIcons/edit.png", "",['class' => 'hidden remove-image-button'])}}
                             </div>
                             <!--Image thumbnail div ends -->
 
@@ -134,8 +141,8 @@
 
                 <!-- add new images div -->
                 <div class="form-group dropzone">
-                    {{ Form::label('Image', 'Add more Image :') }}
-                    {{ Form::file('Image') }}
+                    {{ Form::label('image', 'Add more Image :') }}
+                    {{ Form::file('image') }}
                 </div>
                 <br>
 
@@ -157,20 +164,19 @@
         
         
         <!-- Javascript files required for page -->
-        <script type="text/javascript" src="/js/vendor/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/js/vendor/moment.js"></script>
-        <script type="text/javascript" src="/js/main.js"></script>
-        <script type="text/javascript" src="/js/vendor/dropzone.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/moment.js"></script>
+        <script type="text/javascript" src="/js/kiosk/main.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
         <script type="text/javascript">
          $('#datetimepicker1').datetimepicker();
          $('#datetimepicker2').datetimepicker();
          
         </script>
-        <script type="text/javascript" src="/js/vendor/bootstrap-select.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
         <script type="text/javascript">
          $(".selectpicker").selectpicker();
-         $(".check-mark").hide();
         </script>
 
     </body>

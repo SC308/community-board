@@ -2,6 +2,17 @@
 
 class KioskController extends \BaseController {
 
+
+	private $menuItems = [];
+	private $panel_name;
+	private $panel_title; 
+
+	public function __construct()
+	{
+		
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /kiosk
@@ -10,21 +21,28 @@ class KioskController extends \BaseController {
 	 */
 	public function index()
 	{
-		$store_id = Store::where('store_number', Auth::user()->store_id )->first()->id;
+
 		if(Auth::user()->role == 1)
 		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
 		}
-		else{
-			$menuItems= array("event", "league", "location");
+		else
+		{
+			$this->menuItems= array("event", "league", "location");
 		}
 		
-		$menuPanel= "event";
+
+		$this ->panel_name	= "event";
+
+		$this->panel_title  =  "Dashboard";
+
+		$store_id = Store::where('store_number', Auth::user()->store_id )->first()->id;
+		
 		$events = CalendarEvent::where('store_id', $store_id)->get();
-		//dd($events);
-		return View::make('kiosk/admin/dashboard/dashboard')->withTitle("Dashboard")
-													  		->withItems($menuItems)
-													  		->withPanel($menuPanel)
+
+		return View::make('kiosk/admin/dashboard/dashboard')->withTitle($this->panel_title)
+													  		->withItems($this->menuItems)
+													  		->withPanel($this->panel_name)
 													  		->withPanelData($events);
 	}
 
@@ -117,19 +135,59 @@ class KioskController extends \BaseController {
 		return View::make('kiosk/sports')->withTitle("Activity Kiosk")->withSports($filteredSports);
 	
 	}
-	public function setKiosk($sport_id)
+	public function showSport($storeNumber, $sport_id)
 	{
-		
-		$sportPieces= DB::table('sport_detail_mappings')->where('sport_id', $sport_id)->get();
-		$sportDetails = Array();
-		foreach($sportPieces as $piece){
-			$pieceName =  SportDetail::where('detail_id', $piece->detail_id)->first()->detail_name;
-			$pieceDetails = $pieceName::where('sport_id', $sport_id)->get();
-			$pieceDetailsArray = [$pieceName => $pieceDetails];
-			array_push($sportDetails, $pieceDetailsArray);
-		}
-		return $sportDetails;
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
 
+		
+		$allBlogs = Blog::where('sport_id', $sport_id)->get();
+		$blogs = array();
+		foreach($allBlogs as $blog)
+		{
+			$stores = preg_split('/;/', $blog->applicable_to_stores);
+			
+			if( ($blog->applicable_to_stores == "all") || ( in_array($store_id,	$stores)))
+			{
+				array_push($blogs, $blog);
+			}
+
+		}
+
+		
+		$events = CalendarEvent::where('sport_id', $sport_id)->where('store_id', $store_id)->get();
+		// $events = array();
+
+		// foreach($allEvents as $event)
+		// {
+		// 	if($event->store_id == $store_id)
+		// 	{
+		// 		array_push($events, $event);
+		// 	}
+
+		// }
+
+		
+		$gears = Gear::where('sport_id', $sport_id)->get();
+
+	
+		$sportPieces= DB::table('kiosk_sport_detail_mappings')->where('sport_id', $sport_id)->get();
+		$pieceNames = array();  
+		foreach($sportPieces as $piece){
+			array_push($pieceNames , SportDetail::where('id', $piece->detail_id)->first()->detail_name );	
+		}
+		
+		if(in_array("League", $pieceNames))
+		{
+			$leagues = League::where('store_id', $store_id)->where('sport_id', $sport_id)->get();
+		}
+		elseif(in_array("Location", $pieceNames))
+		{
+			$locations = Location::where('store_id', $store_id)->where('sport_id', $sport_id)->get();
+
+		}
+		
+		
+		return (compact("blogs", "events", "gears", "leagues", "locations"));
 	}
 
 }

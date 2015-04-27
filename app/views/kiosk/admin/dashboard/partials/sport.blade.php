@@ -6,7 +6,7 @@
           </span>
           
           <span class="submenu-options" data-model="{{$title}}">
-            
+            <a href="" id = "delete" class="submenu-item" data-rowId = "{{$d->id}}"> Delete </a>
             <a href="" id = "edit" class="submenu-item" data-rowId = "{{$d->id}}"> Edit </a>
             <a href="" id = "view" class="submenu-item" data-rowId = "{{$d->id}}"> View </a>
           </span>

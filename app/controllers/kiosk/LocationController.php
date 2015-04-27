@@ -3,6 +3,31 @@
 class LocationController extends \BaseController {
 
 	
+	private $menuItems;
+	private $store_name; 
+	private $panel_name;
+	private $panel_title;
+
+	public function __construct()
+	{
+		if(Auth::user()->role == 1)
+		{
+			$this->menuItems   = ["blog", "event", "gear", "league", "location", "sport"];	
+		}
+		else{
+			
+			$this->menuItems   = ["event", "league", "location"];
+		}
+
+		$this->store_name 	= Store::where('store_number', Auth::user()->store_id)->first()->store_name;
+
+		$this->store_id 	= Store::where('store_number', Auth::user()->store_id)->first()->id;
+
+		$this->panel_name	= "location";
+
+		$this->panel_title 	= "Dashboard";
+
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -11,24 +36,17 @@ class LocationController extends \BaseController {
 	 */
 	public function index()
 	{
-		if(Auth::user()->role == 1)
-		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else{
-			$menuItems= array("event", "league", "location");
-		}
+		
+		
 		$menuPanel = "location";
-		$store_id  = Store::where('store_number', Auth::user()->store_id)->first()->id;
-		$locations = Location::where('store_id', $store_id)->get();
-		return View::make("kiosk/admin/dashboard/dashboard")->withTitle("Dashboard")
-												 ->withItems($menuItems)
-												 ->withPanel($menuPanel)
-												 ->withPanelData($locations);
-		// the following will display the map. 
-		$storeLocation = Store::where('store_number', Auth::user()->id)->first();
-		return View::make('kiosk/admin/dashboard/location')->withLocations($locations)
-													 ->withStoreLocation($storeLocation);
+
+		$locations = Location::where('store_id', $this->store_id)->get();
+		
+		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
+												 			->withItems($this->menuItems)
+												 			->withPanel($this->panel_name)
+												 			->withPanelData($locations);
+
 	}
 
 
@@ -40,18 +58,16 @@ class LocationController extends \BaseController {
 	public function create()
 	{
 		$sports= array();
+		
 		$allSports = Sport::all();
-		foreach ($allSports as $sport) {
-					$sports[$sport->id]  =  $sport->name;
-				}
+		
+		foreach ($allSports as $sport)
+		{
+			$sports[$sport->id]  =  $sport->name;
+		}
 
-		$stores = array();
-		$allStores = Store::all();
-		foreach ($allStores as $store){
-			$stores [$store->id] = $store->store_name;
-		}		
 		return View::make('kiosk/admin/forms/add/location')->withSports($sports)
-													 ->withStores($stores);
+													 	   ->withStore($this->store_name);
 
 	}
 
@@ -63,19 +79,29 @@ class LocationController extends \BaseController {
 	 */
 	public function store()
 	{
-		Location::create(
+		$validator = Validator::make(Input::all(), Location::$rules);
+
+		if($validator->fails())
+		{
+			$messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'. Auth::user()->store_id . '/location/create')
+            ->withErrors($validator);
+		}
+
+		$location = Location::create(
 		[
-			'sport_id' 		=> Input::get('Sport_id'),
-			'store_id' 		=> Input::get('Store'),
-			'name'	   		=> Input::get('Title'),
-			'description'	=> Input::get('Description'),
-			'address'  		=> Input::get('Address'),
-			'postal_code'	=> Input::get('PostalCode'),
-			'latitude'		=> Input::get('Latitude'),
-			'longitude'		=> Input::get('Longitude'),
+			'sport_id' 		=> Input::get('sport_id'),
+			'store_id' 		=> Store::where('store_number' , Auth::user()->store_id)->first()->id,
+			'name'	   		=> Input::get('name'),
+			'description'	=> Input::get('description'),
+			'address'  		=> Input::get('address'),
+			'postal_code'	=> Input::get('postal_code'),
+			'latitude'		=> Input::get('latitude'),
+			'longitude'		=> Input::get('longitude'),
 
 		]);
-		return Redirect::to('/location');
+		return Redirect::to('/admin/kiosk/'. Auth::user()->store_id . "/location/" . $location->id);
 	}
 
 
@@ -87,17 +113,16 @@ class LocationController extends \BaseController {
 	 */
 	public function show($storeNumber,$id)
 	{
-		$menuItems= array("blog", "event", "gear", "league", "location", "sport", "store", "map");
-		$menuPanel=  "location";
-		$location = Location::whereid($id)->first();
+		$location = Location::find($id);
+		
 		$sport  = Sport::whereid($location->sport_id)->first()->name;
-		$store = Store::whereid($location->store_id)->first()->store_name;
-		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel("location")
-													  	  ->withPanelData($location)
-												 	  	  ->withTitle("Dashboard")
-													  	  ->withItems($menuItems)
-													  	  ->withSport($sport)
-													  	  ->withStore($store);
+		
+		return View::make('kiosk/admin/dashboard/viewDashboard')->withTitle($this->panel_title)
+																->withPanel($this->panel_name)
+													  	  		->withPanelData($location)
+												 	  	 		->withItems($this->menuItems)
+													  	  		->withSport($sport)
+													  	  		->withStore($this->store_name);
 		
 	}
 
@@ -110,8 +135,9 @@ class LocationController extends \BaseController {
 	 */
 	public function edit($storeNumber,$id)
 	{
-
-		$location = Location::whereid($id)->first();
+		
+		$location = Location::find($id);
+		
 		$allSports = Sport::all();
 		foreach ($allSports as $sport) {
 					$sports[$sport->id]  =  $sport->name;
@@ -122,14 +148,14 @@ class LocationController extends \BaseController {
 		foreach ($allStores as $store){
 			$stores [$store->id] = $store->store_name;
 		}		
+		
 		$selected_sport  = Sport::whereid($location->sport_id)->first()->id;
-		$selected_store = Store::whereid($location->store_id)->first()->id;
-
+		
 		return View::make('kiosk/admin/forms/edit/location')->withLocation($location)
-													  	  ->withSports($sports)
-													  	  ->withStores($stores)
-													  	  ->withSelectedSport($selected_sport)
-													  	  ->withSelectedStore($selected_store);
+													  	  	->withSports($sports)
+													  	  	->withStores($stores)
+													  	  	->withSelectedSport($selected_sport)
+													  	 	->withStore($this->store_name);
 	}
 
 
@@ -142,16 +168,25 @@ class LocationController extends \BaseController {
 	public function update($storeNumber,$id)
 	{
 
-	
+		$validator = Validator::make(Input::all(), Location::$rules);
+
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'. Auth::user()->store_id . '/location/' . $id .'/edit')
+            ->withErrors($validator);
+		}
+
 		$location = array();
-		$location["name"] 		 = Input::get('Title');
-		$location["description"] = Input::get('Description');
-		$location["sport_id"]    = Input::get('Sport');
-		$location["store_id"]	 = Input::get('Store');
-		$location["address"]	 = Input::get('Address');
-		$location["postal_code"] = Input::get('PostalCode');
-		$location["latitude"]	 = Input::get('Latitude');
-		$location["longitude"]	 = Input::get('Longitude');
+		$location["name"] 		 = Input::get('name');
+		$location["description"] = Input::get('description');
+		$location["sport_id"]    = Input::get('sport_id');
+		$location["store_id"]	 = Store::where('store_number', Auth::user()->store_id)->first()->id;
+		$location["address"]	 = Input::get('address');
+		$location["postal_code"] = Input::get('postal_code');
+		$location["latitude"]	 = Input::get('latitude');
+		$location["longitude"]	 = Input::get('longitude');
 
 		Location::whereid($id)->update($location);
 		return Redirect::to('/admin/kiosk/'.$storeNumber.'/location/'.$id);

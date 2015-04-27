@@ -9,6 +9,7 @@
         {{ HTMl::style('/css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 
@@ -39,33 +40,34 @@
             
             {{ Form::open(['action' => 'event.store', 'files'=>true], [ 'class'=> 'form-horizontal dropzone']) }}
 
+                @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
                  <div class="form-group">
                     
-                    {{ Form::label('Sport_name', 'Choose a Sport: ') }}
-                    {{ Form::select('Sport_name',$sport_options, false, ['class' => 'selectpicker']) }}
+                    {{ Form::label('sport_id', 'Choose a Sport: ') }}
+                    {{ Form::select('sport_id',$sport_options, false, ['class' => 'selectpicker']) }}
                     
 
                 </div>
 
                 <div class="form-group ">
                     
-                    {{ Form::label('Store', 'Choose a Store: ') }}
-                    <!-- Use stores array -->
-                    @foreach ($store_options as $option)
-                    <div class="checkboxOption">
-                    {{ Form::radio('Store', $option, false, ['class' => 'form-control']) }}
-                    <label for={{$option}}>{{$option}}</label>
-                    </div>
-
-                    @endforeach
+                    {{ Form::label('store', 'Choose a Store: ') }}
+                    {{Form::text('store', $store_options[$store], ['readonly'=>'readonly'])}}
+                   
+                   
 
                 </div>
                 
                 <div class="form-group ">
                     
-                    {{ Form::label('Event_start', 'Starts At: ') }}
+                    {{ Form::label('event_start', 'Starts At: ') }}
                      <div class="input-group date" id='datetimepicker1'>
-                        {{ Form::input('text', 'Event_start', null, ['class' => 'form-control']) }}
+                        {{ Form::input('text', 'event_start', null, ['class' => 'form-control']) }}
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div> 
@@ -73,9 +75,9 @@
                 </div>
                  <div class="form-group ">
                     
-                    {{ Form::label('Event_end', 'Ends At: ') }}
+                    {{ Form::label('event_end', 'Ends At: ') }}
                      <div class="input-group date" id='datetimepicker2'>
-                        {{ Form::input('text', 'Event_end', null, ['class' => 'form-control']) }}
+                        {{ Form::input('text', 'event_end', null, ['class' => 'form-control']) }}
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div> 
@@ -88,30 +90,16 @@
 
                 <div class="form-group">
                     
-                    {{ Form::label('Title', 'Title :') }}
-                    {{ Form::input('text', 'Title', null, ['class' => 'form-control']) }}
+                    {{ Form::label('title', 'Title :') }}
+                    {{ Form::input('text', 'title', null, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('Content', 'Description :') }}
-                    {{ Form::textarea('Content', null, ['class' => 'form-control']) }}
+                    {{ Form::label('description', 'Description :') }}
+                    {{ Form::textarea('description', null, ['class' => 'form-control']) }}
                 </div>
-                <br>
-
-
-                <div class="form-group dropzone">
-                    {{ Form::label('Image[]', 'Image(s) :') }}
-                    {{ Form::file('Image[]', ['multiple' => 'multiple']) }}
-                </div>
-                <br>
-
-                <div class="form-group dropzone">
-                    {{ Form::label('Video[]', 'Video(s) :') }}
-                    {{ Form::file('Video[]', ['multiple' => 'multiple']) }}
-                </div>
-                <br>
-                
+               
                 {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
                 
 
@@ -141,11 +129,7 @@
          $('#datetimepicker2').datetimepicker({
             format : 'YYYY-MM-DD HH:mm:ss'
          });
-         $(".selectpicker").selectpicker({
-            size: 4
-
-         });
-         $(".check-mark").hide();
+         $(".selectpicker").selectpicker();
          
         </script>
 

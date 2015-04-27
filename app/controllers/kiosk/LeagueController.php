@@ -2,6 +2,29 @@
 
 class LeagueController extends \BaseController {
 
+	private $menuItems;
+	private $store_name; 
+	private $panel_name;
+	private $panel_title;
+
+	public function __construct()
+	{
+		if(Auth::user()->role == 1)
+		{
+			$this->menuItems   = ["blog", "event", "gear", "league", "location", "sport"];	
+		}
+		else{
+			
+			$this->menuItems   = ["event", "league", "location"];
+		}
+
+		$this->store  		= Store::where('store_number', Auth::user()->store_id)->first();
+
+		$this->panel_name	= "league";
+
+		$this->panel_title 	= "Dashboard";
+
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,20 +32,12 @@ class LeagueController extends \BaseController {
 	 */
 	public function index()
 	{
-		if(Auth::user()->role == 1)
-		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else{
-			$menuItems= array("event", "league", "location");
-		}
-		$menuPanel =  "league";
-		$store_id  = Store::where('store_number' , Auth::user()->store_id)->first()->id;
-		$leagues   = League::where("store_id", $store_id)->get();
-		return View::make("kiosk/admin/dashboard/dashboard")->withTitle("Dashboard")
-												 ->withItems($menuItems)
-												 ->withPanel($menuPanel)
-												 ->withPanelData($leagues);
+		$leagues   = League::where("store_id", $this->store->id)->get();
+		
+		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
+												 			->withItems($this->menuItems)
+												 			->withPanel($this->panel_name)
+												 			->withPanelData($leagues);
 	}
 
 
@@ -39,7 +54,7 @@ class LeagueController extends \BaseController {
 					$sports[$sport->id]  =  $sport->name;
 				}
 		
-		$city =  Store::where('store_number', Auth::user()->store_id)->first()->city;
+		$city =  $this->store->city;
 		
 		return View::make('kiosk/admin/forms/add/league')->withSports($sports)
 														 ->withCity($city);
@@ -54,15 +69,26 @@ class LeagueController extends \BaseController {
 	public function store()
 	{
 		
-		
+		$validator = Validator::make(Input::all(), League::$rules);
+
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'.Auth::user()->store_id.'/league/create')
+            ->withErrors($validator);
+		}
+
+
 		$image_string = "";
 
-		$image_file = Input::file('Image');
+		$image_file = Input::file('image');
+		
 		if($image_file != null){
 
 		
 	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/sport/icons/';
+	 	 	 $destinationPath = public_path().'/images/kiosk/content/';
 	 		 $filename = $image_file->getClientOriginalName();
 	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
 		
@@ -71,15 +97,15 @@ class LeagueController extends \BaseController {
 		$league = League::create(
 						[
 						
-						'name'		=> 	Input::get('LeagueName'),
-						'city'		=> 	Store::where('store_number', Auth::user()->store_id)->first()->city,
-						'location'	=> 	Input::get('Location'),
-						'ages'		=> 	Input::get('AgeGroup'),
-						'contact'	=> 	Input::get('Contact'),
-						'description'=>	Input::get('Description'),
-						'sport_id' 	=>  Input::get('Sport'),
-						'store_id'  =>  Store::where('store_number', Auth::user()->store_id)->first()->id,
-						'url'		=> 	Input::get('URL'),
+						'name'		=> 	Input::get('name'),
+						'city'		=> 	$this->store->city,
+						'location'	=> 	Input::get('location'),
+						'ages'		=> 	Input::get('age_group'),
+						'contact'	=> 	Input::get('contact'),
+						'description'=>	Input::get('description'),
+						'sport_id' 	=>  Input::get('sport_id'),
+						'store_id'  =>  $this->store->id,
+						'url'		=> 	Input::get('url'),
 						'image'		=>	$image_string
 						
 						]
@@ -97,15 +123,16 @@ class LeagueController extends \BaseController {
 	 */
 	public function show($storeNumber,$id)
 	{
-		$menuItems= array("blog", "event", "gear", "league", "location", "sport", "store", "map");
-		$menuPanel=  "league";
-		$league = League::whereid($id)->first();
-		$sport  = Sport::whereid($league->sport_id)->first()->name;
-		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel("league")
-													  	  ->withPanelData($league)
-												 	  	  ->withTitle("Dashboard")
-													  	  ->withItems($menuItems)
-													  	  ->withSport($sport);
+
+		$league 	= League::find($id);
+
+		$sport_name = Sport::find($league->sport_id)->name;
+		
+		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel($this->panel_name)
+													  	  		->withPanelData($league)
+												 	  	  		->withTitle($this->panel_title)
+													  	  		->withItems($this->menuItems)
+													  	  		->withSport($sport_name);
 	}
 
 
@@ -123,7 +150,7 @@ class LeagueController extends \BaseController {
 					$sports[$sport->id]  =  $sport->name;
 				}
 
-		$league = League::whereid($id)->first();		
+		$league = League::find($id);		
 		$selected_sport = [$league->sport_id];
 		return View::make('kiosk/admin/forms/edit/league')->withLeague($league)
 													->withSports($sports)
@@ -140,14 +167,26 @@ class LeagueController extends \BaseController {
 	public function update($storeNumber,$id)
 	{
 		
+		$validator = Validator::make(Input::all(), League::$rules);
+
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'. Auth::user()->store_id . '/league/' . $id .'/edit')
+            ->withErrors($validator);
+		}
+
+
+
 		$image_string = "";
 		
-		$image_file = Input::file('Image');
+		$image_file = Input::file('image');
 		if($image_file != null){
 
 		
 	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/sport/icons/';
+	 	 	 $destinationPath = public_path().'/images/kiosk/content/';
 	 		 $filename = $image_file->getClientOriginalName();
 	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
 		
@@ -158,14 +197,14 @@ class LeagueController extends \BaseController {
 		
 		$league = array();
 		
-		$league['name']			= 	Input::get('LeagueName');
-		$league['city']			= 	Input::get('City');
-		$league['location']		= 	Input::get('Location');
-		$league['ages']			= 	Input::get('AgeGroup');
-		$league['contact']		= 	Input::get('Contact');
-		$league['description']  =	Input::get('Description');
-		$league['sport_id'] 	=   Input::get('Sport');
-		$league['url']			= 	Input::get('URL');
+		$league['name']			= 	Input::get('name');
+		$league['city']			= 	$this->store->city;
+		$league['location']		= 	Input::get('location');
+		$league['ages']			= 	Input::get('age_group');
+		$league['contact']		= 	Input::get('contact');
+		$league['description']  =	Input::get('description');
+		$league['sport_id'] 	=   Input::get('sport_id');
+		$league['url']			= 	Input::get('url');
 		$league['image']		=	$image_string;
 
 		foreach($removeImages as $removeImage){

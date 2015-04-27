@@ -22,6 +22,9 @@ Route::get('{storeno?}/flyer', 			array('uses' => 'FlyerController@getIndex'))->
 Route::get('{storeno?}/jumpstart', 		array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer-int', 		array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/cash', 			array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/activity', 		array('uses' => 'KioskController@getSports'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/activity/{sport_id}', 	array('uses' => 'KioskController@showSport'))->where('storeno', '[0-9]+')->where('sport_id', '[0-9]+');
+
 
 //LANDSCAPE ROUTES
 Route::get('{storeno?}/ls', 		 	array('uses' => 'HomeController@getIndexLandScape'))->where('storeno', '[0-9]+');

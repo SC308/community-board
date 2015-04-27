@@ -8,7 +8,7 @@
         {{ HTML::style('css/kiosk/vendor/bootstrap-theme.css') }}
         {{ HTMl::style('css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
-        
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
         
         
     </head>
@@ -26,78 +26,61 @@
 
         <div class="editForm" id="editLocation">
             
-            <?php $sport_options[""] = "Select" ?>
             @foreach($sports as $id=>$sport)
                 <?php $sport_options[$id] = $sport ?>
             @endforeach
-
-
-            <?php $store_options[""] = "Select" ?>
-            @foreach($stores as $id=>$store)
-                <?php $store_options[$id] = $store ?>
-            @endforeach
             
             
-            <h2> Add Location </h2>
+            <h2> Edit Location </h2>
             
             {{ Form::model($location, ['route' => ['location.update', Auth::user()->store_id, $location->id], 'method' => 'PATCH'])  }}
 
+
+                @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
+
                  <div class="form-group">
-                    
-                    {{ Form::label('Sport', 'Change the Sport: ') }}
-                    {{ Form::select('Sport',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
-                    
-
+                    {{ Form::label('sport_id', 'Change the Sport: ') }}
+                    {{ Form::select('sport_id',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
                 </div>
-                
-                
-
+            
                 <div class="form-group ">
-                    
-                    {{ Form::label('Store', 'Change the nearby store: ') }}
-                    <!-- Use Details array -->
-                    {{ Form::select('Store',$store_options, $selected_store ,['class' => 'selectpicker']) }}
-                    
-
-
+                    {{ Form::label('store_id', 'Change the nearby store: ') }}
+                    {{ Form::text('store_id',$store,['readonly']) }}
                 </div>
 
-                
-
-                <div class="form-group">
-                    
-                    {{ Form::label('Title', 'Location Name:') }}
-                    {{ Form::input('text', 'Title', $location->name, ['class' => 'form-control']) }}
-
+                <div class="form-group">                    
+                    {{ Form::label('name', 'Location Name:') }}
+                    {{ Form::input('text', 'name', $location->name, ['class' => 'form-control']) }}
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('Description', 'Description :') }}
-                    {{ Form::textarea('Description', $location->description, ['class' => 'form-control']) }}
+                    {{ Form::label('description', 'Description :') }}
+                    {{ Form::textarea('description', $location->description, ['class' => 'form-control']) }}
                 </div>
 
-                <div id="map-canvas"></div>
                 <div class="form-group">
-                    {{ Form::label('Address', 'Address :') }}
-                    {{ Form::input('text', 'Address', $location->address, ['class' => 'form-control']) }}
+                    {{ Form::label('address', 'Address :') }}
+                    {{ Form::input('text', 'address', $location->address, ['class' => 'form-control']) }}
                 </div>
                 
-                <br>
                  <div class="form-group ">
-                    {{ Form::label('PostalCode', 'Postal Code :') }}
-                    {{ Form::input('text', 'PostalCode', $location->postal_code, ['class' => 'form-control']) }}
+                    {{ Form::label('postal_code', 'Postal Code :') }}
+                    {{ Form::input('text', 'postal_code', $location->postal_code, ['class' => 'form-control']) }}
                 </div>
-                <br>
 
                  <div class="form-group ">
-                    {{ Form::label('Longitude', 'Longitude :') }}
-                    {{ Form::input('text', 'Longitude', $location->longitude, ['class' => 'form-control', 'readonly' =>'readonly']) }}
+                    {{ Form::label('longitude', 'Longitude :') }}
+                    {{ Form::input('text', 'longitude', $location->longitude, ['class' => 'form-control', 'readonly' =>'readonly']) }}
                 </div>
-                <br>
                 
                 <div class="form-group ">
-                    {{ Form::label('Latitude', 'Latitude :') }}
-                    {{ Form::input('text', 'Latitude', $location->latitude, ['class' => 'form-control', 'readonly' =>'readonly']) }}
+                    {{ Form::label('latitude', 'Latitude :') }}
+                    {{ Form::input('text', 'latitude', $location->latitude, ['class' => 'form-control', 'readonly' =>'readonly']) }}
                 </div>
                 <br>
                 {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
@@ -115,18 +98,16 @@
         
         
         <!-- Javascript files required for page -->
-        <script type="text/javascript" src="/js/vendor/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/js/main.js"></script>
-        <script type="text/javascript" src="/js/vendor/dropzone.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap-select.js"></script>
-        <script type="text/javascript" src="/js/geolocation.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/main.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
+        <script type="text/javascript" src="/js/kiosk/geolocation.js"></script>
         <script type="text/javascript">
          
-         $(".selectpicker").selectpicker({
-            size: 4
-         });
-         $(".check-mark").hide();
+         $(".selectpicker").selectpicker();
+         
         </script>
 
     </body>

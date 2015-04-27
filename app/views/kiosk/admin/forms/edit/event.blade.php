@@ -9,6 +9,7 @@
         {{ HTMl::style('css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 
@@ -40,26 +41,32 @@
             
             {{ Form::model($event, ['route' => ['event.update', Auth::user()->store_id, $event->id], 'method' => 'PATCH']) }}
 
+                @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
                  <div class="form-group">
                     
-                    {{ Form::label('Sport_name', 'Choose a Sport: ') }}
-                    {{ Form::select('Sport_name',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
+                    {{ Form::label('sport_id', 'Choose a Sport: ') }}
+                    {{ Form::select('sport_id',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
 
                 </div>
 
                 <div class="form-group ">
                     
-                    {{ Form::label('Store', 'Choose a Store: ') }}
-                    {{ Form::select('Store',$store_options, $selected_store, ['class' => 'selectpicker']) }}
+                    {{ Form::label('store', 'Choose a Store: ') }}
+                    {{Form::text('store', $store_options[$store], ['readonly' =>'readonly'])}}
                     
 
                 </div>
                 
                 <div class="form-group ">
                     
-                    {{ Form::label('Event_start', 'Starts At: ') }}
+                    {{ Form::label('event_start', 'Starts At: ') }}
                      <div class="input-group date" id='datetimepicker1'>
-                        {{ Form::input('text', 'Event_start', $event->event_start, ['class' => 'form-control']) }}
+                        {{ Form::input('text', 'event_start', $event->event_start, ['class' => 'form-control']) }}
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div> 
@@ -67,9 +74,9 @@
                 </div>
                  <div class="form-group ">
                     
-                    {{ Form::label('Event_end', 'Ends At: ') }}
+                    {{ Form::label('event_end', 'Ends At: ') }}
                      <div class="input-group date" id='datetimepicker2'>
-                        {{ Form::input('text', 'Event_end', $event->event_end, ['class' => 'form-control']) }}
+                        {{ Form::input('text', 'event_end', $event->event_end, ['class' => 'form-control']) }}
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div> 
@@ -81,14 +88,14 @@
 
                 <div class="form-group">
                     
-                    {{ Form::label('Title', 'Title :') }}
-                    {{ Form::input('text', 'Title', $event->title, ['class' => 'form-control']) }}
+                    {{ Form::label('title', 'Title :') }}
+                    {{ Form::input('text', 'title', $event->title, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('Content', 'Description :') }}
-                    {{ Form::textarea('Content', $event->description, ['class' => 'form-control']) }}
+                    {{ Form::label('description', 'Description :') }}
+                    {{ Form::textarea('description', $event->description, ['class' => 'form-control']) }}
                 </div>
                 <br>
                 
@@ -108,17 +115,15 @@
         
         
         <!-- Javascript files required for page -->
-        <script type="text/javascript" src="/js/vendor/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/js/vendor/moment.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap-datetimepicker.min.js"></script>
-        <script type="text/javascript" src="/js/main.js"></script>
-        <script type="text/javascript" src="/js/vendor/dropzone.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap-select.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/moment.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/main.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
         <script type="text/javascript">
-        $(".selectpicker").selectpicker({
-            size:4
-         });
+        $(".selectpicker").selectpicker();
          $('#datetimepicker1').datetimepicker({
             format: "YYYY-MM-DD HH:mm:ss"
          });
@@ -126,7 +131,7 @@
             format: "YYYY-MM-DD HH:mm:ss"
          });
          
-         $(".check-mark").hide();
+         
         </script>
 
     </body>

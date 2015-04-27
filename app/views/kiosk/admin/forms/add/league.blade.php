@@ -9,6 +9,7 @@
         {{ HTMl::style('/css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 
@@ -36,89 +37,98 @@
             
             {{ Form::open(['action' => 'league.store', 'files'=>true], [ 'class'=> 'form-horizontal dropzone']) }}
 
+                 @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
                  <div class="form-group">
                     
-                    {{ Form::label('Sport', ' Choose a Sport :') }}
-                    <!-- Use Details array -->
-
-                    <select class="selectpicker"  id="sportSelector" name="Sport">
-                    @foreach ($sport_options as $id => $sport)
-                         
-                          <option value="{{$id}}">{{$sport}}</option>
-                          
-  
-                    @endforeach
-                    </select>
+                    {{ Form::label('sport_id', ' Choose a Sport :') }}
+                    {{ Form::select('sport_id',$sport_options, false,['class' => 'selectpicker' , 'id' =>'sportSelector']) }}
 
 
                 </div>
 
-            
+                <div class="row">
 
-                <div class="form-group">
-                    
-                    {{ Form::label('LeagueName', 'League Name :') }}
-                    {{ Form::input('text', 'LeagueName', null, ['class' => 'form-control']) }}
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('name', 'League Name :') }}
+                        {{ Form::input('text', 'name', null, ['class' => 'form-control col-md-3']) }}
 
+                    </div>
+                </div>
+                <div class="row">    
+
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('city', 'City :') }}
+                        {{ Form::input('text', 'city', $city , ['class' => 'form-control', 'readonly'=>'readonly']) }}
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('location', 'Location/Area :') }}
+                        {{ Form::input('text', 'location', null, ['class' => 'form-control']) }}
+
+                    </div>
+                </div>    
+                <div class="row">
+
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('age_group', 'Age Group :') }}
+                        {{ Form::input('text', 'age_group', null, ['class' => 'form-control']) }}
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('contact', 'Contact Information/Address :') }}
+                        {{ Form::input('text', 'contact', null, ['class' => 'form-control']) }}
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('description', 'Description :') }}
+                        {{ Form::input('text', 'description', null, ['class' => 'form-control']) }}
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('url', 'Website :') }}
+                        {{ Form::input('text', 'url', null, ['class' => 'form-control']) }}
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-sm-3">
+                        
+                        {{ Form::label('phone', 'Phone :') }}
+                        {{ Form::input('text', 'phone', null, ['class' => 'form-control phone', 'data-format' => '+1 ddd-ddd-dddd']) }}
+
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    
-                    {{ Form::label('City', 'City :') }}
-                    {{ Form::input('text', 'City', $city , ['class' => 'form-control']) }}
+                <div class="row">
+                    <div class="form-group dropzone col-sm-3">
 
-                </div>
+                        {{ Form::label('image', 'Image :') }}
+                        {{ Form::file('image') }}
 
-                <div class="form-group">
-                    
-                    {{ Form::label('Location', 'Location :') }}
-                    {{ Form::input('text', 'Location', null, ['class' => 'form-control']) }}
-
-                </div>
-
-                <div class="form-group">
-                    
-                    {{ Form::label('AgeGroup', 'Age Group :') }}
-                    {{ Form::input('text', 'AgeGroup', null, ['class' => 'form-control']) }}
-
-                </div>
-
-                <div class="form-group">
-                    
-                    {{ Form::label('Contact', 'Contact Information :') }}
-                    {{ Form::input('text', 'Contact', null, ['class' => 'form-control']) }}
-
-                </div>
-
-                <div class="form-group">
-                    
-                    {{ Form::label('Description', 'Description :') }}
-                    {{ Form::input('text', 'Description', null, ['class' => 'form-control']) }}
-
-                </div>
-
-                <div class="form-group">
-                    
-                    {{ Form::label('URL', 'Website :') }}
-                    {{ Form::input('text', 'URL', null, ['class' => 'form-control']) }}
-
-                </div>
-
-                <div class="form-group">
-                    
-                    {{ Form::label('Phone', 'Phone :') }}
-                    {{ Form::input('text', 'Phone', null, ['class' => 'form-control phone', 'data-format' => '+1 ddd-ddd-dddd']) }}
-
-                </div>
-
-                
-                <div class="form-group dropzone">
-
-                    {{ Form::label('Image', 'Image :') }}
-                    {{ Form::file('Image') }}
-
-                </div>
-               
+                    </div>
+               </div>    
                 
                 {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
                 
@@ -140,14 +150,12 @@
         <script type="text/javascript" src="/js/kiosk/vendor/moment.js"></script>
         <script type="text/javascript" src="/js/kiosk/main.js"></script>
         <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
-        <script type="text/javascript" src="/js/kiosk/vendor/jquery.inputmask.js"></script> 
         <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
+         <script type="text/javascript" src="/js/kiosk/vendor/jquery.inputmask.js"></script>
         <script type="text/javascript">
          $(".phone").inputmask("999-999-9999");
-         $(".selectpicker").selectpicker({
-            size:4
-         });
-         $(".check-mark").hide();
+         $(".selectpicker").selectpicker();
+         
         </script>
 
     </body>

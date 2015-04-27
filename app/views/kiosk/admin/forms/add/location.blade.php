@@ -9,7 +9,7 @@
         {{ HTMl::style('/css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
-        
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
         
     </head>
 
@@ -26,82 +26,61 @@
 
         <div class="addForm" id="addLocation">
             
+            <?php $sport_options[""] =  "Select a Sport"; ?>
             @foreach($sports as $id=>$sport)
                 <?php $sport_options[$id] = $sport ?>
             @endforeach
 
             
-            @foreach($stores as $id=>$store)
-                <?php $store_options[$id] = $store ?>
-            @endforeach
-            
             <h2> Add Location </h2>
             
             {{ Form::open(['action' => 'location.store'], [ 'class'=> 'form-horizontal ']) }}
 
-                 <div class="form-group">
-                    
-                    {{ Form::label('Sport_id', 'Select a sport: ') }}
-                    {{ Form::select('Sport_id',$sport_options, false ,['class' => 'selectpicker']) }}
-                    
 
-                </div>
-                
-                
-
-                <div class="form-group ">
-                    
-                    {{ Form::label('Store', 'Select a nearby store: ') }}
-                    <!-- Use Details array -->
-
-                    <select class="selectpicker" id="storeSelector" name="Store">
-                    @foreach ($store_options as $id => $store)
-                         
-                          <option value="{{$id}}">{{$store}}</option>
-                          
-  
+                @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
                     @endforeach
-                    </select>
+                @endif
 
-
+                 <div class="form-group">
+                    {{ Form::label('sport_id', 'Select a sport: ') }}
+                    {{ Form::select('sport_id',$sport_options, false ,['class' => 'selectpicker']) }}
                 </div>
 
-                
-
-                <div class="form-group">
-                    
-                    {{ Form::label('Title', 'Location Name:') }}
-                    {{ Form::input('text', 'Title', null, ['class' => 'form-control']) }}
-
+                <div class="form-group ">
+                    {{ Form::label('store_id', 'Select a nearby store: ') }}
+                    {{ Form::text('store_id', $store , ['readonly']) }}
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('Description', 'Description :') }}
-                    {{ Form::textarea('Description', null, ['class' => 'form-control']) }}
+                    {{ Form::label('name', 'Location Name:') }}
+                    {{ Form::input('text', 'name', null, ['class' => 'form-control']) }}
                 </div>
 
-                <div id="map-canvas"></div>
                 <div class="form-group">
-                    {{ Form::label('Address', 'Address :') }}
-                    {{ Form::input('text', 'Address', null, ['class' => 'form-control']) }}
+                    {{ Form::label('description', 'Description :') }}
+                    {{ Form::textarea('description', null, ['class' => 'form-control']) }}
                 </div>
-                
-                <br>
-                 <div class="form-group ">
-                    {{ Form::label('PostalCode', 'Postal Code :') }}
-                    {{ Form::input('text', 'PostalCode', null, ['class' => 'form-control']) }}
-                </div>
-                <br>
 
-                 <div class="form-group ">
-                    {{ Form::label('Longitude', 'Longitude :') }}
-                    {{ Form::input('text', 'Longitude', null, ['class' => 'form-control']) }}
+                <div class="form-group">
+                    {{ Form::label('address', 'Address :') }}
+                    {{ Form::input('text', 'address', null, ['class' => 'form-control']) }}
                 </div>
-                <br>
                 
                 <div class="form-group ">
-                    {{ Form::label('Latitude', 'Latitude :') }}
-                    {{ Form::input('text', 'Latitude', null, ['class' => 'form-control']) }}
+                    {{ Form::label('postal_code', 'Postal Code :') }}
+                    {{ Form::input('text', 'postal_code', null, ['class' => 'form-control']) }}
+                </div>
+                
+                <div class="form-group ">
+                    {{ Form::label('longitude', 'Longitude :') }}
+                    {{ Form::input('text', 'longitude', null, ['class' => 'form-control', 'readonly']) }}
+                </div>
+                
+                <div class="form-group ">
+                    {{ Form::label('latitude', 'Latitude :') }}
+                    {{ Form::input('text', 'latitude', null, ['class' => 'form-control', 'readonly']) }}
                 </div>
                 <br>
                 {{ Form::submit(null, ['class' => 'btn btn-primary']) }}
@@ -127,10 +106,8 @@
         <script type="text/javascript" src="/js/kiosk/geolocation.js"></script>
         <script type="text/javascript">
          
-         $(".selectpicker").selectpicker({
-            size: 4
-         });
-         $(".check-mark").hide();
+         $(".selectpicker").selectpicker();
+         
         </script>
 
     </body>
