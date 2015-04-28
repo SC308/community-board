@@ -31,15 +31,8 @@
             	<div id="scoreboard" class="floatL"></div>
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
-
-
-        	<div id="nav">
-        		<!-- <a href="/<?php echo $storedetails[0]->store_number ?>/ls/staff"/><img src="/images/nav-ls-staff.jpg" /></a> -->
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/flyer-int"/><img src="/images/nav-ls-flyer.jpg" /></a>
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/calendar"/><img src="/images/nav-ls-calendar.jpg" /></a>
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/photos"/><img src="/images/nav-ls-photos.jpg" /></a>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls/jumpstart"/><img src="/images/nav-ls-jumpstart.jpg" /></a>
-        	</div>
+            
+            @include('includes/nav-ls')
 
         	<div id="main">
 
@@ -112,13 +105,13 @@
         function swipeHandler( event ){
             $("#arrows").fadeOut("fast");
         }
-				<?php 
+				<?php
 					$i=1; $lowest = 0;
 					$staffids = array();
 				?>
             @foreach($staff as $s)
 
-							<?php 
+							<?php
 								if($i == 1){  $lowest = $s->id; }
 								$staffids[] = $s->id;
 							?>
@@ -158,19 +151,19 @@
 
 		<?php
 			$k = array_rand($staffids);
-			
+
 			echo "// random key:" . $k . "\n\n";
-			
+
 			$value = $staffids[$k];
 			echo "// random value:". $value . "\n\n";
 
-			
+
 			echo "// ---------------------\n\n";
 			echo "/*";
 			print_r($staffids);
 			echo "*/";
-		
-		?>  			
+
+		?>
 
 			show_{{$value}}();
 

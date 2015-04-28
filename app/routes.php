@@ -21,7 +21,7 @@ Route::get('{storeno?}/staff', 			array('uses' => 'StaffController@getIndex'))->
 Route::get('{storeno?}/flyer', 			array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/jumpstart', 		array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer-int', 		array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
-Route::get('{storeno?}/activity', 		array('uses' => 'KioskController@getSports'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/activity', 		array('uses' => 'KioskController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/activity/{sportid?}', array('uses' => 'KioskController@viewSport'))->where('storeno', '[0-9]+')->where('sportid', '[0-9]+');
 Route::get('{storeno?}/cash', 			array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
 
@@ -36,6 +36,10 @@ Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLan
 //Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/jumpstart', 	array('uses' => 'JumpstartController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/flyer-int', 	array('uses' => 'FlyerController@getInteractiveFlyerLandScape'))->where('storeno', '[0-9]+');
+
+Route::get('{storeno?}/ls/activity/', 		    array('uses' => 'KioskController@getIndexLandscape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/activity/{sportid?}', array('uses' => 'KioskController@viewSportLandscape'))->where('storeno', '[0-9]+')->where('sportid', '[0-9]+');
+
 Route::get('{storeno?}/ls/cash', 		array('uses' => 'CashController@getIndexLandScape'))->where('storeno', '[0-9]+');
 
 

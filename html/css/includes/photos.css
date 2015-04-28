@@ -1,0 +1,28 @@
+#photos{ /* height: 1559px; */  height: 1385px; overflow-x: hidden; width: 1080px !important; background: #fff; padding-top: 5px;}
+
+#photos img:active{
+    -moz-box-shadow: 0 0 40px #fff;
+    -webkit-box-shadow: 0 0 40px #fff;
+    box-shadow: 0px 0px 40px #fff;
+}
+
+#photos::-webkit-scrollbar {
+    display: none;
+}
+
+body.landscape .photos{
+    overflow-x: hidden;
+    padding-top: 5px;
+    width: 1635px !important;
+    height: 830px !important;
+}
+
+body.landscape .photos img:active{
+    -moz-box-shadow: 0 0 40px #fff;
+    -webkit-box-shadow: 0 0 40px #fff;
+    box-shadow: 0px 0px 40px #fff;
+}
+
+body.landscape .photos::-webkit-scrollbar {
+    display: none;
+}

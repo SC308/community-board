@@ -1,0 +1,22 @@
+#flyer{
+    background-color: #fff;
+}
+
+#flyer-int{
+	height:1200px;
+    background-color: #fff;
+}
+
+    body.landscape #flyer-int{
+        height:840px;
+        background-color: #fff;
+        overflow-x: scroll;
+		overflow-y: scroll;
+    }
+
+    body.landscape #flyer-int::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    #flyer img{ border: 1px solid #666; margin: 25px 40px;}    

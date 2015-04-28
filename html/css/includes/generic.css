@@ -1,0 +1,16 @@
+.fullwidth{width: 100%;}
+.floatL{float: left;}
+.floatR{float: right;}
+.clear{clear: both;}
+
+#arrows{
+    background: transparent url('/images/arrows.gif') top left no-repeat;
+    width: 199px;
+    height: 83px;
+    z-index: 99;
+    position: absolute;
+    left: 870px;
+    top: 1120px;
+    display: block;
+    /*opacity: 0;*/
+}

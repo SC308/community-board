@@ -30,17 +30,9 @@
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
-
-        	<div id="nav">
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/staff"/><img src="/images/nav-ls-staff.jpg" /></a>
-        		<!-- <a href="/<?php echo $storedetails[0]->store_number ?>/ls/flyer-int"/><img src="/images/nav-ls-flyer.jpg" /></a> -->
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/calendar"/><img src="/images/nav-ls-calendar.jpg" /></a>
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/photos"/><img src="/images/nav-ls-photos.jpg" /></a>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls/jumpstart"/><img src="/images/nav-ls-jumpstart.jpg" /></a>
-        	</div>
+            @include('includes/nav-ls')
 
         	<div id="main" class="home">
-
 
                 <div id="landscape-feature">
 
@@ -87,7 +79,7 @@
                 <div id="landscape-sidebar">
 
 <!--                     <a href="/<?=$storedetails[0]->store_number?>/ls/flyer-int"> -->
-	                <a href="/<?=$storedetails[0]->store_number?>/ls/flyer">    
+	                <a href="/<?=$storedetails[0]->store_number?>/ls/flyer">
                     <div id="flyerpreview">
                         <img src="/images/flyer-callout-ls2.png" id="flyer-title">
 

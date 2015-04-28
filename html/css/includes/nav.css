@@ -1,0 +1,126 @@
+/* ==========================================================================
+	NAVIGATION
+========================================================================== */
+
+/* navigation */
+#nav {
+	height: 305px;
+	width: 1080px;
+}
+
+/*#nav img{
+    float: left;
+}*/
+
+#nav a:active{
+    -moz-box-shadow: 0 0 40px #fff;
+    -webkit-box-shadow: 0 0 40px #fff;
+    box-shadow: 0px 0px 40px #fff;
+}
+
+.nav-row {
+	height:195px;
+	width: 1080px;
+}
+
+.nav-callout{
+	height:110px; width: 1080px; background: #666;
+}
+.nav-item{
+	height: 195px;
+	width: 216px;
+	float: left;
+	position: relative;
+	color: #fff;
+	text-decoration: none !important;
+	font-family: GalaxiePolarisCondensed-Book;
+	text-transform: uppercase;
+
+
+}
+a.nav-item:hover, a.nav-item:active, a.nav-item:visited{ color: #fff; text-decoration: none;}
+a.nav-item::active{
+/*.nav-shadow-dark{*/
+	-webkit-box-shadow: inset 0px 20px 82px 0px rgba(5,56,66,1);
+	-moz-box-shadow: inset 0px 20px 82px 0px rgba(5,56,66,1);
+	box-shadow: inset 0px 20px 60px 0px rgba(11,11,11,1);
+}
+.nav-content {
+
+	position: relative;
+	top: 20px;
+	padding: 0px 20px;
+}
+.nav-text{
+	text-align: center;
+	float: left;
+	display: inline;
+	font-size: 30px;
+	line-height: 30px;
+	/*padding-left: 10px;*/
+	padding-top: 10px;
+	width:100%;
+}
+.nav-icon{
+	width: 70px;
+
+	margin: 0 auto;
+	font-size: 70px;
+	padding-top: 10px;
+	display: block;
+}
+.nav-shadow{
+	/*-webkit-box-shadow: inset 0px 26px 124px -18px rgba(5,56,66,1);
+	-moz-box-shadow: inset 0px 26px 124px -18px rgba(5,56,66,1);
+	box-shadow: inset 0px 26px 124px -18px rgba(5,56,66,1);*/
+	-webkit-box-shadow: inset 0px 26px 124px -18px rgba(00,00,00,1);
+	-moz-box-shadow: inset 0px 26px 124px -18px rgba(00,00,00,1);
+	box-shadow: inset 0px 26px 124px -18px rgba(00,00,00,1);
+}
+.nav-noise{
+	background-image: url('http://api.thumbr.it/whitenoise-361x370.png?background=4ea6ca00&noise=626262&density=20&opacity=20');
+}
+	.blue{ background-color: #4ea6ca }
+	.green{ background-color: #00af9e; }
+	.red{ background-color: #ef3529; }
+	.yellow{ background-color: #f7c71b; }
+
+.nav-desc-bar{
+	display: none;
+	clear: both;
+	width: 260px;
+	background-color: #000;
+	color: #fff;
+	padding:5px 5px;
+	height: 20px;
+	position: absolute;
+	bottom: 2px;
+	text-transform: uppercase;
+	font-size: 11px;
+}
+
+
+	body.landscape #nav{
+	    float: left;
+	    width: 265px;
+	    height: 960px;
+
+	}
+    body.landscape #nav img{
+        padding: 1px 0px 0px 0px;
+    }
+
+	body.landscape .nav-row{
+		width: 265px;
+	}
+
+	body.landscape .nav-item{
+		height: 171px;
+		width: 280px;
+		float: left;
+		position: relative;
+		color: #fff;
+		text-decoration: none !important;
+		font-family: GalaxiePolarisCondensed-Book;
+		text-transform: uppercase;
+	}

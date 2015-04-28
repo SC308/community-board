@@ -34,13 +34,7 @@
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
-        	<div id="nav">
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/staff"/><img src="/images/nav-ls-staff.jpg" /></a>
-        		<!-- <a href="/<?php echo $storedetails[0]->store_number ?>/ls/flyer-int"/><img src="/images/nav-ls-flyer.jpg" /></a> -->
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/calendar"/><img src="/images/nav-ls-calendar.jpg" /></a>
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/photos"/><img src="/images/nav-ls-photos.jpg" /></a>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls/jumpstart"/><img src="/images/nav-ls-jumpstart.jpg" /></a>
-        	</div>
+            @include('includes/nav-ls')
 
         	<div id="main">
 
@@ -58,7 +52,7 @@
 				    $content = preg_replace('/"url"\:"http:\/\/www\.sportchek\.ca\/shop\/index\.jsp\?categoryId=\d+&cid=wishabi",/', '', $content);
 				    $content = preg_replace('/"url"\:"http:\/\/www\.sportchek\.ca\/family\/index\.jsp\?categoryId=\d+&cid=wishabi",/', '', $content);
 
-				    $content = preg_replace('/<div class="wishabi-scrollview" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; overflow: visible;">/', '<div class="wishabi-scrollview" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 30px; overflow: visible;">', $content); 		    
+				    $content = preg_replace('/<div class="wishabi-scrollview" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; overflow: visible;">/', '<div class="wishabi-scrollview" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 30px; overflow: visible;">', $content);
 
 	            	$content = str_replace('<link href="','<link href="http://www.flyertown.ca', $content);
 	            	$content = str_replace('<script src="','<script src="http://www.flyertown.ca', $content);
@@ -66,7 +60,7 @@
 */
 //	            	echo $content;
 	            	?>
-	            	
+
 	            	@foreach($flyer as $f)
                     	<a class="fancybox" href="/timthumb.php?src=/images/flyer/{{$f->path}}&w=1000.jpg"><img src="/timthumb.php?src=/images/flyer/{{$f->path}}&a=t&w=400&h=550" /></a>
 					@endforeach
@@ -91,14 +85,14 @@
         	document.oncontextmenu = function () { return false; };
 
 
-            $('.fancybox').fancybox({ padding : 10, openEffect  : 'elastic', 
+            $('.fancybox').fancybox({ padding : 10, openEffect  : 'elastic',
                 helpers : {
                     title : {
                         type : 'inside'
                     }
                 }
             });
-            
+
 			$("#scoreboard").load("/scoreboard.html");
 
 

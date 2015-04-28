@@ -1,8 +1,3 @@
-<?php
-
-//dd($sportDetails);
-
-?>
 <!DOCTYPE html>
 <html class="no-js">
 
@@ -39,51 +34,68 @@
             <div id="activity-kiosk" class="activity-details">
                 <h1>{{ $selectedSport->name }}</h1>
 
+                @if( count($blogs) > 0 )
+                    <div id="blog-section" class="activity-section">
+                        <h2>{{ $selectedSport->name }} Blog</h2>
+                        @foreach( $blogs as $blog )
+                            <h3>{{$blog->title}}</h3>
+                            <p>{{$blog->content}}</p>
+                        @endforeach
+
+                    </div>
+                @endif
+
+                @if( count($events) > 0 )
+                    <div id="events-section" class="activity-section">
+                        <h2>Local {{ $selectedSport->name }} Events</h2>
+                        @foreach( $events as $event )
+                            <h3>{{$event->title}}</h3>
+                            <p>{{$event->content}}</p>
+                        @endforeach
+
+                    </div>
+                @endif
+
+                @if( count($gears) > 0 )
+                    <div id="gear-section" class="activity-section">
+                        <h2>Recommended {{ $selectedSport->name }} Gear</h2>
+                        @foreach( $gears as $gear )
+                            <h3>{{$gear->title}}</h3>
+                            <p>{{$gear->content}}</p>
+                        @endforeach
+
+                    </div>
+                @endif
+
+                @if( count($locations) > 0 )
+                    <div id="location-section" class="activity-section">
+                        <h2>Recommended {{ $selectedSport->name }} Locations</h2>
+                        @foreach( $locations as $location )
+                            <h3>{{$location->title}}</h3>
+                            <p>{{$location->content}}</p>
+                        @endforeach
+
+                    </div>
+                @endif
+
+                @if( count($leagues) > 0 )
+                    <div id="gear-section">
+                        <h2>Local {{ $selectedSport->name }} Leagues</h2>
+                        @foreach( $leagues as $league )
+                            <h3>{{$league->title}}</h3>
+                            <p>{{$league->content}}</p>
+                        @endforeach
+
+                    </div>
+                @endif
+
+
+                <a id="back-to-sports" class="red nav-noise nav-shadow" href="../activity/">
+                    <i class="fa fa-arrow-left"></i> Back
+                </a>
             </div>
 
-
-
-
-            <div id="nav">
-                <div class="nav-callout">
-                    <img src="/images/touch-an-area.jpg" />
-                </div>
-
-                <div class="nav-row">
-                    <a href="/<?=$storedetails[0]->store_number?>/calendar" class="nav-item green nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-calendar nav-icon"></i>
-                            <span class="nav-text">Community Calendar</span>
-                        </div>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/photos" class="nav-item yellow nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-camera-retro nav-icon"></i>
-                            <span class="nav-text">Community Photos</span>
-                        </div>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/staff" class="nav-item blue nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-users nav-icon"></i>
-                            <span class="nav-text">Employee<br />Bios</span>
-                        </div>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/jumpstart" class="nav-item red nav-noise nav-shadow">
-                        <img src="/images/jumpstart-nav.png" style="position: relative; top: 20px; left: 30px;"/>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/activity" class="nav-item green nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-bicycle nav-icon"></i>
-                            <span class="nav-text">Activity Advice</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
+            @include('includes/nav')
 
         </div>
 
