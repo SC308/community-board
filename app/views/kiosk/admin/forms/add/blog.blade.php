@@ -120,9 +120,6 @@
             
 
 
-
-
-
         </div> <!-- add Form for blog ends-->
         
         
@@ -134,13 +131,13 @@
         <script type="text/javascript" src="/js/kiosk/main.js"></script>
         <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
         <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
+        <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
         <script type="text/javascript">
          $('#datetimepicker1').datetimepicker({
             format: "YYYY-MM-DD HH:mm:ss"
          });
          $(".selectpicker").selectpicker();
-         // $(".check-mark").hide();
-
+         CKEDITOR.replace('content');
         </script>
 
     </body>

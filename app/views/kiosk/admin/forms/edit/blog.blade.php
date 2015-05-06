@@ -199,10 +199,13 @@
         <script type="text/javascript" src="/js/kiosk/main.js"></script>
         <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
         <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
+        <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
         <script type="text/javascript">
          $('#datetimepicker1').datetimepicker();
          $(".selectpicker").selectpicker();
          
+        CKEDITOR.replace('content');
+        
         </script>
 
     </body>
