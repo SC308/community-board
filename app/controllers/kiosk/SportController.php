@@ -41,8 +41,11 @@ class SportController extends \BaseController {
 
 		if(isset($sort_parameter))
 		{
-			$sports = Content::sort($sports, $sort_parameter);		}
+			$sports = Content::sort($sports, $sort_parameter);		
+		}
 		
+		$sortOptions = Sport::getSortOptions();
+
 		$ifUserIsNT = Auth::user()->role;
 		
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
@@ -50,6 +53,8 @@ class SportController extends \BaseController {
 												 			->withPanel($this->panel_name)
 												 			->withPanelData($sports)
 												 			->withSports([])
+												 			->withStores([])
+												 			->withSort($sortOptions)
 												 			->withUserType($ifUserIsNT);
 	}
 
