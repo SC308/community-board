@@ -8,9 +8,21 @@
     <div class="panel-title">
       {{$title}}
     </div>
+  
+    <div class="filter">
+        {{Form::select('filterBySport', $filterBySport, null, ['class' => 'form-control', 'id' => 'filterBySport', 'data-model' => $title ] )}}
+    </div>
+    @if(isset($filterByStore))
+    <div class="filter">
+        {{Form::select('filterByStore', $filterByStore, null, ['class' => 'form-control', 'id' => 'filterByStore', 'data-model' => $title ] )}}
+    </div>
+    @endif
+    <div class="sort">
+        {{Form::select('sortBy', $sortBy, null, ['class' => 'form-control', 'id' => 'sortBy', 'data-model' => $title ] )}}
+    </div>
+    
     <div class="submenu-options" data-model="{{$title}}">
-    	<a href="" id = "add" class="submenu-item"> ADD </a>
-
+      <a href="" id = "add" type="button" class="submenu-item btn btn-default"> ADD  </a>
     </div>
   </div><!-- Panel Title Ends-->
 

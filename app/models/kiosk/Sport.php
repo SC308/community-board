@@ -38,5 +38,43 @@ class Sport extends \Eloquent {
 		return $filteredSports;
 
 	}
+
+	protected function getAllSportName()
+	{
+		$sports= array();
+
+		$allSports = Sport::all();
+		foreach ($allSports as $sport) 
+		{
+			$sports[$sport->id] = $sport->name;
+		}
+		return $sports;
+	}
+
+	protected function getSportWithLeague()
+	{
+		$allSports = DB::table('kiosk_sport_detail_mappings')->where( 'detail_id' ,SportDetail::where('detail_name', 'League')->first()->id)->get();
+		
+		$sports= array();
+		
+		foreach ($allSports as $sport) 
+		{
+			$sports[$sport->sport_id]  =  Sport::find($sport->sport_id)->name;
+		}
+		return $sports;
+	}
+
+	protected function getSportWithLocation()
+	{
+		$location_id = ( SportDetail::where('detail_name', 'Location')->first()->id);
+		$allSports = DB::table('kiosk_sport_detail_mappings')->where( 'detail_id' , $location_id)->get();
+		$sports= array();
+		
+		foreach ($allSports as $sport) 
+		{
+			$sports[$sport->sport_id]  =  Sport::find($sport->sport_id)->name;
+		}
+		return $sports;
+	}
 }
 

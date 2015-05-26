@@ -32,12 +32,57 @@ class LeagueController extends \BaseController {
 	 */
 	public function index()
 	{
-		$leagues   = League::where("store_id", $this->store->id)->get();
 		
+		$filter_sport_parameter = Input::get('sport');
+
+		$filter_store_parameter = Input::get('store');
+		
+		$sort_parameter = Input::get('sort');
+
+		if(Auth::user()->role == 1)
+		{
+			$leagues = League::all();
+		}	
+		else
+		{
+			$leagues   = League::where("store_id", $this->store->id)->get();	
+		}
+
+		if(isset( $filter_sport_parameter ))
+		{
+			$leagues = Content::filter( $leagues, $filter_sport_parameter,"sport_id");
+		}
+		if(isset( $filter_store_parameter ))
+		{
+			$leagues = Content::filter( $leagues, $filter_store_parameter,"store_id");
+		}
+		if(isset($sort_parameter))
+		{
+			$leagues = Content::sort($leagues, $sort_parameter);	
+		}
+		
+		$filterOptions[""] = "Filter By Sport";
+
+		$filterOptions = $filterOptions + Sport::getSportWithLeague();
+
+		$sortOptions = League::getSortOptions();
+
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+		
+		$ifUserIsNT = Auth::user()->role;
+
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
 												 			->withItems($this->menuItems)
 												 			->withPanel($this->panel_name)
-												 			->withPanelData($leagues);
+												 			->withPanelData($leagues)
+												 			->withSports($filterOptions)
+												 			->withStores($storeOptions)
+												 			->withSort($sortOptions)
+												 			->withUserType($ifUserIsNT);
 	}
 
 
@@ -48,11 +93,7 @@ class LeagueController extends \BaseController {
 	 */
 	public function create()
 	{
-		$sports= array();
-		$allSports = Sport::all();
-		foreach ($allSports as $sport) {
-					$sports[$sport->id]  =  $sport->name;
-				}
+		$sports = Sport::getSportWithLeague();
 		
 		$city =  $this->store->city;
 		
@@ -79,20 +120,11 @@ class LeagueController extends \BaseController {
             ->withErrors($validator);
 		}
 
-
 		$image_string = "";
-
-		$image_file = Input::file('image');
-		
-		if($image_file != null){
-
-		
-	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/kiosk/content/';
-	 		 $filename = $image_file->getClientOriginalName();
-	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
-		
+		if(Input::file('image')){
+			$image_string =  Media::createMediaString(Input::file('image'));
 		}
+
 
 		$league = League::create(
 						[
@@ -177,23 +209,24 @@ class LeagueController extends \BaseController {
             ->withErrors($validator);
 		}
 
-
-
-		$image_string = "";
-		
-		$image_file = Input::file('image');
-		if($image_file != null){
+		$oldLeague = League::find($id);
 
 		
-	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/kiosk/content/';
-	 		 $filename = $image_file->getClientOriginalName();
-	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
-		
+		if(Input::file('image') != "")
+		{
+			$added_images_string = Media::createMediaString(Input::file('image'));
 		}
+		if(Input::get('removeImages') != "")
+	  	{
+			if(isset($added_images_string)){
+
+				$added_images_string .= ";".Media::editMediaString(Input::get('removeImages'), $oldLeague->images);	
+			}
+			else{
+				$added_images_string = Media::editMediaString(Input::get('removeImages'), $oldLeague->images);	
+			}
+	  	}
 		
-		$removeImages  = preg_split('/;/', Input::get('removeImages'), -1,  PREG_SPLIT_NO_EMPTY);
-		$oldLeague = League::whereid($id)->first();
 		
 		$league = array();
 		
@@ -205,14 +238,10 @@ class LeagueController extends \BaseController {
 		$league['description']  =	Input::get('description');
 		$league['sport_id'] 	=   Input::get('sport_id');
 		$league['url']			= 	Input::get('url');
-		$league['image']		=	$image_string;
-
-		foreach($removeImages as $removeImage){
-	  		$league['image'] =  str_replace($removeImage.";", "", $oldLeague->image);
+		if(isset($added_images_string)){
+		  	$gear['image']	= $added_images_string;
 	  	}
-	  	
-	  	$league['image'].= ";".$image_string;
-		
+
 		League::whereid($id)->update($league);
 
 		return Redirect::to('admin/kiosk/'. $storeNumber .'/league/'.$id);

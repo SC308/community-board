@@ -24,5 +24,21 @@ class CalendarEvent extends \Eloquent {
 			'description'	=> 'required'
 
 	];
+	protected static function getSortOptions()
+	{
+		$sortOptions = [
+			""					=> "Sort By",
+			"title"  			=> "A-Z",
+			"title:desc" 		=> "Z-A",
+			"event_start"		=> "Starting Earliest",
+			"event_start:desc"	=> "Starting Latest",
+			"event_end"			=> "Ending Earliest",
+			"event_end:desc"	=> "Ending Latest",
+			"created_at"		=> "Oldest First",
+			"created_at:desc"	=> "Latest Latest"
+
+		];
+		return $sortOptions;
+	} 
 }
 

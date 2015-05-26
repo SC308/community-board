@@ -2,11 +2,6 @@
 
 class KioskController extends \BaseController {
 
-
-	private $menuItems = [];
-	private $panel_name;
-	private $panel_title;
-
 	public function __construct()
 	{
 
@@ -22,30 +17,6 @@ class KioskController extends \BaseController {
 	public function index()
 	{
 
-		if(Auth::user()->role == 1)
-		{
-
-			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");
-		}
-		else
-		{
-			$this->menuItems= array("event", "league", "location");
-		}
-
-
-		$this ->panel_name	= "event";
-
-		$this->panel_title  =  "Dashboard";
-
-		$store_id = Store::where('store_number', Auth::user()->store_id )->first()->id;
-
-
-		$events = CalendarEvent::where('store_id', $store_id)->get();
-
-		return View::make('kiosk/admin/dashboard/dashboard')->withTitle($this->panel_title)
-													  		->withItems($this->menuItems)
-													  		->withPanel($this->panel_name)
-													  		->withPanelData($events);
 	}
 
 	/**
@@ -168,8 +139,10 @@ class KioskController extends \BaseController {
 
 		}
 
-
-		$events = CalendarEvent::where('sport_id', $sport_id)->where('store_id', $store_id)->get();
+		$events = CalendarEvent::where('sport_id', $sport_id)
+							   ->where('store_id', $store_id)
+							   ->where('event_end', '>=', date('Y-m-d H:m:s '))
+							   ->get();
 
 
 		$gears = Gear::where('sport_id', $sport_id)->get();

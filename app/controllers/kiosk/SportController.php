@@ -35,13 +35,19 @@ class SportController extends \BaseController {
 	public function index()
 	{
 		
+		$sort_parameter = Input::get('sort');
 		
 		$sports = Sport::all();
+
+		if(isset($sort_parameter))
+		{
+			$sports = Content::sort($sports, $sort_parameter);		}
 		
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
 												 			->withItems($this->menuItems)
 												 			->withPanel($this->panel_name)
-												 			->withPanelData($sports);
+												 			->withPanelData($sports)
+												 			->withSports([]);
 	}
 
 
@@ -217,7 +223,15 @@ class SportController extends \BaseController {
 	 */
 	public function destroy($storeNumber, $id)
 	{
-		Sport::whereid($id)->delete();
+		$mappings = DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->get();
+		DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->delete();
+		foreach($mappings as $mapping){
+			
+			$detail = SportDetail::find($mapping->detail_id)->detail_name;
+			$detail::where('sport_id', $id)->delete();
+		}
+		Sport::where('id', $id)->delete();
+		
 	}
 
 	public function getSports()

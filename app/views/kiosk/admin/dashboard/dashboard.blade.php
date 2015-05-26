@@ -61,12 +61,15 @@
               </div><!-- Expanded-menu ends-->
 
 
-
           </div>
           <!--Menu container ends -->
           
-          <div id="panel-container" >    
-             @include('kiosk.admin.dashboard.panel', array( 'title' => $panel, 'data' => $panel_data ))
+          <div id="panel-container" >
+             @if($user_type == 1)
+              @include('kiosk.admin.dashboard.panel', array( 'title' => $panel, 'data' => $panel_data , 'filterBySport' => $sports, 'filterByStore' => $stores, 'sortBy' => $sort))
+             @else
+              @include('kiosk.admin.dashboard.panel', array( 'title' => $panel, 'data' => $panel_data , 'filterBySport' => $sports, 'sortBy' => $sort))
+             @endif
           </div><!-- panel-container ends-->
 
         </div><!-- admin-page container ends-->
@@ -74,7 +77,12 @@
            
         <script type="text/javascript" src="/js/kiosk/vendor/jquery-1.11.1.min.js"></script>
     	  <script type="text/javascript" src="/js/kiosk/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
         <script type="text/javascript" src="/js/kiosk/main.js"></script>
+        <script type="text/javascript">
+          $(".selectpicker").selectpicker()
+
+        </script>
         
     </body>
 </html>

@@ -1,4 +1,4 @@
-<div id= "{{$d->id}}" class="partial-gear" data-sport ="{{$d->sport_id}}">
+<div id= "{{$d->id}}" class="partial-gear col-md-3" data-sport ="{{$d->sport_id}}">
         
         <div class="partial-heading">
           <span class="partial-title">
@@ -26,7 +26,7 @@
         @endforeach
         @endif
         <div class="partial-content">
-          {{$d->description}}
+          {{ $d->description }}
         </div>
         
       </div>

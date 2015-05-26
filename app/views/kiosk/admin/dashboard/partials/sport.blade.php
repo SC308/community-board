@@ -13,13 +13,7 @@
 
           
         </div>
-        
-        <div class="partial-content">
-          Active From : {{$d->season_start}}
-                  <br>
-                  To  : {{$d->season_end}}
-        </div>
-
+        <br>
        
 
       </div>

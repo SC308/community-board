@@ -4,7 +4,8 @@ class EventController extends \BaseController {
 
 	private $menuItems = [];
 	private $panel_name;
-	private $panel_title; 
+	private $panel_title;
+	private $store_id; 
 
 	public function __construct()
 	{
@@ -22,6 +23,7 @@ class EventController extends \BaseController {
 
 		$this->panel_title  =  "Dashboard";
 
+		$this->store_id		=  Store::where('store_number' , Auth::user()->store_id)->first()->id;
 
 	}
 
@@ -33,15 +35,57 @@ class EventController extends \BaseController {
 	 */
 	public function index()
 	{
+		$filter_sport_parameter = Input::get('sport');
+
+		$filter_store_parameter = Input::get('store');
 		
-		$store_id = Store::where('store_number' , Auth::user()->store_id)->first()->id;
+		$sort_parameter = Input::get('sort');
+
+		if(Auth::user()->role == 1)
+		{
+			$events = CalendarEvent::all();
+		}
+		else
+		{
+			$events = CalendarEvent::where('store_id', $this->store_id)->get();	
+		}
 		
-		$events = CalendarEvent::where('store_id', $store_id)->get();
+
+		if(isset( $filter_sport_parameter ))
+		{
+			$events = Content::filter($events, $filter_sport_parameter, "sport_id");
+
+		}
+		if(isset( $filter_store_parameter ))
+		{
+			$events = Content::filter($events, $filter_store_parameter, "store_id");
+		}
+
+		if(isset($sort_parameter))
+		{
+			$events = Content::sort($events, $sort_parameter);	
+		}
+
+		$filterOptions[""] = "Filter By Sport";
 		
+		$filterOptions = $filterOptions + Sport::getAllSportName();
+
+		$sortOptions = CalendarEvent::getSortOptions();
+
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+		$ifUserIsNT = Auth::user()->role; 
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
 												 			->withItems($this->menuItems)
 												 			->withPanel($this->panel_name)
-												 			->withPanelData($events);
+												 			->withPanelData($events)
+												 			->withSports($filterOptions)
+												 			->withStores($storeOptions)
+												 			->withSort($sortOptions)
+												 			->withUserType($ifUserIsNT);
 	}
 
 

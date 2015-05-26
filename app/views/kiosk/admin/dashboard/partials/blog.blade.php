@@ -20,7 +20,7 @@
         </div>
       	
         <div class="partial-content">
-          {{$d->content}}
+        
         </div>
         
 

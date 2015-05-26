@@ -109,7 +109,7 @@
                                 {{ HTML::image("images/kiosk/content/".$image_file , $image_file , ['class' => 'thumb', 'id' => 'image'.$blog->content_id, 'data-remove-image' => 'false']) }}
                                 {{ $image_file }}
                                 </div>
-                                {{ HTML::image("images/kiosk/adminIcons/edit.png", "",['class' => 'hidden remove-image-button'])}}
+                                {{ HTML::image("images/kiosk/adminIcons/delete.png", "",['class' => 'hidden remove-image-button'])}}
                             </div>
                             <!--Image thumbnail div ends -->
 
@@ -152,7 +152,7 @@
                                 <video class="video-preview" id= {{ "video".$blog["content_id"]}} src="/images/kiosk/content/{{ $video_file}}" data-video-name= {{$video_file}} data-remove-video="false" ></video>
                                 {{ $video_file }}
                                 </div>
-                                {{ HTML::image("images/kiosk/adminIcons/edit.png", "",['class' => 'hidden remove-video-button'])}}
+                                {{ HTML::image("images/kiosk/adminIcons/delete.png", "",['class' => 'hidden remove-video-button'])}}
                             </div>
                             <!--Video thumbnail div ends -->
 

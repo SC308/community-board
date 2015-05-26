@@ -206,6 +206,9 @@ global ends
 	padding-left: 10px;
 	
 }
+.submenu-options #add{
+	margin-top:-0.5em;
+}
 /*menu elements end*/
 
 /* panel elements begin */
@@ -229,7 +232,14 @@ global ends
 	width:200px;
 	float:left;
 }
-
+.panel-heading .filter, .panel-heading .sort{
+	float: right;
+	margin : -0.5em 0.5em;
+	font-weight: light;
+}
+.panel-heading .filter label{
+	font-weight: 500;
+}
 .panel-body{
 	background-color: #ffffff;
 }
@@ -254,12 +264,18 @@ global ends
 	float:right;
 	width:17%;
 }
-
-.partial-gear, .partial-images {
-	width:420px;
+.partial-gear{
+	margin: 1em 0em;
+	height: 400px;
+	width: 400px;
+}
+.partial-gear .partial-content {
+	height:70px;
+	overflow: hidden;
 }
 .partial-images img{
-	width:200px;
+	width:270px;
+	margin-left: 4em;
 }
 .complete-images img{
 	width:100px;

@@ -32,12 +32,49 @@ class BlogController extends \BaseController {
 	 */
 	public function index()
 	{
-		$blogs = Blog::all();
+		$filter_sport_parameter = Input::get('sport');
+
+		$filter_store_parameter = Input::get('store');
 		
+		$sort_parameter = Input::get('sort');
+
+		$blogs = Blog::all();
+
+		if(isset( $filter_sport_parameter ))
+		{
+			$blogs = Content::filter($blogs, $filter_sport_parameter, "sport_id"); 
+		}
+		if(isset( $filter_store_parameter ))
+		{
+			$blogs = Content::filter($blogs, $filter_store_parameter, "applicable_to_stores"); 
+		}
+		
+		if(isset($sort_parameter))
+		{
+			$blogs = Content::sort($blogs, $sort_parameter);	
+		}
+
+		$filterOptions[""] = "Filter By Sport";
+
+		$filterOptions = $filterOptions + Sport::getAllSportName();
+
+		$sortOptions = Blog::getSortOptions();
+
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+
+		$ifUserIsNT = Auth::user()->role; 	
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
 												 			->withItems($this->menuItems)
 												 			->withPanel($this->panel_name)
-												 			->withPanelData($blogs); 
+												 			->withPanelData($blogs)
+												 			->withSports($filterOptions)
+												 			->withStores($storeOptions)
+												 			->withSort($sortOptions)
+												 			->withUserType($ifUserIsNT); 
 	}
 
 
@@ -48,13 +85,6 @@ class BlogController extends \BaseController {
 	 */
 	public function create()
 	{
-		$sports= array();
-
-		$allSports = Sport::all();
-		foreach ($allSports as $sport) 
-		{
-			$sports[$sport->id] = $sport->name;
-		}
 
 		$stores = array();
 
@@ -65,7 +95,7 @@ class BlogController extends \BaseController {
 			$stores[$store->id] = $store->store_name;
 		}
 
-		return View::make('kiosk/admin/forms/add/blog')->withSports($sports)->withStores($stores);
+		return View::make('kiosk/admin/forms/add/blog')->withSports(Sport::getAllSportName())->withStores($stores);
 	}
 
 
@@ -87,35 +117,10 @@ class BlogController extends \BaseController {
             ->withErrors($validator);
 		}
 
-		 $image_string = "";
-		 $video_string = "";
-		 $store_string = "";
+		 $image_string = Media::createMediaString(Input::file('image'));
+		 $video_string = Media::createMediaString(Input::file('video'));
 		 
-
-		 $image_files = Input::file('image');
-		 if($image_files[0] != null){
-
-		 	foreach ($image_files as $image_file) {
-			 	 $image_string .= $image_file->getClientOriginalName().";";
-			 	 $destinationPath = public_path().'/images/kiosk/content/';
-				 $filename = $image_file->getClientOriginalName();
-				 $uploadSuccess = $image_file->move($destinationPath, $filename);
-			 }
-		 }
-
-
-		 $video_files = Input::file('Video');
-		 if($video_files[0]!= null){
-		 	foreach ($video_files as $video_file) {
-			 	 $video_string .= $video_file->getClientOriginalName().";";
-			 	 $destinationPath = public_path().'/videos/kiosk/content/';
-				 $filename = $video_file->getClientOriginalName();
-				 $uploadSuccess = $video_file->move($destinationPath, $filename);
-			 }
-
-		 }
-
-
+		 $store_string = "";
 		 $stores = Input::get("stores");
 		 if(in_array( "all", $stores)){
 		 	$store_string = "all";
@@ -244,37 +249,8 @@ class BlogController extends \BaseController {
             ->withErrors($validator);
 		}
 		
-
-		$image_file_string ="";
-		$image_files = Input::file('Image'); 
-		if($image_files[0] != ""){
-			foreach ($image_files as $image_file) {
-			 	 $image_file_string .= $image_file->getClientOriginalName().";";
-			 	 $destinationPath = public_path().'/images/kiosk/content/';
-				 $filename = $image_file->getClientOriginalName();
-				 $uploadSuccess = $image_file->move($destinationPath, $filename);
-			 }
-		}
-		
-		$video_file_string = "";
-		$video_files  = Input::file('Video');
-		if($video_files[0] != ""){
-			foreach($video_files as $video_file) {
-				$video_file_string .= $video_file->getClientOriginalName().";";
-				$destinationPath = public_path().'/videos/kiosk/content/';
-				$filename = $video_file->getClientOriginalName();
-				$uploadSuccess = $video_file->move($destinationPath, $filename);
-			}
-		}
-
-		$removeImages  = preg_split('/;/', Input::get('removeImages'), -1,  PREG_SPLIT_NO_EMPTY);
-		$removeVideos  = preg_split('/;/', Input::get('removeVideos'), -1,  PREG_SPLIT_NO_EMPTY);
-	  
-
-	  	
-
-
-
+		$oldBlog = Blog::find($id);
+		// dd(Input::all());
 		$store_string ="";
 	  	$stores = Input::get("stores");
 		 if(in_array( "all", $stores)){
@@ -286,29 +262,53 @@ class BlogController extends \BaseController {
 		 	}
 		 }
 
-		$oldBlog = Blog::whereid($id)->first();
-	  	
+		 /*Process Images*/
+		if(Input::file('image')[0] != null)
+		 {
+			$added_images_string = $oldBlog->images.Media::createMediaString(Input::file('image'));
+
+		 }
+
+		if(Input::get('removeImages') != "")
+	  	{
+			if(isset($added_images_string)){
+				$added_images_string = Media::editMediaString(Input::get('removeImages'), $added_images_string);
+			}
+			else{
+				$added_images_string = Media::editMediaString(Input::get('removeImages'), $oldBlog->images);	
+			}
+	  	}
+	  	/*Process Videos*/
+	  	if(Input::file('video')[0] != null)
+	  	{
+			$added_videos_string = $oldBlog->videos.Media::createMediaString(Input::file('video'));
+
+	  	}
+
+	  	if(Input::get('removeVideos') != "")
+	  	{
+			if(isset($added_videos_string)){
+				$added_videos_string = Media::editMediaString(Input::get('removeVideos'), $added_videos_string);
+			}
+			else{
+				$added_videos_string = Media::editMediaString(Input::get('removeVideos'), $oldBlog->videos);
+
+			}
+	  	}
+
 	  	$blog = array();
 	  	$blog['title'] 	    = Input::get('title');
 	  	$blog['content']    = Input::get('content');
   		$blog['date']  		= Input::get('starts_at');
 	  	$blog['sport_id'] 	= Input::get('sport_id');
-	  	$blog['images']		= $oldBlog->image;
-	  	$blog['videos']		= $oldBlog->video;
+	  	if(isset($added_images_string)){
+	  		$blog['images']		= $added_images_string;
+	  	}
+	  	if(isset($added_videos_string)){
+	  		$blog['videos']		= $added_videos_string;
+	  	}
 	  	$blog['author_id']	= Auth::user()->id;
 		$blog['applicable_to_stores']	= $store_string;
-		
-
-	  	foreach($removeImages as $removeImage){
-	  		$blog['images'] =  str_replace($removeImage, "", $oldBlog->image);
-	  	}
-	  	
-	  	$blog['images'].= ";".$image_file_string;
-
-	  	foreach($removeVideos as $removeVideo){
-	  		$blog['videos']	= str_replace($removeVideo, "", $oldBlog->video);
-	  	}
-	  	$blog['videos'] .= ";".$video_file_string;
 
 	  	Blog::whereid($id)->update($blog);
 	  	return Redirect::to('/admin/kiosk/'. $storeNumber .'/blog');

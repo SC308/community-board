@@ -37,15 +37,57 @@ class LocationController extends \BaseController {
 	public function index()
 	{
 		
-		
-		$menuPanel = "location";
+		$filter_sport_parameter = Input::get('sport');
 
-		$locations = Location::where('store_id', $this->store_id)->get();
+		$filter_store_parameter = Input::get('store');
+		
+		$sort_parameter = Input::get('sort');
+
+		if(Auth::user()->role == 1)
+		{
+			$locations = Location::all();
+		}
+		else
+		{
+			$locations = Location::where('store_id', $this->store_id)->get();	
+		}
+
+		if(isset( $filter_sport_parameter ))
+		{
+			$locations = Content::filter( $locations, $filter_sport_parameter, "sport_id");
+		}
+		if(isset( $filter_store_parameter ))
+		{
+			$locations = Content::filter( $locations, $filter_store_parameter, "store_id");
+		}
+
+		if(isset($sort_parameter))
+		{
+			$locations = Content::sort($locations, $sort_parameter);	
+		}
+
+		$filterOptions[""] = "Filter By Sport";
+		
+		$filterOptions = $filterOptions + Sport::getSportWithLocation();
+
+		$sortOptions = Location::getSortOptions();
+
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+		
+		$ifUserIsNT = Auth::user()->role;
 		
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
 												 			->withItems($this->menuItems)
 												 			->withPanel($this->panel_name)
-												 			->withPanelData($locations);
+												 			->withPanelData($locations)
+												 			->withSports($filterOptions)
+												 			->withStores($storeOptions)
+												 			->withSort($sortOptions)
+												 			->withUserType($ifUserIsNT);
 
 	}
 
@@ -57,14 +99,8 @@ class LocationController extends \BaseController {
 	 */
 	public function create()
 	{
-		$sports= array();
 		
-		$allSports = Sport::all();
-		
-		foreach ($allSports as $sport)
-		{
-			$sports[$sport->id]  =  $sport->name;
-		}
+		$sports = Sport::getSportWithLocation();
 
 		return View::make('kiosk/admin/forms/add/location')->withSports($sports)
 													 	   ->withStore($this->store_name);

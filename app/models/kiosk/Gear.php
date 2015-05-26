@@ -30,4 +30,16 @@ class Gear extends \Eloquent {
 			
 
 	];
+	protected static function getSortOptions()
+	{
+		$sortOptions = [
+			""					=> "Sort By",
+			"name"  			=> "A-Z",
+			"name:desc" 		=> "Z-A",
+			"created_at"		=> "Oldest First",
+			"created_at:desc"	=> "Latest First"
+
+		];
+		return $sortOptions;
+	}
 }

@@ -123,7 +123,7 @@
                                 {{ HTML::image("images/kiosk/content/".$image_file , $image_file , ['class' => 'thumb', 'id' => 'image'.$league->content_id, 'data-remove-image' => 'false']) }}
                                 {{ $image_file }}
                                 </div>
-                                {{ HTML::image("images/kiosk/adminIcons/edit.png", "",['class' => 'hidden remove-image-button'])}}
+                                {{ HTML::image("images/kiosk/adminIcons/delete.png", "",['class' => 'hidden remove-image-button'])}}
                             </div>
                             <!--Image thumbnail div ends -->
 

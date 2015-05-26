@@ -32,12 +32,45 @@ class GearController extends \BaseController {
 	 */
 	public function index()
 	{
-		$gears = Gear::all();
 		
+
+		$filter_sport_parameter = Input::get('sport');
+		
+		$sort_parameter = Input::get('sort');
+
+		$gears = Gear::all();
+
+		if(isset( $filter_sport_parameter ))
+		{
+			$gears = Content::filter( $gears , $filter_sport_parameter , "sport_id");
+		}
+
+		if(isset($sort_parameter))
+		{
+			$gears = Content::sort( $gears, $sort_parameter );	
+		}
+
+		$filterOptions[""] = "Filter By Sport";
+		
+		$filterOptions = $filterOptions + Sport::getAllSportName();
+
+		$sortOptions = Gear::getSortOptions();
+
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+		
+		$ifUserIsNT = Auth::user()->role;
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
 												 			->withItems($this->menuItems)
 												 			->withPanel($this->panel_name)
-												 			->withPanelData($gears);
+												 			->withPanelData($gears)
+												 			->withSports($filterOptions)
+												 			->withStores($storeOptions)
+										 		 			->withSort($sortOptions)
+										 		 			->withUserType($ifUserIsNT);
 	}
 
 
@@ -81,16 +114,9 @@ class GearController extends \BaseController {
 		}
 
 		$image_string = "";
-
-		$image_file = Input::file('image');
-		if($image_file != null){
-
-		
-	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/kiosk/content/';
-	 		 $filename = $image_file->getClientOriginalName();
-	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
-		
+		if(Input::file('image') != "")
+		{
+			$image_string = Media::createMediaString(Input::file('image'));			
 		}
 
 		$gear = Gear::create(
@@ -173,40 +199,32 @@ class GearController extends \BaseController {
 		}
 
 
-		
-		$image_file_string ="";
-		$image_file = Input::file('image'); 
-		if($image_file != null){
-	 	 	$image_file_string .= $image_file->getClientOriginalName().";";
-	 	 	$destinationPath = public_path().'/images/kiosk/content/';
-		 	$filename = $image_file->getClientOriginalName();
-		 	$uploadSuccess = $image_file->move($destinationPath, $filename);
+		$oldGear = Gear::find($id);
+		if(Input::file('image') != "")
+		{
+			$added_images_string = Media::createMediaString(Input::file('image'));
 		}
-		
-		
-		
+		if(Input::get('removeImages') != "")
+	  	{
+			if(isset($added_images_string)){
 
-		$removeImages  = preg_split('/;/', Input::get('removeImages'), -1,  PREG_SPLIT_NO_EMPTY);
-		
+				$added_images_string .= ";".Media::editMediaString(Input::get('removeImages'), $oldGear->images);	
+			}
+			else{
+				$added_images_string = Media::editMediaString(Input::get('removeImages'), $oldGear->images);	
+			}
+	  	}
 
-		$oldGear = Gear::whereid($id)->first();
-	  	
+			  	
 	  	$gear = array();
 	  	$gear['name'] 	    = Input::get('name');
 	  	$gear['description']= Input::get('description');
   		$gear['sport_id'] 	= Input::get('sport_id');
-	  	$gear['image']		= $oldGear->image;
 	  	
-		
-
-	  	foreach($removeImages as $removeImage){
-	  		$gear['image'] =  str_replace($removeImage.";", "", $oldGear->image);
+	  	if(isset($added_images_string)){
+		  	$gear['image']	= $added_images_string;
 	  	}
 	  	
-	  	$gear['image'].= ";".$image_file_string;
-
-	  	
-
 	  	Gear::whereid($id)->update($gear);
 	  	return Redirect::to('/admin/kiosk/'.$storeNumber.'/gear/'.$id);
 	}

@@ -30,7 +30,7 @@
             </div>
 
 
-
+          
             <div id="activity-kiosk">
                 <h1>Select an Activity</h1>
 
