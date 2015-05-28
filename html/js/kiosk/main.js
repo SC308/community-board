@@ -326,6 +326,22 @@ $(document).ready(function(){
 		return currentUrl;
 	}
 	
+
+	$(".menu-button").on('click',function(){
+		console.log("click");
+		if($("#expanded-menu").hasClass('hidden')){
+			$("#short-menu").removeClass('visible').addClass('hidden');
+			$("#expanded-menu").removeClass('hidden').addClass('visible');
+			$("#panel-container").css('marginLeft', '170');
+		}
+		else if ($("#expanded-menu").hasClass('visible')) {
+			$("#short-menu").removeClass('hidden').addClass('visible');
+			$("#expanded-menu").removeClass('visible').addClass('hidden');
+			$("#panel-container").css('marginLeft', '90');
+		}
+		
+
+	});
 	
 
 });

@@ -154,7 +154,7 @@ global ends
 .menu-button{
 	padding-top: 10px;
 	padding-left:10px;
-
+	cursor: pointer;
 }
 /*nav bar elements end*/
 
@@ -171,7 +171,6 @@ global ends
 
 
 #expanded-menu {
-	display: none;
 	width: 170px;
 }
 #expanded-menu p{
@@ -186,6 +185,7 @@ global ends
 	padding-bottom: 20px;
 	border-bottom: 1px solid #f3f3f3;
 	padding-left: 25px;
+	cursor:pointer;
 
 }
 .menu-icon img{
