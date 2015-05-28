@@ -29,10 +29,10 @@
         <div class="admin-page-container">
           <!-- Menu container begins -->
           <div class="menu-container ">
-              <div id="short-menu" class="menu">                
+              <div id="short-menu" class="menu visible">                
                 @include('kiosk.admin.dashboard.short-menu', $items)
               </div><!-- Short-menu ends-->
-              <div id="expanded-menu" class="menu">
+              <div id="expanded-menu" class="menu hidden">
                 @include('kiosk.admin.dashboard.expanded-menu')
               </div><!-- Expanded-menu ends-->
 
