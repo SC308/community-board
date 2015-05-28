@@ -236,10 +236,16 @@ $(document).ready(function(){
 
 
     $.fn.deleteModel = function(model, id, href){
-        
-        if (!confirm('Are you sure you want to delete the '+ model +' ?. This would mean deleting all the content for this sport.')){
+        if(model == 'sport'){
+        	if (!confirm('Are you sure you want to delete this '+ model +' ? This would mean deleting all the content for this sport.')){
           return;
-        }  
+         }	
+        }
+        else{
+        	if (!confirm('Are you sure you want to delete this '+ model +' ?')){
+          return;
+         }	
+        }
         $.ajax({
 	        url: $(this).attr('href'),
 	        type: "DELETE",
