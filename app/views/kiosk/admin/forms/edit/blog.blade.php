@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
         <title>
            
         </title>
-        {{ HTML::style('/css/kiosk/vendor/bootstrap.min.css') }}
+        {{ HTML::style('/admin-assets/css/bootstrap.css') }}
         {{ HTML::style('/css/kiosk/vendor/bootstrap-theme.css') }}
         {{ HTMl::style('/css/kiosk/main.css')}}
-        {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
-        {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
-        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
+        {{ HTML::style('/css/kiosk/vendor/dropzone/basic.css')}}
+        {{ HTML::style('/css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('/css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 

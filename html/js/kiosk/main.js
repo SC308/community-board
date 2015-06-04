@@ -35,7 +35,8 @@ $(document).ready(function(){
 		}
 
 		if(selectedAction == 'delete'){
-			event.preventDefault();
+
+		    (event.preventDefault) ? event.preventDefault() : event.returnValue = false;
 			rowId= $(this).attr('data-rowId');
 			$(this).prop("href", currentUrl+"\/"+rowId);
  			$(this).deleteModel(model, rowId, getBaseURL(window.location.href));
@@ -120,7 +121,7 @@ $(document).ready(function(){
 		var sportFilter = getExistingFilterFromUrl(currentUrl,"sport");
 		var storeFilter = getExistingFilterFromUrl(currentUrl,"store");
 		var sort        = getExistingSortFromUrl(currentUrl);
-		console.log(sort)
+		//console.log(sort)
 		var redirectUrl = getBaseURL(currentUrl)+"/"+ model;
 		if (sportFilter != null || storeFilter != null){
 			if(/sort/.test(currentUrl)){
@@ -236,6 +237,7 @@ $(document).ready(function(){
 
 
     $.fn.deleteModel = function(model, id, href){
+        alert("DELETE?");
         if(model == 'sport'){
         	if (!confirm('Are you sure you want to delete this '+ model +' ? This would mean deleting all the content for this sport.')){
           return;
@@ -315,7 +317,7 @@ $(document).ready(function(){
     	if(url.match(/store=[\d]+(,[\d]+)*/)){
     		returnString +="store"
     	}
-    	console.log(returnString)
+    	//console.log(returnString)
     	return returnString;
 
     }
@@ -334,7 +336,7 @@ $(document).ready(function(){
 	
 
 	$(".menu-button").on('click',function(){
-		console.log("click");
+		//console.log("click");
 		if($("#expanded-menu").hasClass('hidden')){
 			$("#short-menu").removeClass('visible').addClass('hidden');
 			$("#expanded-menu").removeClass('hidden').addClass('visible');

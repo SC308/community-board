@@ -1,7 +1,15 @@
-<html>
-	<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
 		<title> {{ $title }} </title>
-        {{ HTML::style('/css/kiosk/vendor/bootstrap.min.css') }}
+        {{ HTML::style('/admin-assets/css/bootstrap.css') }}
         {{ HTML::style('/css/kiosk/vendor/bootstrap-theme.css') }}
         {{ HTMl::style('/css/kiosk/main.css')}}
 
@@ -13,36 +21,13 @@
             <div class = "navbar navbar-inverse">
               <div class="navbar-inner">
                 <div class="menu-button pull-left">
-                    <li> <img src="/images/kiosk/adminIcons/menu.svg"/ style="width: 20px;"> </li>
+                    <li> <img src="/images/kiosk/adminIcons/menu.png"/ style="width: 20px;"> </li>
                  </div>
                 <a class= "navbar-brand"> Activity Kiosk </a>
                 <div class="nav pull-right">
                     <li>  <a href="/admin" class=" cd pro">Back</a> </li>
                  </div>
-                <!-- <div class="nav username pull-right">
-                  <li>
-                    <p> UserName </p>
-                  </li>
-                </div> 
-                <div class="nav user-icon pull-right">
-                  <li>
-                    <img src="images/kiosk/adminIcons/user.svg" style="width:25px;"/>
-
-                  </li>
-                </div>
-                <div class="nav alerts-button pull-right">
-                    <li>
-                    <img src="images/kiosk/adminIcons/alert.svg" style="width:20px;"/>
-
-                  </li>
-                </div>
-                <div class="nav notifications-button pull-right">
-                    <li>
-                    <img src="images/kiosk/adminIcons/notification.svg" style="height:15px;"/>
-
-                  </li>
-                </div>
-                 -->
+                
 
               </div>
                 
