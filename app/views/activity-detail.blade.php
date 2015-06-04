@@ -93,9 +93,9 @@
                         
 
                         <div id="map-canvas"></div>
-                        <div id= "store-lat" class="hidden"> 51.0458189 </div>
-                        <div id="store-lng" class="hidden"> -114.0648196 </div>
-                        <div id="store-location-name" class="hidden"> Metro </div>
+                        <div id= "store-lat" class="hidden"> {{$storedetails[0]->longitude}} </div>
+                        <div id="store-lng" class="hidden"> {{$storedetails[0]->latitude}} </div>
+                        <div id="store-location-name" class="hidden"> {{$storedetails[0]->store_name}} </div>
                          
 
                         @foreach($locations as $location)

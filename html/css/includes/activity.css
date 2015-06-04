@@ -57,14 +57,22 @@
 	width:880px;
 	overflow-x: scroll;
 }
+#gear-wrapper-ls {
+	width:1435px;
+	overflow-x: scroll;
+}
 
 #gear-wrapper .scrolling-div{
 
 	height: 600px;
 	width:2000px;
-	
 	margin-top: 40px;
 
+}
+#gear-wrapper-ls .scrolling-div-ls{
+	height: 600px;
+	width:2500px;
+	margin-top: 40px;
 }
 
 .gear-container{
