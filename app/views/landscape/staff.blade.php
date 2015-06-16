@@ -137,6 +137,8 @@
                     var lastScroll = $("#bio-nav").scrollTop();
                     var columnCounter = 0;
 
+                    document.oncontextmenu = function () { return false; };
+
                     var random = staff_data[Math.floor(Math.random()*staff_data.length)];
                     show(random);
 
