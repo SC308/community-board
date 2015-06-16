@@ -37,6 +37,11 @@
             @foreach($details as $key =>$value)
                 <?php $detail_options[$key] = $value ?>
             @endforeach
+
+             <?php $store_options["all"] = "All Stores";?>
+            @foreach($stores as $id=>$store)
+                <?php $store_options[$id] = $store ?>
+            @endforeach
             
         
             
@@ -64,6 +69,21 @@
                 <div class="form-group ">
                     {{ Form::label('season_end', 'To :') }}
                     {{ Form::select('season_end',$months_options, false, ['class' => 'selectpicker']) }}
+                </div>
+
+                <div class="form-group ">
+                    
+                    {{ Form::label('stores[]', 'Which stores should the sport be available in?  ') }}
+                    
+                    <select class="selectpicker" multiple = "multiple" id="storeSelector" name="stores[]"  title='Choose all applicable ...'  >
+                    @foreach ($store_options as $id => $store)
+                         
+                          <option value="{{$id}}">{{$store}}</option>
+                          
+  
+                    @endforeach
+                    </select>
+                    
                 </div>
                 
                 <div class="form-group ">

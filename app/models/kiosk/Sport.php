@@ -8,6 +8,7 @@ class Sport extends \Eloquent {
 							'name', 
 							'season_start', 
 							'season_end', 
+							'store_id',
 							'created_at', 
 							'updated_at'
 	];
@@ -35,6 +36,32 @@ class Sport extends \Eloquent {
 	}
 
 
+	protected function getActiveSportsByStore($storeNumber){
+		$currentMonth = date('m');
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
+		
+		$sports = array();
+		$allSports = Sport::all();
+		foreach($allSports as $sport)
+		{
+			$stores = preg_split('/;/', $sport->store_id);
+			if( ($sport->store_id == "all") || ( in_array($store_id,$stores)))
+			{
+				array_push($sports, $sport);
+			}
+
+		}
+
+		$filteredSports =  Array();
+		foreach ($sports as $sport) {
+			if($sport->season_start <= $currentMonth  || $sport->season_end >= $currentMonth)
+			{
+				array_push($filteredSports, $sport);
+			}
+		}
+
+		return $filteredSports;
+	}
 
 	protected function getActiveSports(){
 		$currentMonth = date('m');

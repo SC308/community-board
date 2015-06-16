@@ -226,8 +226,8 @@ class BlogController extends \BaseController {
 		return View::make("kiosk/admin/forms/edit/blog")->withblog($blog)
 				 										->withsports($sports)
 				 										->withstores($stores)
-				 										  ->withSelectedSport($selected_sport)
-				 										  ->withSelectedStore($selected_stores);
+				 										->withSelectedSport($selected_sport)
+				 										->withSelectedStore($selected_stores);
 	}
 
 

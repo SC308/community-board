@@ -98,7 +98,7 @@ class KioskController extends \BaseController {
 	{
 		$storedetails = Store::getStoreDetails($storeNumber);
 
-		$filteredSports = Sport::getActiveSports();
+		$filteredSports = Sport::getActiveSportsByStore($storeNumber);
 
 		if($ls){
 			return View::make('landscape/activity')

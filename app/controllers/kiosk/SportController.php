@@ -36,8 +36,12 @@ class SportController extends \BaseController {
 	{
 		
 		$sort_parameter = Input::get('sort');
+		$filter_store_parameter = Input::get('store');
 		
 		$sports = Sport::all();
+		if (isset($filter_store_parameter)) {
+			$sports = Content::filter($sports, $filter_store_parameter, 'store_id');
+		}
 
 		if(isset($sort_parameter))
 		{
@@ -46,6 +50,12 @@ class SportController extends \BaseController {
 		
 		$sortOptions = Sport::getSortOptions();
 
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+
 		$ifUserIsNT = Auth::user()->role;
 		
 		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
@@ -53,7 +63,7 @@ class SportController extends \BaseController {
 												 			->withPanel($this->panel_name)
 												 			->withPanelData($sports)
 												 			->withSports([])
-												 			->withStores([])
+												 			->withStores($storeOptions)
 												 			->withSort($sortOptions)
 												 			->withUserType($ifUserIsNT);
 	}
@@ -74,8 +84,19 @@ class SportController extends \BaseController {
 		{
 			$sport_details[$rd->id] =  $rd->detail_name;
 		}
+
+		$stores = array();
+
+		$allStores = Store::all();
+
+		foreach ($allStores as $store) 
+		{
+			$stores[$store->id] = $store->store_name;
+		}
 		
-		return View::make('kiosk/admin/forms/add/sport')->withdetails($sport_details)->withmonths($this->months);
+		return View::make('kiosk/admin/forms/add/sport')->withdetails($sport_details)
+														->withmonths($this->months)
+														->withStores($stores);
 	}
 
 
@@ -97,11 +118,25 @@ class SportController extends \BaseController {
             ->withErrors($validator);
 		}
 		
+		$store_string = "";
+		 $stores = Input::get("stores");
+		 if(in_array( "all", $stores)){
+		 	$store_string = "all";
+		 }
+		 else{
+		 	foreach ($stores as $key => $value) {
+		 		$store_string .= $value.";";
+		 	}
+		 }
+
+
+
 		$sport = Sport::create(
 		[
 			'name'			=> 	Input::get('name'),
 			'season_start'	=>  Input::get('season_start'),
-			'season_end'	=>  Input::get('season_end')
+			'season_end'	=>  Input::get('season_end'),
+			'store_id'		=>  $store_string
 		]);
 		
 		
@@ -144,11 +179,27 @@ class SportController extends \BaseController {
 
 		}
 		
+
+		if($sport->store_id == "all")
+		{
+			$all_stores = DB::table('stores')->lists('id');
+
+		}
+		else{
+			$all_stores = preg_split('/;/', $sport->store_id, -1,  PREG_SPLIT_NO_EMPTY);
+		}
+
+		$stores = array();
+		foreach($all_stores as $store){
+				array_push($stores, Store::whereid($store)->first()->store_name);
+		}
+
 		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel($this->panel_name)
 													  			->withPanelData($sport)
 												 	  			->withTitle($this->panel_title)
 													  			->withItems($this->menuItems)
-													  			->withDetails($detail_names);
+													  			->withDetails($detail_names)
+													  			->withStores($stores);
 
 	}
 
@@ -171,12 +222,30 @@ class SportController extends \BaseController {
 
 		$season_start = [$sport->season_start];
 		$season_end =	[$sport->season_end];
+
+		$stores = array();
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$stores[$store->id] = $store->store_name;
+				}
+
+
+
+		if($sport->store_id == "all"){
+			$selected_stores = ["all"];	
+		}
+		else{
+			$selected_stores = preg_split('/;/', $sport->store_id, -1,  PREG_SPLIT_NO_EMPTY);
+		}
+
 		$selected_details = DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->lists('detail_id');
 		return View::make('kiosk/admin/forms/edit/sport')->withsport("sport")
 												   ->withDetails($sport_details)
 												   ->withmonths($this->months)
 												   ->withSport($sport)
-												   ->withSelectedDetails($selected_details);
+												   ->withSelectedDetails($selected_details)
+												   ->withSelectedStore($selected_stores)
+												   ->withStores($stores);
 	}
 
 
@@ -199,6 +268,16 @@ class SportController extends \BaseController {
             ->withErrors($validator);
 		}
 		
+		$store_string ="";
+	  	$stores = Input::get("stores");
+		 if(in_array( "all", $stores)){
+		 	$store_string = "all";
+		 }
+		 else{
+		 	foreach ($stores as $key => $value) {
+		 		$store_string .= $value.";";
+		 	}
+		 }
 		
 		
 		$sport = array();
@@ -206,6 +285,7 @@ class SportController extends \BaseController {
 		$sport['name']			= 	Input::get('name');
 		$sport['season_start']	= 	Input::get('season_start');
 		$sport['season_end']	= 	Input::get('season_end');
+		$sport['store_id']		=   $store_string;
 		
 		Sport::whereid($id)->update($sport);
 

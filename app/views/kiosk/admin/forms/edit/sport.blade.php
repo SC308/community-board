@@ -33,6 +33,11 @@
             @foreach($months as $month)
                 <?php $month_options[$month] = $month ?>
             @endforeach
+
+            <?php $store_options["all"] = "All Stores";?>
+            @foreach($stores as $id=>$store)
+                <?php $store_options[$id] = $store ?>
+            @endforeach
             
             <h2> Edit Sport </h2>
            
@@ -59,6 +64,14 @@
                     {{ Form::label('season_end', ' To :') }}
                     {{ Form::select('season_end', $month_options, $sport->season_end, ['class' => 'selectpicker']) }}
                 </div>
+                 <div class="form-group ">
+                    
+                    {{ Form::label('stores[]', 'Which stores should the blog be available in?  ') }}
+                    {{ Form::select('stores[]',$store_options, $selected_store ,['class' => 'selectpicker', "multiple"=>"multiple"]) }}
+
+
+                </div>
+
                 
                 <div class="form-group ">
                     {{ Form::label('details[]', 'Choose all applicable detail options: ') }}
