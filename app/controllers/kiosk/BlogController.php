@@ -14,7 +14,7 @@ class BlogController extends \BaseController {
 		}
 		else
 		{
-			$this->menuItems= array("event", "league", "location");
+			$this->menuItems= array("blog", "event", "league", "location", "sport");
 		}
 		
 
@@ -39,6 +39,10 @@ class BlogController extends \BaseController {
 		$sort_parameter = Input::get('sort');
 
 		$blogs = Blog::all();
+		
+		if(Auth::user()->role == 0){
+			$blogs = Content::filter($blogs, Store::where('store_number', Auth::user()->store_id)->first()->id, "applicable_to_stores"); 
+		}
 
 		if(isset( $filter_sport_parameter ))
 		{

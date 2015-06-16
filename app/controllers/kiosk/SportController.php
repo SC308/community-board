@@ -15,7 +15,7 @@ class SportController extends \BaseController {
 		}
 		else
 		{
-			$this->menuItems= array("event", "league", "location");
+			$this->menuItems= array("blog", "event", "league", "location", "sport");
 		}
 		
 		$this->months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -39,6 +39,11 @@ class SportController extends \BaseController {
 		$filter_store_parameter = Input::get('store');
 		
 		$sports = Sport::all();
+		
+		if(Auth::user()->role == 0){
+			$sports = Content::filter($sports, Store::where('store_number', Auth::user()->store_id)->first()->id, 'store_id');
+		}
+
 		if (isset($filter_store_parameter)) {
 			$sports = Content::filter($sports, $filter_store_parameter, 'store_id');
 		}

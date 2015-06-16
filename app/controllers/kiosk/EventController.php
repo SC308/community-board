@@ -15,7 +15,7 @@ class EventController extends \BaseController {
 		}
 		else
 		{
-			$this->menuItems= array("event", "league", "location");
+			$this->menuItems= array("blog", "event", "league", "location" , "sport");
 		}
 		
 

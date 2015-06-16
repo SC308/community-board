@@ -111,28 +111,28 @@ Route::post('/admin/jumpstart/savedit', 'AdminController@saveEditJumpstart');
 /*Activity Kiosk Routes*/
 Route::get('/admin/kiosk/{storeno}',					'EventController@index')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/event', 				'EventController@index')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog', 				array('before' => 'admin', 'uses' => 'BlogController@index'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog', 				'BlogController@index')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear', 				array('before' => 'admin', 'uses' => 'GearController@index'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league', 			'LeagueController@index')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location', 			'LocationController@index')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/sport', 				array('before' => 'admin', 'uses' => 'SportController@index'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/sport', 				'SportController@index')->where('storeno', '[0-9]+');
 
 Route::get('/admin/kiosk/{storeno}/event/create', 		'EventController@create')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog/create', 		array('before' => 'admin', 'uses' => 'BlogController@create'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog/create', 		'BlogController@create')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear/create', 		array('before' => 'admin', 'uses' => 'GearController@create'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league/create', 	 	'LeagueController@create')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location/create', 	'LocationController@create')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/sport/create', 		array('before' => 'admin', 'uses' => 'SportController@create'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/sport/create', 		'SportController@create')->where('storeno', '[0-9]+');
 
 Route::get('/admin/kiosk/{storeno}/event/{id}', 		'EventController@show')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog/{id}', 			array('before' => 'admin', 'uses' => 'BlogController@show'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog/{id}', 			'BlogController@show')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear/{id}', 			array('before' => 'admin', 'uses' => 'GearController@show'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league/{id}', 		'LeagueController@show')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location/{id}', 		'LocationController@show')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/sport/{id}', 		'SportController@show')->where('storeno', '[0-9]+');
 
 Route::get('/admin/kiosk/{storeno}/event/{id}/edit', 	'EventController@edit')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog/{id}/edit', 	array('before' => 'admin', 'uses' => 'BlogController@edit'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog/{id}/edit', 	'BlogController@edit')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear/{id}/edit', 	array('before' => 'admin', 'uses' => 'GearController@edit'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league/{id}/edit', 	'LeagueController@edit')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location/{id}/edit', 'LocationController@edit')->where('storeno', '[0-9]+');

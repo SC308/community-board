@@ -16,7 +16,7 @@ class LocationController extends \BaseController {
 		}
 		else{
 			
-			$this->menuItems   = ["event", "league", "location"];
+			$this->menuItems   = ["blog", "event", "league", "location" , "sport"];
 		}
 
 		$this->store_name 	= Store::where('store_number', Auth::user()->store_id)->first()->store_name;
