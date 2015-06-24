@@ -191,7 +191,18 @@ class KioskController extends \BaseController {
 	}
 
 	public function viewSportLandscape($sn, $sport){
+
 		return $this->viewSport($sn, $sport, true);
+
+	}
+
+
+	public function getActiveSports($sn){
+		$storedetails = Store::getStoreDetails($sn);
+
+		$filteredSports = Sport::getActiveSportsByStore($sn);
+
+		return $filteredSports;
 	}
 
 }

@@ -161,15 +161,6 @@ Route::delete('/admin/kiosk/{storeno}/location/{id}',  	array( 'as'=>'location.d
 Route::delete('/admin/kiosk/{storeno}/sport/{id}',  	array( 'as'=>'sport.delete' , 'uses'=> 'SportController@destroy'));
 
 /*API ROUTES*/
-Route::get('/api', 'ApiController@getIndex');
-Route::get('/api/home', 'HomeController@getFeaturedData');
-Route::get('/api/calendar', 'CalendarController@getCalData');
-Route::get('/api/calendar-raw', 'CalendarController@getCalRaw');
-Route::get('/api/staff', 'StaffController@getStaffData');
-Route::get('/api/photos', 'PhotoController@getPhotoData');
-Route::get('/api/flyer', 'FlyerController@getFlyerData');
-
-
 
 Route::get('{storeno?}/api', 'ApiController@getIndex');
 Route::get('{storeno?}/api/home', 			array('uses' => 'HomeController@getFeaturedData'))->where('storeno', '[0-9]+');
@@ -177,6 +168,14 @@ Route::get('{storeno?}/api/calendar', 		array('uses' => 'CalendarController@getA
 Route::get('{storeno?}/api/calendar-raw',	array('uses' => 'CalendarController@getCalRaw'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/api/staff',  		array('uses' => 'StaffController@getStaffData'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/api/photos', 		array('uses' => 'PhotoController@getPhotoData'))->where('storeno', '[0-9]+');
+
+Route::get('{storeno?}/api/sports', 		array('uses' => 'KioskController@getActiveSports'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/blogs/{sport?}', array('uses' => 'BlogController@getBlogs'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/events/{sport?}',array('uses' => 'EventController@getEvents'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/gears/{sport?}', array('uses' => 'GearController@getGears'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/leagues/{sport?}',array('uses' => 'LeagueController@getLeagues'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/locations/{sport?}', array('uses' => 'LocationController@getLocations'))->where('storeno', '[0-9]+');
+
 
 
 // user/authentication routes

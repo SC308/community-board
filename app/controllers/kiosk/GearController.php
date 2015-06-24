@@ -7,14 +7,18 @@ class GearController extends \BaseController {
 	private $panel_title; 
 
 	public function __construct()
-	{
-		if(Auth::user()->role == 1)
-		{
-			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else
-		{
-			$this->menuItems= array("blog","event", "league", "location","sport");
+	{	
+		if(Auth::user()){
+
+			if(Auth::user()->role == 1)
+			{
+				$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+			}
+			else
+			{
+				$this->menuItems= array("blog","event", "league", "location","sport");
+			}
+		
 		}
 		
 
@@ -242,9 +246,18 @@ class GearController extends \BaseController {
 
 	}
 
-	public function getGears()
+	public function getGears($storeNumber, $sport = null)
 	{
-		return Response::json(Gear::all());
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
+		$events = Gear::all();
+		
+		if($sport != NULL){
+			
+			$sport_id = Sport::where('name', $sport)->first()->id;
+			$events = Content::filter($events, $sport_id , "sport_id");
+
+		}
+		return $events;
 	}
 
 

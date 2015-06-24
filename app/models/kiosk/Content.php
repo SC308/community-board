@@ -18,7 +18,13 @@ class Content extends \Eloquent {
 		}
 		return $collection;
 	}
-
+	
+	/*
+		@params
+		collection 		collection to be filtered
+		param 			value of the filter parameter
+		tag 			database field name to be used for the filter
+	*/
 	protected static function filter($collection, $param , $tag)
 	{
 		$c = new \Illuminate\Database\Eloquent\Collection;

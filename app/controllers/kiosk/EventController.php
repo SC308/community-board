@@ -9,13 +9,19 @@ class EventController extends \BaseController {
 
 	public function __construct()
 	{
-		if(Auth::user()->role == 1)
-		{
-			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else
-		{
-			$this->menuItems= array("blog", "event", "league", "location" , "sport");
+		if(Auth::user()){
+
+			if(Auth::user()->role == 1)
+			{
+				$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+			}
+			else
+			{
+				$this->menuItems= array("blog", "event", "league", "location" , "sport");
+			}
+
+			$this->store_id		=  Store::where('store_number' , Auth::user()->store_id)->first()->id;
+
 		}
 		
 
@@ -23,7 +29,6 @@ class EventController extends \BaseController {
 
 		$this->panel_title  =  "Dashboard";
 
-		$this->store_id		=  Store::where('store_number' , Auth::user()->store_id)->first()->id;
 
 	}
 
@@ -266,9 +271,18 @@ class EventController extends \BaseController {
 
 	}
 
-	public function getEvents()
+	public function getEvents($storeNumber, $sport= null)
 	{
-		return Response::json(CalendarEvent::all());
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
+		$events = Content::filter(CalendarEvent::all(), $store_id, "store_id" );
+		
+		if($sport != NULL){
+			
+			$sport_id = Sport::where('name', $sport)->first()->id;
+			$events = Content::filter($events, $sport_id , "sport_id");
+
+		}
+		return $events;
 	}
 
 

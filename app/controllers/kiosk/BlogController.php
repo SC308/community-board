@@ -8,13 +8,16 @@ class BlogController extends \BaseController {
 
 	public function __construct()
 	{
-		if(Auth::user()->role == 1)
-		{
-			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else
-		{
-			$this->menuItems= array("blog", "event", "league", "location", "sport");
+		
+		if(Auth::user()){
+			if(Auth::user()->role == 1)
+			{
+				$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+			}
+			else
+			{
+				$this->menuItems= array("blog", "event", "league", "location", "sport");
+			}
 		}
 		
 
@@ -332,10 +335,20 @@ class BlogController extends \BaseController {
 	}
 
 
-	public function getBlogs()
+	public static function getBlogs($storeNumber, $sport= null)
 	{
-		return Response::json(BLog::all());
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
+		$blogs = Content::filter(Blog::all(), $store_id, "applicable_to_stores" );
+		
+		if($sport != NULL){
+			
+			$sport_id = Sport::where('name', $sport)->first()->id;
+			$blogs = Content::filter($blogs, $sport_id , "sport_id");
+
+		}
+		return $blogs;
 	}
 
+	
 
 }

@@ -9,16 +9,21 @@ class LeagueController extends \BaseController {
 
 	public function __construct()
 	{
-		if(Auth::user()->role == 1)
-		{
-			$this->menuItems   = ["blog", "event", "gear", "league", "location", "sport"];	
-		}
-		else{
-			
-			$this->menuItems   = ["blog", "event", "league", "location", "sport"];
+		if(Auth::user()){
+
+			if(Auth::user()->role == 1)
+			{
+				$this->menuItems   = ["blog", "event", "gear", "league", "location", "sport"];	
+			}
+			else{
+				
+				$this->menuItems   = ["blog", "event", "league", "location", "sport"];
+			}
+
+			$this->store  		= Store::where('store_number', Auth::user()->store_id)->first();
+
 		}
 
-		$this->store  		= Store::where('store_number', Auth::user()->store_id)->first();
 
 		$this->panel_name	= "league";
 
@@ -259,9 +264,19 @@ class LeagueController extends \BaseController {
 		League::whereid($id)->delete();
 	}
 
-	public function getLeagues()
+
+	public function getLeagues($storeNumber, $sport = null)
 	{
-		return Response::json(League::all());
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
+		$leagues = Content::filter(League::all(), $store_id, 'store_id');
+		
+		if($sport != NULL){
+			
+			$sport_id = Sport::where('name', $sport)->first()->id;
+			$leagues = Content::filter($leagues, $sport_id , "sport_id");
+
+		}
+		return $leagues;
 	}
 
 }

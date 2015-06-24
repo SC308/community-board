@@ -40,9 +40,9 @@ class SportController extends \BaseController {
 		
 		$sports = Sport::all();
 		
-		if(Auth::user()->role == 0){
-			$sports = Content::filter($sports, Store::where('store_number', Auth::user()->store_id)->first()->id, 'store_id');
-		}
+		// if(Auth::user()->role == 0){
+		// 	$sports = Content::filter($sports, Store::where('store_number', Auth::user()->store_id)->first()->id, 'store_id');
+		// }
 
 		if (isset($filter_store_parameter)) {
 			$sports = Content::filter($sports, $filter_store_parameter, 'store_id');
