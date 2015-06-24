@@ -1,0 +1,149 @@
+#activity-kiosk{
+	height: 1390px;
+	background: #000 url('/images/debut_dark.png') top left repeat;
+	overflow-x: hidden;
+
+}
+	#activity-kiosk::-webkit-scrollbar {
+	    display: none;
+	}
+
+#activity-kiosk h1{
+	font-family: GalaxiePolarisCondensed-Book;
+	text-transform: uppercase;
+	color: #fff;
+	font-size: 70px;
+	text-align: center;
+	padding: 30px 0px;
+}
+
+.activity-section{
+	padding: 30px 50px;
+	margin: 50px;
+	background: transparent url('/images/N000000-0.5.png') top left repeat;
+}
+
+.activity-section h2{
+	font-family: GalaxiePolarisCondensed-Book;
+	text-transform: uppercase;
+	font-size: 40px;
+	color: #fff;
+}
+
+.activity-section h3{
+	font-family: GalaxiePolarisCondensed-Light;
+	text-transform: uppercase;
+	font-size: 30px;
+	color: #fff;
+}
+
+#blog-section{
+	display: block;
+}
+
+#blog-section p{
+	color: #fff;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+#events-section p{
+	color: #fff;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+#gear-wrapper {
+	width:880px;
+	overflow-x: scroll;
+}
+#gear-wrapper-ls {
+	width:1435px;
+	overflow-x: scroll;
+}
+
+#gear-wrapper .scrolling-div{
+
+	height: 600px;
+	width:2000px;
+	margin-top: 40px;
+
+}
+#gear-wrapper-ls .scrolling-div-ls{
+	height: 600px;
+	width:2500px;
+	margin-top: 40px;
+}
+
+.gear-container{
+	width:240px;
+	background: #FFFFFF;
+	padding: 25px;
+	margin: 20px 10px;
+	float: left;
+	height:550px;
+	display: inline;
+	vertical-align: top;
+}
+.gear-container img{
+	width : 150px;
+	padding: 25px;
+}
+.gear-container h3{
+	color: #000000;
+}
+
+::-webkit-scrollbar { 
+	display: none;
+}
+
+#league-section p{
+	color: #fff;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+
+a.sportSelector{
+	width: 100%;
+	color: #fff;
+	text-align: center;
+	font-size: 120px;
+
+	padding: 80px 0px;
+	margin: 10px 0px 10px 0px;
+	text-decoration: none;
+	display: block;
+	font-family: GalaxiePolarisCondensed-Book;
+	text-transform: uppercase;
+}
+
+	body.landscape a.sportSelector{
+		float: left;
+		margin: 5px;
+		width: 49%;
+	}
+
+a.sportSelector:active{
+	-moz-box-shadow: 0 0 40px #fff;
+    -webkit-box-shadow: 0 0 40px #fff;
+    box-shadow: 0px 0px 40px #fff;
+}
+
+#back-to-sports{
+	position: absolute;
+	z-index:100;
+	top: 140px;
+	height: 50px;
+	width: 50px;
+	color: #fff;
+	padding: 20px 20px;
+	text-decoration: none !important;
+	font-family: GalaxiePolarisCondensed-Book;
+	text-transform: uppercase;
+	font-size: 25px;
+	text-align: center;
+}
+#map-canvas{
+	height:500px;
+}

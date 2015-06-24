@@ -1,0 +1,26 @@
+body.landscape #js-info{
+    float: left;
+    width: 1060px;
+    padding: 0px 20px;
+
+	height: 800px;
+}
+
+body.landscape #js-info p{
+	font-size: 16px;
+}
+
+body.landscape #js-sidebar{
+    float: right;
+    width: 500px;
+
+}
+
+body.landscape #js-logo{ float: left; width: 288px;}
+
+body.landscape #js-champ{ float: left; width: 700px; padding-bottom: 20px;}
+
+
+#max, #min{ font-size: 16px;}
+
+body.landscape #max, body.landscape #min{ font-size: 20px;}

@@ -1,0 +1,85 @@
+/* ==========================================================================
+	GENERAL LAYOUT
+========================================================================== */
+
+html{
+	-webkit-user-select: none;
+    -webkit-touch-callout: none;
+	/*cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjbQg61aAAAADUlEQVQYV2P4//8/IwAI/QL/+TZZdwAAAABJRU5ErkJggg=='), none;*/
+    background-color: #000;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+}
+
+	html::-webkit-scrollbar, body::-webkit-scrollbar, .fancybox-overlay::-webkit-scrollbar{
+    	display: none !important;
+	}
+
+body {
+    background-color: #000;
+	position: absolute;
+	width: 1080px;
+	height: 1820px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+	body.landscape{
+		width: 1920px;
+		height: 980px;
+	}
+
+#stage{
+/*     height: 1920px; */
+	height: 1820px;
+    width: 1080px;
+    margin: 0 auto;
+    background-color: #404040;
+}
+
+	body.landscape #stage{
+	    width: 1920px;
+	    height: 980px !important;
+	}
+
+body.landscape #heading{
+    height: 120px;
+    width: 100%;
+    background: rgb(125,126,125); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+}
+
+
+body.landscape #logo{
+    float: right;
+}
+
+body.landscape #main{
+    float: right;
+    /*width: 1655px;
+    height: 960px;*/
+
+    width: 1635px;
+    height: 940px;
+    padding: 10px;
+    /*color: white;*/
+}
+
+#scoreboard{
+    background-color: #333333;
+    height: 120px;
+    width: 755px;
+}

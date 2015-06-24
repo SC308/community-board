@@ -9,6 +9,7 @@
         {{ HTMl::style('css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 
@@ -36,24 +37,30 @@
             
             {{Form::model($gear, ['route' => ['gear.update', Auth::user()->store_id ,$gear->id], 'method' => 'PATCH',  'files'=>true]) }}
 
+                @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
                  <div class="form-group">
                     
-                    {{ Form::label('Sport', 'Choose a Sport: ') }}
-                    {{ Form::select('Sport',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
+                    {{ Form::label('sport_id', 'Choose a Sport: ') }}
+                    {{ Form::select('sport_id',$sport_options, $selected_sport, ['class' => 'selectpicker']) }}
 
                 </div>
                 
 
                 <div class="form-group">
                     
-                    {{ Form::label('GearName', 'Gear Name :') }}
-                    {{ Form::input('text', 'GearName', $gear->name, ['class' => 'form-control']) }}
+                    {{ Form::label('name', 'Gear Name :') }}
+                    {{ Form::input('text', 'name', $gear->name, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('GearDescription', 'Description :') }}
-                    {{ Form::input( 'text', 'GearDescription', $gear->description, ['class' => 'form-control']) }}
+                    {{ Form::label('description', 'Description :') }}
+                    {{ Form::input( 'text', 'description', $gear->description, ['class' => 'form-control']) }}
                 </div>
                 <br>
 
@@ -72,10 +79,10 @@
                             <!-- Image thumbnails div -->
                             <div class="image-thumbnail-holder">
                                 <div>
-                                {{ HTML::image("images/content/".$image_file , $image_file , ['class' => 'thumb', 'id' => 'image'.$gear->content_id, 'data-remove-image' => 'false']) }}
+                                {{ HTML::image("images/kiosk/content/".$image_file , $image_file , ['class' => 'thumb', 'id' => 'image'.$gear->content_id, 'data-remove-image' => 'false']) }}
                                 {{ $image_file }}
                                 </div>
-                                {{ HTML::image("images/edit.png", "",['class' => 'hidden remove-image-button'])}}
+                                {{ HTML::image("images/kiosk/adminIcons/delete.png", "",['class' => 'hidden remove-image-button'])}}
                             </div>
                             <!--Image thumbnail div ends -->
 
@@ -93,8 +100,8 @@
 
                 <!-- add new images div -->
                 <div class="form-group dropzone">
-                    {{ Form::label('Image', 'Add more Image :') }}
-                    {{ Form::file('Image') }}
+                    {{ Form::label('image', 'Add more Image :') }}
+                    {{ Form::file('image') }}
                 </div>
                 <br>
 
@@ -116,14 +123,13 @@
         
         
         <!-- Javascript files required for page -->
-        <script type="text/javascript" src="/js/vendor/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/js/main.js"></script>
-        <script type="text/javascript" src="/js/vendor/dropzone.js"></script>
-        <script type="text/javascript" src="/js/vendor/bootstrap-select.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/kiosk/main.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
+        <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
         <script type="text/javascript">
          $(".selectpicker").selectpicker();
-         $(".check-mark").hide();
         </script>
         
 

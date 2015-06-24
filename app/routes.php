@@ -1,5 +1,26 @@
 <?php
+/*
+ | 1. Before you start with this create a file in your logs folder (eg : 'query.log') and grant laravel write access to it.
+ | 2. Place the snippet in your '/app/start/local.php' file. (or routes.php or anywhere...)
+ | 3. Access artisan from your console and type this -
+ |    $ php artisan tail --path="app/storage/logs/query.log" (better use full path)
+*/ 
 
+$path = storage_path().'/logs/query.log';
+
+App::before(function($request) use($path) {
+    $start = PHP_EOL.'=| '.$request->method().' '.$request->path().' |='.PHP_EOL;
+  File::append($path, $start);
+});
+
+Event::listen('illuminate.query', function($sql, $bindings, $time) use($path) {
+    // Uncomment this if you want to include bindings to queries
+    //$sql = str_replace(array('%', '?'), array('%%', '%s'), $sql);
+    //$sql = vsprintf($sql, $bindings);
+    $time_now = (new DateTime)->format('Y-m-d H:i:s');;
+    $log = $time_now.' | '.$sql.' | '.$time.'ms'.PHP_EOL;
+  File::append($path, $log);
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,7 +31,7 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-header('Access-Control-Allow-Origin: *');  
+header('Access-Control-Allow-Origin: *');
 
 Route::get('/', 'HomeController@getHomeStoreSelector');
 
@@ -21,7 +42,11 @@ Route::get('{storeno?}/staff', 			array('uses' => 'StaffController@getIndex'))->
 Route::get('{storeno?}/flyer', 			array('uses' => 'FlyerController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/jumpstart', 		array('uses' => 'JumpstartController@getIndex'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/flyer-int', 		array('uses' => 'FlyerController@getInteractiveFlyer'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/activity', 		array('uses' => 'KioskController@getIndex'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/activity/{sportid?}', array('uses' => 'KioskController@viewSport'))->where('storeno', '[0-9]+')->where('sportid', '[0-9]+');
 Route::get('{storeno?}/cash', 			array('uses' => 'CashController@getIndex'))->where('storeno', '[0-9]+');
+
+
 
 //LANDSCAPE ROUTES
 Route::get('{storeno?}/ls', 		 	array('uses' => 'HomeController@getIndexLandScape'))->where('storeno', '[0-9]+');
@@ -32,6 +57,10 @@ Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLan
 //Route::get('{storeno?}/ls/flyer', 		array('uses' => 'FlyerController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/jumpstart', 	array('uses' => 'JumpstartController@getIndexLandScape'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/ls/flyer-int', 	array('uses' => 'FlyerController@getInteractiveFlyerLandScape'))->where('storeno', '[0-9]+');
+
+Route::get('{storeno?}/ls/activity/', 		    array('uses' => 'KioskController@getIndexLandscape'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/ls/activity/{sportid?}', array('uses' => 'KioskController@viewSportLandscape'))->where('storeno', '[0-9]+')->where('sportid', '[0-9]+');
+
 Route::get('{storeno?}/ls/cash', 		array('uses' => 'CashController@getIndexLandScape'))->where('storeno', '[0-9]+');
 
 
@@ -80,30 +109,30 @@ Route::get('/admin/jumpstart', 'AdminController@getJumpstart');
 Route::post('/admin/jumpstart/savedit', 'AdminController@saveEditJumpstart');
 
 /*Activity Kiosk Routes*/
-Route::get('/admin/kiosk/{storeno}',					'KioskController@index')->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}',					'EventController@index')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/event', 				'EventController@index')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog', 				array('before' => 'admin', 'uses' => 'BlogController@index'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog', 				'BlogController@index')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear', 				array('before' => 'admin', 'uses' => 'GearController@index'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league', 			'LeagueController@index')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location', 			'LocationController@index')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/sport', 				array('before' => 'admin', 'uses' => 'SportController@index'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/sport', 				'SportController@index')->where('storeno', '[0-9]+');
 
 Route::get('/admin/kiosk/{storeno}/event/create', 		'EventController@create')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog/create', 		array('before' => 'admin', 'uses' => 'BlogController@create'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog/create', 		'BlogController@create')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear/create', 		array('before' => 'admin', 'uses' => 'GearController@create'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league/create', 	 	'LeagueController@create')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location/create', 	'LocationController@create')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/sport/create', 		array('before' => 'admin', 'uses' => 'SportController@create'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/sport/create', 		'SportController@create')->where('storeno', '[0-9]+');
 
 Route::get('/admin/kiosk/{storeno}/event/{id}', 		'EventController@show')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog/{id}', 			array('before' => 'admin', 'uses' => 'BlogController@show'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog/{id}', 			'BlogController@show')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear/{id}', 			array('before' => 'admin', 'uses' => 'GearController@show'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league/{id}', 		'LeagueController@show')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location/{id}', 		'LocationController@show')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/sport/{id}', 		'SportController@show')->where('storeno', '[0-9]+');
 
 Route::get('/admin/kiosk/{storeno}/event/{id}/edit', 	'EventController@edit')->where('storeno', '[0-9]+');
-Route::get('/admin/kiosk/{storeno}/blog/{id}/edit', 	array('before' => 'admin', 'uses' => 'BlogController@edit'))->where('storeno', '[0-9]+');
+Route::get('/admin/kiosk/{storeno}/blog/{id}/edit', 	'BlogController@edit')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/gear/{id}/edit', 	array('before' => 'admin', 'uses' => 'GearController@edit'))->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/league/{id}/edit', 	'LeagueController@edit')->where('storeno', '[0-9]+');
 Route::get('/admin/kiosk/{storeno}/location/{id}/edit', 'LocationController@edit')->where('storeno', '[0-9]+');
@@ -132,15 +161,6 @@ Route::delete('/admin/kiosk/{storeno}/location/{id}',  	array( 'as'=>'location.d
 Route::delete('/admin/kiosk/{storeno}/sport/{id}',  	array( 'as'=>'sport.delete' , 'uses'=> 'SportController@destroy'));
 
 /*API ROUTES*/
-Route::get('/api', 'ApiController@getIndex');
-Route::get('/api/home', 'HomeController@getFeaturedData');
-Route::get('/api/calendar', 'CalendarController@getCalData');
-Route::get('/api/calendar-raw', 'CalendarController@getCalRaw');
-Route::get('/api/staff', 'StaffController@getStaffData');
-Route::get('/api/photos', 'PhotoController@getPhotoData');
-Route::get('/api/flyer', 'FlyerController@getFlyerData');
-
-
 
 Route::get('{storeno?}/api', 'ApiController@getIndex');
 Route::get('{storeno?}/api/home', 			array('uses' => 'HomeController@getFeaturedData'))->where('storeno', '[0-9]+');
@@ -148,6 +168,14 @@ Route::get('{storeno?}/api/calendar', 		array('uses' => 'CalendarController@getA
 Route::get('{storeno?}/api/calendar-raw',	array('uses' => 'CalendarController@getCalRaw'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/api/staff',  		array('uses' => 'StaffController@getStaffData'))->where('storeno', '[0-9]+');
 Route::get('{storeno?}/api/photos', 		array('uses' => 'PhotoController@getPhotoData'))->where('storeno', '[0-9]+');
+
+Route::get('{storeno?}/api/sports', 		array('uses' => 'KioskController@getActiveSports'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/blogs/{sport?}', array('uses' => 'BlogController@getBlogs'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/events/{sport?}',array('uses' => 'EventController@getEvents'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/gears/{sport?}', array('uses' => 'GearController@getGears'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/leagues/{sport?}',array('uses' => 'LeagueController@getLeagues'))->where('storeno', '[0-9]+');
+Route::get('{storeno?}/api/locations/{sport?}', array('uses' => 'LocationController@getLocations'))->where('storeno', '[0-9]+');
+
 
 
 // user/authentication routes
@@ -166,7 +194,5 @@ Route::post('users/reset_password', 'UsersController@doResetPassword');
 //Route::get('users/logout', 'UsersController@logout');
 Route::get('/logout', 'UsersController@logout');
 
-// Dashboard route 
+// Dashboard route
 Route::get('admin/dashboard', function(){ return View::make('admin.dashboard'); });
-
-

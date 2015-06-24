@@ -2,6 +2,12 @@
 
 class KioskController extends \BaseController {
 
+	public function __construct()
+	{
+
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /kiosk
@@ -10,22 +16,7 @@ class KioskController extends \BaseController {
 	 */
 	public function index()
 	{
-		$store_id = Store::where('store_number', Auth::user()->store_id )->first()->id;
-		if(Auth::user()->role == 1)
-		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else{
-			$menuItems= array("event", "league", "location");
-		}
-		
-		$menuPanel= "event";
-		$events = CalendarEvent::where('store_id', $store_id)->get();
-		//dd($events);
-		return View::make('kiosk/admin/dashboard/dashboard')->withTitle("Dashboard")
-													  		->withItems($menuItems)
-													  		->withPanel($menuPanel)
-													  		->withPanelData($events);
+
 	}
 
 	/**
@@ -47,7 +38,7 @@ class KioskController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+
 	}
 
 	/**
@@ -57,9 +48,14 @@ class KioskController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($sn)
 	{
-		
+		$storedetails = Store::getStoreDetails($sn);
+		$activeSports = Sport::getActiveSports();
+		$storeid = $storedetails[0]->id;
+		return View::make('activity')
+			->with('activesports', $activeSports)
+			->with('storedetails', $storedetails);
 	}
 
 	/**
@@ -98,38 +94,115 @@ class KioskController extends \BaseController {
 		//
 	}
 
-	public function getSports()
+	public function getIndex($storeNumber, $ls = NULL)
 	{
-		$currentMonth = date('m');
-		$sports = Sport::all();
-		$filteredSports =  Array();
+		$storedetails = Store::getStoreDetails($storeNumber);
 
+		$filteredSports = Sport::getActiveSportsByStore($storeNumber);
 
-
-		foreach ($sports as $sport) {
-			if($sport->season_start <= $currentMonth  || $sport->season_end >= $currentMonth)
-			{
-				array_push($filteredSports, $sport);
-			}
+		if($ls){
+			return View::make('landscape/activity')
+				->with('storedetails', $storedetails)
+				->withActivesports($filteredSports);
+		} else {
+			return View::make('activity')
+				->with('storedetails', $storedetails)
+				->withActivesports($filteredSports);
 		}
+
+	}
+
+
+
+	public function viewSport($storeNumber, $sport_id, $ls = NULL)
+	{
+
+		$storedetails = Store::getStoreDetails($storeNumber);
+		$storeid = $storedetails[0]->id;
+
+		$selectedSport = Sport::find($sport_id);
+
+
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
+
+
+		$allBlogs = Blog::where('sport_id', $sport_id)->get();
+		$blogs = array();
+		foreach($allBlogs as $blog)
+		{
+			$stores = preg_split('/;/', $blog->applicable_to_stores);
+
+			if( ($blog->applicable_to_stores == "all") || ( in_array($store_id,	$stores)))
+			{
+				array_push($blogs, $blog);
+			}
+
+		}
+
+		$events = CalendarEvent::where('sport_id', $sport_id)
+							   ->where('store_id', $store_id)
+							   ->where('event_end', '>=', date('Y-m-d H:m:s '))
+							   ->get();
+
+
+		$gears = Gear::where('sport_id', $sport_id)->get();
+
+
+		$sportPieces= DB::table('kiosk_sport_detail_mappings')->where('sport_id', $sport_id)->get();
+		$pieceNames = array();
+
+		foreach($sportPieces as $piece)
+		{
+			array_push($pieceNames , SportDetail::where('id', $piece->detail_id)->first()->detail_name );
+		}
+
+		$leagues = array();
+		$locations = array();
+		if(in_array("League", $pieceNames))
+		{
+			$leagues = League::where('store_id', $store_id)->where('sport_id', $sport_id)->get();
+		}
+		elseif(in_array("Location", $pieceNames))
+		{
+			$locations = Location::where('store_id', $store_id)->where('sport_id', $sport_id)->get();
+		}
+
+
+		if($ls){
+			return View::make('landscape/activity-detail')
+				->with('storedetails', $storedetails)
+				->with('selectedSport', $selectedSport)
+				->with('blogs', $blogs)
+				->with('events', $events)
+				->with('gears', $gears)
+				->with('locations', $locations)
+				->with('leagues', $leagues);
+		} else {
+			return View::make('activity-detail')
+				->with('storedetails', $storedetails)
+				->with('selectedSport', $selectedSport)
+				->with('blogs', $blogs)
+				->with('events', $events)
+				->with('gears', $gears)
+				->with('locations', $locations)
+				->with('leagues', $leagues);
+		}
+
+	}
+
+	public function viewSportLandscape($sn, $sport){
+
+		return $this->viewSport($sn, $sport, true);
+
+	}
+
+
+	public function getActiveSports($sn){
+		$storedetails = Store::getStoreDetails($sn);
+
+		$filteredSports = Sport::getActiveSportsByStore($sn);
 
 		return $filteredSports;
-		return View::make('kiosk/sports')->withTitle("Activity Kiosk")->withSports($filteredSports);
-	
-	}
-	public function setKiosk($sport_id)
-	{
-		
-		$sportPieces= DB::table('sport_detail_mappings')->where('sport_id', $sport_id)->get();
-		$sportDetails = Array();
-		foreach($sportPieces as $piece){
-			$pieceName =  SportDetail::where('detail_id', $piece->detail_id)->first()->detail_name;
-			$pieceDetails = $pieceName::where('sport_id', $sport_id)->get();
-			$pieceDetailsArray = [$pieceName => $pieceDetails];
-			array_push($sportDetails, $pieceDetailsArray);
-		}
-		return $sportDetails;
-
 	}
 
 }

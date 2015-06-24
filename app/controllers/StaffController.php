@@ -10,13 +10,24 @@ class StaffController extends BaseController{
         $staff = StaffBio::getStoreStaff($storeid);
 
         if($ls){
+            $staff_chunks = array_chunk($staff, 15, true);
             return View::make('landscape/staff')
                 ->with('storedetails', $storedetails)
-                ->with('staff', $staff);
-        } else {
+                ->with('staff', $staff)
+                ->with('staff_chunks', $staff_chunks)
+                ->with('chunkCounter', 0)
+                ->with('chunkCounterMax', count($staff_chunks))
+                ->with('chunkSize', 15);
+        } 
+        else {
+            $staff_chunks = array_chunk($staff, 21, true);
             return View::make('staff')
                 ->with('storedetails', $storedetails)
-                ->with('staff', $staff);
+                ->with('staff', $staff)
+                ->with('staff_chunks', $staff_chunks)
+                ->with('chunkCounter', 0)
+                ->with('chunkCounterMax', count($staff_chunks))
+                ->with('chunkSize', 21);
         }
     }
 

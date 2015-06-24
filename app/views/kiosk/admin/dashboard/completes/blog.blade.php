@@ -38,7 +38,7 @@
           
           <label for="author">Author: </label>
           <span name = "author">
-          {{$data}}
+  
           {{$data->author_id}}
           </span>
           <br>
@@ -60,7 +60,7 @@
           @foreach( $image_files as $image_file) 
           <label for= "images">Images:</label>
           <span class="complete-images" name = "images">
-            <img src="/images/sport/icons/{{$image_file}}" >
+            <img src="/images/kiosk/content/{{$image_file}}" >
           </span>
 
           @endforeach
@@ -73,7 +73,7 @@
           @foreach( $video_files as $video_file) 
           <label for= "videos">videos:</label>
           <span class="complete-videos" name = "videos">
-            <img src="/videos/sport/icons/{{$video_file}}" >
+            <img src="/videos/kiosk/content/{{$video_file}}" >
           </span>
 
           @endforeach

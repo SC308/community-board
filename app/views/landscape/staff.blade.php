@@ -31,15 +31,8 @@
             	<div id="scoreboard" class="floatL"></div>
                 <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
-
-
-        	<div id="nav">
-        		<!-- <a href="/<?php echo $storedetails[0]->store_number ?>/ls/staff"/><img src="/images/nav-ls-staff.jpg" /></a> -->
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/flyer-int"/><img src="/images/nav-ls-flyer.jpg" /></a>
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/calendar"/><img src="/images/nav-ls-calendar.jpg" /></a>
-        		<a href="/<?php echo $storedetails[0]->store_number ?>/ls/photos"/><img src="/images/nav-ls-photos.jpg" /></a>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls/jumpstart"/><img src="/images/nav-ls-jumpstart.jpg" /></a>
-        	</div>
+            
+            @include('includes/nav-ls')
 
         	<div id="main">
 
@@ -76,8 +69,10 @@
 
                     <div id="bio-nav" style="overflow: scroll;">
 
-                        @foreach($staff as $s)
-                           <a href="javascript:void(0)" onclick="javascript:show_{{$s->id}}();"><img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
+                        @foreach($staff_chunks[$chunkCounter] as $s)
+                            <a href="javascript:void(0)" onclick="javascript:extract(this);" data-first= "{{$s->first}}" data-position = "{{$s->position}}" data-bio =  "{{$s->bio}}" data-sport = "{{$s->favorite_sport}}" data-photo = "{{$s->photo}}">
+                                <img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" />
+                            </a>
                         @endforeach
 
                     </div>
@@ -98,83 +93,117 @@
 		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
 
         <script>
+            function extract(a){
+              employee = {};
+              employee.first     = $(a).attr('data-first')
+              employee.position  = $(a).attr('data-position')
+              employee.bio       = $(a).attr('data-bio')
+              employee.favorite_sport    = $(a).attr('data-sport')
+              employee.photo     = $(a).attr('data-photo')
 
-		$('a').click(function (e) {
-            if ($(':animated').length) {
-                return false;
-/*                 e.preventDefault(); */
+              show(employee)
             }
-        });
+       
+            function show( random ){
+                resetTimer();
+                
+                $("#bio").css("opacity", "0");
+                $("#current-staff-bio").css("opacity", "0");
 
-        $( "#bio-nav" ).on( "swipeleft", swipeHandler );
-        $( "#bio-nav" ).on( "swiperight", swipeHandler );
+                    $(".name").replaceWith('<h1 class="name">'+ random.first +'</h1>');
+                    $(".dept").replaceWith('<h2 class="dept">'+ random.position +'</h2>');
+                    $(".bio-text").replaceWith('<p class="bio-text">'+ random.bio +'</p>');
+                    $(".favsport").replaceWith('<span class="favsport">'+ random.favorite_sport +'</span>');
+                    var url = '/timthumb.php?src=/images/staff/'+ random.photo + '&w=1180&h=847'
+                    $("#current-staff-bio").css("background", "transparent url(" + url + ") bottom center no-repeat");
 
-        function swipeHandler( event ){
-            $("#arrows").fadeOut("fast");
-        }
-				<?php 
-					$i=1; $lowest = 0;
-					$staffids = array();
-				?>
-            @foreach($staff as $s)
+                $( "#bio" ).animate({
+                    opacity: 1.0,
+                    }, 1000, function() {
+                });
 
-							<?php 
-								if($i == 1){  $lowest = $s->id; }
-								$staffids[] = $s->id;
-							?>
+                $( "#current-staff-bio" ).animate({
+                    opacity: 1.0
+                    }, 1000, function() {
+                });
 
-                function show_{{$s->id}}(){
+            }
+            $(document).ready(function(){
+                    
+                    var staff_data =  {{ json_encode($staff) }}
+                    var staff_chunks =  {{ json_encode($staff_chunks) }}
+                    var counter = {{$chunkCounter}}
+                    var totalChunks = {{$chunkCounterMax}}
+                    var lastScroll = $("#bio-nav").scrollTop();
+                    var columnCounter = 0;
 
-                    // $("#bio").css("left", "-300px");
-                    $("#bio").css("opacity", "0");
-                    $("#current-staff-bio").css("opacity", "0");
+                    document.oncontextmenu = function () { return false; };
 
-                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}}</h1>');
-                            $(".dept").replaceWith('<h2 class="dept"><!--<span class="whitebox"></span>-->{{$s->position}}</h2>');
-                            $(".bio-text").replaceWith("<p class='bio-text'>{{{ preg_replace( "/\r|\n/", "", $s->bio) }}}</p>");
-							$(".favsport").replaceWith("<span class='favsport'>{{$s->favorite_sport}}</span>");
-                            $("#current-staff-bio").css("background", "transparent url('/timthumb.php?src=/images/staff/{{ $s->photo }}&w=1180&h=847') top left no-repeat");
+                    var random = staff_data[Math.floor(Math.random()*staff_data.length)];
+                    show(random);
 
-                    $( "#bio" ).animate({
-                        opacity: 1.0,
-                        // left: "+=300"
-                        }, 1000, function() {
+                    $('a').click(function (e) {
+                        if ($(':animated').length) {
+                            return false;
+                        }
                     });
 
-                  $( "#current-staff-bio" ).animate({
-                        opacity: 1.0
-                        }, 1000, function() {
-                    });
+                    $( "#bio-nav" ).on( "swipeleft", swipeHandler );
+                    $( "#bio-nav" ).on( "swiperight", swipeHandler );
 
-                  //resetTimer();
-                }
-                <?php $i++;?>
-            @endforeach
-        $( document ).ready(function() {
+                    function swipeHandler( event ){
+                        $("#arrows").fadeOut("fast");
+                    }
 
-        	document.oncontextmenu = function () { return false; };
 
-			$("#scoreboard").load("/scoreboard.html");
+                     $("#scoreboard").load("/scoreboard.html");
 
-		<?php
-			$k = array_rand($staffids);
-			
-			echo "// random key:" . $k . "\n\n";
-			
-			$value = $staffids[$k];
-			echo "// random value:". $value . "\n\n";
 
-			
-			echo "// ---------------------\n\n";
-			echo "/*";
-			print_r($staffids);
-			echo "*/";
+                     $("#bio-nav").scroll(bindScroll);
+
+                     var loadMore = function()
+                     {
+
+                       if(counter <= {{$chunkCounterMax}}) {
+                            counter++;
+                        }
+                        
+                        var staff_chunk = staff_chunks[counter];
+                        for(var key in staff_chunk){
+                            if(staff_chunk.hasOwnProperty(key)){
+                                console.log(staff_chunk[key])
+                                $("#bio-nav").append(
+                                    '<a href="javascript:void(0)" onclick="javascript:extract(this);"'+
+                                        'data-first= "'+ staff_chunk[key].first +'"'+
+                                        'data-position = "'+ staff_chunk[key].position +'"'+
+                                        'data-bio =  "'+ staff_chunk[key].bio +'"'+
+                                        'data-sport = "'+ staff_chunk[key].favorite_sport +'"'+
+                                        'data-photo = "'+ staff_chunk[key].photo +'">'+
+                                    '<img src="/timthumb.php?src=/images/staff/'+ staff_chunk[key].photo +'&w=124&h=158&a=br" />'+
+                                    '</a> '
+                                    )
+
+                            }
+                        }
+                        
+                       
+                       $(window).bind('scroll', bindScroll);
+                     }
+                    
+                    function bindScroll(){
+
+                       var newScroll = $("#bio-nav").scrollTop();
+                       if( newScroll - lastScroll >3) 
+                       {
+                           lastScroll += 550;
+                           $(window).unbind('scroll');
+                           loadMore();
+                       }
+
+                    }
+
+            });
 		
-		?>  			
-
-			show_{{$value}}();
-
-        });
         </script>
     </body>
 

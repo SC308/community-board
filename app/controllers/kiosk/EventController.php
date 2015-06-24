@@ -2,6 +2,37 @@
 
 class EventController extends \BaseController {
 
+	private $menuItems = [];
+	private $panel_name;
+	private $panel_title;
+	private $store_id; 
+
+	public function __construct()
+	{
+		if(Auth::user()){
+
+			if(Auth::user()->role == 1)
+			{
+				$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+			}
+			else
+			{
+				$this->menuItems= array("blog", "event", "league", "location" , "sport");
+			}
+
+			$this->store_id		=  Store::where('store_number' , Auth::user()->store_id)->first()->id;
+
+		}
+		
+
+		$this ->panel_name	= "event";
+
+		$this->panel_title  =  "Dashboard";
+
+
+	}
+
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,22 +40,57 @@ class EventController extends \BaseController {
 	 */
 	public function index()
 	{
+		$filter_sport_parameter = Input::get('sport');
+
+		$filter_store_parameter = Input::get('store');
 		
-		
+		$sort_parameter = Input::get('sort');
+
 		if(Auth::user()->role == 1)
 		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+			$events = CalendarEvent::all();
 		}
-		else{
-			$menuItems= array("event", "league", "location");
+		else
+		{
+			$events = CalendarEvent::where('store_id', $this->store_id)->get();	
 		}
-		$menuPanel=  "event";
-		$store_id = Store::where('store_number' , Auth::user()->store_id)->first()->id;
-		$events = CalendarEvent::where('store_id', $store_id)->get();
-		return View::make("kiosk/admin/dashboard/dashboard")->withTitle("Dashboard")
-												 ->withItems($menuItems)
-												 ->withPanel($menuPanel)
-												 ->withPanelData($events);
+		
+
+		if(isset( $filter_sport_parameter ))
+		{
+			$events = Content::filter($events, $filter_sport_parameter, "sport_id");
+
+		}
+		if(isset( $filter_store_parameter ))
+		{
+			$events = Content::filter($events, $filter_store_parameter, "store_id");
+		}
+
+		if(isset($sort_parameter))
+		{
+			$events = Content::sort($events, $sort_parameter);	
+		}
+
+		$filterOptions[""] = "Filter By Sport";
+		
+		$filterOptions = $filterOptions + Sport::getAllSportName();
+
+		$sortOptions = CalendarEvent::getSortOptions();
+
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+		$ifUserIsNT = Auth::user()->role; 
+		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
+												 			->withItems($this->menuItems)
+												 			->withPanel($this->panel_name)
+												 			->withPanelData($events)
+												 			->withSports($filterOptions)
+												 			->withStores($storeOptions)
+												 			->withSort($sortOptions)
+												 			->withUserType($ifUserIsNT);
 	}
 
 
@@ -50,7 +116,10 @@ class EventController extends \BaseController {
 					$stores[$store->id] =  $store->store_name;
 				}
 
-		return View::make('kiosk/admin/forms/add/event')->withSports($sports)->withStores($stores);
+		$currentStore = Store::where('store_number', Auth::user()->store_id)->first()->id;
+		return View::make('kiosk/admin/forms/add/event')->withSports($sports)
+														->withStores($stores)
+														->withStore($currentStore);
 	}
 
 
@@ -64,33 +133,28 @@ class EventController extends \BaseController {
 	 */
 	public function store()
 	{
-		 $image_string = "";
-		 $store_string = "";
-		 //return Input::all();
+		
+		$validator = Validator::make(Input::all(), CalendarEvent::$rules);
 
-		 $image_files = Input::file('Image');
-		 if($image_files[0] != null){
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
 
-		 	foreach ($image_files as $image_file) {
-			 	 $image_string .= $image_file->getClientOriginalName().";";
-			 	 $destinationPath = public_path().'/images/content/';
-				 $filename = $image_file->getClientOriginalName();
-				 $uploadSuccess = $image_file->move($destinationPath, $filename);
-			 }
-		 }
+        	return Redirect::to('admin/kiosk/'.Auth::user()->store_id.'/event/create')
+            ->withErrors($validator);
+		}
 
-
-		 $store = Store::where("store_name",Input::get("Store"))->first()->id;
-		 
+		
+		 $store = Store::where("store_number",Auth::user()->store_id)->first()->id;
 		 $event = CalendarEvent::create(
 				 	[
 
-				 		'title'			=> Input::get('Title'),
-				 		'description'	=> Input::get('Content'),
-				 		'event_start'	=> Input::get('Event_start'),
-				 		'event_end'		=> Input::get('Event_end'),
+				 		'title'			=> Input::get('title'),
+				 		'description'	=> Input::get('description'),
+				 		'event_start'	=> Input::get('event_start'),
+				 		'event_end'		=> Input::get('event_end'),
 				 		'store_id'		=> $store,
-				 		'sport_id'		=> Input::get('Sport_name')
+				 		'sport_id'		=> Input::get('sport_id')
 
 				 	]
 
@@ -113,18 +177,18 @@ class EventController extends \BaseController {
 	 */
 	public function show($storeNumber,$id)
 	{
-		$event_id = $id;
-		$menuItems= array("blog", "event", "gear", "league", "location", "sport", "store", "map");
-		$menuPanel=  "event";
-		$event = CalendarEvent::whereid($id)->first();
+		$event = CalendarEvent::find($id);
+		
 		$sport = Sport::where("id", $event->sport_id)->first()->name;
+		
 		$store = Store::where("id", $event->store_id)->first()->store_name;
-		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel("event")
-													  	  ->withPanelData($event)
-												 	  	  ->withTitle("Dashboard")
-													  	  ->withItems($menuItems)
-													  	  ->withSport($sport)
-													  	  ->withStore($store);
+		
+		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel($this->panel_name)
+													  	  		->withPanelData($event)
+												 	  	  		->withTitle($this->panel_title)
+													  	  		->withItems($this->menuItems)
+													  	  		->withSport($sport)
+													  	  		->withStore($store);
 	}
 
 
@@ -136,6 +200,8 @@ class EventController extends \BaseController {
 	 */
 	public function edit($storeNumber,$id)
 	{
+		
+
 		$sports= array();
 		$allSports = Sport::all();
 		foreach ($allSports as $sport) {
@@ -149,11 +215,11 @@ class EventController extends \BaseController {
 				}
 		$event= CalendarEvent::whereid($id)->first();
 		$selected_sport = [$event->sport_id];
-		$selected_store = [$event->store_id];
+		$store = Store::where('store_number', $storeNumber)->first()->id;
 		return View::make('kiosk/admin/forms/edit/event')->withevent($event)
 												   ->withsports($sports)
 												   ->withstores($stores)
-												   ->withSelectedStore($selected_store)
+												   ->withStore($store)
 												   ->withSelectedSport($selected_sport);
 	}
 
@@ -167,18 +233,29 @@ class EventController extends \BaseController {
 	public function update($storeNumber,$id)
 	{
 
+		$validator = Validator::make(Input::all(), CalendarEvent::$rules);
+
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'.Auth::user()->store_id.'/event/'.$id.'/edit')
+            ->withErrors($validator)
+            ->withStore($id);
+		}
+
 		$store = Store::where('store_number', $storeNumber )->first()->id;
-			
+		
 		$event = array();
-	  	$event['title'] 	    = Input::get('Title');
-	  	$event['description']	= Input::get('Content');
-  		$event['event_start']	= Input::get('Event_start');
-	  	$event['event_end']		= Input::get('Event_end');
-	  	$event['sport_id'] 		= Input::get('Sport_name');
+	  	$event['title'] 	    = Input::get('title');
+	  	$event['description']	= Input::get('description');
+  		$event['event_start']	= Input::get('event_start');
+	  	$event['event_end']		= Input::get('event_end');
+	  	$event['sport_id'] 		= Input::get('sport_id');
 		$event['store_id']		= $store;
 	  	
 	  	CalendarEvent::whereid($id)->update($event);
-	  	return Redirect::to('/admin/kiosk/'.$storeNumber.'/event/'.$id);
+	  	return Redirect::to('/admin/kiosk/'.$storeNumber.'/event/'.$id)->withStore($id);;
 	}
 
 
@@ -194,9 +271,18 @@ class EventController extends \BaseController {
 
 	}
 
-	public function getEvents()
+	public function getEvents($storeNumber, $sport= null)
 	{
-		return Response::json(CalendarEvent::all());
+		$store_id = Store::where('store_number', $storeNumber)->first()->id;
+		$events = Content::filter(CalendarEvent::all(), $store_id, "store_id" );
+		
+		if($sport != NULL){
+			
+			$sport_id = Sport::where('name', $sport)->first()->id;
+			$events = Content::filter($events, $sport_id , "sport_id");
+
+		}
+		return $events;
 	}
 
 

@@ -52,9 +52,11 @@
                     </div>
 <!--                     <div id="arrows"></div> -->
                     <div id="bio-nav" style="overflow: scroll;">
-
-                        @foreach($staff as $s)
-                           <a href="javascript:void(0)" onclick="javascript:show_{{$s->id}}();"><img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" /></a>
+                        
+                        @foreach($staff_chunks[$chunkCounter] as $s)
+                            <a href="javascript:void(0)" onclick="javascript:extract(this);" data-first= "{{$s->first}}" data-position = "{{$s->position}}" data-bio =  "{{$s->bio}}" data-sport = "{{$s->favorite_sport}}" data-photo = "{{$s->photo}}">
+                                <img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" />
+                            </a>
                         @endforeach
 
                     </div>
@@ -67,52 +69,7 @@
             </div>
 
 
-<!--
-            <div id="home-callout" class="fullwidth">
-                <img src="images/communityboard-center.jpg" />
-            </div>
--->
-
-
-            <div id="nav">
-                <div class="nav-callout">
-                    <img src="/images/touch-an-area.jpg" />
-                </div>
-
-                <div class="nav-row">
-                    <a href="/<?=$storedetails[0]->store_number?>/calendar" class="nav-item green nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-calendar nav-icon"></i>
-                            <span class="nav-text">Community Calendar</span>
-                        </div>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/photos" class="nav-item yellow nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-camera-retro nav-icon"></i>
-                            <span class="nav-text">Community Photos</span>
-                        </div>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/staff" class="nav-item blue nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-users nav-icon"></i>
-                            <span class="nav-text">Employee<br />Bios</span>
-                        </div>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/jumpstart" class="nav-item red nav-noise nav-shadow">
-                        <img src="/images/jumpstart-nav.png" style="position: relative; top: 20px; left: 30px;"/>
-                    </a>
-
-                    <a href="/<?=$storedetails[0]->store_number?>/activity" class="nav-item green nav-noise nav-shadow" >
-                        <div class="nav-content">
-                            <i class="fa fa-bicycle nav-icon"></i>
-                            <span class="nav-text">Activity Advice</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        @include('includes/nav')
 
         </div>
 
@@ -123,101 +80,119 @@
 
         <script type="text/javascript">
 
+        
+        
 
-        $('a').click(function (e) {
-            if ($(':animated').length) {
-                return false;
-/*                 e.preventDefault(); */
-            }
-        });
+        function extract(a){
+          employee = {};
+          employee.first     = $(a).attr('data-first')
+          employee.position  = $(a).attr('data-position')
+          employee.bio       = $(a).attr('data-bio')
+          employee.favorite_sport    = $(a).attr('data-sport')
+          employee.photo     = $(a).attr('data-photo')
 
-        $( "#bio-nav" ).on( "swipeleft", swipeHandler );
-        $( "#bio-nav" ).on( "swiperight", swipeHandler );
-
-        function swipeHandler( event ){
-            $("#arrows").fadeOut("fast");
+          show(employee)
         }
-				<?php
-					$i=1; $lowest = 0;
-					$staffids = array();
-				?>
-            @foreach($staff as $s)
+       
+		function show( random ){
+            resetTimer();
+            
+            $("#bio").css("opacity", "0");
+            $("#current-staff-bio").css("opacity", "0");
 
-				<?php if($i == 1){  $lowest = $s->id; }
+                $(".name").replaceWith('<h1 class="name">'+ random.first +'</h1>');
+                $(".dept").replaceWith('<h2 class="dept">'+ random.position +'</h2>');
+                $(".bio-text").replaceWith('<p class="bio-text">'+ random.bio +'</p>');
+                $(".favsport").replaceWith('<span class="favsport">'+ random.favorite_sport +'</span>');
+                var url = '/timthumb.php?src=/images/staff/'+ random.photo + '&w=1080&h=947'
+                $("#current-staff-bio").css("background", "transparent url(" + url + ") bottom center no-repeat");
 
+            $( "#bio" ).animate({
+                opacity: 1.0,
+                }, 1000, function() {
+            });
 
-					$staffids[] = $s->id;
+            $( "#current-staff-bio" ).animate({
+                opacity: 1.0
+                }, 1000, function() {
+            });
 
-//					array_push($staffids, $s->id);
+        }
+        $(document).ready(function(){
+                
+                var staff_data =  {{ json_encode($staff) }}
+                var staff_chunks =  {{ json_encode($staff_chunks) }}
+                var counter = {{$chunkCounter}}
+                var totalChunks = {{$chunkCounterMax}}
+                var lastScroll = $("#bio-nav").scrollTop();
+                var columnCounter = 0;
+                
+                document.oncontextmenu = function () { return false; };
 
+                var random = staff_data[Math.floor(Math.random()*staff_data.length)];
+                show(random);
+                $('a').click(function (e) {
+                    if ($(':animated').length) {
+                        return false;
+                    }
+                });
 
+                $( "#bio-nav" ).on( "swipeleft", swipeHandler );
+                $( "#bio-nav" ).on( "swiperight", swipeHandler );
 
-
-
-				?>
-
-                function show_{{$s->id}}(){
-                    resetTimer();
-                    // $("#bio").css("left", "-300px");
-                    $("#bio").css("opacity", "0");
-                    $("#current-staff-bio").css("opacity", "0");
-
-                            $(".name").replaceWith('<h1 class="name"><!--<span class="whitebox"></span>-->{{$s->first}}</h1>');
-                            $(".dept").replaceWith('<h2 class="dept"><!--<span class="whitebox"></span>-->{{$s->position}}</h2>');
-                            $(".bio-text").replaceWith("<p class='bio-text'>{{{ preg_replace( "/\r|\n/", "", $s->bio) }}}</p>");
-							$(".favsport").replaceWith("<span class='favsport'>{{$s->favorite_sport}}</span>");
-                            $("#current-staff-bio").css("background", "transparent url('/timthumb.php?src=/images/staff/{{ $s->photo }}&w=1080&h=947') bottom center no-repeat");
-
-                    $( "#bio" ).animate({
-                        opacity: 1.0,
-                        // left: "+=300"
-                        }, 1000, function() {
-                    });
-
-                  $( "#current-staff-bio" ).animate({
-                        opacity: 1.0
-                        }, 1000, function() {
-                    });
-
-                  //resetTimer();
+                function swipeHandler( event ){
+                    $("#arrows").fadeOut("fast");
                 }
-                <?php $i++;?>
-            @endforeach
 
 
-        $( document ).ready(function() {
+                 $("#scoreboard").load("/scoreboard.html");
 
 
+                 $("#bio-nav").scroll(bindScroll);
 
+                 var loadMore = function()
+                 {
 
+                   if(counter <= {{$chunkCounterMax}}) {
+                        counter++;
+                    }
+                    
+                    var staff_chunk = staff_chunks[counter];
+                    for(var key in staff_chunk){
+                        if(staff_chunk.hasOwnProperty(key)){
+                            console.log(staff_chunk[key])
+                            $("#bio-nav").append(
+                                '<a href="javascript:void(0)" onclick="javascript:extract(this);"'+
+                                    ' data-first= "'+ staff_chunk[key].first +'"'+
+                                    ' data-position = "'+ staff_chunk[key].position +'"'+
+                                    ' data-bio =  "'+ staff_chunk[key].bio +'"'+
+                                    ' data-sport = "'+ staff_chunk[key].favorite_sport +'"'+
+                                    ' data-photo = "'+ staff_chunk[key].photo +'">'+
+                                '<img src="/timthumb.php?src=/images/staff/'+ staff_chunk[key].photo +'&w=124&h=158&a=br" />'+
+                                '</a> '
+                                )
 
-            // $( "#bio" ).animate({
-            //     opacity: 1.0,
-            //     left: "+=300"
-            //     }, 1000, function() {
-            //     // Animation complete.
-            // });
+                        }
+                    }
+                    
+                   
+                   $(window).bind('scroll', bindScroll);
+                 }
+                
+                function bindScroll(){
+                   var newScroll = $("#bio-nav").scrollTop();
+                   if( newScroll - lastScroll >3) 
+                   {
+                       lastScroll += 550;
+                       $(window).unbind('scroll');
+                       loadMore();
+                   }
 
-            $("#scoreboard").load("/scoreboard.html");
+                }
 
-		<?php
-			$k = array_rand($staffids);
-
-			echo "// random key:" . $k . "\n\n";
-
-			$value = $staffids[$k];
-			echo "// random value:". $value . "\n\n";
-
-
-			echo "// ---------------------\n\n";
-			echo "/*";
-			print_r($staffids);
-			echo "*/";
-
-		?>
-
-            show_{{$value}}();
         });
+
+		
 
         </script>
 

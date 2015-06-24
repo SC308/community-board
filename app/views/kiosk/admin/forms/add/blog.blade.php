@@ -9,6 +9,7 @@
         {{ HTMl::style('/css/kiosk/main.css')}}
         {{ HTML::style('css/kiosk/vendor/dropzone/basic.css')}}
         {{ HTML::style('css/kiosk/vendor/bootstrap-datetimepicker.min.css')}}
+        {{ HTML::style('css/kiosk/vendor/bootstrap-select.css')}}
 
     </head>
 
@@ -24,11 +25,14 @@
         <!-- end Top bar div-->
 
         <div class="addForm" id="addBlog">
+
+
             <?php $sport_options[""] = "Select a Sport" ?>
             @foreach($sports as $id=>$sport)
                 <?php $sport_options[$id] = $sport ?>
             @endforeach
 
+            
             <?php $store_options["all"] = "All Stores";?>
             @foreach($stores as $id=>$store)
                 <?php $store_options[$id] = $store ?>
@@ -38,19 +42,26 @@
             
             {{ Form::open(['action' => 'blog.store', 'files'=>true], [ 'class'=> 'form-horizontal dropzone']) }}
 
+                @if($errors->has())
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                @endif
+
+               
                  <div class="form-group">
                     
-                    {{ Form::label('Sport_id', 'What Sport do you want to write about? ') }}
-                    {{ Form::select('Sport_id',$sport_options, false,['class' => 'selectpicker']) }}
+                    {{ Form::label('sport_id', 'What Sport do you want to write about? ') }}
+                    {{ Form::select('sport_id',$sport_options, false,['class' => 'selectpicker']) }}
                     
 
                 </div>
                 
                 <div class="form-group ">
                     
-                    {{ Form::label('Starts_at', 'When should the blog go live?') }}
+                    {{ Form::label('starts_at', 'When should the blog go live?') }}
                      <div class="input-group date" id='datetimepicker1'>
-                        {{ Form::input('text', 'Starts_at', null, ['class' => 'form-control']) }}
+                        {{ Form::input('text', 'starts_at', null, ['class' => 'form-control']) }}
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div> 
@@ -60,10 +71,9 @@
 
                 <div class="form-group ">
                     
-                    {{ Form::label('Stores[]', 'Which stores should the blog be available in?  ') }}
-                    <!-- Use Details array -->
-
-                    <select class="selectpicker" multiple id="storeSelector" name="Stores[]">
+                    {{ Form::label('stores[]', 'Which stores should the blog be available in?  ') }}
+                    
+                    <select class="selectpicker" multiple = "multiple" id="storeSelector" name="stores[]"  title='Choose all applicable ...'  >
                     @foreach ($store_options as $id => $store)
                          
                           <option value="{{$id}}">{{$store}}</option>
@@ -71,35 +81,34 @@
   
                     @endforeach
                     </select>
-
-
+                    
                 </div>
 
                 
 
                 <div class="form-group">
                     
-                    {{ Form::label('Title', 'Title :') }}
-                    {{ Form::input('text', 'Title', null, ['class' => 'form-control']) }}
+                    {{ Form::label('title', 'Title :') }}
+                    {{ Form::input('text', 'title', null, ['class' => 'form-control']) }}
 
                 </div>
 
                 <div class="form-group">
-                    {{ Form::label('Content', 'Content :') }}
-                    {{ Form::textarea('Content', null, ['class' => 'form-control']) }}
+                    {{ Form::label('content', 'Content :') }}
+                    {{ Form::textarea('content', null, ['class' => 'form-control']) }}
                 </div>
                 <br>
 
 
                 <div class="form-group dropzone">
-                    {{ Form::label('Image[]', 'Image(s) :') }}
-                    {{ Form::file('Image[]', ['multiple' => 'multiple']) }}
+                    {{ Form::label('image[]', 'Image(s) :') }}
+                    {{ Form::file('image[]', ['multiple' => 'multiple']) }}
                 </div>
                 <br>
 
                 <div class="form-group dropzone">
-                    {{ Form::label('Video[]', 'Video(s) :') }}
-                    {{ Form::file('Video[]', ['multiple' => 'multiple']) }}
+                    {{ Form::label('video[]', 'Video(s) :') }}
+                    {{ Form::file('video[]', ['multiple' => 'multiple']) }}
                 </div>
                 <br>
                 
@@ -109,9 +118,6 @@
 
             {{ Form::close() }}
             
-
-
-
 
 
         </div> <!-- add Form for blog ends-->
@@ -125,14 +131,13 @@
         <script type="text/javascript" src="/js/kiosk/main.js"></script>
         <script type="text/javascript" src="/js/kiosk/vendor/dropzone.js"></script>
         <script type="text/javascript" src="/js/kiosk/vendor/bootstrap-select.js"></script>
+        <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
         <script type="text/javascript">
          $('#datetimepicker1').datetimepicker({
             format: "YYYY-MM-DD HH:mm:ss"
          });
-         $(".selectpicker").selectpicker({
-            size: 4
-         });
-         $(".check-mark").hide();
+         $(".selectpicker").selectpicker();
+         CKEDITOR.replace('content');
         </script>
 
     </body>

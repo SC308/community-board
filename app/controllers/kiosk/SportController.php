@@ -2,30 +2,75 @@
 
 class SportController extends \BaseController {
 
+	private $months = array();
+	private $menuItems = [];
+	private $panel_name;
+	private $panel_title; 
+
+	public function __construct()
+	{
+		if(Auth::user()->role == 1)
+		{
+			$this->menuItems= array("blog", "event", "gear", "league", "location", "sport");	
+		}
+		else
+		{
+			$this->menuItems= array("blog", "event", "league", "location", "sport");
+		}
+		
+		$this->months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+		$this ->panel_name	= "sport";
+
+		$this->panel_title  =  "Dashboard";
+
+
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	private $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-	
 
 	public function index()
 	{
 		
-		if(Auth::user()->role == 1)
-		{
-			$menuItems= array("blog", "event", "gear", "league", "location", "sport");	
-		}
-		else{
-			$menuItems= array("event", "league", "location");
-		}
-		$menuPanel =  "Sport";
+		$sort_parameter = Input::get('sort');
+		$filter_store_parameter = Input::get('store');
+		
 		$sports = Sport::all();
-		return View::make("kiosk/admin/dashboard/dashboard")->withTitle("Dashboard")
-												 ->withItems($menuItems)
-												 ->withPanel($menuPanel)
-												 ->withPanelData($sports);
+		
+		// if(Auth::user()->role == 0){
+		// 	$sports = Content::filter($sports, Store::where('store_number', Auth::user()->store_id)->first()->id, 'store_id');
+		// }
+
+		if (isset($filter_store_parameter)) {
+			$sports = Content::filter($sports, $filter_store_parameter, 'store_id');
+		}
+
+		if(isset($sort_parameter))
+		{
+			$sports = Content::sort($sports, $sort_parameter);		
+		}
+		
+		$sortOptions = Sport::getSortOptions();
+
+		$storeOptions[""] = "Filter By Store";
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$storeOptions[$store->id] =  $store->store_name;
+				}
+
+		$ifUserIsNT = Auth::user()->role;
+		
+		return View::make("kiosk/admin/dashboard/dashboard")->withTitle($this->panel_title)
+												 			->withItems($this->menuItems)
+												 			->withPanel($this->panel_name)
+												 			->withPanelData($sports)
+												 			->withSports([])
+												 			->withStores($storeOptions)
+												 			->withSort($sortOptions)
+												 			->withUserType($ifUserIsNT);
 	}
 
 
@@ -37,11 +82,26 @@ class SportController extends \BaseController {
 	public function create()
 	{
 		$sport_details = array();
+		
 		$raw_details = SportDetail::all();
-		foreach($raw_details as $rd){
-			$sport_details[$rd->detail_id] =  $rd->detail_name;
+		
+		foreach($raw_details as $rd)
+		{
+			$sport_details[$rd->id] =  $rd->detail_name;
 		}
-		return View::make('kiosk/admin/forms/add/sport')->withdetails($sport_details)->withmonths($this->months);
+
+		$stores = array();
+
+		$allStores = Store::all();
+
+		foreach ($allStores as $store) 
+		{
+			$stores[$store->id] = $store->store_name;
+		}
+		
+		return View::make('kiosk/admin/forms/add/sport')->withdetails($sport_details)
+														->withmonths($this->months)
+														->withStores($stores);
 	}
 
 
@@ -53,47 +113,51 @@ class SportController extends \BaseController {
 	public function store()
 	{
 
+		$validator = Validator::make(Input::all(), Sport::$rules);
 
-		$image_string = "";
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
 
-		$image_file = Input::file('Image');
-		if($image_file != null){
-
-		
-	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/sport/icons/';
-	 		 $filename = $image_file->getClientOriginalName();
-	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
-		
+        	return Redirect::to('admin/kiosk/'. Auth::user()->store_id . '/sport/create')
+            ->withErrors($validator);
 		}
+		
+		$store_string = "";
+		 $stores = Input::get("stores");
+		 if(in_array( "all", $stores)){
+		 	$store_string = "all";
+		 }
+		 else{
+		 	foreach ($stores as $key => $value) {
+		 		$store_string .= $value.";";
+		 	}
+		 }
 
-		Sport::create(
+
+
+		$sport = Sport::create(
 		[
+			'name'			=> 	Input::get('name'),
+			'season_start'	=>  Input::get('season_start'),
+			'season_end'	=>  Input::get('season_end'),
+			'store_id'		=>  $store_string
+		]);
 		
-		'name'	=> 	Input::get('SportName'),
-		'season_start'	=>  Input::get('SeasonStart'),
-		'season_end'	=>  Input::get('SeasonEnd'),
-		'image'	=>	$image_string
 		
-		]
-		);
-		
-
-		$sport = Sport::wherename(Input::get('SportName'))->first();
-		$sport_id = $sport["id"];
-		
-		$details = Input::get('Details');
-		foreach ($details as $detail){
+		$details = Input::get('details');
+		foreach ($details as $detail)
+		{
 			
 			DB::table('kiosk_sport_detail_mappings')->insert(
-				array('sport_id' => $sport_id , 'detail_id' => $detail)
+				array('sport_id' => $sport->id , 'detail_id' => $detail)
 
 			);
 		}
 		
 
 		
-		return Redirect::to('/admin/kiosk/'.Auth::user()->store_id.'/sport/'.$sport_id);
+		return Redirect::to('/admin/kiosk/'.Auth::user()->store_id.'/sport/'.$sport->id);
 
 
 	}
@@ -109,21 +173,38 @@ class SportController extends \BaseController {
 	{
 		$sport_id = $id;
 		
-		$menuPanel=  "sport";
-		$sport = Sport::whereid($id)->first();
-		$details= DB::table('kiosk_sport_detail_mappings')->where('sport_id' , '=', $id)->get();
+		$sport = Sport::find($id);
+
+		$details= DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->get();
 		
 		$detail_names = array();
+		
 		foreach ($details as $detail) {
-			array_push($detail_names, SportDetail::wheredetail_id( $detail->detail_id )->first()->detail_name);
+			array_push($detail_names, SportDetail::find( $detail->detail_id )->detail_name);
 
 		}
 		
-		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel("sport")
-													  ->withPanelData($sport)
-												 	  ->withTitle("Dashboard")
-													  ->withItems($this->menuItems)
-													  ->withDetails($detail_names);
+
+		if($sport->store_id == "all")
+		{
+			$all_stores = DB::table('stores')->lists('id');
+
+		}
+		else{
+			$all_stores = preg_split('/;/', $sport->store_id, -1,  PREG_SPLIT_NO_EMPTY);
+		}
+
+		$stores = array();
+		foreach($all_stores as $store){
+				array_push($stores, Store::whereid($store)->first()->store_name);
+		}
+
+		return View::make('kiosk/admin/dashboard/viewDashboard')->withPanel($this->panel_name)
+													  			->withPanelData($sport)
+												 	  			->withTitle($this->panel_title)
+													  			->withItems($this->menuItems)
+													  			->withDetails($detail_names)
+													  			->withStores($stores);
 
 	}
 
@@ -136,24 +217,40 @@ class SportController extends \BaseController {
 	 */
 	public function edit($storeNumber, $id)
 	{
-		$sport = Sport::whereid($id)->first();
+		$sport = Sport::find($id);
 		
 		$sport_details = array();
 		$raw_details = SportDetail::all();
 		foreach($raw_details as $rd){
-			$sport_details[$rd->detail_id] =  $rd->detail_name;
+			$sport_details[$rd->id] =  $rd->detail_name;
 		}
 
 		$season_start = [$sport->season_start];
 		$season_end =	[$sport->season_end];
+
+		$stores = array();
+		$allStores = Store::all();
+		foreach ($allStores as $store) {
+					$stores[$store->id] = $store->store_name;
+				}
+
+
+
+		if($sport->store_id == "all"){
+			$selected_stores = ["all"];	
+		}
+		else{
+			$selected_stores = preg_split('/;/', $sport->store_id, -1,  PREG_SPLIT_NO_EMPTY);
+		}
+
 		$selected_details = DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->lists('detail_id');
 		return View::make('kiosk/admin/forms/edit/sport')->withsport("sport")
 												   ->withDetails($sport_details)
 												   ->withmonths($this->months)
 												   ->withSport($sport)
-												   ->withSeasonStart($season_start)
-												   ->withSeasonEnd($season_end)
-												   ->withSelectedDetails($selected_details);
+												   ->withSelectedDetails($selected_details)
+												   ->withSelectedStore($selected_stores)
+												   ->withStores($stores);
 	}
 
 
@@ -166,41 +263,41 @@ class SportController extends \BaseController {
 	public function update($storeNumber, $id)
 	{
 		
-		$image_string = "";
-		
-		$image_file = Input::file('Image');
-		if($image_file != null){
+		$validator = Validator::make(Input::all(), Sport::$rules);
 
-		
-	 	 	 $image_string .= $image_file->getClientOriginalName().";";
-	 	 	 $destinationPath = public_path().'/images/sport/icons/';
-	 		 $filename = $image_file->getClientOriginalName();
-	 		 $uploadSuccess = $image_file->move($destinationPath, $filename);
-		
+		if($validator->fails())
+		{
+			 $messages = $validator->messages();
+
+        	return Redirect::to('admin/kiosk/'. Auth::user()->store_id . '/sport/'. $id . "/edit")
+            ->withErrors($validator);
 		}
 		
-		$removeImages  = preg_split('/;/', Input::get('removeImages'), -1,  PREG_SPLIT_NO_EMPTY);
-		$oldSport = Sport::whereid($id)->first();
+		$store_string ="";
+	  	$stores = Input::get("stores");
+		 if(in_array( "all", $stores)){
+		 	$store_string = "all";
+		 }
+		 else{
+		 	foreach ($stores as $key => $value) {
+		 		$store_string .= $value.";";
+		 	}
+		 }
+		
 		
 		$sport = array();
 		
-		$sport['name']			= 	Input::get('SportName');
-		$sport['season_start']	= 	Input::get('SeasonStart');
-		$sport['season_end']	= 	Input::get('SeasonEnd');
-		$sport['image']	=	$image_string;
-
-		foreach($removeImages as $removeImage){
-	  		$sport['image'] =  str_replace($removeImage.";", "", $oldSport->image);
-	  	}
-	  	
-	  	$sport['image'].= ";".$image_string;
+		$sport['name']			= 	Input::get('name');
+		$sport['season_start']	= 	Input::get('season_start');
+		$sport['season_end']	= 	Input::get('season_end');
+		$sport['store_id']		=   $store_string;
 		
 		Sport::whereid($id)->update($sport);
 
 
-		$details = Input::get('Details');
+		$details = Input::get('details');
 		// delete and insert used inplace of update since the simple update results in duplicate entries.
-		DB::table('kiosk_sport_detail_mappings')->where('sport_id', '=' , $id)->delete();
+		DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->delete();
 		foreach($details as $detail_id){
 			DB::table('kiosk_sport_detail_mappings')->insert(['sport_id' => $id, 'detail_id' => $detail_id]);
 		}
@@ -219,7 +316,15 @@ class SportController extends \BaseController {
 	 */
 	public function destroy($storeNumber, $id)
 	{
-		Sport::whereid($id)->delete();
+		$mappings = DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->get();
+		DB::table('kiosk_sport_detail_mappings')->where('sport_id', $id)->delete();
+		foreach($mappings as $mapping){
+			
+			$detail = SportDetail::find($mapping->detail_id)->detail_name;
+			$detail::where('sport_id', $id)->delete();
+		}
+		Sport::where('id', $id)->delete();
+		
 	}
 
 	public function getSports()

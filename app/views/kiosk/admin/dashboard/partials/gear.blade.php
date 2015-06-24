@@ -1,4 +1,4 @@
-<div id= "{{$d->id}}" class="partial-gear" data-sport ="{{$d->sport_id}}">
+<div id= "{{$d->id}}" class="partial-gear col-md-3" data-sport ="{{$d->sport_id}}">
         
         <div class="partial-heading">
           <span class="partial-title">
@@ -20,13 +20,13 @@
         @foreach( $image_files as $image_file) 
         
       	<div class="partial-images">
-          <img src="/images/sport/icons/{{$image_file}}" >
+          <img src="/images/kiosk/content/{{$image_file}}" >
         </div>
 
         @endforeach
         @endif
         <div class="partial-content">
-          {{$d->description}}
+          {{ $d->description }}
         </div>
         
       </div>
