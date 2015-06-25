@@ -52,7 +52,7 @@
                     </div>
 <!--                     <div id="arrows"></div> -->
                     <div id="bio-nav" style="overflow: scroll;">
-                        
+
                         @foreach($staff_chunks[$chunkCounter] as $s)
                             <a href="javascript:void(0)" onclick="javascript:extract(this);" data-first= "{{$s->first}}" data-position = "{{$s->position}}" data-bio =  "{{$s->bio}}" data-sport = "{{$s->favorite_sport}}" data-photo = "{{$s->photo}}">
                                 <img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" />
@@ -80,8 +80,8 @@
 
         <script type="text/javascript">
 
-        
-        
+
+
 
         function extract(a){
           employee = {};
@@ -93,10 +93,10 @@
 
           show(employee)
         }
-       
+
 		function show( random ){
             resetTimer();
-            
+
             $("#bio").css("opacity", "0");
             $("#current-staff-bio").css("opacity", "0");
 
@@ -105,7 +105,7 @@
                 $(".bio-text").replaceWith('<p class="bio-text">'+ random.bio +'</p>');
                 $(".favsport").replaceWith('<span class="favsport">'+ random.favorite_sport +'</span>');
                 var url = '/timthumb.php?src=/images/staff/'+ random.photo + '&w=1080&h=947'
-                $("#current-staff-bio").css("background", "transparent url(" + url + ") bottom center no-repeat");
+                $("#current-staff-bio").css("background", "transparent url(" + url + ") top center no-repeat");
 
             $( "#bio" ).animate({
                 opacity: 1.0,
@@ -119,14 +119,14 @@
 
         }
         $(document).ready(function(){
-                
+
                 var staff_data =  {{ json_encode($staff) }}
                 var staff_chunks =  {{ json_encode($staff_chunks) }}
                 var counter = {{$chunkCounter}}
                 var totalChunks = {{$chunkCounterMax}}
                 var lastScroll = $("#bio-nav").scrollTop();
                 var columnCounter = 0;
-                
+
                 document.oncontextmenu = function () { return false; };
 
                 var random = staff_data[Math.floor(Math.random()*staff_data.length)];
@@ -156,7 +156,7 @@
                    if(counter <= {{$chunkCounterMax}}) {
                         counter++;
                     }
-                    
+
                     var staff_chunk = staff_chunks[counter];
                     for(var key in staff_chunk){
                         if(staff_chunk.hasOwnProperty(key)){
@@ -174,14 +174,14 @@
 
                         }
                     }
-                    
-                   
+
+
                    $(window).bind('scroll', bindScroll);
                  }
-                
+
                 function bindScroll(){
                    var newScroll = $("#bio-nav").scrollTop();
-                   if( newScroll - lastScroll >3) 
+                   if( newScroll - lastScroll >3)
                    {
                        lastScroll += 550;
                        $(window).unbind('scroll');
@@ -192,7 +192,7 @@
 
         });
 
-		
+
 
         </script>
 
