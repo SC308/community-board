@@ -26,3 +26,5 @@ app/storage/sessions/**
 app/storage/views/**
 tests/_output/**
 .vagrant
+vendor
+vendor/**
