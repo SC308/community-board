@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name;?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,9 +29,9 @@
         <div id="stage">
         	<div id="heading">
             	<div id="scoreboard" class="floatL"></div>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
+                <a href="/<?php echo $storedetails[0]->store_number;?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
-            
+
             @include('includes/nav-ls')
 
         	<div id="main">
@@ -43,7 +43,7 @@
 
                         <div id="bio">
                         <div id="store-ribbon">
-                            <?=$storedetails[0]->store_name?>
+                            <?=$storedetails[0]->store_name;?>
                         </div>
                                 <span class="whiteboxtop"></span><h1 class="name"></h1>
                                 <span class="whitebox"></span><h2 class="dept"></h2>
@@ -90,7 +90,7 @@
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
-		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
 
         <script>
             function extract(a){
@@ -103,10 +103,10 @@
 
               show(employee)
             }
-       
+
             function show( random ){
                 resetTimer();
-                
+
                 $("#bio").css("opacity", "0");
                 $("#current-staff-bio").css("opacity", "0");
 
@@ -129,7 +129,7 @@
 
             }
             $(document).ready(function(){
-                    
+
                     var staff_data =  {{ json_encode($staff) }}
                     var staff_chunks =  {{ json_encode($staff_chunks) }}
                     var counter = {{$chunkCounter}}
@@ -167,7 +167,7 @@
                        if(counter <= {{$chunkCounterMax}}) {
                             counter++;
                         }
-                        
+
                         var staff_chunk = staff_chunks[counter];
                         for(var key in staff_chunk){
                             if(staff_chunk.hasOwnProperty(key)){
@@ -185,15 +185,15 @@
 
                             }
                         }
-                        
-                       
+
+
                        $(window).bind('scroll', bindScroll);
                      }
-                    
+
                     function bindScroll(){
 
                        var newScroll = $("#bio-nav").scrollTop();
-                       if( newScroll - lastScroll >3) 
+                       if( newScroll - lastScroll >3)
                        {
                            lastScroll += 550;
                            $(window).unbind('scroll');
@@ -203,7 +203,7 @@
                     }
 
             });
-		
+
         </script>
     </body>
 

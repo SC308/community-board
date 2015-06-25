@@ -2,6 +2,7 @@
 *.mov
 *.avi
 *.wmv
+*.sqlite
 .htaccess
 bfg.jar
 composer.phar

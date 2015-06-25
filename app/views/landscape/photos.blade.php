@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name;?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -34,7 +34,7 @@
         <div id="stage">
         	<div id="heading">
              	<div id="scoreboard" class="floatL"></div>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
+                <a href="/<?php echo $storedetails[0]->store_number;?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
             @include('includes/nav-ls')
@@ -43,7 +43,9 @@
 
             @foreach($photos[$chunkCounter] as $p)
 
-	            <a class="fancybox" data-lightbox = "{{ $p->path }}" href="/timthumb.php?src=/images/photos/{{ $p->path }}&h=800.jpg" title="<strong>{{ $p->title}}</strong><br />{{ $p->description}}<?php if($p->location !=""){ echo '<br /><small class=smaller>Location: '.$p->location . '</small>'; } ?><?php if($p->photographer_name !=""){ echo '&nbsp;&nbsp;&nbsp;<small class=smaller>Photographer: '.$p->photographer_name . '</small>'; } ?>"><img src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=300" /></a>
+	            <a class="fancybox" data-lightbox = "{{ $p->path }}" href="/timthumb.php?src=/images/photos/{{ $p->path }}&h=800.jpg" title="<strong>{{ $p->title}}</strong><br />{{ $p->description}}<?php if ($p->location != "") {echo '<br /><small class=smaller>Location: ' . $p->location . '</small>';}
+?><?php if ($p->photographer_name != "") {echo '&nbsp;&nbsp;&nbsp;<small class=smaller>Photographer: ' . $p->photographer_name . '</small>';}
+?>"><img src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=300" /></a>
 
             @endforeach
 
@@ -60,7 +62,7 @@
         <!-- // <script src="/js/fancybox/source/jquery.fancybox-ls.js"></script> -->
         <script type="text/javascript" src= "/js/lightbox/js/lightbox.js"></script>
 
-		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
         <script>
         $( document ).ready(function() {
 
@@ -68,15 +70,15 @@
             var totalChunks = {{$chunkCounterMax}}
             var photos = {{json_encode($photos)}};
             var lastScroll = $(".photos").scrollTop();
-            
-            var columnHeights = [   $(".photos").children().eq(0).height(), 
+
+            var columnHeights = [   $(".photos").children().eq(0).height(),
                                     $(".photos").children().eq(1).height(),
                                     $(".photos").children().eq(2).height(),
                                     $(".photos").children().eq(3).height(),
                                     $(".photos").children().eq(4).height()
-                                    
-                                ] 
-            
+
+                                ]
+
             var photo_urls = new Array();
             var preloadedImages = new Array();
             //preload images
@@ -103,11 +105,11 @@
             Array.min = function( array ){
                 return Math.min.apply( Math, array );
             };
- 
+
              var bindScroll= function(){
                var newScroll = $(".photos").scrollTop();
                console.log(newScroll - lastScroll)
-               if( newScroll - lastScroll > 40) 
+               if( newScroll - lastScroll > 40)
                {
                    lastScroll += 1000;
                    $(window).unbind('scroll');
@@ -122,7 +124,7 @@
                     var img = $('<img>');
                     $(img).hide
                     img.attr('src', "/timthumb.php?src=/images/photos/"+ photo.path +"&w=400")
-                    
+
                     var aTag = $('<a>');
                     // aTag.attr("class", "fancybox")
                     aTag.attr('href', "/timthumb.php?src=/images/photos/"+ photo.path +"&h=800");
@@ -136,26 +138,26 @@
                         title += "&nbsp;&nbsp;&nbsp;<small class=smaller>Photographer: " + photo.photographer_name +"</small>"
                     }
                     aTag.attr('data-title', title);
-                    
+
                     if($(img).prop('complete')){
                         img.appendTo(aTag);
-                    
+
                         var parentNode = $(".photos").children().eq(appendToColumn)
                         aTag.appendTo(parentNode)
-                        
+
                         console.log("image loaded")
-                    
+
                         $(img).fadeIn('fast')
                         return ;
-                        
-                       
+
+
                     }
                     else {
                         console.log("not loaded")
                         return ({"photo": photo, "column": appendToColumn})
                     }
-                    
-                
+
+
 
             }
 
@@ -167,39 +169,39 @@
                if(counter <= {{$chunkCounterMax}}) {
                     counter++;
                 }
-                
+
                 var photo_chunk = photos[counter];
                 for(var key in photo_chunk){
                     if(photo_chunk.hasOwnProperty(key)){
                         var photo = ( photo_chunk[key])
 
                         columnHeights = [
-    
-                                            $(".photos").children().eq(0).height(), 
+
+                                            $(".photos").children().eq(0).height(),
                                             $(".photos").children().eq(1).height(),
                                             $(".photos").children().eq(2).height(),
                                             $(".photos").children().eq(3).height(),
                                             $(".photos").children().eq(4).height()
-                                            
-    
-    
+
+
+
                                         ]   ;
-                        
-                        var appendToColumn = (columnHeights.indexOf( Array.min(columnHeights))); 
-                        
+
+                        var appendToColumn = (columnHeights.indexOf( Array.min(columnHeights)));
+
                         var returnValue = createPhotoContainer(photo, appendToColumn)
-                        
-                        
+
+
                         columnHeights = [
-    
-                                            $(".photos").children().eq(0).height(), 
+
+                                            $(".photos").children().eq(0).height(),
                                             $(".photos").children().eq(1).height(),
                                             $(".photos").children().eq(2).height(),
                                             $(".photos").children().eq(3).height(),
                                             $(".photos").children().eq(4).height()
-                                            
-    
-    
+
+
+
                                         ]   ;
                     }
 
@@ -207,8 +209,8 @@
 
 
                 }
-                
-               
+
+
                $(window).bind('scroll', bindScroll);
              }
 

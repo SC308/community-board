@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name;?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -31,7 +31,7 @@
         	<div id="heading">
 
 				<div id="scoreboard" class="floatL"></div>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
+                <a href="/<?php echo $storedetails[0]->store_number;?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
             @include('includes/nav-ls')
@@ -56,7 +56,7 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/calendar.full.js"></script>
-		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>/ls" id="sendstorenumber"></script>
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
 
         <script>
         $( document ).ready(function() {

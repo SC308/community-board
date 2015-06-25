@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * UsersController Class
  *
@@ -17,8 +15,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-       // return View::make(Config::get('confide::signup_form'));
-			return View::make('users.signup');
+        // return View::make(Config::get('confide::signup_form'));
+        return View::make('users.signup');
     }
 
     /**
@@ -39,8 +37,8 @@ class UsersController extends Controller
                     compact('user'),
                     function ($message) use ($user) {
                         $message
-                            ->to($user->email, $user->username)
-                            ->subject(Lang::get('confide::confide.email.account_confirmation.subject'));
+                        ->to($user->email, $user->username)
+                        ->subject(Lang::get('confide::confide.email.account_confirmation.subject'));
                     }
                 );
             }
@@ -66,9 +64,9 @@ class UsersController extends Controller
         if (Confide::user()) {
             return Redirect::to('/admin');
         } else {
-          //  return View::make(Config::get('confide::login_form'));
-			return View::make('/users/login');
-		//	return Redirect::to('/users/login');
+            //  return View::make(Config::get('confide::login_form'));
+            return View::make('/users/login');
+            //    return Redirect::to('/users/login');
         }
     }
 
@@ -79,7 +77,7 @@ class UsersController extends Controller
      */
     public function doLogin()
     {
-        $repo = App::make('UserRepository');
+        $repo  = App::make('UserRepository');
         $input = Input::all();
 
         if ($repo->login($input)) {
@@ -158,7 +156,7 @@ class UsersController extends Controller
     public function resetPassword($token)
     {
         return View::make(Config::get('confide::reset_password_form'))
-                ->with('token', $token);
+            ->with('token', $token);
     }
 
     /**
@@ -168,11 +166,11 @@ class UsersController extends Controller
      */
     public function doResetPassword()
     {
-        $repo = App::make('UserRepository');
+        $repo  = App::make('UserRepository');
         $input = array(
-            'token'                 =>Input::get('token'),
-            'password'              =>Input::get('password'),
-            'password_confirmation' =>Input::get('password_confirmation'),
+            'token'                 => Input::get('token'),
+            'password'              => Input::get('password'),
+            'password_confirmation' => Input::get('password_confirmation'),
         );
 
         // By passing an array with the token, password and confirmation
@@ -182,7 +180,7 @@ class UsersController extends Controller
                 ->with('notice', $notice_msg);
         } else {
             $error_msg = Lang::get('confide::confide.alerts.wrong_password_reset');
-            return Redirect::action('UsersController@resetPassword', array('token'=>$input['token']))
+            return Redirect::action('UsersController@resetPassword', array('token' => $input['token']))
                 ->withInput()
                 ->with('error', $error_msg);
         }

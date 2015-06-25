@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Class UserRepository
  *
@@ -32,7 +30,7 @@ class UserRepository
         $user->password_confirmation = array_get($input, 'password_confirmation');
 
         // Generate a random confirmation code
-        $user->confirmation_code     = md5(uniqid(mt_rand(), true));
+        $user->confirmation_code = md5(uniqid(mt_rand(), true));
 
         // Save if valid. Password field will be hashed before save
         $this->save($user);
@@ -49,7 +47,7 @@ class UserRepository
      */
     public function login($input)
     {
-        if (! isset($input['password'])) {
+        if (!isset($input['password'])) {
             $input['password'] = null;
         }
 
@@ -87,7 +85,7 @@ class UserRepository
                 $user->password
             );
 
-            return (! $user->confirmed && $correctPassword);
+            return (!$user->confirmed && $correctPassword);
         }
     }
 
@@ -106,7 +104,7 @@ class UserRepository
         if ($user) {
             $user->password              = $input['password'];
             $user->password_confirmation = $input['password_confirmation'];
-            $result = $this->save($user);
+            $result                      = $this->save($user);
         }
 
         // If result is positive, destroy token

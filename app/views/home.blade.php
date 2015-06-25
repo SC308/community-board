@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name;?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,7 +38,7 @@
 
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
-					<?php $i=1 ?>
+					<?php $i = 1;?>
 					@foreach($feature as $f)
 
 					@if($i==1)
@@ -59,7 +59,7 @@
 					</div>
 					@endif
 
-					<?php $i++; ?>
+					<?php $i++;?>
 
 					@endforeach
 
@@ -82,7 +82,7 @@
 
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner">
-				  	<?php $i=1 ?>
+				  	<?php $i = 1;?>
 				  	@foreach($toppicks as $tp)
 
 					  	@if($i==1)
@@ -97,7 +97,7 @@
 					    </div>
 					    @endif
 
-					<?php $i++; ?>
+					<?php $i++;?>
 
 				  	@endforeach
 
@@ -109,8 +109,8 @@
 
             	</div> <!-- //end toppicks -->
 
-            	<!-- <a href="/<?=$storedetails[0]->store_number?>/flyer-int"> -->
-            	<a href="/<?=$storedetails[0]->store_number?>/flyer">
+            	<!-- <a href="/<?=$storedetails[0]->store_number;?>/flyer-int"> -->
+            	<a href="/<?=$storedetails[0]->store_number;?>/flyer">
             	<div id="flyerpreview">
 
 		                <!-- <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=155&h=202.jpg" /> -->

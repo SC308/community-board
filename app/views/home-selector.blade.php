@@ -6,10 +6,10 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
-	
+
 	$("#storeselector").submit(function(e){
     	e.preventDefault();
-  	});	
+  	});
 
 	function gotostore(){
 
@@ -18,13 +18,13 @@
 		var storeno = document.getElementById("storeno").value;
 
 		//alert(storeno);
-	
+
 		if(document.getElementById("ls").checked == true){
-			window.location = "/" + storeno + "/ls";				
+			window.location = "/" + storeno + "/ls";
 		} else {
-			window.location = "/" + storeno;				
+			window.location = "/" + storeno;
 		}
-	
+
 
 	}
 

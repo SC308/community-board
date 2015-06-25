@@ -4,7 +4,7 @@
     <meta charset="utf-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?=$storedetails[0]->store_number?> Staff</title>
+        <title><?=$storedetails[0]->store_number;?> Staff</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -22,7 +22,7 @@
         <div id="stage">
             <div id="home-header" class="fullwidth">
                 <div id="scoreboard" class="floatL"></div>
-                <a href="/<?=$storedetails[0]->store_number?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
+                <a href="/<?=$storedetails[0]->store_number;?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
 
             <div id="staff">
@@ -31,7 +31,7 @@
 
                         <div id="bio">
                         <div id="store-ribbon">
-                            <?=$storedetails[0]->store_name?>
+                            <?=$storedetails[0]->store_name;?>
                         </div>
                                 <span class="whiteboxtop"></span><h1 class="name"></h1>
                                 <span class="whitebox"></span><h2 class="dept"></h2>
@@ -75,7 +75,7 @@
 
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
-		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number?>" id="sendstorenumber"></script>
+		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>" id="sendstorenumber"></script>
 <!--         <script src="js/jquery.mobile-1.3.2.min.js"></script> -->
 
         <script type="text/javascript">

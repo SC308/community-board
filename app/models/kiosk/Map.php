@@ -1,5 +1,6 @@
 <?php
 
-class Map extends \Eloquent {
-	protected $fillable = [];
+class Map extends \Eloquent
+{
+    protected $fillable = [];
 }

@@ -1,11 +1,12 @@
 <?php
-class ApiController extends BaseController{
+class ApiController extends BaseController
+{
 
-    public function getIndex($sn){
-	    
-	    
+    public function getIndex($sn)
+    {
+
         return View::make('apihome')
-	        ->with('storenumber', $sn);
+            ->with('storenumber', $sn);
     }
-    
+
 }

@@ -28,7 +28,7 @@
 
     <!-- Wrap all page content here -->
     <div id="wrap">
-	
+
   <!-- Fixed navbar -->
   <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -42,13 +42,13 @@
         <a class="navbar-brand" href="/admin">Community Board</a>
       </div>
       <div class="collapse navbar-collapse">
-       
+
       </div><!--/.nav-collapse -->
     </div>
   </div>
 
 <div class="container" style="padding-top: 30px;">
-	
+
 	<div class="page-header">
         <div class="row">
 			<div class="col-md-3"></div>
@@ -57,11 +57,11 @@
 					<div class="panel-heading"><h3 class="panel-title"><strong>Create a New Account</strong></h3></div>
 					<div class="panel-body">
             {{-- Renders the signup form of Confide --}}
-            {{ Confide::makeSignupForm()->render(); }} 
+            {{ Confide::makeSignupForm()->render(); }}
 		  			</div>
 				</div>
 	</div>
-	
+
 </div>
 
 </div>

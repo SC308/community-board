@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name ?></title>
+        <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name;?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -27,7 +27,7 @@
         <div id="stage">
         	<div id="heading">
              	<div id="scoreboard" class="floatL"></div>
-                <a href="/<?php echo $storedetails[0]->store_number ?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
+                <a href="/<?php echo $storedetails[0]->store_number;?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
             @include('includes/nav-ls')
@@ -41,7 +41,7 @@
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
-                        <?php $i=1 ?>
+                        <?php $i = 1;?>
                         @foreach($feature as $f)
 
                         @if($i==1)
@@ -62,7 +62,7 @@
                         </div>
                         @endif
 
-                        <?php $i++; ?>
+                        <?php $i++;?>
 
                         @endforeach
 
@@ -78,8 +78,8 @@
 
                 <div id="landscape-sidebar">
 
-<!--                     <a href="/<?=$storedetails[0]->store_number?>/ls/flyer-int"> -->
-	                <a href="/<?=$storedetails[0]->store_number?>/ls/flyer">
+<!--                     <a href="/<?=$storedetails[0]->store_number;?>/ls/flyer-int"> -->
+	                <a href="/<?=$storedetails[0]->store_number;?>/ls/flyer">
                     <div id="flyerpreview">
                         <img src="/images/flyer-callout-ls2.png" id="flyer-title">
 
@@ -96,7 +96,7 @@
 
                               <!-- Wrapper for slides -->
                               <div class="carousel-inner">
-                                <?php $i=1 ?>
+                                <?php $i = 1;?>
                                 @foreach($toppicks as $tp)
 
                                     @if($i==1)
@@ -111,7 +111,7 @@
                                     </div>
                                     @endif
 
-                                <?php $i++; ?>
+                                <?php $i++;?>
 
                                 @endforeach
 

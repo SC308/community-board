@@ -28,7 +28,7 @@
 
     <!-- Wrap all page content here -->
     <div id="wrap">
-	
+
   <!-- Fixed navbar -->
   <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -42,13 +42,13 @@
         <a class="navbar-brand" href="/admin">Community Board</a>
       </div>
       <div class="collapse navbar-collapse">
-       
+
       </div><!--/.nav-collapse -->
     </div>
   </div>
 
 <div class="container" style="padding-top: 30px;">
-	
+
 	<div class="page-header">
         <div class="row">
 			<div class="col-md-3"></div>
@@ -85,7 +85,7 @@
 				  </div>
 				</div>
 			</div>
-			
+
 		</div>
 
       </div>
