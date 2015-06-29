@@ -27,7 +27,8 @@
     <body>
         <div id="stage">
             <div id="home-header" class="fullwidth">
-                <div id="scoreboard" class="floatL"></div>
+            	<iframe style="border: 0;display: inline;" id="scoreboard" class="floatL" src="http://scoreapi.flagshipapps.fglsports.com/flip"></iframe>
+                <!-- <div id="scoreboard" class="floatL"></div> -->
                 <img src="/images/sc-logo.jpg" class="floatR" />
             </div>
 
@@ -133,7 +134,7 @@
 
         $( document ).ready(function() {
 
-        	document.oncontextmenu = function () { return false; };
+        	//document.oncontextmenu = function () { return false; };
 
 	        $('.toppicks').carousel({
 			  interval: 8000
@@ -172,7 +173,7 @@
 
           // $('#home-callout').animate({ boxShadow : "0 0 5px 3px rgba(100,100,200,0.4)" });
 
-             $("#scoreboard").load("/scoreboard.html");
+           //  $("#scoreboard").load("http://scoreapi.flagshipapps.fglsports.com/flip");
 
 
 

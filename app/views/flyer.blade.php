@@ -25,7 +25,7 @@
     <body>
         <div id="stage">
             <div id="home-header" class="fullwidth">
-                <div id="scoreboard" class="floatL"></div>
+                <iframe style="border: 0;display: inline;" id="scoreboard" class="floatL" src="http://scoreapi.flagshipapps.fglsports.com/flip"></iframe>
                 <a href="/<?=$storedetails[0]->store_number;?>/"><img src="/images/sc-logo.jpg" class="floatR" /></a>
             </div>
 
@@ -61,7 +61,7 @@
                 }
             });
 
-            $("#scoreboard").load("/scoreboard.html");
+            //$("#scoreboard").load("/scoreboard.html");
         });
         </script>
 

@@ -30,7 +30,7 @@
     <body class="landscape">
         <div id="stage">
         	<div id="heading">
-             	<div id="scoreboard" class="floatL"></div>
+             	<iframe style="border: 0;display: inline;" height="110" width="1595" class="floatL" src="http://scoreapi.flagshipapps.fglsports.com/flip-ls"></iframe>
                 <a href="/<?php echo $storedetails[0]->store_number;?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
@@ -39,10 +39,10 @@
         	<div id="main">
 
 	        	<div id="flyer-int">
-	        		<?php; // allow_url_fopen=0; //$content = file_get_contents('http://www.flyertown.ca/flyers/sportchek?type=1&postal_code=M4P+2H9&filler=#!/flyers/sportchek-sportchek?flyer_run_id=26205');; /*
+	        		<?php // allow_url_fopen=0; //$content = file_get_contents('http://www.flyertown.ca/flyers/sportchek?type=1&postal_code=M4P+2H9&filler=#!/flyers/sportchek-sportchek?flyer_run_id=26205');; /*
 $content = file_get_contents('http://www.flyertown.ca/flyers/sportchek-sportchek?sf_any=true&flyer_run_id=19880&type=1&postal_code=M4P%202H9#!/flyers/sportchek-sportchek?flyer_run_id=19880');
 
-$content = str_replace('"store_locator_url":"http://www.sportchek.ca/storeLocator/index.jsp"','"store_locator_url":null', $content);
+$content = str_replace('"store_locator_url":"http://www.sportchek.ca/storeLocator/index.jsp"', '"store_locator_url":null', $content);
 
 $content = preg_replace('/"url"\:"http:\/\/www\.sportchek\.ca\/product\/index\.jsp\?productId=\d+&cid=wishabi",/', '', $content);
 $content = preg_replace('/"url"\:"http:\/\/www\.sportchek\.ca\/category\/index\.jsp\?categoryId=\d+&cid=wishabi",/', '', $content);
@@ -51,10 +51,10 @@ $content = preg_replace('/"url"\:"http:\/\/www\.sportchek\.ca\/family\/index\.js
 
 $content = preg_replace('/<div class="wishabi-scrollview" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; overflow: visible;">/', '<div class="wishabi-scrollview" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 30px; overflow: visible;">', $content);
 
-$content = str_replace('<link href="','<link href="http://www.flyertown.ca', $content);
-$content = str_replace('<script src="','<script src="http://www.flyertown.ca', $content);
-$content = str_replace('<link rel="stylesheet" href="','<link rel="stylesheet" href="http://www.flyertown.ca', $content);
- */; ; //                    echo $content;
+$content = str_replace('<link href="', '<link href="http://www.flyertown.ca', $content);
+$content = str_replace('<script src="', '<script src="http://www.flyertown.ca', $content);
+$content = str_replace('<link rel="stylesheet" href="', '<link rel="stylesheet" href="http://www.flyertown.ca', $content);
+//echo $content;
 ?>
 
 	            	@foreach($flyer as $f)
@@ -89,7 +89,7 @@ $content = str_replace('<link rel="stylesheet" href="','<link rel="stylesheet" h
                 }
             });
 
-			$("#scoreboard").load("/scoreboard.html");
+			//$("#scoreboard").load("/scoreboard.html");
 
 
         });

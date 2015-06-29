@@ -332,6 +332,7 @@ class AdminController extends BaseController
 
     public function editFlyer($id)
     {
+        
         $flyer = DB::table('flyers')->where('id', $id)->first();
         return View::make('admin/flyeredit')
             ->with('flyer', $flyer);

@@ -3,10 +3,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
 	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
 ]>
-<svg version="1.1"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" viewBox="-1 -0.2 359 351" enable-background="new -1 -0.2 359 351"
-	 xml:space="preserve">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
 <defs>
 </defs>
 <path fill="#FFFFFF" d="M322.2,207.2c-12.7-9-28-11-42.8-13c-28.3-3.7-50.6-6.6-53.8-52.9c-4.7-67.3-6.3-82.8-23.3-95.1

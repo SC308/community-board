@@ -32,7 +32,7 @@
     <body class="landscape">
         <div id="stage">
         	<div id="heading">
-             	<div id="scoreboard" class="floatL"></div>
+             	  <iframe style="border: 0;display: inline;" height="110" width="1595" class="floatL" src="http://scoreapi.flagshipapps.fglsports.com/flip-ls"></iframe>
                 <a href="/<?php echo $storedetails[0]->store_number;?>/ls"><img src="/images/sc-logo-ls.jpg" id="logo" /></a>
             </div>
 
@@ -235,7 +235,7 @@
 
             document.oncontextmenu = function () { return false; };
 
-            $("#scoreboard").load("/scoreboard.html");
+          //  $("#scoreboard").load("/scoreboard.html");
 
              $(".scrolling-div").als({
                 visible_items: 4,
