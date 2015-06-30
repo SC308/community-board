@@ -7,7 +7,6 @@ class Photo extends Eloquent
 
     public static function getPhotos($storeid)
     {
-
         $photos = DB::table('photos')
             ->where('store_id', '=', $storeid)
             ->get();
