@@ -1,0 +1,14 @@
+/* GENERAL STYLES */
+@import url('/css/includes/fonts.css');
+@import url('/css/includes/generic.css');
+@import url('/css/includes/layout.css');
+@import url('/css/includes/nav.css');
+
+/* COMMUNITY BOARD SECTIONS */
+@import url('/css/includes/home.css');
+@import url('/css/includes/photos.css');
+@import url('/css/includes/calendar.css');
+@import url('/css/includes/activity.css');
+@import url('/css/includes/jumpstart.css');
+@import url('/css/includes/staff.css');
+@import url('/css/includes/flyer.css');

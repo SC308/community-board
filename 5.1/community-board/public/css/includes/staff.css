@@ -1,0 +1,317 @@
+/*#staff{ background: #272727 url('/images/staff-bg.jpg') top left no-repeat; height: 1200px; width: 100%;}*/
+#current-staff-bio{
+    /*opacity: 0;*/
+    position: relative;
+    /*left: -300px;*/
+    height: 947px;
+ /*    background: transparent url('/images/guy.png') bottom right no-repeat; */
+    background-color: #000;
+}
+
+#bio{
+    position: relative;
+    top: 0px;
+    /*left: -300px;*/
+    opacity: 0;
+    padding: 100px 0px;
+    float: left;
+    width: 550px;
+    height:640px;
+
+    background: transparent url('/images/bio-bg.png') top left no-repeat;
+
+}
+
+
+#bio-nav{
+    padding: 0px 5px;
+/*     height: 190px; */
+/* 	height: 599px; */
+	height: 444px;
+	width: 100%;
+
+/*
+            overflow: auto;
+            overflow-y: hidden;
+            margin: 0 auto;
+            white-space: nowrap
+*/
+
+}
+
+#bio-nav::-webkit-scrollbar {
+    display: none;
+
+}
+
+#bio-nav img{
+    display: inline;
+    border: 8px solid #666;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #000;
+
+    margin: 5px;
+}
+#current-staff-photo{
+    float: right;
+}
+#store-ribbon{
+    background: transparent url('/images/ribbon.png') top left no-repeat; height: 54px; width: 522px;
+    font-family: GalaxiePolarisCondensed-Bold;
+    color: #fff;
+    font-size: 23px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px 0px 0px 100px;
+    position: relative;
+}
+
+
+#jumpstart {
+	width: 100%;
+	margin: auto;
+	background-color: #fff;
+	height: 1390px;
+}
+	#jumpstart p{ font-size: 20px; line-height: 26px;}
+
+
+h1.name{
+    font-family: GalaxiePolarisCondensed-Bold;
+    color: #fff;
+    font-size: 40px;
+    text-transform: uppercase;
+}
+h2.dept{
+    font-family: GalaxiePolarisCondensed-Bold;
+    color: #fff;
+    font-size: 30px;
+    text-transform: uppercase;
+    width: 400px;
+	display: block;
+	padding-left: 100px !important;
+}
+
+#current-staff-bio p{
+    margin-left: 96px;
+    line-height: 30px;
+    color: #fff;
+    font-family: GalaxiePolarisCondensed-Bold;
+    width: 400px;
+
+}
+
+p.bio-text{
+
+
+    font-size: 24px;
+    padding-bottom: 20px;
+        border-bottom: 1px solid white;
+}
+
+p.experience{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+     font-size: 24px;
+    padding: 10px 0px;
+}
+
+p.sports{
+/*     border-bottom: 1px solid white;   */
+    padding: 2px 0px 10px 0px;
+    font-size: 24px;
+}
+p.knowledge{
+    padding-top: 20px;
+    font-size: 24px
+}
+
+span.whitebox{
+    height: 30px;
+    width: 56px;
+    background-color: #fff;
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 44px;
+    float: left;
+}
+
+span.whiteboxtop{
+    height: 30px;
+    width: 56px;
+    background-color: #fff;
+    display: inline-block;
+    margin-top: 15px;
+    margin-right: 44px;
+    float: left;
+}
+
+
+/* landscape staff bios*/
+
+body.landscape #current-staff{
+    width: 1180px;
+
+}
+
+body.landscape #current-staff-bio{
+    /*opacity: 0;*/
+    position: relative;
+    /*left: -300px;*/
+    height: 840px;
+    width: 1180px;
+ /*    background: transparent url('/images/guy.png') bottom right no-repeat; */
+    background-color: #000;
+
+
+}
+
+body.landscape #bio{
+    position: relative;
+    top: 70px;
+    /*left: -300px;*/
+    left: 0px;
+    opacity: 0;
+    padding: 10px 0px 280px 0px;
+    float: left;
+    width: 550px;
+    height:480px;
+    background: transparent url('/images/bio-bg.png') top left no-repeat;
+
+}
+
+body.landscape #bio-nav{
+    position: relative;
+    /*top: 124px;
+    left: 1550px;*/
+    top: -840px; left: 0px;
+    padding: 0px 0px;
+/*     height: 190px; */
+    /*height: 599px;*/
+    height: 840px;
+    /*width: 100%;*/
+    width: 450px;
+    float: right;
+    z-index: 999;
+
+
+
+/*
+            overflow: auto;
+            overflow-y: hidden;
+            margin: 0 auto;
+            white-space: nowrap
+*/
+
+}
+
+body.landscape #bio-nav::-webkit-scrollbar {
+    display: none;
+
+
+}
+
+body.landscape #bio-nav img{
+    display: inline;
+    border: 8px solid #666;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #000;
+
+    margin: 5px;
+    float: left;
+}
+body.landscape #current-staff-photo{
+    float: left;
+}
+body.landscape #store-ribbon{
+    background: transparent url('/images/ribbon.png') top left no-repeat; height: 54px; width: 522px;
+    font-family: GalaxiePolarisCondensed-Bold;
+    color: #fff;
+    font-size: 23px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px 0px 0px 100px;
+    position: relative;
+}
+
+
+
+body.landscape h1.name{
+    font-family: GalaxiePolarisCondensed-Bold;
+    color: #fff;
+    font-size: 40px;
+    text-transform: uppercase;
+}
+body.landscape h2.dept{
+    font-family: GalaxiePolarisCondensed-Bold;
+    color: #fff;
+    font-size: 30px;
+    text-transform: uppercase;
+    width: 400px;
+    display: block;
+    padding-left: 100px !important;
+}
+
+body.landscape #current-staff-bio p{
+    margin-left: 96px;
+    line-height: 30px;
+    color: #fff;
+    font-family: GalaxiePolarisCondensed-Bold;
+    width: 400px;
+
+}
+
+body.landscape p.bio-text{
+
+    font-size: 24px;
+    padding-bottom: 20px;
+        border-bottom: 1px solid white;
+}
+
+body.landscape p.experience{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+     font-size: 24px;
+    padding: 10px 0px;
+}
+
+body.landscape p.sports{
+/*     border-bottom: 1px solid white;   */
+    padding: 2px 0px 10px 0px;
+    font-size: 24px;
+}
+
+body.landscape p.knowledge{
+    padding-top: 20px;
+    font-size: 24px
+}
+
+body.landscape span.whitebox{
+    height: 30px;
+    width: 56px;
+    background-color: #fff;
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 44px;
+    float: left;
+}
+
+body.landscape span.whiteboxtop{
+    height: 30px;
+    width: 56px;
+    background-color: #fff;
+    display: inline-block;
+    margin-top: 15px;
+    margin-right: 44px;
+    float: left;
+}
