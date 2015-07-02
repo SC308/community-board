@@ -93,8 +93,8 @@
 
 
                         <div id="map-canvas"></div>
-                        <div id= "store-lat" class="hidden"> {{$storedetails[0]->longitude}} </div>
-                        <div id="store-lng" class="hidden"> {{$storedetails[0]->latitude}} </div>
+                        <div id= "store-lat" class="hidden"> {{$storedetails[0]->latitude}} </div>
+                        <div id="store-lng" class="hidden"> {{$storedetails[0]->longitude}} </div>
                         <div id="store-location-name" class="hidden"> {{$storedetails[0]->store_name}} </div>
 
 
