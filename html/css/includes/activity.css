@@ -9,7 +9,7 @@
 	}
 
 #activity-kiosk h1{
-	font-family: GalaxiePolarisCondensed-Book;
+	font-family: GalaxiePolarisCondensed-Bold;
 	text-transform: uppercase;
 	color: #fff;
 	font-size: 70px;
@@ -114,7 +114,7 @@ a.sportSelector{
 	margin: 10px 0px 10px 0px;
 	text-decoration: none;
 	display: block;
-	font-family: GalaxiePolarisCondensed-Book;
+	font-family: GalaxiePolarisCondensed-Light;
 	text-transform: uppercase;
 }
 
