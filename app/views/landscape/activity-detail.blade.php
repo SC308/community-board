@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
         <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
+        <link rel="stylesheet" type="text/css" href="/css/includes/activity.css">
+        
 
 		<script src="/js/lib/modernizr.min.js"></script>
 
