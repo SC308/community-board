@@ -47,6 +47,10 @@
 	line-height: 30px;
 }
 
+#blog-section li {
+	color: #FFFFFF;
+}
+
 #events-section p{
 	color: #fff;
 	font-size: 20px;
@@ -57,6 +61,8 @@
 	width:880px;
 	overflow-x: scroll;
 }
+
+
 #gear-wrapper-ls {
 	width:1435px;
 	overflow-x: scroll;
