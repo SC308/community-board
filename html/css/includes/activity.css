@@ -1,6 +1,3 @@
-@font-face { font-family: GalaxiePolarisCondensed-Book.; src: url('/fonts/GalaxiePolarisCondensed-Book.otf'); }
-@font-face { font-family: GalaxiePolarisCondensed-Bold; font-weight: bold; src: url('/fonts/GalaxiePolarisCondensed-Bold.otf'); }
-@font-face { font-family: GalaxiePolarisCondensed-Light; font-weight: bold; src: url('/fonts/GalaxiePolarisCondensed-Light.otf'); }
 #activity-kiosk{
 	height: 1390px;
 	background: #000 url('/images/debut_dark.png') top left repeat;
