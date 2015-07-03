@@ -1,5 +1,3 @@
-<?php php; //    dd($jumpstart);
-?>
 <!DOCTYPE html>
 <html class="no-js">
     <head>
