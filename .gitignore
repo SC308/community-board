@@ -8,6 +8,20 @@ composer.phar
 composer.lock
 .DS_Store
 
+html/cash/
+html/feature/
+html/flyer/
+html/jumpstart/
+html/kiosk/
+html/photos/
+
+html/cash/**
+html/feature/**
+html/flyer/**
+html/jumpstart/**
+html/kiosk/**
+html/photos/**
+
 html/images/jumpstart/champs/
 html/images/jumpstart/champs/**
 
