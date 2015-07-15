@@ -42,10 +42,10 @@
         	<div id="main" class="photos">
 
             @foreach($photos[$chunkCounter] as $p)
-
-	            <a class="fancybox" data-lightbox = "{{ $p->path }}" href="/timthumb.php?src=/images/photos/{{ $p->path }}&h=800.jpg" title="<strong>{{ $p->title}}</strong><br />{{ $p->description}}<?php if ($p->location != "") {echo '<br /><small class=smaller>Location: ' . $p->location . '</small>';}
+                <?php  $filename = pathinfo($p->path)['filename']; ?>
+	            <a class="fancybox" data-lightbox = "{{ $p->path }}" href="/images/photos/full/{{ $filename }}_800.jpg" title="<strong>{{ $p->title}}</strong><br />{{ $p->description}}<?php if ($p->location != "") {echo '<br /><small class=smaller>Location: ' . $p->location . '</small>';}
 ?><?php if ($p->photographer_name != "") {echo '&nbsp;&nbsp;&nbsp;<small class=smaller>Photographer: ' . $p->photographer_name . '</small>';}
-?>"><img src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=300" /></a>
+?>"><img src="/images/photos/thumb/{{ $filename }}_300.jpg" /></a>
 
             @endforeach
 
@@ -61,7 +61,7 @@
         <script src="/js/jquery.grid-a-licious.js"></script>
         <!-- // <script src="/js/fancybox/source/jquery.fancybox-ls.js"></script> -->
         <script type="text/javascript" src= "/js/lightbox/js/lightbox.js"></script>
-
+        <script type="text/javascript" src= "/js/underscore-1.8.3.min.js"></script>
 		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
         <script>
         $( document ).ready(function() {
@@ -89,13 +89,15 @@
                 {
                     if(photo_chunk.hasOwnProperty(key))
                     {
-                        var imageObj = new Image();
-                        imageObj.src = "/timthumb.php?src=/images/photos/"+  (photo_chunk[key]).path +"&w=400";
+                        imageName = photo_chunk[key].path.replace(/\.([a-zA-Z])+$/, "");
+                        var imageObj = new Image(400);
+                        imageObj.src = "/images/photos/thumb/"+imageName+"_400.jpg";
+                        imageObj.id = photo_chunk[key].id;
+                        imageObj.name = imageName;
                         preloadedImages.push(imageObj)
                     }
                 }
             }
-            console.log(preloadedImages)
 
             document.oncontextmenu = function () { return false; };
 
@@ -122,12 +124,11 @@
             function createPhotoContainer(photo, appendToColumn) {
 
                     var img = $('<img>');
-                    $(img).hide
-                    img.attr('src', "/timthumb.php?src=/images/photos/"+ photo.path +"&w=400")
+                    key = _.findWhere(preloadedImages, {id : ""+photo.id})
+                    $(img).attr('src', key.src);
 
                     var aTag = $('<a>');
-                    // aTag.attr("class", "fancybox")
-                    aTag.attr('href', "/timthumb.php?src=/images/photos/"+ photo.path +"&h=800");
+                    aTag.attr('href', "/images/photos/full/"+ key.name +"_800.jpg");
                     aTag.attr("data-lightbox", photo.path)
                     var title = "<strong>"+ photo.title +"</strong><br />"+ photo.description ;
                     if(photo.location !=  ""){

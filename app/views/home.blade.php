@@ -44,7 +44,8 @@
 
 					@if($i==1)
 					<div class="item active">
-						<img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1080&h=795.jpg" alt="">
+                        <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
+						<img src="/images/feature/p/{{$filename}}_1080X795.jpg" alt="">
 						<div class="carousel-caption caption-right">
 							<span class="caption-title">{{$f->title}}</span>
 							<span class="caption-content">{{$f->content}}</span>
@@ -52,7 +53,8 @@
 					</div>
 					@else
 					<div class="item">
-						<img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1080&h=795.jpg" alt="">
+                        <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
+						<img src="/images/feature/p/{{$filename}}_1080X795.jpg" alt="">
 						<div class="carousel-caption caption-left">
 							<span class="caption-title">{{$f->title}}</span>
 							<span class="caption-content">{{$f->content}}</span>
@@ -88,12 +90,14 @@
 
 					  	@if($i==1)
 					    <div class="item active">
-					      <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=836&h=553.jpg" alt="">
+					    	<?php $filename = pathinfo( $tp->path ,PATHINFO_FILENAME) ?>
+					      <img src="/images/flyer/toppick/p/{{$filename}}_836X553.jpg" alt="">
 					      <div class="carousel-caption"></div>
 					    </div>
 					    @else
 					    <div class="item">
-					      <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=836&h=553.jpg" alt="">
+					    	<?php $filename = pathinfo( $tp->path ,PATHINFO_FILENAME) ?>
+					      <img src="/images/flyer/toppick/p/{{$filename}}_836X553.jpg" alt="">
 					      <div class="carousel-caption"></div>
 					    </div>
 					    @endif
@@ -115,7 +119,8 @@
             	<div id="flyerpreview">
 
 		                <!-- <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=155&h=202.jpg" /> -->
-						<img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=175&h=370.jpg" />
+		                <?php $filename = pathinfo( $flyer[0]->path ,PATHINFO_FILENAME) ?>
+						<img id="miniflyer" src="/images/flyer/thumb/p/{{$filename}}_175X370.jpg" />
 
             	</div>
             	</a>

@@ -196,3 +196,12 @@ Route::get('/logout', 'UsersController@logout');
 
 // Dashboard route
 Route::get('admin/dashboard', function(){ return View::make('admin.dashboard'); });
+
+
+/*Thumbnail routes*/
+Route::get('photo/thumb', 'UtilityController@createPhotoThumbnails');
+Route::get('staff/thumb', 'UtilityController@createStaffThumbnails');
+Route::get('flyer/thumb', 'UtilityController@createFlyerThumbnails');
+Route::get('feature/thumb', 'UtilityController@createFeatureThumbnails');
+Route::get('toppick/thumb', 'UtilityController@createToppickThumbnails');
+Route::get('jumpstart/thumb', 'UtilityController@createJumpstartThumbnails');

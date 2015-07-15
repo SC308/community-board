@@ -42,7 +42,8 @@ class AdminController extends BaseController
 
         $extension = Input::file('photo')->getClientOriginalExtension();
         $directory = public_path() . '/images/photos';
-        $filename  = sha1(time() . time()) . "." . $extension;
+        $timestamp = sha1(time() . time());
+        $filename  = $timestamp . "." . $extension;
 
         $p = Input::get('publish');
         if ($p == "on") {
@@ -52,6 +53,12 @@ class AdminController extends BaseController
         }
 
         $upload_success = Input::file('photo')->move($directory, $filename); //move and rename file
+
+        Media::resize(300, null, $directory, $timestamp, $extension, 'thumb');
+        Media::resize(400, null, $directory, $timestamp, $extension, 'thumb');
+        Media::resize(1000, null, $directory, $timestamp, $extension, 'full');
+        Media::resize(null, 800, $directory, $timestamp, $extension, 'full');
+        
 
         if ($upload_success) {
             $photodetails = array(
@@ -87,6 +94,18 @@ class AdminController extends BaseController
 
         $p = Photo::find($id);
         $p->delete();
+
+        $filename = pathinfo($p->path, PATHINFO_FILENAME);
+        $extension = pathinfo($p->path, PATHINFO_EXTENSION);
+        $filepath = public_path()."/images/photos";
+        
+        File::delete($filepath."/".$p->path);
+        File::delete($filepath."/thumb/".$filename."_300".".".$extension);
+        File::delete($filepath."/thumb/".$filename."_400".".".$extension);
+        File::delete($filepath."/full/".$filename."_1000".".".$extension);
+        File::delete($filepath."/full/".$filename."_800".".".$extension);
+
+        
         $t = "So long, photo...";
         $r = "Photo deleted!<br /><a href='/admin/photos'>Back to Photos</a>";
         return View::make('admin/confirmation')
@@ -154,7 +173,18 @@ class AdminController extends BaseController
     public function removeStaff($id)
     {
         $s = StaffBio::find($id);
+        
+        $filename = pathinfo($s->photo, PATHINFO_FILENAME);
+        $extension = pathinfo($s->photo, PATHINFO_EXTENSION);
+        $filepath = public_path()."/images/staff";
+
+        File::delete($filepath ."/". $filename . "." .  $extension);
+        File::delete($filepath . "/thumb/" . $filename . "_124X158.jpg" );
+        File::delete($filepath . "/ls/" . $filename . "_1180X847.jpg" );
+        File::delete($filepath . "/p/" . $filename . "_1080X947.jpg" );
+
         $s->delete();
+
         $t = "Done!";
         $r = "Staff member deleted!<br /><a href='/admin/staff'>Back to Staff</a>";
         return View::make('admin/confirmation')
@@ -181,8 +211,25 @@ class AdminController extends BaseController
         if ($file) {
             $extension      = Input::file('photo')->getClientOriginalExtension();
             $directory      = public_path() . '/images/staff';
-            $filename       = sha1(time() . time()) . "." . $extension;
+            $timestamp      = sha1(time() . time());
+            $filename       = $timestamp . "." . $extension;
+            
             $upload_success = Input::file('photo')->move($directory, $filename); //move and rename file
+
+            Media::fit(124, 158 , $directory, $timestamp, $extension, 'thumb', 'top-right');
+            Media::fit(1180, 847 , $directory, $timestamp, $extension, 'ls', 'top-right');
+            Media::fit(1080, 947 , $directory, $timestamp, $extension, 'p', 'top-right');
+
+            /*Remove old photo*/
+            $oldPhoto     = StaffBio::find($id)->photo; 
+            $oldFilename  = pathinfo( $oldPhoto, PATHINFO_FILENAME);
+            $extension = pathinfo( $oldPhoto, PATHINFO_EXTENSION);
+            $filepath  = public_path()."/images/staff";
+
+            File::delete($directory ."/". $oldFilename . "." .  $extension);
+            File::delete($directory . "/thumb/" . $oldFilename . "_124X158.jpg" );
+            File::delete($directory . "/ls/" . $oldFilename . "_1180X847.jpg" );
+            File::delete($directory . "/p/" . $oldFilename . "_1080X947.jpg" );
 
             if ($upload_success) {
                 $staffedits = array(
@@ -238,9 +285,14 @@ class AdminController extends BaseController
 
         $extension = Input::file('photo')->getClientOriginalExtension();
         $directory = public_path() . '/images/staff';
-        $filename  = sha1(time() . time()) . "." . $extension;
+        $timestamp = sha1(time() . time());
+        $filename  = $timestamp . "." . $extension;
 
         $upload_success = Input::file('photo')->move($directory, $filename); //move and rename file
+
+        Media::fit(124, 158 , $directory, $timestamp, $extension, 'thumb', 'top-right');
+        Media::fit(1180, 847 , $directory, $timestamp, $extension, 'ls', 'top-right');
+        Media::fit(1080, 947 , $directory, $timestamp, $extension, 'p', 'top-right');
 
         if ($upload_success) {
             $staffdetails = array(
@@ -301,9 +353,16 @@ class AdminController extends BaseController
 
         $extension = Input::file('flyer')->getClientOriginalExtension();
         $directory = public_path() . '/images/flyer';
-        $filename  = sha1(time() . time()) . "." . $extension;
+        $timestamp = sha1(time() . time());
+        $filename  =  $timestamp . "." . $extension;
 
         $upload_success = Input::file('flyer')->move($directory, $filename); //move and rename file
+
+        Media::fit(172, 400 , $directory, $timestamp, $extension, 'thumb/ls', 'top-left');
+        Media::fit(175, 370 , $directory, $timestamp, $extension, 'thumb/p', 'top-left');
+        Media::fit(400, 550 , $directory, $timestamp, $extension, 'thumb/thumb', 'top-left');
+        Media::resize(1000, null , $directory, $timestamp, $extension, 'full');
+
 
         if ($upload_success) {
             $photodetails = array(
@@ -358,6 +417,17 @@ class AdminController extends BaseController
     public function removeFlyer($id)
     {
         $f = Flyer::find($id);
+
+        $filename = pathinfo($f->path, PATHINFO_FILENAME);
+        $extension = pathinfo($f->path, PATHINFO_EXTENSION);
+        $filepath = public_path()."/images/flyer";
+
+        File::delete($filepath ."/". $filename . "." .  $extension);
+        File::delete($filepath . "/thumb/ls/" . $filename . "_172X400.jpg" );
+        File::delete($filepath . "/thumb/p/" . $filename . "_175X370.jpg" );
+        File::delete($filepath . "/thumb/thumb/" . $filename . "_400X550.jpg" );
+        File::delete($filepath . "/full/" . $filename . "_1000.jpg" );
+
         $f->delete();
         $t = "So long, flyer page...";
         $r = "Page deleted!<br /><a href='/admin/flyer'>Back to Flyer</a>";
@@ -379,9 +449,12 @@ class AdminController extends BaseController
 
         $extension = Input::file('pick')->getClientOriginalExtension();
         $directory = public_path() . '/images/flyer';
-        $filename  = sha1(time() . time()) . "." . $extension;
+        $timestamp = sha1(time() . time());
+        $filename  = $timestamp . "." . $extension;
 
         $upload_success = Input::file('pick')->move($directory, $filename); //move and rename file
+        Media::fit(418,277, $directory, $timestamp, $extension, 'toppick/ls', 'top-left' );
+        Media::fit(836,553, $directory, $timestamp, $extension, 'toppick/p' , 'top-left');
 
         if ($upload_success) {
             $pickdetails = array(
@@ -410,6 +483,15 @@ class AdminController extends BaseController
     public function removePick($id)
     {
         $p = TopPick::find($id);
+
+        $filename = pathinfo($p->path, PATHINFO_FILENAME);
+        $extension = pathinfo($p->path, PATHINFO_EXTENSION);
+        $filepath = public_path()."/images/flyer/";
+
+        File::delete($filepath ."/". $filename . "." .  $extension);
+        File::delete($filepath . "/toppick/ls/" . $filename . "_418X277.jpg" );
+        File::delete($filepath . "/toppick/p/" . $filename . "_836X553.jpg" );
+
         $p->delete();
         $t = "So long, top pick...";
         $r = "Top Pick deleted!<br /><a href='/admin/flyer'>Back to Flyer</a>";
@@ -544,7 +626,17 @@ class AdminController extends BaseController
     public function removeFeature($id)
     {
         $f = Feature::find($id);
+
+        $filename = pathinfo($f->path, PATHINFO_FILENAME);
+        $extension = pathinfo($f->path, PATHINFO_EXTENSION);
+        $filepath = public_path()."/images/feature";
+
+        File::delete($filepath ."/". $filename . "." .  $extension);
+        File::delete($filepath . "/ls/" . $filename . "_1200X860.jpg" );
+        File::delete($filepath . "/p/" . $filename . "_1080X795.jpg" );
+
         $f->delete();
+
         $t = "Done!";
         $r = "Feature content deleted!<br /><a href='/admin/feature'>Back to Feature Content</a>";
         return View::make('admin/confirmation')
@@ -569,10 +661,26 @@ class AdminController extends BaseController
         $file = Input::file('photo');
 
         if ($file) {
+
             $extension      = Input::file('photo')->getClientOriginalExtension();
             $directory      = public_path() . '/images/feature';
-            $filename       = sha1(time() . time()) . "." . $extension;
+            $timestamp      = sha1(time() . time());
+            $filename       = $timestamp . "." . $extension;
             $upload_success = Input::file('photo')->move($directory, $filename); //move and rename file
+
+            Log::info($upload_success);
+            Media::resize(1200, 860 , $directory, $timestamp, $extension, 'ls');
+            Media::resize(1080, 795 , $directory, $timestamp, $extension, 'p');
+
+            /*Remove old photo*/
+            $oldPhoto     = Feature::find($id)->path; 
+            $oldFilename  = pathinfo( $oldPhoto, PATHINFO_FILENAME);
+            $extension = pathinfo( $oldPhoto, PATHINFO_EXTENSION);
+            $filepath  = public_path()."/images/feature";
+
+            File::delete($directory ."/". $oldFilename . "." .  $extension);
+            File::delete($directory . "/ls/" . $oldFilename . "_1200X860.jpg" );
+            File::delete($directory . "/p/" . $oldFilename . "_1080X795.jpg" );
 
             if ($upload_success) {
                 $featuredits = array(
@@ -622,9 +730,15 @@ class AdminController extends BaseController
 
         $extension = Input::file('feature')->getClientOriginalExtension();
         $directory = public_path() . '/images/feature';
-        $filename  = sha1(time() . time()) . "." . $extension;
+        $timestamp = sha1(time() . time());
+        $filename  = $timestamp . "." . $extension;
 
         $upload_success = Input::file('feature')->move($directory, $filename); //move and rename file
+
+        /*create thumbnail*/
+
+        Media::resize(1200, 860 , $directory, $timestamp, $extension, 'ls');
+        Media::resize(1080, 795 , $directory, $timestamp, $extension, 'p');
 
         if ($upload_success) {
             $photodetails = array(
@@ -684,13 +798,28 @@ class AdminController extends BaseController
         $id   = Input::get('id');
         $file = Input::file('champ_photo');
 
+        
+
+
         if ($file) {
             $extension      = Input::file('champ_photo')->getClientOriginalExtension();
             $directory      = public_path() . '/images/jumpstart/champs';
-            $filename       = sha1(time() . time()) . "." . $extension;
+            $timestamp      = sha1(time() . time());
+            $filename       = $timestamp . "." . $extension;
             $upload_success = Input::file('champ_photo')->move($directory, $filename); //move and rename file
 
+            
+            Media::fit(230, 230 , $directory, $timestamp, $extension, 'thumb', 'right');
+
             if ($upload_success) {
+                $oldPhoto     = Jumpstart::find($id)->champ_photo; 
+                $oldFilename  = pathinfo( $oldPhoto, PATHINFO_FILENAME);
+                $extension = pathinfo( $oldPhoto, PATHINFO_EXTENSION);
+                $filepath  = public_path()."/images/jumpstart/champs";
+
+                File::delete($directory ."/". $oldFilename . "." .  $extension);
+                File::delete($directory . "/thumb/" . $oldFilename . "_230X230.jpg" );
+
                 $jumpstartedits = array(
                     'store_id'     => $sn,
                     'champ_name'   => Input::get('champ_name'),
