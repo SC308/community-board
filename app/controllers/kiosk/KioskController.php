@@ -151,7 +151,8 @@ class KioskController extends \BaseController
         $locations = array();
         if (in_array("League", $pieceNames)) {
             $leagues = League::where('store_id', $store_id)->where('sport_id', $sport_id)->get();
-        } elseif (in_array("Location", $pieceNames)) {
+        } 
+        if (in_array("Location", $pieceNames)) {
             $locations = Location::where('store_id', $store_id)->where('sport_id', $sport_id)->get();
         }
 
