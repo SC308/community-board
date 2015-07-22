@@ -33,7 +33,7 @@
 
                 @foreach($flyer as $f)
                     <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
-                    <a class="fancybox" href="/images/flyer/full/{{$filename}}_1000.jpg"><img src="/images/flyer/thumb/thumb/{{$filename}}_400X550.jpg" /></a>
+                    <a class="fancybox" href="/images/flyer/full/{{$filename}}_1000.jpg"><img src="/images/flyer/thumb/thumb/{{$filename}}_343X400.jpg" /></a>
                 @endforeach
 
            </div>
