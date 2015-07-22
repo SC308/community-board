@@ -77,7 +77,6 @@
             @include('includes/nav')
 
 
-
             <div id="home-flyer" class="fullwidth">
             	<div id="toppicks">
 
@@ -120,7 +119,7 @@
 
 		                <!-- <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=155&h=202.jpg" /> -->
 		                <?php $filename = pathinfo( $flyer[0]->path ,PATHINFO_FILENAME) ?>
-						<img id="miniflyer" src="/images/flyer/thumb/p/{{$filename}}_175X370.jpg" />
+						<img id="miniflyer" src="/images/flyer/thumb/p/{{$filename}}_175X204.jpg" />
 
             	</div>
             	</a>

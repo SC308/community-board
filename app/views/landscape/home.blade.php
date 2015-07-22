@@ -88,7 +88,7 @@
 
                        <!--  <img class="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=306&h=400.jpg" /> -->
                        <?php $filename = pathinfo( $flyer[0]->path ,PATHINFO_FILENAME) ?>
-					   <img id="miniflyer" src="/images/flyer/thumb/ls/{{$filename}}_172X400.jpg" style="position: relative; top: -10px; left: 110px;" />
+					   <img id="miniflyer" src="/images/flyer/thumb/ls/{{$filename}}_175X204.jpg" style="position: relative; top: -10px; left: 110px;" />
 
                     </div>
                     </a>
