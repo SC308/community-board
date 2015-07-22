@@ -448,13 +448,13 @@ class AdminController extends BaseController
         $sn           = $storedetails[0]->id;
 
         $extension = Input::file('pick')->getClientOriginalExtension();
-        $directory = public_path() . '/images/flyer';
+        $directory = public_path() . '/images/flyer/toppick';
         $timestamp = sha1(time() . time());
         $filename  = $timestamp . "." . $extension;
 
         $upload_success = Input::file('pick')->move($directory, $filename); //move and rename file
-        Media::fit(418,277, $directory, $timestamp, $extension, 'toppick/ls', 'top-left' );
-        Media::fit(836,553, $directory, $timestamp, $extension, 'toppick/p' , 'top-left');
+        Media::fit(418,277, $directory, $timestamp, $extension, '/ls', 'top-left' );
+        Media::fit(836,553, $directory, $timestamp, $extension, '/p' , 'top-left');
 
         if ($upload_success) {
             $pickdetails = array(
@@ -486,11 +486,11 @@ class AdminController extends BaseController
 
         $filename = pathinfo($p->path, PATHINFO_FILENAME);
         $extension = pathinfo($p->path, PATHINFO_EXTENSION);
-        $filepath = public_path()."/images/flyer/";
+        $filepath = public_path()."/images/flyer/toppick";
 
         File::delete($filepath ."/". $filename . "." .  $extension);
-        File::delete($filepath . "/toppick/ls/" . $filename . "_418X277.jpg" );
-        File::delete($filepath . "/toppick/p/" . $filename . "_836X553.jpg" );
+        File::delete($filepath . "/ls/" . $filename . "_418X277.jpg" );
+        File::delete($filepath . "/p/" . $filename . "_836X553.jpg" );
 
         $p->delete();
         $t = "So long, top pick...";
