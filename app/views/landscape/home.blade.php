@@ -50,7 +50,10 @@
                             <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
                             <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=860.jpg" alt="">
                             <div class="carousel-caption caption-right">
-                                <span class="caption-title">{{$f->title}}</span>
+                                <div class="ribbon">
+                                    <span class="ribbon-title">{{$f->title}}</span>
+                                    <span class="ribbon-edge"></span>
+                                </div>
                                 <span class="caption-content">{{$f->content}}</span>
                             </div>
                         </div>
@@ -59,7 +62,10 @@
                             <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
                             <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=860.jpg" alt="">
                             <div class="carousel-caption caption-left">
-                                <span class="caption-title">{{$f->title}}</span>
+                                <div class="ribbon">
+                                    <span class="ribbon-title">{{$f->title}}</span>
+                                    <span class="ribbon-edge"></span>
+                                </div>
                                 <span class="caption-content">{{$f->content}}</span>
                             </div>
                         </div>

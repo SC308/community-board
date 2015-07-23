@@ -61,11 +61,11 @@
 
             <div class="region single top-middle">
 
-            <!--
+            
             	<video width="1920" height="1080" autoplay="autoplay" loop="true" loop>
                   <source src="/cash-assets/SC_ANTHEM-allSweat_FY16_Landscape.mp4?<?=time();?>" type="video/mp4" />
                 </video>
-            -->
+            
 
                 <div id="" class="carousel slide singlepics" data-ride="carousel">
 
@@ -181,17 +181,32 @@ $i++;
                    @if($storedetails[0]->store_number == "5111" || $storedetails[0]->store_number == "5151")
                         <h2 class="events-heading">Social Media</h2>
                         <div id="social" class="scrbbl-embed" data-src="/event/1332351/24176"></div>
-                        <script>
-                            (function(d, s, id) {
-                                var js,ijs=d.getElementsByTagName(s)[0];
-                                if(d.getElementById(id))return;
-                                js=d.createElement(s);
-                                js.id=id;
-                                js.src="//embed.scribblelive.com/widgets/embed.js";
-                                ijs.parentNode.insertBefore(js, ijs);
-                            }
-                            (document, 'script', 'scrbbl-js'));
-                        </script>
+                            <script>
+                                (function(d, s, id) {
+                                    var js,ijs=d.getElementsByTagName(s)[0];
+                                    if(d.getElementById(id))return;
+                                    js=d.createElement(s);
+                                    js.id=id;
+                                    js.src="//embed.scribblelive.com/widgets/embed.js";
+                                    ijs.parentNode.insertBefore(js, ijs);
+                                }
+                                (document, 'script', 'scrbbl-js'));
+                            </script>
+
+                    @elseif($storedetails[0]->store_number == "0392")
+                        <h2 class="events-heading">Social Media</h2>
+                        <div id="social" class="scrbbl-embed" data-src="/event/1344280/24176"></div>
+                            <script>
+                                (function(d, s, id) {
+                                    var js,ijs=d.getElementsByTagName(s)[0];
+                                    if(d.getElementById(id))return;
+                                    js=d.createElement(s);
+                                    js.id=id;
+                                    js.src="//embed.scribblelive.com/widgets/embed.js";
+                                    ijs.parentNode.insertBefore(js, ijs);
+                                }
+                                (document, 'script', 'scrbbl-js'));
+                            </script>
 
                     @elseif ($storedetails[0]->store_number == "0314") 
                         <h2 class="events-heading">Social Media</h2>
