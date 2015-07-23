@@ -89,6 +89,10 @@ h2{
     background-image: radial-gradient(circle farthest-corner at center top, #7A7A7A 0%, #000000 100%);
 }
 
+.tall{
+    background-color: #333;
+}
+
 .polaroids{display: block;  position: relative; bottom: 60px;}
 ul.polaroids li { display: inline; }
 ul.polaroids a { background: #fff; display: inline; float: left; margin: 0 0 100px 100px; width: auto; padding: 10px 10px 15px; text-align: center; font-family: "Marker Felt", sans-serif; text-decoration: none; color: #333; font-size: 18px; -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25); -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25); -webkit-transform: rotate(-2deg); -webkit-transition: -webkit-transform .15s linear; -moz-transform: rotate(-2deg); }
@@ -156,9 +160,6 @@ ul.polaroids a:after {
 
 
 
-
-
-
 .staffname{ background: transparent url('/images/black80.png') top left repeat; position: relative; bottom: 290px; font: normal 40px GalaxiePolarisCondensed-Bold; text-transform: uppercase; color: #fff;  display: block; padding: 0 50px 50px 50px; } 
 .staffname em{ font-style: normal; font-size: 80px; }
 .staff-ribbon{ font: normal 30px GalaxiePolarisCondensed-Bold; text-transform: uppercase; color: #fff; position: absolute; top: 30px; left: 0px; background: transparent url('/images/ribbon.png') -150px 0px no-repeat; height: 54px; width: 522px; padding: 0 0 0 40px;}
@@ -172,4 +173,3 @@ ul.polaroids a:after {
 #gold-count{ top: 910px; left: 580px; height: 200px; width: 200px; }
 #silver-count{top: 995px; left: 580px; height: 200px; width: 200px;}
 #bronze-count{top: 1075px; left: 580px; height: 200px; width: 200px;}
-
