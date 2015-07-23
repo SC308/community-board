@@ -45,7 +45,7 @@
 					@if($i==1)
 					<div class="item active">
                         <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
-						<img src="/images/feature/p/{{$filename}}_1080X795.jpg" alt="">
+						<img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1080&h=795.jpg" alt="">
 						<div class="carousel-caption caption-right">
 							<span class="caption-title">{{$f->title}}</span>
 							<span class="caption-content">{{$f->content}}</span>
@@ -54,7 +54,7 @@
 					@else
 					<div class="item">
                         <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
-						<img src="/images/feature/p/{{$filename}}_1080X795.jpg" alt="">
+						<img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1080&h=795.jpg" alt="">
 						<div class="carousel-caption caption-left">
 							<span class="caption-title">{{$f->title}}</span>
 							<span class="caption-content">{{$f->content}}</span>
