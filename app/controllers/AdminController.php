@@ -358,9 +358,9 @@ class AdminController extends BaseController
 
         $upload_success = Input::file('flyer')->move($directory, $filename); //move and rename file
 
-        Media::fit(172, 400 , $directory, $timestamp, $extension, 'thumb/ls', 'top-left');
-        Media::fit(175, 370 , $directory, $timestamp, $extension, 'thumb/p', 'top-left');
-        Media::fit(400, 550 , $directory, $timestamp, $extension, 'thumb/thumb', 'top-left');
+        Media::fit(175, 204 , $directory, $timestamp, $extension, 'thumb/ls', 'top-left');
+        Media::fit(175, 204 , $directory, $timestamp, $extension, 'thumb/p', 'top-left');
+        Media::fit(343, 400 , $directory, $timestamp, $extension, 'thumb/thumb', 'top-left');
         Media::resize(1000, null , $directory, $timestamp, $extension, 'full');
 
 
@@ -423,9 +423,9 @@ class AdminController extends BaseController
         $filepath = public_path()."/images/flyer";
 
         File::delete($filepath ."/". $filename . "." .  $extension);
-        File::delete($filepath . "/thumb/ls/" . $filename . "_172X400.jpg" );
-        File::delete($filepath . "/thumb/p/" . $filename . "_175X370.jpg" );
-        File::delete($filepath . "/thumb/thumb/" . $filename . "_400X550.jpg" );
+        File::delete($filepath . "/thumb/ls/" . $filename . "_175X204.jpg" );
+        File::delete($filepath . "/thumb/p/" . $filename . "_175X204.jpg" );
+        File::delete($filepath . "/thumb/thumb/" . $filename . "_343X400.jpg" );
         File::delete($filepath . "/full/" . $filename . "_1000.jpg" );
 
         $f->delete();

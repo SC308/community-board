@@ -101,7 +101,7 @@
               </tr>
               @foreach($picks as $p)
               <tr>
-                <td><img class="img-thumbnail" src="/timthumb.php?src=/images/flyer/{{ $p->path }}&w=250" /></td>
+                <td><img class="img-thumbnail" src="/timthumb.php?src=/images/flyer/toppick/{{ $p->path }}&w=250" /></td>
                 <td>
                     <div class="btn-group">
                         
