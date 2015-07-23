@@ -13,8 +13,27 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <link rel="stylesheet" href="/cash-assets/css/main.css?<?=time();?>">
-        <link rel="stylesheet" href="/cash-assets/css/logo.css?<?=time();?>">
+        <style type="text/css">
+        .scrbbl-embed{ overflow: hidden;}
+#social {
+    height: 1900px;
+    overflow: hidden;
+} 
 
+
+.scrbbl-content-scrollable, iframe{ overflow: hidden !important;}
+
+.scrbbl-post-meta-area, .scrbbl-post-flags, .Meta, .Caption { display: none;}
+
+.scrbbl-post{ padding: 20px;}
+
+#SCRBBL-TOOLBAR{ display: none; }
+#SCRBBL-CONTENT{ font-size: 50px !important; overflow: hidden;  }
+
+#SCRBBL::-webkit-scrollbar { 
+    display: none; 
+}
+        </style>
     </head>
 
     <body>
@@ -28,35 +47,35 @@
                 <h1>Community Photos</h1>
                 <ul class="polaroids">
                 <?php
-$i = 0;
-foreach ($photos as $p) {
-    ?>
+                $i = 0;
+                foreach ($photos as $p) {
+                ?>
                     <li class="commphoto" id="pic_<?=$i;?>"><a href="#"><img id="img_<?=$i;?>" src="/timthumb.php?src=/images/photos/{{ $p->path }}&w=500h=333&a=c" /></a></li>
                 <?php
-$i++;
-}
-?>
+                $i++;
+                }
+                ?>
                 </ul>
 
             </div>
 
             <div class="region single top-middle">
 
-
+            
             	<video width="1920" height="1080" autoplay="autoplay" loop="true" loop>
                   <source src="/cash-assets/SC_ANTHEM-allSweat_FY16_Landscape.mp4?<?=time();?>" type="video/mp4" />
                 </video>
-
+            
 
                 <div id="" class="carousel slide singlepics" data-ride="carousel">
 
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <?php $i = 1;
-foreach ($singles as $s) {
+                    foreach ($singles as $s) {
 
-    if ($i == 1) {
-        ?>
+                        if ($i == 1) {
+                        ?>
                         <div class="item active">
                              <img src="/images/cash/{{$s->path}}" />
                         </div>
@@ -66,9 +85,9 @@ foreach ($singles as $s) {
                         </div>
                         <?php }
 
-    $i++;
-}
-?>
+                        $i++;
+                    }
+                    ?>
 
 
                 </div>
@@ -78,7 +97,10 @@ foreach ($singles as $s) {
 
             </div>
             <div class="region single bottom-middle">
+
+
                 <iframe scrolling="no" seamless="seamless" style="border: 0; display: inline; overflow: hidden !important;" height="1080" width="1920" src="http://scoreapi.flagshipapps.fglsports.com/cash"></iframe>
+
             </div>
 
 
@@ -156,33 +178,78 @@ $i++;
 
             <div class="region tall abs-right-top">
 
+                   @if($storedetails[0]->store_number == "5111" || $storedetails[0]->store_number == "5151")
+                        <h2 class="events-heading">Social Media</h2>
+                        <div id="social" class="scrbbl-embed" data-src="/event/1332351/24176"></div>
+                            <script>
+                                (function(d, s, id) {
+                                    var js,ijs=d.getElementsByTagName(s)[0];
+                                    if(d.getElementById(id))return;
+                                    js=d.createElement(s);
+                                    js.id=id;
+                                    js.src="//embed.scribblelive.com/widgets/embed.js";
+                                    ijs.parentNode.insertBefore(js, ijs);
+                                }
+                                (document, 'script', 'scrbbl-js'));
+                            </script>
 
-                <div id="" class="carousel slide tallpics" data-ride="carousel">
+                    @elseif($storedetails[0]->store_number == "0392")
+                        <h2 class="events-heading">Social Media</h2>
+                        <div id="social" class="scrbbl-embed" data-src="/event/1344280/24176"></div>
+                            <script>
+                                (function(d, s, id) {
+                                    var js,ijs=d.getElementsByTagName(s)[0];
+                                    if(d.getElementById(id))return;
+                                    js=d.createElement(s);
+                                    js.id=id;
+                                    js.src="//embed.scribblelive.com/widgets/embed.js";
+                                    ijs.parentNode.insertBefore(js, ijs);
+                                }
+                                (document, 'script', 'scrbbl-js'));
+                            </script>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <?php $i = 1;?>
-                    @foreach($talls as $t)
-
-                    @if($i==1)
-                    <div class="item active">
-                         <img src="/images/cash/{{$t->path}}" />
-                    </div>
+                    @elseif ($storedetails[0]->store_number == "0314") 
+                        <h2 class="events-heading">Social Media</h2>
+                        <div id="social" class="scrbbl-embed" data-src="/event/1340773/24176"></div>
+                            <script>
+                                (function(d, s, id) {
+                                    var js,ijs=d.getElementsByTagName(s)[0];
+                                    if(d.getElementById(id))return;
+                                    js=d.createElement(s);
+                                    js.id=id;
+                                    js.src="//embed.scribblelive.com/widgets/embed.js";
+                                    ijs.parentNode.insertBefore(js, ijs);
+                                }
+                                (document, 'script', 'scrbbl-js'));
+                            </script>
                     @else
-                    <div class="item">
-                         <img src="/images/cash/{{$t->path}}" />
-                    </div>
+
+                        <div id="" class="carousel slide tallpics" data-ride="carousel">
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <?php $i = 1;?>
+                                @foreach($talls as $t)
+
+                                    @if($i==1)
+                                        <div class="item active">
+                                            <img src="/images/cash/{{$t->path}}" />
+                                        </div>
+                                    @else
+                                        <div class="item">
+                                            <img src="/images/cash/{{$t->path}}" />
+                                        </div>
+                                    @endif
+
+                                <?php $i++;?>
+                                @endforeach
+                            </div>
+
+
+                        </div> <!-- //end carousel -->
+
+
                     @endif
-
-                    <?php $i++;?>
-                    @endforeach
-
-                </div>
-
-
-                </div> <!-- //end carousel -->
-
-            </div>
 
 
         </div>
@@ -195,6 +262,8 @@ $i++;
         <script src="/js/bootstrap.min.js"></script>
 
         <script>
+
+
 
         $( document ).ready(function() {
             $('.tallpics').carousel({
@@ -212,21 +281,46 @@ $i++;
             $('.staffslider').carousel({
               interval: 10000
             });
-
-
         });
 
     //    $("#scoreboard").load("/scoreboard-cash.html");
 
+
         go();
         setInterval(function(){ gather(); },16000);
+
+        // setInterval(function() {
+        //   var elem = document.getElementById('social');
+        //   elem.scrollTop = elem.scrollHeight;
+        // }, 10000);
+        
+        $(document).ready(function() {  
+
+            function loop(){
+
+                var iframeHeight = $("#social > iframe").height();
+                if(iframeHeight < 100){
+                    var timer = 5000;    
+                } else {
+                    var timer = iframeHeight * 10;
+                }
+                
+                console.log("H:" + iframeHeight +", T:" + timer);
+                $('#social')
+                 .animate({scrollTop: iframeHeight }, timer, 'linear')
+                 .animate({scrollTop: 0}, 0, loop); // callback
+            }
+
+            loop(); // call this wherever you want
+        }); 
+
+        //$("#social").animate({ scrollTop: 100000 }, 350000);
         // setInterval(function(){ go(); }, 16800 );
 
         function Shuffle(o) {
             for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
             return o;
         };
-
 
         function reassign() {
 

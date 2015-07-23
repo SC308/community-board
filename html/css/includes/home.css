@@ -25,20 +25,86 @@ body.landscape .home { padding: 0 !important;}
  .carousel-caption h4{margin:0 0 5px;}
  .carousel-caption p{margin-bottom:0;}
 
- .caption-title{font-family: GalaxiePolarisCondensed-Bold;
-     color: #fff;
-     font-size: 30px;
-     text-transform: uppercase;
-     letter-spacing: 1px;
+ /*.caption-left .caption-title{ text-align: left; padding: 10px 0px 0px 20px; display: block; background: transparent url('/images/ribbon.png') top left no-repeat; height: 54px; width: 554px; position: relative; right: 20px;}
+ .caption-right .caption-title{ text-align: left; padding: 10px 0px 0px 110px; display: block; background: transparent url('/images/ribbon-right.png') top left no-repeat; height: 54px; width: 554px; position: relative; left: 545px;}*/
+
+
+ .caption-title{
+     text-align: left;
+     display: inline;
+
+
+     height: 29px;
+
+    font-family: GalaxiePolarisCondensed-Bold;
+    color: #fff;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+
+ }
+
+ .ribbon{
+     width: 100%;
+     height: 30px;
+
+     position: absolute;
+     left: 0px;
+     clear: both;
+ }
+     .ribbon-edge{
+         display: inline;
+         height: 50px; width: 25px;
+         background:transparent url('/images/ribbon-end-right.png') no-repeat;
+     }
+     .ribbon-title{
+         font-family: GalaxiePolarisCondensed-Bold;
+         color: #fff;
+         height: 100%;
+         font-size: 30px;
+         text-transform: uppercase;
+         background-color:#0b8aa3;
+         padding: 9px 20px;
      }
 
- .caption-left .caption-title{ text-align: left; padding: 10px 0px 0px 20px; display: block; background: transparent url('/images/ribbon.png') top left no-repeat; height: 54px; width: 554px; position: relative; right: 20px;}
- .caption-right .caption-title{ text-align: left; padding: 10px 0px 0px 110px; display: block; background: transparent url('/images/ribbon-right.png') top left no-repeat; height: 54px; width: 554px; position: relative; left: 545px;}
+    .caption-right .ribbon-title, .caption-right .ribbon-edge{
+        float: right;
+    }
+        .caption-right .ribbon-title{
+            padding-right: 100px;
+        }
+        .caption-right .ribbon-edge{
+            position: relative;
+            left: 2px;
+
+        }
+
+    .caption-left .ribbon-title, .caption-left .ribbon-edge{
+        float: left;
+    }
+        .caption-left .ribbon-title{
+            padding-left: 40px;
+        }
+        .caption-left .ribbon-edge{
+            position: relative;
+            right: 2px;
+            bottom: 1px;
+        }
+
+    .caption-left .ribbon-edge{
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg);
+    }
+
+
  body.landscape .caption-right .caption-title{ text-align: left; padding: 10px 0px 0px 110px; display: block; background: transparent url('/images/ribbon-right.png') top left no-repeat; height: 54px; width: 554px; position: relative; left: 662px;}
 
  .caption-content{
+     clear: both;
  	display: block;
  	text-align: left;
+     margin-top: 60px;
  	padding: 10px 20px;
      line-height: 36px;
      color: #fff;

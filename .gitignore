@@ -39,6 +39,9 @@ html/images/cash/**
 
 html/images/photos/
 html/images/photos/**
+<<<<<<< HEAD
+html/images/kiosk/content/**
+=======
 
 html/images/kiosk/
 html/images/kiosk/**
@@ -53,6 +56,7 @@ html/images/NBA/**
 html/images/SOC-WC/**
 html/images/MLB/**
 
+>>>>>>> master
 html/cache/**
 app/storage/logs/**
 app/storage/cache/**

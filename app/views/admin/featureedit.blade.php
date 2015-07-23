@@ -130,7 +130,7 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
         </div>
         
         <div class="row">
-          {{ Form::open(array('action' => 'AdminController@saveEditFeature', 'class' => 'form-horizontal', 'role' => 'form')) }}
+          {{ Form::open(array('action' => 'AdminController@saveEditFeature', 'class' => 'form-horizontal', 'role' => 'form', 'files'=>'true')) }}
           
           <input name="id" type="hidden" value="{{$feature->id}}">
                 <div class="col-md-4"><img class="img-thumbnail" src="/timthumb.php?src=/images/feature/{{ $feature->path }}&w=250" />

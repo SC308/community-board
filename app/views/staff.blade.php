@@ -54,8 +54,9 @@
                     <div id="bio-nav" style="overflow: scroll;">
 
                         @foreach($staff_chunks[$chunkCounter] as $s)
-                            <a href="javascript:void(0)" onclick="javascript:extract(this);" data-first= "{{$s->first}}" data-position = "{{$s->position}}" data-bio =  "{{$s->bio}}" data-sport = "{{$s->favorite_sport}}" data-photo = "{{$s->photo}}">
-                                <img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=124&h=158&a=br" />
+                            <?php  $filename = pathinfo($s->photo)['filename']; ?>
+                            <a href="javascript:void(0)" onclick="javascript:extract(this);" data-first= "{{$s->first}}" data-position = "{{$s->position}}" data-bio =  "{{$s->bio}}" data-sport = "{{$s->favorite_sport}}" data-photo = "{{$filename}}">
+                                <img src="/images/staff/thumb/{{ $filename }}_124X158.jpg" />
                             </a>
                         @endforeach
 
@@ -104,7 +105,7 @@
                 $(".dept").replaceWith('<h2 class="dept">'+ random.position +'</h2>');
                 $(".bio-text").replaceWith('<p class="bio-text">'+ random.bio +'</p>');
                 $(".favsport").replaceWith('<span class="favsport">'+ random.favorite_sport +'</span>');
-                var url = '/timthumb.php?src=/images/staff/'+ random.photo + '&w=1080&h=947'
+                var url = '/images/staff/p/'+ random.photo.replace(/\.([a-zA-Z])+$/, "") + '_1080X947.jpg'
                 $("#current-staff-bio").css("background", "transparent url(" + url + ") top center no-repeat");
 
             $( "#bio" ).animate({
@@ -164,8 +165,8 @@
                                     ' data-position = "'+ staff_chunk[key].position +'"'+
                                     ' data-bio =  "'+ staff_chunk[key].bio +'"'+
                                     ' data-sport = "'+ staff_chunk[key].favorite_sport +'"'+
-                                    ' data-photo = "'+ staff_chunk[key].photo +'">'+
-                                '<img src="/timthumb.php?src=/images/staff/'+ staff_chunk[key].photo +'&w=124&h=158&a=br" />'+
+                                    ' data-photo = "'+ staff_chunk[key].photo.replace(/\.([a-zA-Z])+$/, "") +'">'+
+                                '<img src="/images/staff/thumb/'+ staff_chunk[key].photo.replace(/\.([a-zA-Z])+$/, "") +'_124X158.jpg" />'+
                                 '</a> '
                                 )
 

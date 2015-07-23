@@ -47,7 +47,8 @@
 
                             <img src="/images/jumpstart/js-champ-title.jpg" />
                         <p>
-                            <img src="/timthumb.php?src=/images/jumpstart/champs/{{ $jumpstart[0]->champ_photo }}&w=230&h=230&a=br" align="left" style="margin-right: 20px;" />
+                            <?php $filename = pathinfo( $jumpstart[0]->champ_photo ,PATHINFO_FILENAME) ?>
+                            <img src="/images/jumpstart/champs/thumb/{{ $filename }}_230X230.jpg" align="left" style="margin-right: 20px;" />
                             <strong>{{ $jumpstart[0]->champ_name }}</strong><br />
                             {{ $jumpstart[0]->champ_bio }}
                         </p>

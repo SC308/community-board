@@ -47,17 +47,25 @@
 
                         @if($i==1)
                         <div class="item active">
+                            <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
                             <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=860.jpg" alt="">
                             <div class="carousel-caption caption-right">
-                                <span class="caption-title">{{$f->title}}</span>
+                                <div class="ribbon">
+                                    <span class="ribbon-title">{{$f->title}}</span>
+                                    <span class="ribbon-edge"></span>
+                                </div>
                                 <span class="caption-content">{{$f->content}}</span>
                             </div>
                         </div>
                         @else
                         <div class="item">
+                            <?php $filename = pathinfo( $f->path ,PATHINFO_FILENAME) ?>
                             <img src="/timthumb.php?src=/images/feature/{{$f->path}}&w=1200&h=860.jpg" alt="">
                             <div class="carousel-caption caption-left">
-                                <span class="caption-title">{{$f->title}}</span>
+                                <div class="ribbon">
+                                    <span class="ribbon-title">{{$f->title}}</span>
+                                    <span class="ribbon-edge"></span>
+                                </div>
                                 <span class="caption-content">{{$f->content}}</span>
                             </div>
                         </div>
@@ -85,7 +93,8 @@
                         <img src="/images/flyer-callout-ls2.png" id="flyer-title">
 
                        <!--  <img class="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=306&h=400.jpg" /> -->
-					   <img id="miniflyer" src="/timthumb.php?src=/images/flyer/{{$flyer[0]->path}}&w=172&h=400.jpg" style="position: relative; top: -10px; left: 110px;" />
+                       <?php $filename = pathinfo( $flyer[0]->path ,PATHINFO_FILENAME) ?>
+					   <img id="miniflyer" src="/images/flyer/thumb/ls/{{$filename}}_175X204.jpg" style="position: relative; top: -10px; left: 110px;" />
 
                     </div>
                     </a>
@@ -102,12 +111,14 @@
 
                                     @if($i==1)
                                     <div class="item active">
-                                      <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=418&h=277.jpg" alt="">
+                                      <?php $filename = pathinfo( $tp->path ,PATHINFO_FILENAME) ?>
+                                      <img src="/images/flyer/toppick/ls/{{$filename}}_418X277.jpg" alt="">
                                       <div class="carousel-caption"></div>
                                     </div>
                                     @else
                                     <div class="item">
-                                      <img src="/timthumb.php?src=/images/flyer/{{$tp->path}}&w=418&h=277.jpg" alt="">
+                                      <?php $filename = pathinfo( $tp->path ,PATHINFO_FILENAME) ?>
+                                      <img src="/images/flyer/toppick/ls/{{$filename}}_418X277.jpg" alt="">
                                       <div class="carousel-caption"></div>
                                     </div>
                                     @endif
