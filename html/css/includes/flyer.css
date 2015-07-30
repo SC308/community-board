@@ -1,5 +1,7 @@
 #flyer{
     background-color: #fff;
+    height: 1395px;
+    overflow: scroll;
 }
 
 #flyer-int{
