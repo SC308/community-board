@@ -1,8 +1,8 @@
 // http://www.ericwenn.se/playground/jquery-calendar/
-
+//var d = new Date();
 var yy;
 var calendarArray =[];
-var monthOffset = [6,7,8,9,10,11,0,1,2,3,4,5];
+//var monthOffset = [6,7,8,9,10,11,0,1,2,3,4,5];
 var monthArray = [["JAN","January"],["FEB","February"],["MAR","March"],["APR","April"],["MAY","May"],["JUN","June"],["JUL","July"],["AUG","August"],["SEP","September"],["OCT","October"],["NOV","November"],["DEC","December"]];
 //var dayArray = ["7","1","2","3","4","5","6"];
 var dayArray = ["1","2","3","4","5","6","7"];
@@ -36,7 +36,6 @@ $(document).ready(function() {
 		} else if($(this).data('dir') == "right") {
 			calendarSetMonth(cm+1);
 		}
-
 	}
 
 	function orderBy(deli,array) {
@@ -120,16 +119,41 @@ $(document).ready(function() {
 	}
 	function calendarSetMonth(offset) {
 		$(".calendar-grid").html('');
+
 		var d = new Date();
 		var c = new Date();
 		var e = new Date();
 		if(offset !== undefined) {
-			d.setMonth(d.getMonth()+offset);
-			e.setMonth(e.getMonth()+offset);
-			$(".calendar").attr('offset', offset);
+			//console.log("current month: "  + d.getMonth());
+			
+			console.log(d.getDate());
+
+			if( d.getDate() > 28 ){
+				console.log("I'm in here");
+				d.setDate(28);
+				console.log(d.getDate());
+				d.setMonth(d.getMonth()+offset);
+				
+				e.setMonth(e.getMonth()+offset);
+				$(".calendar").attr('offset', offset);
+
+			} else {
+				d.setMonth(d.getMonth()+offset);	
+				e.setMonth(e.getMonth()+offset);
+				$(".calendar").attr('offset', offset);
+			}
+
+			
+			// console.log("offset: " + offset);
+			// console.log("new month: " + d.getMonth());
+			
+
+
+
 		} else {
 			$(".calendar").attr('offset', 0);
 		}
+
 		$(".calendar .calendar-month-view-title").text(monthArray[d.getMonth()][1]+' '+String.fromCharCode(160)+' '+d.getFullYear());
 			d.setDate(1);
 			if(dayArray[d.getDay()] == 1) {
@@ -146,7 +170,26 @@ $(document).ready(function() {
 				if(d.getTime() == c.getTime()) {
 					cal_day.addClass('this-day');
 				}
-				var strtime = d.getFullYear()+''+(d.getMonth()+1)+''+d.getDate();
+
+				var month ="";
+				if(d.getMonth()+1 < 10){
+					month = d.getMonth()+1;
+					month = "0" + month;
+				} else {
+					month = d.getMonth()+1;
+				}
+
+				var dateDay = "";
+				if(d.getDate() < 10){
+					dateDay = d.getDate();
+					dateDay = "0" + dateDay;
+				} else {
+					dateDay = d.getDate();
+				}
+
+				var strtime =  d.getFullYear()+''+month+''+dateDay;
+
+
 				if(calendarArray[strtime] !== undefined) {
 					cal_day.addClass('have-events'); //has at least 1 Event
 
