@@ -34,22 +34,21 @@ class CalendarController extends BaseController
                 }
 
                 $startdate = str_replace("-", "", $e->startdate);
+
                 $pos       = strpos($startdate, '0');
-
                 if ($pos !== false) {
-
-                    if (substr($startdate, -1) == "0") {
-                        //  echo "this is a 10,20,30";
-                        $startdate = substr($startdate, 0, $pos + 1) . str_replace('0', '', substr($startdate, $pos));
-                        $startdate = $startdate . "0";
-
-                    } else {
-                        $startdate = substr($startdate, 0, $pos + 1) . str_replace('0', '', substr($startdate, $pos + 1));
-                    }
+                    // if (substr($startdate, -1) == "0") {
+                    //     //  echo "this is a 10,20,30";
+                    //     $startdate = substr($startdate, 0, $pos + 1) . str_replace('0', '', substr($startdate, $pos));
+                    //     $startdate = $startdate . "0";
+                    // } else {
+                    //     $startdate = substr($startdate, 0, $pos + 1) . str_replace('0', '', substr($startdate, $pos + 1));
+                    // }
 
                     //  echo "<b>original:</b> " . $e->startdate ." <b>zero pos:</b> " . $pos . " <b>formatted:</b> " .$startdate . " <b>len:</b> ". strlen($startdate) . " <br />";
 
-                }
+                 }
+
                 $enddate = str_replace("-", "", $e->enddate);
 
                 if ($h == 1) {
