@@ -525,6 +525,7 @@ class AdminController extends BaseController
         $storedetails = Store::getStoreDetails(Confide::user()->store_id);
         $sn           = $storedetails[0]->id;
 
+
         $h = Input::get('hilite');
         if ($h == "on") {
             $h = 1;
@@ -544,6 +545,18 @@ class AdminController extends BaseController
         $event = CommunityEvent::create($eventdetails);
         $event->save();
 
+        
+        $taglist = Input::get('tags');
+        $tags = preg_split("/,/", $taglist);
+        foreach ($tags as $tag) {
+            DB::table('tags')->insert([
+                'content_id' => $event->id,
+                'content_type'=> 'event',
+                'tag'   => $tag
+                ]);
+        }
+
+
         $t = "Awesome!";
         $r = "Your new event has been created! <a href='/admin/calendar'>Back to Calendar</a>";
         return View::make('admin/confirmation')
@@ -555,6 +568,7 @@ class AdminController extends BaseController
     public function removeEvent($id)
     {
         $e = CommunityEvent::find($id);
+        DB::table('tags')->where('content_id', $id)->delete();
         $e->delete();
         $t = "Done!";
         $r = "Event deleted!<br /><a href='/admin/calendar'>Back to Calendar</a>";
@@ -566,8 +580,14 @@ class AdminController extends BaseController
     public function editEvent($id)
     {
         $event = DB::table('community_events')->where('id', $id)->first();
+        $tags = DB::table('tags')->where('content_id', $id)->get();
+        $taglist = "";
+        foreach ($tags as $tag) {
+            $taglist .= $tag->tag.",";
+        }
         return View::make('admin/eventedit')
-            ->with('event', $event);
+            ->with('event', $event)
+            ->with('tags', $taglist);
     }
 
     public function saveEditEvent()
@@ -595,6 +615,17 @@ class AdminController extends BaseController
         );
 
         CommunityEvent::find($id)->update($eventedits);
+
+        $taglist = Input::get('tags');
+        $tags = preg_split("/,/", $taglist);
+        DB::table('tags')->where('content_id', $id)->delete();
+        foreach ($tags as $tag) {
+            DB::table('tags')->insert([
+                'content_id' => $id,
+                'content_type'=> 'event',
+                'tag'   => $tag
+                ]);
+        }
 
         $t = "Awesome!";
         $r = "Your changes have been saved! <a href='/admin/calendar'>Back to Calendar</a>";

@@ -114,7 +114,14 @@ class CalendarController extends BaseController
         $storedetails = Store::getStoreDetails($sn);
         $storeid      = $storedetails[0]->id;
 
-        $events = CommunityEvent::getevents($storeid);
+        if (Input::get('tags')) {
+            $tags = Input::get('tags');
+            $events = CommunityEvent::getTaggedEvents($tags, $storeid);
+        }   
+        else{
+            $events = CommunityEvent::getevents($storeid);
+        }
+        
         return $events;
 
     }
