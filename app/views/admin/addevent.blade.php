@@ -23,6 +23,8 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
     <!-- Bootstrap core CSS -->
     <link href="/admin-assets/css/bootstrap.css" rel="stylesheet">
     <link href="/admin-assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/admin-assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/admin-assets/css/jquery.tagit.css">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -108,9 +110,14 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
 
 
                         <div class="form-group">    
-                            <label for="description">Description <small>&mdash; 1 or 2 sentences<small></label>
+                            <label for="description">Description <small>&mdash; 1 or 2 sentences</small></label>
                             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                        </div>    
+                        </div>  
+
+                        <div class="form-group">
+                          <label for="tags">Tags <small>&mdash; tags describing this event </small></label>
+                          <input type="text" class="form-control" id="tags" name="tags"> 
+                        </div>  
                         <div class="form-group">  
 
                             <div class="col-sm-4 pull-left checkbox">
@@ -157,9 +164,17 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
     <script src="/admin-assets/js/bootstrap.min.js"></script>
     <script src="/admin-assets/js/moment.min.js"></script>
     <script src="/admin-assets/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/admin-assets/js/jquery-ui.min.js"></script>
     <script type="text/javascript">
         $(function () { $('#datetimepicker1').datetimepicker(); });
         $(function () { $('#datetimepicker2').datetimepicker(); });
+    </script>
+    <script type="text/javascript" src="/admin-assets/js/tag-it.min.js"></script>
+    <script type="text/javascript">
+       $(document).ready(function() {
+          $("#tags").tagit();
+       });
+
     </script>
   </body>
 </html>

@@ -26,4 +26,30 @@ class CommunityEvent extends Eloquent
         return $events;
     }
 
+    public static function getTaggedEvents($tag, $storeid)
+    {
+        $eventCollection= array();         
+        
+        $tags= preg_split('/,/', Input::get('tags'));
+        $events = array();
+        foreach ($tags as $tag) {
+            
+            $taggedEvents = DB::table('tags')->where('tag', $tag)->get();
+            
+            /*required output is array of collections,
+             merging two $taggedEvents would give
+             array of array of collections, hence */
+            foreach ($taggedEvents as $taggedEvent) {
+                array_push($events, $taggedEvent); 
+            }
+        }
+        
+        foreach ($events as $event) {
+            $taggedEvent = CommunityEvent::find($event->content_id);
+            if ($taggedEvent->store_id == $storeid) {
+              array_push($eventCollection, $taggedEvent);
+            }
+        }
+        return $eventCollection;
+    }
 }
