@@ -46,6 +46,18 @@ class PhotoController extends BaseController
             ->where("store_id", "=", $storeid)
             ->get();
 
+        foreach($photos as $p) {
+            $fileext = substr($p->path, strpos($p->path, ".") + 1);
+            $filename = explode(".", $p->path);
+            $p->filename = $filename[0];
+            $p->original_fileext = $fileext;
+            $p->orginal = "http://communityboard.storeapps.fglsports.dmz/images/photos/" . $p->path;
+            $p->thumbnail_300 = "http://communityboard.storeapps.fglsports.dmz/images/photos/thumb/" . $p->filename . "_300.jpg";
+            $p->thumbnail_400 = "http://communityboard.storeapps.fglsports.dmz/images/photos/thumb/" . $p->filename . "_400.jpg";
+            $p->full_p = "http://communityboard.storeapps.fglsports.dmz/images/photos/full/" . $p->filename . "_1000.jpg";
+            $p->full_ls = "http://communityboard.storeapps.fglsports.dmz/images/photos/full/" . $p->filename . "_800.jpg";
+        }
+
         return $photos;
 
     }
