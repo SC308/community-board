@@ -353,8 +353,12 @@ form {
 	text-transform: capitalize;
 }
 
-/*Form elements end*/
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
 
-/**
-backend admin pages end
-**/
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
