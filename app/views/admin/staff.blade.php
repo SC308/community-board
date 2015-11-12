@@ -61,7 +61,7 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6"><h1>Store Staff</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, inventore, eos, magni mollitia culpa nesciunt facilis necessitatibus quasi atque unde neque tenetur tempore eligendi distinctio quaerat doloribus rem. Voluptas, nemo.</p>
+                
                 </div>
                 <div class="col-md-4 col-md-offset-2 pull-right">
                     <a href="/admin/staff/add"><button type="button" onclick="window.location = '/admin/staff/add';" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-user"></span> Add New Staff</button></a>

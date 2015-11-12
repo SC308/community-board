@@ -62,7 +62,7 @@ $storedetails = Store::getStoreDetails( Confide::user()->store_id );
         <div class="page-header">
         
             <div class="row">
-                <div class="col-md-6"><h1>Add New Staff</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, repellat, quia, hic ipsum cumque minus laborum veritatis facilis itaque ducimus sunt minima aliquid molestias error libero odit consectetur earum sed.</p></div>
+                <div class="col-md-6"><h1>Add New Staff</h1></div>
                 <div class="col-md-4 col-md-offset-2 pull-right">
                     <!-- <a href="/admin/photos/upload"><button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-cloud-upload"></span> Upload Photos</button></a> -->
                     
