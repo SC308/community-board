@@ -7,6 +7,7 @@ bfg.jar
 composer.phar
 composer.lock
 .DS_Store
+.env.php
 
 html/cash/
 html/feature/
