@@ -42,7 +42,6 @@
         	<div id="main" class="photos">
                 <div id="activity-kiosk" class="activity-details">
                     <h1>{{ $selectedSport->name }}</h1>
-
                     @if( count($blogs) > 0 )
                         <div id="blog-section" class="activity-section">
                             <h2>{{ $selectedSport->name }} Blog</h2>
@@ -150,8 +149,8 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/kiosk/vendor/jquery.als-1.7.min.js" type="text/javascript"></script>
-		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRLbHzG7lL-Ia4ml1yWY-mvuGpYYozZV8"> </script>
+		    <script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{$key}}"> </script>
 
         <script>
         $( document ).ready(function() {
