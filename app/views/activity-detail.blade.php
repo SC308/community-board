@@ -142,7 +142,7 @@
         <script src="/js/fancybox/source/jquery.fancybox.js"></script>
         <script src="/js/kiosk/vendor/jquery.als-1.7.min.js" type="text/javascript"></script>
         <script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>" id="sendstorenumber"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRLbHzG7lL-Ia4ml1yWY-mvuGpYYozZV8"> </script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{$key}}"> </script>
 
         <script>
 

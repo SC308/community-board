@@ -156,6 +156,7 @@ class KioskController extends \BaseController
             $locations = Location::where('store_id', $store_id)->where('sport_id', $sport_id)->get();
         }
 
+
         if ($ls) {
             return View::make('landscape/activity-detail')
                 ->with('storedetails', $storedetails)
@@ -164,7 +165,8 @@ class KioskController extends \BaseController
                 ->with('events', $events)
                 ->with('gears', $gears)
                 ->with('locations', $locations)
-                ->with('leagues', $leagues);
+                ->with('leagues', $leagues)
+                ->with('key', $_ENV['GOOGLE_MAPS_API_BROWSER_KEY']);
         } else {
             return View::make('activity-detail')
                 ->with('storedetails', $storedetails)
@@ -173,7 +175,8 @@ class KioskController extends \BaseController
                 ->with('events', $events)
                 ->with('gears', $gears)
                 ->with('locations', $locations)
-                ->with('leagues', $leagues);
+                ->with('leagues', $leagues)
+                ->with('key', $_ENV['GOOGLE_MAPS_API_BROWSER_KEY']);
         }
 
     }
