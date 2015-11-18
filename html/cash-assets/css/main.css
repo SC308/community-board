@@ -173,3 +173,24 @@ ul.polaroids a:after {
 #gold-count{ top: 910px; left: 580px; height: 200px; width: 200px; }
 #silver-count{top: 995px; left: 580px; height: 200px; width: 200px;}
 #bronze-count{top: 1075px; left: 580px; height: 200px; width: 200px;}
+
+
+/* SOCIAL FEEDS */
+.scrbbl-embed{ overflow: hidden;}
+#social {
+    height: 1900px;
+    overflow: hidden;
+} 
+
+.scrbbl-content-scrollable, iframe{ overflow: hidden !important;}
+
+.scrbbl-post-meta-area, .scrbbl-post-flags, .Meta, .Caption { display: none;}
+
+.scrbbl-post{ padding: 20px;}
+
+#SCRBBL-TOOLBAR{ display: none; }
+#SCRBBL-CONTENT{ font-size: 50px !important; overflow: hidden;  }
+
+#SCRBBL::-webkit-scrollbar { 
+    display: none; 
+}

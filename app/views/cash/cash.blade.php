@@ -9,31 +9,7 @@
         <title><?php echo $storedetails[0]->store_number . " - " . $storedetails[0]->store_name;?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
         <link rel="stylesheet" href="/cash-assets/css/main.css?<?=time();?>">
-        <style type="text/css">
-        .scrbbl-embed{ overflow: hidden;}
-#social {
-    height: 1900px;
-    overflow: hidden;
-} 
-
-
-.scrbbl-content-scrollable, iframe{ overflow: hidden !important;}
-
-.scrbbl-post-meta-area, .scrbbl-post-flags, .Meta, .Caption { display: none;}
-
-.scrbbl-post{ padding: 20px;}
-
-#SCRBBL-TOOLBAR{ display: none; }
-#SCRBBL-CONTENT{ font-size: 50px !important; overflow: hidden;  }
-
-#SCRBBL::-webkit-scrollbar { 
-    display: none; 
-}
-        </style>
     </head>
 
     <body>
@@ -99,7 +75,7 @@
             <div class="region single bottom-middle">
 
 
-                <iframe scrolling="no" seamless="seamless" style="border: 0; display: inline; overflow: hidden !important;" height="1080" width="1920" src="http://scoreapi.flagshipapps.fglsports.com/cash"></iframe>
+                <iframe scrolling="no" seamless="seamless" style="border: 0; display: inline; overflow: hidden !important;" height="1080" width="1920" src="http://scoreapi.flagshipapps.fglsports.com/cash?timezone_offset={{ $storedetails[0]->timezone_offset }}"></iframe>
 
             </div>
 
