@@ -75,7 +75,7 @@
             <div class="region single bottom-middle">
 
 
-                <iframe scrolling="no" seamless="seamless" style="border: 0; display: inline; overflow: hidden !important;" height="1080" width="1920" src="http://scoreapi.flagshipapps.fglsports.com/cash?timezone_offset={{ $storedetails[0]->timezone_offset }}"></iframe>
+                <iframe scrolling="no" seamless="seamless" style="border: 0; display: inline; overflow: hidden !important;" height="1080" width="1920" src="http://scoreapi.flagshipapps.fglsports.com/cash/{{ $storedetails[0]->timezone_offset }}"></iframe>
 
             </div>
 
@@ -124,8 +124,7 @@
                     @foreach($staff as $s)
 
 
-                    <div class="item <?php if ($i == 1) {echo 'active';}
-?>">
+                    <div class="item <?php if ($i == 1) {echo 'active';} ?>">
 
                          <img src="/timthumb.php?src=/images/staff/{{ $s->photo }}&w=960&h=1080&a=br" />
                          <span class="staff-ribbon">Your Store Staff</span>
