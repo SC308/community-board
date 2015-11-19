@@ -6,17 +6,17 @@
 html{
     padding: 0;
     margin: 0;
+    
+    cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjbQg61aAAAADUlEQVQYV2P4//8/IwAI/QL/+TZZdwAAAABJRU5ErkJggg=='), none;
 }
-
-html::-webkit-scrollbar, body::-webkit-scrollbar, .fancybox-overlay::-webkit-scrollbar{  
-    display: none !important;
-}
-
 body{
     background-color: #565656;
     margin: 0; padding: 0;
-    overflow: hidden !important;
 
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar{
+	display: none;
 }
 
 h1{
@@ -89,7 +89,11 @@ h2{
     background-image: radial-gradient(circle farthest-corner at center top, #7A7A7A 0%, #000000 100%);
 }
 
-.polaroids{display: block; }
+.tall{
+    background-color: #333;
+}
+
+.polaroids{display: block;  position: relative; bottom: 60px;}
 ul.polaroids li { display: inline; }
 ul.polaroids a { background: #fff; display: inline; float: left; margin: 0 0 100px 100px; width: auto; padding: 10px 10px 15px; text-align: center; font-family: "Marker Felt", sans-serif; text-decoration: none; color: #333; font-size: 18px; -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25); -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25); -webkit-transform: rotate(-2deg); -webkit-transition: -webkit-transform .15s linear; -moz-transform: rotate(-2deg); }
 ul.polaroids li {
@@ -148,13 +152,45 @@ ul.polaroids a:after {
 .events{ color: #fff;}
 .events .item{ padding: 40px 40px 0px 40px;}
 .events-heading{ padding-bottom: 0px; margin-bottom: 0px; }
-.events h3{ font: normal 60px GalaxiePolarisCondensed-Bold; text-transform: uppercase; padding: 0 0 20px 0px; margin: 0px; text-align: center;}
-.events h4{ font: normal 60px GalaxiePolarisCondensed-Bold; text-transform: uppercase; padding: 0 0 0 0; margin: 0px; text-align: center;}
+.events h3, h3{ font: normal 60px GalaxiePolarisCondensed-Bold; text-transform: uppercase; padding: 0 0 20px 0px; margin: 0px; text-align: center; color: #fff;}
+.events h4, h4{ font: normal 45px GalaxiePolarisCondensed-Bold; text-transform: uppercase; padding: 0 0 0 0; margin: 0px; text-align: center; color: #fff;}
 .events p{ font: normal 35px GalaxiePolarisCondensed-Book; padding: 30px 0px 0px 0px; margin: 0px; }
 
 
-.staffname{ background: transparent url('/images/black80.png') top left repeat; position: relative; bottom: 280px; font: normal 40px GalaxiePolarisCondensed-Bold; text-transform: uppercase; color: #fff; display: block; padding: 0 50px 20px 50px; } 
-.staffname em{ font-style: normal; font-size: 80px;}
+
+
+
+.staffname{ background: transparent url('/images/black80.png') top left repeat; position: relative; bottom: 290px; font: normal 40px GalaxiePolarisCondensed-Bold; text-transform: uppercase; color: #fff;  display: block; padding: 0 50px 50px 50px; } 
+.staffname em{ font-style: normal; font-size: 80px; }
 .staff-ribbon{ font: normal 30px GalaxiePolarisCondensed-Bold; text-transform: uppercase; color: #fff; position: absolute; top: 30px; left: 0px; background: transparent url('/images/ribbon.png') -150px 0px no-repeat; height: 54px; width: 522px; padding: 0 0 0 40px;}
 
 
+
+.medal-count{ background: transparent url('/cash-assets/images/medal-count-bg.png') top left no-repeat; }
+.medal-number{font: normal 180px GalaxiePolarisCondensed-Bold; text-transform: uppercase; color: #fff; position: relative; width: 150px; height: 150px; line-height: 180px; padding: 0; margin: 0; text-align: center;}
+
+
+#gold-count{ top: 910px; left: 580px; height: 200px; width: 200px; }
+#silver-count{top: 995px; left: 580px; height: 200px; width: 200px;}
+#bronze-count{top: 1075px; left: 580px; height: 200px; width: 200px;}
+
+
+/* SOCIAL FEEDS */
+.scrbbl-embed{ overflow: hidden;}
+#social {
+    height: 1900px;
+    overflow: hidden;
+} 
+
+.scrbbl-content-scrollable, iframe{ overflow: hidden !important;}
+
+.scrbbl-post-meta-area, .scrbbl-post-flags, .Meta, .Caption { display: none;}
+
+.scrbbl-post{ padding: 20px;}
+
+#SCRBBL-TOOLBAR{ display: none; }
+#SCRBBL-CONTENT{ font-size: 50px !important; overflow: hidden;  }
+
+#SCRBBL::-webkit-scrollbar { 
+    display: none; 
+}
