@@ -9,9 +9,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
-        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/font-awesome.css?<?=time();?>">
+        <link rel="stylesheet" href="/js/lib/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
 
 		<script src="/js/lib/modernizr.min.js"></script>
@@ -140,59 +140,10 @@
         </div>
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/lib/bootstrap.min.js"></script>
+        <script src="/js/home.js"></script>
+        <script src="/js/common.js"></script>
 
-        <script>
-
-
-
-        $( document ).ready(function() {
-
-        	//document.oncontextmenu = function () { return false; };
-
-	        $('.toppicks').carousel({
-			  interval: 8000
-			});
-
-			$('.featurecontent').carousel({
-				interval: 15000
-			});
-
-
-			$('.featurecontent').on('slide.bs.carousel', function () {
-				$( ".carousel-caption" ).animate({
-                	right: "1500px"
-                });
-
-			});
-
-			$('.featurecontent').on('slid.bs.carousel', function () {
-				$( ".carousel-caption" ).animate({
-                	right: "0px"
-                });
-			});
-
-            $('#home-bio').animate({
-                opacity: 1.0
-            }, 1000, function() {
-
-            });
-            $( "#feature-bio" ).animate({
-                opacity: 1.0,
-                left: "+=75"
-                }, 1000, function() {
-
-
-            });
-
-          // $('#home-callout').animate({ boxShadow : "0 0 5px 3px rgba(100,100,200,0.4)" });
-
-           //  $("#scoreboard").load("http://scoreapi.flagshipapps.fglsports.com/flip");
-
-
-
-        });
-        </script>
     </body>
 
 </html>

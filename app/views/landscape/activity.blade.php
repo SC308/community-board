@@ -9,25 +9,15 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
-        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/font-awesome.css?<?=time();?>">
+        <link rel="stylesheet" href="/js/lib/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
         
 
 		<script src="/js/lib/modernizr.min.js"></script>
 
-        <style>
 
-        .smaller{ font-size: 14px; }
-        .fancybox{}
-
-		.featurecontent .item {-webkit-transition: opacity 3s; -moz-transition: opacity 3s; -ms-transition: opacity 3s; -o-transition: opacity 3s; transition: opacity 3s;}
-		.featurecontent .active.left {left:0;opacity:0;z-index:2;}
-		.featurecontent .next {left:0;opacity:1;z-index:1;}
-
-
-		</style>
     </head>
 
     <body class="landscape">
@@ -48,37 +38,37 @@
                     <?php $i = 0;?>
                     @foreach($activesports as $sport)
                     <?php
-switch ($i) {
-    case 0:
-    case 4:
-    case 8:
-        $colour = "green";
-        break;
+                        switch ($i) {
+                            case 0:
+                            case 4:
+                            case 8:
+                                $colour = "green";
+                                break;
 
-    case 1:
-    case 5:
-    case 9:
-        $colour = "yellow";
-        break;
+                            case 1:
+                            case 5:
+                            case 9:
+                                $colour = "yellow";
+                                break;
 
-    case 2:
-    case 6:
-    case 10:
-        $colour = "blue";
-        break;
+                            case 2:
+                            case 6:
+                            case 10:
+                                $colour = "blue";
+                                break;
 
-    case 3:
-    case 7:
-    case 11:
-        $colour = "red";
-        break;
+                            case 3:
+                            case 7:
+                            case 11:
+                                $colour = "red";
+                                break;
 
-    default:
-        $colour = "red";
-        break;
-}
-$i++;
-?>
+                            default:
+                                $colour = "red";
+                                break;
+                        }
+                        $i++;
+                    ?>
                         <a class="sportSelector nav-noise {{ $colour }} nav-shadow" href="/<?=$storedetails[0]->store_number;?>/ls/activity/{{ $sport->id }}">{{ $sport->name }}</a>
 
                     @endforeach
@@ -93,19 +83,10 @@ $i++;
         </div>
 
 
-        <script src="/js/lib/jquery-1.10.2.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-
-		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
-        <script>
-        $( document ).ready(function() {
-
-        	document.oncontextmenu = function () { return false; };
-
-//			$("#scoreboard").load("/scoreboard.html");
-
-        });
-        </script>
+        <script type="text/javascript" src="/js/lib/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
+        <script type="text/javascript" src="/js/common.js"></script>
     </body>
 
 </html>

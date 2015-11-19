@@ -9,9 +9,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
-        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/font-awesome.css?<?=time();?>">
+        <link rel="stylesheet" href="/js/lib/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
 
 		<script src="/js/lib/modernizr.min.js"></script>
@@ -144,41 +144,11 @@
         </div>
 
 
-        <script src="/js/lib/jquery-1.10.2.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/lib/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/js/lib/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/home-ls.js"></script>
 
 
-        <script>
-        $( document ).ready(function() {
-
-        	document.oncontextmenu = function () { return false; };
-
-			//$("#scoreboard").load("/scoreboard.html");
-
-            $('.featurecontent').carousel({
-                interval: 15000
-            });
-
-
-            $('.featurecontent').on('slide.bs.carousel', function () {
-                $( ".carousel-caption" ).animate({
-                    bottom: "-250px"
-                });
-
-            });
-
-            $('.featurecontent').on('slid.bs.carousel', function () {
-                $( ".carousel-caption" ).animate({
-                    bottom: "250px"
-                });
-            });
-
-            $('.toppicks').carousel({
-              interval: 8000
-            });
-
-        });
-        </script>
     </body>
 
 </html>

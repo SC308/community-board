@@ -26,3 +26,29 @@ body.landscape .photos img:active{
 body.landscape .photos::-webkit-scrollbar {
     display: none;
 }
+
+#photos {
+  width: 80%;
+  margin: auto;
+}
+
+.smaller{ font-size: 14px; }
+.fancybox{}
+
+#photos{
+    position:relative;
+}
+#photos>.galcolumn {
+    float:left;
+    display: inline-block;
+
+}
+
+
+.smaller{ font-size: 14px; }
+.fancybox{}
+
+.featurecontent .item {-webkit-transition: opacity 3s; -moz-transition: opacity 3s; -ms-transition: opacity 3s; -o-transition: opacity 3s; transition: opacity 3s;}
+.featurecontent .active.left {left:0;opacity:0;z-index:2;}
+.featurecontent .next {left:0;opacity:1;z-index:1;}
+.photos .img{ max-height:400px;}

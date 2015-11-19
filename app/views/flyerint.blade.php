@@ -12,8 +12,8 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/font-awesome.css?<?=time();?>">
         <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
         <link rel="stylesheet" href="/css/flyerint.css?<?=time();?>">

@@ -209,7 +209,7 @@
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/lib/move.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/lib/bootstrap.min.js"></script>
         <script src="/js/cashwall.js"></script>
 
     </body>
