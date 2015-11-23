@@ -23,7 +23,7 @@ function setTime() {
 
 	if(totalSeconds == 120){
 	//	window.location.href = "/"+storeno+"/";
-		//window.location.href = "../";
+		window.location.href = "../";
 
 	}
 }

@@ -10,9 +10,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="/css/calendar.full.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/calendar.full.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/font-awesome.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
 
    		<script src="/js/lib/modernizr.min.js"></script>
@@ -42,32 +42,8 @@
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/calendar.full.js"></script>
         <script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>" id="sendstorenumber"></script>
+        <script src="/js/common.js"></script>
         
-        <script type="text/javascript">
-
-
-        $( document ).ready(function() {
-
-        	document.oncontextmenu = function () { return false; };
-
-           // $("#scoreboard").load("/scoreboard.html");
-
-/*
-            $( ".calendar" ).on( "swipeleft", swipeLeftHandler );
-            $( ".calendar" ).on( "swiperight", swipeRightHandler );
-*/
-
-            // function swipeLeftHandler( event ){
-            //     var cm = parseInt($(".calendar").attr('offset'));
-            //     calendarSetMonth(cm+1);
-            // }
-
-            // function swipeRightHandler( event ){
-            //     var cm = parseInt($(".calendar").attr('offset'));
-            //     calendarSetMonth(cm-1);
-            // }
-        });
-        </script>
 
     </body>
 

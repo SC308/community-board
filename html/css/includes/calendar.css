@@ -1,1 +1,5 @@
 #calendar-main{ height: 1390px; display: block;}
+
+.featurecontent .item {-webkit-transition: opacity 3s; -moz-transition: opacity 3s; -ms-transition: opacity 3s; -o-transition: opacity 3s; transition: opacity 3s;}
+.featurecontent .active.left {left:0;opacity:0;z-index:2;}
+.featurecontent .next {left:0;opacity:1;z-index:1;}

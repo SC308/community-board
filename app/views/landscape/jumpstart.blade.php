@@ -9,9 +9,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="/css/bootstrap-combined.no-icons.min.css?<?=time();?>">
-        <link rel="stylesheet" href="/css/font-awesome.css?<?=time();?>">
-        <link rel="stylesheet" href="/js/fancybox/source/jquery.fancybox.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/bootstrap-combined.no-icons.min.css?<?=time();?>">
+        <link rel="stylesheet" href="/css/lib/font-awesome.css?<?=time();?>">
+        <link rel="stylesheet" href="/js/lib/fancybox/source/jquery.fancybox.css?<?=time();?>">
         <link rel="stylesheet" href="/css/main.css?<?=time();?>">
 
 		<script src="/js/lib/modernizr.min.js"></script>
@@ -111,18 +111,10 @@ ultimately we want to fufill the dreams of all Canadian kids. </p>
 
 
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-
+        <script src="/js/lib/bootstrap.min.js"></script>
 		<script src="/js/timer.js?sendstorenumber=<?=$storedetails[0]->store_number;?>/ls" id="sendstorenumber"></script>
-        <script>
-        $( document ).ready(function() {
+        <script type="text/javascript" src="/js/common.js"></script>
 
-        	document.oncontextmenu = function () { return false; };
-
-			//$("#scoreboard").load("/scoreboard.html");
-
-        });
-        </script>
     </body>
 
 </html>
