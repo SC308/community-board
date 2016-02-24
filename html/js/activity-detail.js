@@ -29,7 +29,7 @@ $( document ).ready(function() {
           var mapOptions = {
             center:  store_location,
             zoom: 10,
-
+            streetViewControl: false,
           };
 
           var map = new google.maps.Map(document.getElementById('map-canvas'),
